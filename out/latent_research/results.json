@@ -1,0 +1,106 @@
+{
+  "n_samples": 72,
+  "n_sites": 12,
+  "n_regimes": 6,
+  "features": [
+    "n",
+    "far",
+    "coverage",
+    "h_mean",
+    "h_max",
+    "h_cv",
+    "grain",
+    "slender",
+    "concentration"
+  ],
+  "seed": 20260702,
+  "form_space_pca_evr": [
+    0.4014740019727837,
+    0.2801066540053838,
+    0.14670870731604105,
+    0.0771025714774532,
+    0.0657623413861138,
+    0.019450804508814024,
+    0.005676684477285798,
+    0.0032805112993917035,
+    0.0004377235567328759
+  ],
+  "power_effect_pca_evr": [
+    0.4959208087413488,
+    0.32658536867871096,
+    0.13446582099187063,
+    0.024736658048006867,
+    0.008994471528329523,
+    0.006077150781388053,
+    0.0019917572820529923,
+    0.0007814771525022313,
+    0.0004464867957902424
+  ],
+  "ae_recon_mse": 0.0017209575744345784,
+  "vae_recon_mse": 0.2274257242679596,
+  "silhouette": {
+    "pca": [
+      0.5967903248999958,
+      0.6894636053407945
+    ],
+    "ae": [
+      0.6410638093948364,
+      0.7634096741676331
+    ],
+    "vae": [
+      0.6153826117515564,
+      0.7004703283309937
+    ],
+    "note": "(all_regimes, excluding_current)"
+  },
+  "regime_signatures": {
+    "developer_led": {
+      "feature": "slender",
+      "cohens_d": 5.92,
+      "pct_change": 418.2
+    },
+    "state_led": {
+      "feature": "concentration",
+      "cohens_d": 5.6,
+      "pct_change": 120.6
+    },
+    "resident_self_build": {
+      "feature": "coverage",
+      "cohens_d": -5.84,
+      "pct_change": -25.6
+    },
+    "developer_scale_graded": {
+      "feature": "coverage",
+      "cohens_d": 1.81,
+      "pct_change": 19.3
+    },
+    "shared": {
+      "feature": "coverage",
+      "cohens_d": -5.55,
+      "pct_change": -34.2
+    }
+  },
+  "form_to_power": {
+    "loso_accuracy": 0.972,
+    "chance": 0.167,
+    "per_regime_recall": {
+      "current": 1.0,
+      "developer_led": 1.0,
+      "state_led": 1.0,
+      "resident_self_build": 1.0,
+      "developer_scale_graded": 0.833,
+      "shared": 1.0
+    },
+    "permutation": {
+      "observed": 0.9722,
+      "null_mean": 0.1245,
+      "null_p95": 0.2222,
+      "p_value": 0.0033,
+      "n_perm": 300
+    }
+  },
+  "invertibility": {
+    "kmeans_ari_vs_regime": 0.721,
+    "nearest_centroid_accuracy": 0.944
+  }
+}

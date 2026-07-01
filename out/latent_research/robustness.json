@@ -1,0 +1,112 @@
+{
+  "n_cities": 12,
+  "n_recipes": 6,
+  "effective_independent_units": 6,
+  "city_bootstrap": {
+    "B": 600,
+    "resample_unit": "city (12)",
+    "silhouette_ex_current": {
+      "lo": 0.6391433634293586,
+      "med": 0.714788404791197,
+      "hi": 0.7938338067158432,
+      "mean": 0.7153915716836786
+    },
+    "kmeans_ari": {
+      "lo": 0.610747004303802,
+      "med": 0.7159893827806647,
+      "hi": 0.7720128443467974,
+      "mean": 0.7127438716345893
+    },
+    "nearest_centroid_acc": {
+      "lo": 0.9027777777777778,
+      "med": 0.9444444444444444,
+      "hi": 0.9861111111111112,
+      "mean": 0.9447222222222221
+    }
+  },
+  "loso_folds": {
+    "per_city": {
+      "caoyang": 1.0,
+      "dapuqiao": 1.0,
+      "kongjiang": 0.8333333333333334,
+      "laoximen": 1.0,
+      "lujiazui": 1.0,
+      "nanjingxi": 1.0,
+      "pengpu": 0.8333333333333334,
+      "tianshan": 1.0,
+      "waitan": 1.0,
+      "xujiahui": 1.0,
+      "yuyuan": 1.0,
+      "七宝镇": 1.0
+    },
+    "mean": 0.9722222222222223,
+    "min": 0.8333333333333334,
+    "n_cities_below_1": 2
+  },
+  "leave_one_recipe": {
+    "per_dropped_recipe": {
+      "developer_led": 0.7725594697350284,
+      "state_led": 0.7663648577185397,
+      "resident_self_build": 0.7946617598642408,
+      "developer_scale_graded": 0.7309246932136011,
+      "shared": 0.7304177124835783
+    },
+    "min": 0.7304177124835783,
+    "max": 0.7946617598642408,
+    "spread": 0.06424404738066247
+  },
+  "multiseed_latent": {
+    "seeds": [
+      1,
+      7,
+      42,
+      123,
+      2026
+    ],
+    "ae_sil_ex_current": {
+      "mean": 0.7440471053123474,
+      "sd": 0.030903717252512956,
+      "vals": [
+        0.741,
+        0.791,
+        0.694,
+        0.745,
+        0.75
+      ]
+    },
+    "vae_sil_ex_current": {
+      "mean": 0.6944918513298035,
+      "sd": 0.007449867302834697,
+      "vals": [
+        0.701,
+        0.694,
+        0.696,
+        0.681,
+        0.701
+      ]
+    }
+  },
+  "regime_dispersion": {
+    "current": 2.242901256549881e-16,
+    "developer_led": 0.19855510726703365,
+    "state_led": 0.3008337162405596,
+    "resident_self_build": 0.45756427193710597,
+    "developer_scale_graded": 0.09999260726999726,
+    "shared": 0.1461734761943663
+  },
+  "parameter_leakage": {
+    "exact_zero_logratio_cells": 97,
+    "of_total_noncurrent_cells": 540,
+    "exact_zero_fraction": 0.18,
+    "h_max_pinned_at_operator_cap": 10,
+    "of_rows": 72,
+    "per_regime_untouched_dof_count": {
+      "developer_led": 0,
+      "state_led": 36,
+      "resident_self_build": 1,
+      "developer_scale_graded": 48,
+      "shared": 12
+    },
+    "note": "精確 0 = 該算子不觸碰該特徵;h_max 釘 cap = 特徵在報參數而非形態。皆屬確定性洩漏。"
+  }
+}
