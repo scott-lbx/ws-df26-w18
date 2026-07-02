@@ -1,0 +1,20 @@
+{
+ "sites": {
+  "lujiazui": {
+   "name": "陆家嘴街道",
+   "family": "资本/超高层",
+   "step": "04",
+   "updated": "20260701_145645",
+   "figures": [
+    "lujiazui/Step_04/20260701_145645/01_operator_demo.png",
+    "lujiazui/Step_04/20260701_145645/02_operator_demo.png",
+    "lujiazui/Step_04/20260701_145645/03_operator_demo.png",
+    "lujiazui/Step_04/20260701_145645/04_regime_compare.png",
+    "lujiazui/Step_04/20260701_145645/05_fingerprint_bars.png",
+    "lujiazui/Step_04/20260701_145645/06_operator_demo.png"
+   ],
+   "n": 3263
+  }
+ },
+ "generated": "2026-07-01 14:57:09"
+}

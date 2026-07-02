@@ -2,7 +2,7 @@
 # 只改这一档;engine/ 只读不改,改完重跑 run.py 即同步。
 
 # 站点
-site: lujiazui                 # 单站预设(notebook 01/02/03)
+site: caoyang                 # 单站预设(notebook 01/02/03)
 report_sites:                  # 批量出 canvas/report 的清单(不带参数跑时)
   - lujiazui                   # 资本/超高层
   - caoyang                    # 单位/工人新村
