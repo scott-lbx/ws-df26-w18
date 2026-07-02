@@ -19,79 +19,50 @@
 # 这些 regime→形态 是**教学假设/可争论的语言**,不是经验断言或真实规划预测。零 AI 推断。
 
 developer_led:
-  label: 开发商主导
-  desc: 资本介入住宅/商业用地:拆板成塔 → 塔化变细 → 加密(多中心、GFA↑、覆盖↓)。先把 state 放大 2 倍再锁定。
-  feature: 细高塔(瘦长比明显升高)
+  label: 开发商主导：消费性遗产
+  desc: 保留公共/治理节点，强化开发商地块的商业强度；适度放开无保护价值居住地块轻度更新，历史风貌骨架保留，但局部生活性肌理被资本重组
+  fingerprint: 商业体量增高、开发强度上升、高度差异增大、局部居民肌理轻度挤压
   steps:
-    - { op: twist , target:[developer], deg_per_100m: 1.0 } # developer 旋转 0.2 弧度,让塔化更自然
-    - { op: scale, target: [state], factor: 10.0 } # state 依几何中心放大 2 倍。**必须在 freeze 之前**,否则被冻结跳过
-    - { op: freeze, who: [state] }
-    - {
-        op: split_to_towers,
-        target: [resident, developer],
-        above_m2: 1500,
-        k: 3,
-      }
-    - { op: slim, target: [resident, developer], ratio: 0.45 }
-    - { op: densify, target: [resident, developer], far_gain: 1.8, cap_m: 480 }
+    - {op: freeze, who: [state]}
+    # 【原版商业逻辑完全原封不动，零修改】
+    - {op: split_to_towers, target: [developer], above_m2: 1000, k: 2}
+    - {op: slim, target: [developer], ratio: 0.65}
+    - {op: densify, target: [developer], far_gain: 1.40, cap_m: 160}
+
+    - {op: densify, target: [resident], far_gain: 1.15, cap_m: 120}
 
 state_led:
-  label: 政府主导 / 中央集权
-  desc: 政府多拿 + 高度向权力重心(政府/公共质心)收拢(单中心一座尖峰、GFA 守恒、高度CV↑)。
-  feature: 向权力重心收拢的高峰(重心集中度普遍翻倍)
+  label: 政府主导：保护治理型老城
+  desc: 政府/公共权力统筹全域更新，适度放宽商业开发约束，温和引导商业小幅退让基底补充公共空间；对居住地块统一修缮适度抬高、规整肌理；高度与开发资源显著向豫园公共文化重心收拢，公共核心建筑适度拔高，总量严格守恒，抑制无序私搭乱建，形成公共节点突出、居住肌理规整、适度补充公共地面的老城格局。
+  fingerprint: 公共地面小幅增加、公共节点高度峰值显著抬升、商业开发约束适度放松、居住地块统一修缮适度抬高、全域开发向公共核心集中、高度差异明显、整体形态规整有序
   steps:
-    - {
-        op: weight_height,
-        weights: { state: 1.8, developer: 0.8, resident: 0.85, unknown: 0.9 },
-        mode: conserve,
-      }
-    - {
-        op: concentrate,
-        center: state_centroid,
-        reach_frac: 0.18,
-        state_boost: 2.0,
-        cap_m: 600,
-      }
+    # 不再完全冻结居民，改为允许适度修缮抬高
+    - {op: freeze, who: []}
+    # 权重调整：公共权重拉高、商业持平、居民权重上调支持适度抬高
+    - {op: weight_height, weights: {state: 1.85, developer: 1, resident: 1.09, unknown: 0.90}, mode: conserve}
+    # 小幅退让，温和补充公共空间，ratio=0.8代表保留80%基底，仅压缩20%
+    - {op: open_ground, target: [developer], ratio: 0.8, cap_m: 90}
+    # 居民区适度抬高，无拆分、无塔化，仅微量加密加高
+    - {op: densify, target: [resident], far_gain: 1.13, cap_m: 120}
+    # 强化公共重心集聚，提升公共高度上限、放大公共高度增益
+    - {op: concentrate, center: state_centroid, reach_frac: 0.26, state_boost: 1.85, cap_m: 120}
 
 resident_self_build:
-  label: 居民自建为主
-  desc: 居民把大体量细分为自建小单元(细粒、高覆盖、低层、有机),高度趋低。state 公共不动。
-  feature: 细粒碎化(栋数大增、高度趋低)
+  label: 居民主导：生活性老城延续
+  desc: 保留居民类细密肌理，以小尺度填充改善生活服务，并压低高度差异，避免商业体量压迫。
+  fingerprint: 建筑颗粒更细、低层肌理延续、高度差异降低、生活性增强
   steps:
-    - { op: freeze, who: [state] }
-    - {
-        op: infill,
-        target: [resident, developer],
-        cell_m2: 120,
-        min_h: 6,
-        max_h: 21,
-        vary: 0.35,
-      }
-    - { op: level, target: [resident, developer], toward: p40, alpha: 0.6 }
-
-developer_scale_graded:
-  label: 开发商渐变放大
-  desc: 开发商用地依「到建筑中心点的距离」渐变放大 footprint(近中心最多 2 倍、向外衰减到 1 倍;高度不变、GFA↑不守恒)。
-  feature: 中心膨胀(近中心 footprint 显著变大、覆盖↑)
-  steps:
-    - {
-        op: scale_graded,
-        target: [developer],
-        center: global_centroid,
-        factor: 2.0,
-        reach_frac: 0.25,
-        min_factor: 1.0,
-      }
+    - {op: freeze, who: [state]}
+    - {op: infill, target: [resident], cell_m2: 75, min_h: 6, max_h: 15, vary: 0.28}
+    - {op: level, target: [resident, developer], toward: 18, alpha: 0.60}
 
 shared:
   label: 共享 / 公共平权
   desc: 缩私有 footprint 释放共享地面 + 高度趋同(均质中高、低覆盖、大量共享地、无人独大)。
   feature: 均质开放(高度CV 最低)
   steps:
-    - { op: open_ground, target: [resident, developer], ratio: 0.6, cap_m: 200 }
-    - {
-        op: level,
-        target: [resident, developer, state],
-        toward: median,
-        alpha: 0.7,
-      }
+    - {op: open_ground, target: [resident, developer], ratio: 0.6, cap_m: 55}
+    - op: level
+      target: [resident, developer, state]
+      toward: median
+      alpha: 0.7
