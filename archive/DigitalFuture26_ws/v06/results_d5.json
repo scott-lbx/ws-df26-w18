@@ -1,0 +1,494 @@
+{
+ "_rule": "D5 cloud placement: 19-dim v03 signature (9 token shares + 10 indicators) recomputed for 24 real windows from v03 cache, z-scored on TRAIN mu/sd, PCA(2,seed0) fit on 18 TRAIN, XY = Z @ comps.T, signs oriented top-|loading|-positive. Paradigm UNITS only (1 km, comparable to real windows).",
+ "void_folding_disclosure": {
+  "rule": "Generated grids use typed voids 9=E_ROAD, 10=E_WATER, 11=E_GREEN (v0.4 vocabulary); the v03 cloud has a single undifferentiated void T0, so 9/10/11 are folded back into T0 before computing token shares. The cloud therefore cannot distinguish a doctrine's green void from vacancy.",
+  "cells_folded_per_unit_of_400": {
+   "garden_city": {
+    "E_ROAD(9)": 96,
+    "E_WATER(10)": 0,
+    "E_GREEN(11)": 110,
+    "E_VACANT(0)": 32
+   },
+   "ville_radieuse": {
+    "E_ROAD(9)": 76,
+    "E_WATER(10)": 0,
+    "E_GREEN(11)": 224,
+    "E_VACANT(0)": 0
+   },
+   "neighbourhood_unit": {
+    "E_ROAD(9)": 76,
+    "E_WATER(10)": 0,
+    "E_GREEN(11)": 40,
+    "E_VACANT(0)": 0
+   },
+   "microrayon": {
+    "E_ROAD(9)": 76,
+    "E_WATER(10)": 0,
+    "E_GREEN(11)": 88,
+    "E_VACANT(0)": 125
+   },
+   "gb50180": {
+    "E_ROAD(9)": 144,
+    "E_WATER(10)": 0,
+    "E_GREEN(11)": 78,
+    "E_VACANT(0)": 0
+   }
+  }
+ },
+ "correctness_gate": {
+  "criterion": "max |recomputed - stored pca_xy| over 24 windows <= 1e-3",
+  "max_abs_err": 4.9e-05,
+  "passed": true,
+  "explained_variance_ratio": [
+   0.2979,
+   0.2701
+  ]
+ },
+ "paradigm_signatures": {
+  "garden_city": {
+   "token_comp_T0_T8": [
+    0.595,
+    0.27,
+    0.025,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.11,
+    0.0
+   ],
+   "indicators": {
+    "FAR": 1.278,
+    "coverage": 0.2138,
+    "h_p50": 9.7906,
+    "h_p90": 20.742,
+    "median_fp": 105.4752,
+    "sh_house": 0.2146,
+    "sh_slab": 0.0273,
+    "sh_tower": 0.0,
+    "sh_large": 0.7294,
+    "sh_mid": 0.0287
+   },
+   "n_buildings": 496,
+   "pca_xy": [
+    -4.134,
+    0.8272
+   ],
+   "z_norm": 14.8816
+  },
+  "ville_radieuse": {
+   "token_comp_T0_T8": [
+    0.75,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.25,
+    0.0,
+    0.0
+   ],
+   "indicators": {
+    "FAR": 1.1762,
+    "coverage": 0.0696,
+    "h_p50": 58.0342,
+    "h_p90": 87.2087,
+    "median_fp": 216.5453,
+    "sh_house": 0.0063,
+    "sh_slab": 0.0635,
+    "sh_tower": 0.802,
+    "sh_large": 0.0,
+    "sh_mid": 0.1282
+   },
+   "n_buildings": 247,
+   "pca_xy": [
+    3.5134,
+    6.6135
+   ],
+   "z_norm": 11.2024
+  },
+  "neighbourhood_unit": {
+   "token_comp_T0_T8": [
+    0.29,
+    0.6125,
+    0.0975,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "indicators": {
+    "FAR": 0.4615,
+    "coverage": 0.1534,
+    "h_p50": 9.9108,
+    "h_p90": 13.3531,
+    "median_fp": 94.9879,
+    "sh_house": 0.8723,
+    "sh_slab": 0.0478,
+    "sh_tower": 0.0006,
+    "sh_large": 0.0,
+    "sh_mid": 0.0793
+   },
+   "n_buildings": 1343,
+   "pca_xy": [
+    -5.879,
+    -1.0944
+   ],
+   "z_norm": 8.2205
+  },
+  "microrayon": {
+   "token_comp_T0_T8": [
+    0.7225,
+    0.0,
+    0.02,
+    0.135,
+    0.1125,
+    0.0,
+    0.0,
+    0.01,
+    0.0
+   ],
+   "indicators": {
+    "FAR": 0.6484,
+    "coverage": 0.0927,
+    "h_p50": 19.3376,
+    "h_p90": 42.0078,
+    "median_fp": 230.3682,
+    "sh_house": 0.0446,
+    "sh_slab": 0.4903,
+    "sh_tower": 0.0058,
+    "sh_large": 0.1996,
+    "sh_mid": 0.2597
+   },
+   "n_buildings": 262,
+   "pca_xy": [
+    -1.6264,
+    1.0909
+   ],
+   "z_norm": 3.1614
+  },
+  "gb50180": {
+   "token_comp_T0_T8": [
+    0.555,
+    0.0,
+    0.015,
+    0.0,
+    0.2025,
+    0.0,
+    0.1875,
+    0.04,
+    0.0
+   ],
+   "indicators": {
+    "FAR": 1.9707,
+    "coverage": 0.1668,
+    "h_p50": 38.9394,
+    "h_p90": 80.4728,
+    "median_fp": 183.7233,
+    "sh_house": 0.0136,
+    "sh_slab": 0.0309,
+    "sh_tower": 0.2582,
+    "sh_large": 0.374,
+    "sh_mid": 0.3233
+   },
+   "n_buildings": 404,
+   "pca_xy": [
+    2.7764,
+    2.6186
+   ],
+   "z_norm": 6.8262
+  }
+ },
+ "nearest_real_windows": {
+  "garden_city": {
+   "pc_space_top3": [
+    {
+     "id": "A47",
+     "name": "West Bund Xuhui riverside",
+     "role": "train",
+     "dist": 0.8017,
+     "rank": 1
+    },
+    {
+     "id": "A33",
+     "name": "Pudong peri-urban village",
+     "role": "train",
+     "dist": 0.8204,
+     "rank": 2
+    },
+    {
+     "id": "A32",
+     "name": "Minhang outskirts village",
+     "role": "train",
+     "dist": 1.5093,
+     "rank": 3
+    }
+   ],
+   "z_space_top3": [
+    {
+     "id": "A47",
+     "name": "West Bund Xuhui riverside",
+     "role": "train",
+     "dist": 12.7865,
+     "rank": 1
+    },
+    {
+     "id": "A49",
+     "name": "Yangpu riverside ex-industry",
+     "role": "train",
+     "dist": 13.0382,
+     "rank": 2
+    },
+    {
+     "id": "A43",
+     "name": "Liangcheng Hongkou",
+     "role": "heldout",
+     "dist": 14.0629,
+     "rank": 3
+    }
+   ]
+  },
+  "ville_radieuse": {
+   "pc_space_top3": [
+    {
+     "id": "A01",
+     "name": "Lujiazui CBD",
+     "role": "train",
+     "dist": 1.8035,
+     "rank": 1
+    },
+    {
+     "id": "A07",
+     "name": "Bund Wai-tan",
+     "role": "heldout",
+     "dist": 3.7617,
+     "rank": 2
+    },
+    {
+     "id": "A27",
+     "name": "Lingang Nanhui",
+     "role": "train",
+     "dist": 4.1987,
+     "rank": 3
+    }
+   ],
+   "z_space_top3": [
+    {
+     "id": "A07",
+     "name": "Bund Wai-tan",
+     "role": "heldout",
+     "dist": 8.8221,
+     "rank": 1
+    },
+    {
+     "id": "A01",
+     "name": "Lujiazui CBD",
+     "role": "train",
+     "dist": 8.904,
+     "rank": 2
+    },
+    {
+     "id": "A04",
+     "name": "Xujiahui hub",
+     "role": "train",
+     "dist": 8.9936,
+     "rank": 3
+    }
+   ]
+  },
+  "neighbourhood_unit": {
+   "pc_space_top3": [
+    {
+     "id": "A32",
+     "name": "Minhang outskirts village",
+     "role": "train",
+     "dist": 1.0865,
+     "rank": 1
+    },
+    {
+     "id": "A33",
+     "name": "Pudong peri-urban village",
+     "role": "train",
+     "dist": 3.3638,
+     "rank": 2
+    },
+    {
+     "id": "A47",
+     "name": "West Bund Xuhui riverside",
+     "role": "train",
+     "dist": 3.3753,
+     "rank": 3
+    }
+   ],
+   "z_space_top3": [
+    {
+     "id": "A32",
+     "name": "Minhang outskirts village",
+     "role": "train",
+     "dist": 3.2361,
+     "rank": 1
+    },
+    {
+     "id": "A33",
+     "name": "Pudong peri-urban village",
+     "role": "train",
+     "dist": 6.8529,
+     "rank": 2
+    },
+    {
+     "id": "A45",
+     "name": "Beicai Pudong",
+     "role": "train",
+     "dist": 7.5267,
+     "rank": 3
+    }
+   ]
+  },
+  "microrayon": {
+   "pc_space_top3": [
+    {
+     "id": "A41",
+     "name": "Fengjing old town",
+     "role": "train",
+     "dist": 0.7169,
+     "rank": 1
+    },
+    {
+     "id": "A19",
+     "name": "Lianyang Huamu Pudong",
+     "role": "train",
+     "dist": 1.1299,
+     "rank": 2
+    },
+    {
+     "id": "A36",
+     "name": "Zhangjiang hi-tech",
+     "role": "train",
+     "dist": 1.3562,
+     "rank": 3
+    }
+   ],
+   "z_space_top3": [
+    {
+     "id": "A36",
+     "name": "Zhangjiang hi-tech",
+     "role": "train",
+     "dist": 2.51,
+     "rank": 1
+    },
+    {
+     "id": "A19",
+     "name": "Lianyang Huamu Pudong",
+     "role": "train",
+     "dist": 2.9021,
+     "rank": 2
+    },
+    {
+     "id": "A41",
+     "name": "Fengjing old town",
+     "role": "train",
+     "dist": 3.5205,
+     "rank": 3
+    }
+   ]
+  },
+  "gb50180": {
+   "pc_space_top3": [
+    {
+     "id": "A01",
+     "name": "Lujiazui CBD",
+     "role": "train",
+     "dist": 2.2941,
+     "rank": 1
+    },
+    {
+     "id": "A07",
+     "name": "Bund Wai-tan",
+     "role": "heldout",
+     "dist": 2.4394,
+     "rank": 2
+    },
+    {
+     "id": "A04",
+     "name": "Xujiahui hub",
+     "role": "train",
+     "dist": 2.6115,
+     "rank": 3
+    }
+   ],
+   "z_space_top3": [
+    {
+     "id": "A02",
+     "name": "Nanjing Rd East / People's Sq",
+     "role": "heldout",
+     "dist": 4.722,
+     "rank": 1
+    },
+    {
+     "id": "A04",
+     "name": "Xujiahui hub",
+     "role": "train",
+     "dist": 5.7946,
+     "rank": 2
+    },
+    {
+     "id": "A36",
+     "name": "Zhangjiang hi-tech",
+     "role": "train",
+     "dist": 6.1502,
+     "rank": 3
+    }
+   ]
+  }
+ },
+ "anchor_test_caoyang_A13": {
+  "neighbourhood_unit": {
+   "A13_rank_pc_space": 14,
+   "A13_dist_pc_space": 6.42,
+   "A13_rank_z_space": 11,
+   "A13_dist_z_space": 9.105,
+   "n_real_windows_ranked": 24
+  },
+  "microrayon": {
+   "A13_rank_pc_space": 9,
+   "A13_dist_pc_space": 2.7094,
+   "A13_rank_z_space": 6,
+   "A13_dist_z_space": 3.8167,
+   "n_real_windows_ranked": 24
+  },
+  "A13_actual": {
+   "name": "Caoyang Xincun",
+   "role": "train",
+   "token_comp_T0_T8": [
+    0.3,
+    0.075,
+    0.045,
+    0.2975,
+    0.1975,
+    0.035,
+    0.0425,
+    0.0025,
+    0.005
+   ],
+   "indicators": {
+    "FAR": 1.5687,
+    "coverage": 0.2109,
+    "h_p50": 16.6537,
+    "h_p90": 37.2153,
+    "median_fp": 261.6485,
+    "sh_house": 0.0672,
+    "sh_slab": 0.4588,
+    "sh_tower": 0.0671,
+    "sh_large": 0.1355,
+    "sh_mid": 0.2713
+   },
+   "pca_xy": [
+    0.5191,
+    -0.5638
+   ]
+  },
+  "interpretation": "MISS for neighbourhood_unit (rank 14/24 PC, 11/24 z): the Perry recipe as distilled in D2 encodes 1929 low-rise fabric (61% T1 houses, sh_house .87, FAR 0.46, h_p90 13 m), so the generated unit lands among peri-urban villages (A32/A33) — the only surviving low-rise fabric in the vocabulary. A13 today is a T3-slab/T4-midrise fabric (30% T3 + 20% T4, sh_slab .46, FAR 1.57, h_p90 37 m): the 1951 adaptation built multi-storey workers' slabs, and 70 years of rebuilding/densification added midrise and scattered towers. NEAR-MISS for microrayon (rank 9/24 PC, 6/24 z): its family-share profile (slab .49, mid .26, median_fp 230 m2, h_p90 42 m) nearly matches A13's (.46, .27, 262 m2, 37 m); the residual gap is density (FAR 0.65 vs 1.57) and void share (.72 vs .30) — doctrine-faithful Soviet spacing is far sparser than densified Caoyang. Interpretive reading (not asserted identity): today's Caoyang reads closer to a densified microrayon than to Perry's neighbourhood unit in built form, consistent with its slab-housing construction history; the 'miss' is informative about the 1951 translation, not a pipeline fault — the projection basis itself passed the 1e-3 gate."
+ }
+}

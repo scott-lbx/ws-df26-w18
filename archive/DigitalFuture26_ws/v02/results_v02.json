@@ -1,0 +1,160 @@
+{
+  "step1": {
+    "rule": "POI primary: majority power-relevant POI class within 30 m, tie -> nearest; gap-fillers strictly after POI: OSM type -> Function -> EULUC -> morphology(house->lowrise); residential split: floors<=3 & fp<400 -> lowrise",
+    "judge_share_pct": {
+      "lujiazui": {
+        "poi": 74.5,
+        "osm": 2.8,
+        "function": 2.8,
+        "euluc": 9.0,
+        "morph": 0.6,
+        "none": 10.2,
+        "n_buildings": 322,
+        "labeled_pct": 89.8
+      },
+      "laoximen": {
+        "poi": 70.3,
+        "osm": 1.8,
+        "function": 9.2,
+        "euluc": 16.3,
+        "morph": 0.8,
+        "none": 1.6,
+        "n_buildings": 1962,
+        "labeled_pct": 98.4
+      },
+      "caoyang": {
+        "poi": 51.4,
+        "osm": 9.2,
+        "function": 14.7,
+        "euluc": 19.9,
+        "morph": 1.7,
+        "none": 3.1,
+        "n_buildings": 523,
+        "labeled_pct": 96.9
+      }
+    },
+    "agreement_with_old_fusion": {
+      "lujiazui": {
+        "poi_judged_vs_old_n": 223,
+        "poi_judged_vs_old_agree_pct": 47.5,
+        "all_labeled_vs_old_n": 270,
+        "all_labeled_vs_old_agree_pct": 55.2
+      },
+      "laoximen": {
+        "poi_judged_vs_old_n": 1364,
+        "poi_judged_vs_old_agree_pct": 34.3,
+        "all_labeled_vs_old_n": 1905,
+        "all_labeled_vs_old_agree_pct": 50.1
+      },
+      "caoyang": {
+        "poi_judged_vs_old_n": 265,
+        "poi_judged_vs_old_agree_pct": 25.3,
+        "all_labeled_vs_old_n": 498,
+        "all_labeled_vs_old_agree_pct": 53.0
+      }
+    },
+    "top_disagreements_poi_vs_old": [
+      {
+        "v02_poi": "commercial_retail",
+        "old_fusion": "residential_estate",
+        "n": 501
+      },
+      {
+        "v02_poi": "public_admin",
+        "old_fusion": "residential_estate",
+        "n": 213
+      },
+      {
+        "v02_poi": "commercial_retail",
+        "old_fusion": "residential_lowrise",
+        "n": 82
+      },
+      {
+        "v02_poi": "public_admin",
+        "old_fusion": "residential_lowrise",
+        "n": 62
+      },
+      {
+        "v02_poi": "commercial_retail",
+        "old_fusion": "public_admin",
+        "n": 59
+      },
+      {
+        "v02_poi": "commercial_retail",
+        "old_fusion": "office_finance",
+        "n": 58
+      },
+      {
+        "v02_poi": "office_finance",
+        "old_fusion": "residential_estate",
+        "n": 42
+      },
+      {
+        "v02_poi": "residential_lowrise",
+        "old_fusion": "residential_estate",
+        "n": 29
+      }
+    ],
+    "semantic_counts": {
+      "lujiazui": {
+        "commercial_retail": 178,
+        "office_finance": 73,
+        "unlabeled": 33,
+        "residential_estate": 17,
+        "public_admin": 15,
+        "residential_lowrise": 4,
+        "healthcare": 2
+      },
+      "laoximen": {
+        "commercial_retail": 708,
+        "residential_estate": 513,
+        "public_admin": 343,
+        "residential_lowrise": 287,
+        "office_finance": 55,
+        "unlabeled": 31,
+        "education": 15,
+        "healthcare": 6,
+        "industrial": 4
+      },
+      "caoyang": {
+        "residential_estate": 182,
+        "commercial_retail": 120,
+        "public_admin": 82,
+        "office_finance": 45,
+        "residential_lowrise": 44,
+        "education": 31,
+        "unlabeled": 16,
+        "healthcare": 3
+      }
+    }
+  },
+  "step2": {
+    "grid": "50 m cells, 20x20 per patch, 1200 cells pooled",
+    "token_labels": {
+      "0": "T0 EMPTY: cov<.02 (n=407)",
+      "1": "T1: cov 0.24 h̄ 12m house 0.81",
+      "2": "T2: cov 0.34 h̄ 20m slab 0.87",
+      "3": "T3: cov 0.46 h̄ 16m mid 0.55",
+      "4": "T4: cov 0.26 h̄ 31m mid 0.91",
+      "5": "T5: cov 0.33 h̄ 72m tower 0.85",
+      "6": "T6: cov 0.99 h̄ 94m large 0.86"
+    },
+    "token_cell_counts": {
+      "T0": 407,
+      "T1": 107,
+      "T2": 214,
+      "T3": 166,
+      "T4": 206,
+      "T5": 85,
+      "T6": 15
+    },
+    "pool_sizes_buildings": {
+      "T1": 471,
+      "T2": 600,
+      "T3": 1011,
+      "T4": 496,
+      "T5": 187,
+      "T6": 22
+    }
+  }
+}

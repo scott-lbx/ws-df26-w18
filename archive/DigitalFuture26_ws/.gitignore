@@ -1,0 +1,41 @@
+# Virtual environment
+ml_env/
+
+# macOS metadata
+__MACOSX/
+.DS_Store
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Generated HTML reports (large, regeneratable)
+V02_REPORT.html
+V03_REPORT.html
+V04_REPORT.html
+V05_REPORT.html
+V06_REPORT.html
+
+# Large geodata binaries (FlatGeobuf)
+*.fgb
+
+# Cache/temp data directories
+v04/cache/
+
+# Generated teaching output images (produced by ml_teaching.py)
+day2_kmeans_pca.png
+day3a_wall_A.png
+day3b_grid_tokens.png
+day4_wall_B.png
+day5_vae_wall_C.png
+
+# PCA/AE/VAE teaching generated outputs (regenerable)
+teaching/pca_ae_vae/code/outputs/
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# OS
+Thumbs.db

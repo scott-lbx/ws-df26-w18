@@ -1,0 +1,170 @@
+{
+  "A02": {
+    "target_free_cells": [
+      16,
+      2,
+      9,
+      51,
+      53,
+      66,
+      78,
+      13,
+      0
+    ],
+    "achieved": [
+      16,
+      2,
+      8,
+      50,
+      47,
+      66,
+      85,
+      14,
+      0
+    ],
+    "n_fixed_void_cells": 112,
+    "fallbacks": 0,
+    "n_dropped": 49,
+    "dropped_gfa_share": 0.0592
+  },
+  "A07": {
+    "target_free_cells": [
+      33,
+      7,
+      16,
+      20,
+      28,
+      1,
+      26,
+      4,
+      5
+    ],
+    "achieved": [
+      31,
+      6,
+      15,
+      19,
+      26,
+      1,
+      30,
+      5,
+      7
+    ],
+    "n_fixed_void_cells": 260,
+    "fallbacks": 0,
+    "n_dropped": 12,
+    "dropped_gfa_share": 0.243
+  },
+  "A20": {
+    "target_free_cells": [
+      56,
+      32,
+      15,
+      155,
+      66,
+      9,
+      12,
+      3,
+      1
+    ],
+    "achieved": [
+      53,
+      30,
+      14,
+      166,
+      60,
+      9,
+      12,
+      4,
+      1
+    ],
+    "n_fixed_void_cells": 51,
+    "fallbacks": 0,
+    "n_dropped": 9,
+    "dropped_gfa_share": 0.0056
+  },
+  "A29": {
+    "target_free_cells": [
+      101,
+      13,
+      3,
+      181,
+      43,
+      12,
+      9,
+      8,
+      1
+    ],
+    "achieved": [
+      101,
+      12,
+      3,
+      186,
+      40,
+      13,
+      8,
+      7,
+      1
+    ],
+    "n_fixed_void_cells": 29,
+    "fallbacks": 0,
+    "n_dropped": 13,
+    "dropped_gfa_share": 0.0084
+  },
+  "A35": {
+    "target_free_cells": [
+      60,
+      42,
+      21,
+      119,
+      51,
+      41,
+      11,
+      5,
+      0
+    ],
+    "achieved": [
+      57,
+      43,
+      18,
+      122,
+      52,
+      41,
+      12,
+      5,
+      0
+    ],
+    "n_fixed_void_cells": 50,
+    "fallbacks": 0,
+    "n_dropped": 16,
+    "dropped_gfa_share": 0.0209
+  },
+  "A43": {
+    "target_free_cells": [
+      77,
+      37,
+      23,
+      143,
+      51,
+      28,
+      9,
+      8,
+      0
+    ],
+    "achieved": [
+      74,
+      38,
+      24,
+      149,
+      47,
+      28,
+      8,
+      8,
+      0
+    ],
+    "n_fixed_void_cells": 24,
+    "fallbacks": 0,
+    "n_dropped": 6,
+    "dropped_gfa_share": 0.004
+  }
+}

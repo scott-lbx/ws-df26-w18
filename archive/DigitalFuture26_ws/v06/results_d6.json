@@ -1,0 +1,919 @@
+{
+ "_meta": {
+  "script": "v06/exp_invert.py",
+  "seed": 0,
+  "task": "D6 stakeholder-first inversion (mirrors v05 E4 targets)",
+  "search": "deterministic expectation over token pools: sum_t N_t * E[labeled GFA/cell] * E[pool power vector] / sum_t N_t * E[labeled GFA/cell]; estates on no_age cell; expectation ignores semantic conditioning (pool average) \u2014 by design, the expectation-vs-realized gap then measures what conditioning + collage sampling move",
+  "honest_framing": "the search optimizes ASSERTED profiles assembled from literature priors (TF/v05/power_priors_v05.json). It selects doctrines under our priors' worldview, nothing more \u2014 it does NOT predict realized power relations. Realized read-back is a single seed-0 draw (no variance estimate).",
+  "candidates": "5 pure paradigms + 10 pairwise 50/50 budget blends (largest remainder to 400 cells; skeleton = first-named parent; per-token semantics = mean of parents' per-token demanded-semantic distributions from the D3 units)",
+  "blend_generation": "no doctrine prescribes a blend's micro-geometry: tokens are placed randomly then arranged by 3 Shanghai-accent swap-Gibbs sweeps (v0.4 12-token TRAIN adjacency); first parent's civic reserve kept"
+ },
+ "token_pool_expectation": {
+  "T1": {
+   "n_pool_cells": 627,
+   "E_gfa_labeled_per_cell_m2": 1233.1,
+   "expected_power": {
+    "government": 0.3687,
+    "developer_capital": 0.3471,
+    "resident_community": 0.3501,
+    "informal": 0.1472
+   },
+   "unlabeled_gfa_share": 0.03
+  },
+  "T2": {
+   "n_pool_cells": 405,
+   "E_gfa_labeled_per_cell_m2": 1535.9,
+   "expected_power": {
+    "government": 0.4102,
+    "developer_capital": 0.3686,
+    "resident_community": 0.2941,
+    "informal": 0.1034
+   },
+   "unlabeled_gfa_share": 0.351
+  },
+  "T3": {
+   "n_pool_cells": 1430,
+   "E_gfa_labeled_per_cell_m2": 4772.5,
+   "expected_power": {
+    "government": 0.4279,
+    "developer_capital": 0.4787,
+    "resident_community": 0.2592,
+    "informal": 0.0436
+   },
+   "unlabeled_gfa_share": 0.005
+  },
+  "T4": {
+   "n_pool_cells": 827,
+   "E_gfa_labeled_per_cell_m2": 5200.0,
+   "expected_power": {
+    "government": 0.4072,
+    "developer_capital": 0.5206,
+    "resident_community": 0.2423,
+    "informal": 0.0404
+   },
+   "unlabeled_gfa_share": 0.0075
+  },
+  "T5": {
+   "n_pool_cells": 477,
+   "E_gfa_labeled_per_cell_m2": 10331.0,
+   "expected_power": {
+    "government": 0.4097,
+    "developer_capital": 0.497,
+    "resident_community": 0.2295,
+    "informal": 0.0439
+   },
+   "unlabeled_gfa_share": 0.0127
+  },
+  "T6": {
+   "n_pool_cells": 397,
+   "E_gfa_labeled_per_cell_m2": 14262.1,
+   "expected_power": {
+    "government": 0.3906,
+    "developer_capital": 0.5863,
+    "resident_community": 0.1886,
+    "informal": 0.0309
+   },
+   "unlabeled_gfa_share": 0.0026
+  },
+  "T7": {
+   "n_pool_cells": 70,
+   "E_gfa_labeled_per_cell_m2": 26860.2,
+   "expected_power": {
+    "government": 0.3709,
+    "developer_capital": 0.5761,
+    "resident_community": 0.1904,
+    "informal": 0.0333
+   },
+   "unlabeled_gfa_share": 0.1052
+  },
+  "T8": {
+   "n_pool_cells": 21,
+   "E_gfa_labeled_per_cell_m2": 107407.2,
+   "expected_power": {
+    "government": 0.334,
+    "developer_capital": 0.7068,
+    "resident_community": 0.1222,
+    "informal": 0.021
+   },
+   "unlabeled_gfa_share": 0.0672
+  }
+ },
+ "targets": {
+  "GOV-first": {
+   "government": 0.8,
+   "developer_capital": 0.2,
+   "resident_community": 0.3,
+   "informal": 0.0
+  },
+  "DEV-first": {
+   "government": 0.3,
+   "developer_capital": 0.8,
+   "resident_community": 0.2,
+   "informal": 0.0
+  },
+  "RES-first": {
+   "government": 0.2,
+   "developer_capital": 0.2,
+   "resident_community": 0.8,
+   "informal": 0.4
+  }
+ },
+ "ranking": {
+  "GOV-first": {
+   "target": {
+    "government": 0.8,
+    "developer_capital": 0.2,
+    "resident_community": 0.3,
+    "informal": 0.0
+   },
+   "winner_L1": "neighbourhood_unit+microrayon",
+   "winner_cosine": "neighbourhood_unit",
+   "metrics_agree_on_winner": false,
+   "picked": "neighbourhood_unit+microrayon",
+   "pick_rule": "L1 (cosine reported; on disagreement L1 decides, as specified)",
+   "table": [
+    {
+     "candidate": "neighbourhood_unit+microrayon",
+     "expected_profile": {
+      "government": 0.3971,
+      "developer_capital": 0.4509,
+      "resident_community": 0.2781,
+      "informal": 0.078
+     },
+     "L1_to_target": 0.7537,
+     "cosine_to_target": 0.8398,
+     "rank_L1": 1,
+     "rank_cosine": 2
+    },
+    {
+     "candidate": "neighbourhood_unit",
+     "expected_profile": {
+      "government": 0.3756,
+      "developer_capital": 0.3507,
+      "resident_community": 0.3408,
+      "informal": 0.1399
+     },
+     "L1_to_target": 0.7558,
+     "cosine_to_target": 0.8522,
+     "rank_L1": 2,
+     "rank_cosine": 1
+    },
+    {
+     "candidate": "microrayon",
+     "expected_profile": {
+      "government": 0.4096,
+      "developer_capital": 0.5096,
+      "resident_community": 0.2413,
+      "informal": 0.0417
+     },
+     "L1_to_target": 0.8004,
+     "cosine_to_target": 0.8194,
+     "rank_L1": 3,
+     "rank_cosine": 3
+    },
+    {
+     "candidate": "garden_city+neighbourhood_unit",
+     "expected_profile": {
+      "government": 0.3721,
+      "developer_capital": 0.508,
+      "resident_community": 0.2361,
+      "informal": 0.0657
+     },
+     "L1_to_target": 0.8655,
+     "cosine_to_target": 0.7929,
+     "rank_L1": 4,
+     "rank_cosine": 4
+    },
+    {
+     "candidate": "neighbourhood_unit+gb50180",
+     "expected_profile": {
+      "government": 0.3877,
+      "developer_capital": 0.5347,
+      "resident_community": 0.223,
+      "informal": 0.0503
+     },
+     "L1_to_target": 0.8744,
+     "cosine_to_target": 0.7892,
+     "rank_L1": 5,
+     "rank_cosine": 5
+    },
+    {
+     "candidate": "garden_city+microrayon",
+     "expected_profile": {
+      "government": 0.3833,
+      "developer_capital": 0.5378,
+      "resident_community": 0.2183,
+      "informal": 0.0443
+     },
+     "L1_to_target": 0.8805,
+     "cosine_to_target": 0.7843,
+     "rank_L1": 6,
+     "rank_cosine": 7
+    },
+    {
+     "candidate": "ville_radieuse+neighbourhood_unit",
+     "expected_profile": {
+      "government": 0.3876,
+      "developer_capital": 0.5386,
+      "resident_community": 0.2194,
+      "informal": 0.0529
+     },
+     "L1_to_target": 0.8845,
+     "cosine_to_target": 0.7863,
+     "rank_L1": 7,
+     "rank_cosine": 6
+    },
+    {
+     "candidate": "microrayon+gb50180",
+     "expected_profile": {
+      "government": 0.3946,
+      "developer_capital": 0.5546,
+      "resident_community": 0.2108,
+      "informal": 0.0357
+     },
+     "L1_to_target": 0.8849,
+     "cosine_to_target": 0.7824,
+     "rank_L1": 8,
+     "rank_cosine": 8
+    },
+    {
+     "candidate": "ville_radieuse+microrayon",
+     "expected_profile": {
+      "government": 0.3963,
+      "developer_capital": 0.5632,
+      "resident_community": 0.2045,
+      "informal": 0.0341
+     },
+     "L1_to_target": 0.8965,
+     "cosine_to_target": 0.7781,
+     "rank_L1": 9,
+     "rank_cosine": 9
+    },
+    {
+     "candidate": "gb50180",
+     "expected_profile": {
+      "government": 0.3899,
+      "developer_capital": 0.5687,
+      "resident_community": 0.2012,
+      "informal": 0.0338
+     },
+     "L1_to_target": 0.9113,
+     "cosine_to_target": 0.7703,
+     "rank_L1": 10,
+     "rank_cosine": 10
+    },
+    {
+     "candidate": "garden_city+gb50180",
+     "expected_profile": {
+      "government": 0.3822,
+      "developer_capital": 0.5616,
+      "resident_community": 0.2037,
+      "informal": 0.0385
+     },
+     "L1_to_target": 0.9141,
+     "cosine_to_target": 0.7689,
+     "rank_L1": 11,
+     "rank_cosine": 11
+    },
+    {
+     "candidate": "garden_city",
+     "expected_profile": {
+      "government": 0.3711,
+      "developer_capital": 0.5508,
+      "resident_community": 0.2076,
+      "informal": 0.0455
+     },
+     "L1_to_target": 0.9176,
+     "cosine_to_target": 0.767,
+     "rank_L1": 12,
+     "rank_cosine": 12
+    },
+    {
+     "candidate": "ville_radieuse+gb50180",
+     "expected_profile": {
+      "government": 0.3902,
+      "developer_capital": 0.5763,
+      "resident_community": 0.1958,
+      "informal": 0.0325
+     },
+     "L1_to_target": 0.9229,
+     "cosine_to_target": 0.7655,
+     "rank_L1": 13,
+     "rank_cosine": 13
+    },
+    {
+     "candidate": "garden_city+ville_radieuse",
+     "expected_profile": {
+      "government": 0.3812,
+      "developer_capital": 0.5692,
+      "resident_community": 0.1978,
+      "informal": 0.0379
+     },
+     "L1_to_target": 0.9281,
+     "cosine_to_target": 0.7631,
+     "rank_L1": 14,
+     "rank_cosine": 14
+    },
+    {
+     "candidate": "ville_radieuse",
+     "expected_profile": {
+      "government": 0.3906,
+      "developer_capital": 0.5863,
+      "resident_community": 0.1886,
+      "informal": 0.0309
+     },
+     "L1_to_target": 0.938,
+     "cosine_to_target": 0.7592,
+     "rank_L1": 15,
+     "rank_cosine": 15
+    }
+   ],
+   "post_hoc_realized_check": {
+    "cosine_winner_realized_readback": {
+     "government": 0.257,
+     "developer_capital": 0.1419,
+     "resident_community": 0.5127,
+     "informal": 0.3144
+    },
+    "L1_realized_vs_target_cosine_winner": 1.1282,
+    "L1_realized_vs_target_L1_winner": 0.8274,
+    "realized_favors": "neighbourhood_unit+microrayon",
+    "note": "single seed-0 realization each; margin between expected L1s was 0.0021 (within surrogate error \u2014 disclosed)"
+   }
+  },
+  "DEV-first": {
+   "target": {
+    "government": 0.3,
+    "developer_capital": 0.8,
+    "resident_community": 0.2,
+    "informal": 0.0
+   },
+   "winner_L1": "ville_radieuse",
+   "winner_cosine": "ville_radieuse",
+   "metrics_agree_on_winner": true,
+   "picked": "ville_radieuse",
+   "pick_rule": "L1 (cosine reported; on disagreement L1 decides, as specified)",
+   "table": [
+    {
+     "candidate": "ville_radieuse",
+     "expected_profile": {
+      "government": 0.3906,
+      "developer_capital": 0.5863,
+      "resident_community": 0.1886,
+      "informal": 0.0309
+     },
+     "L1_to_target": 0.3466,
+     "cosine_to_target": 0.9741,
+     "rank_L1": 1,
+     "rank_cosine": 1
+    },
+    {
+     "candidate": "ville_radieuse+gb50180",
+     "expected_profile": {
+      "government": 0.3902,
+      "developer_capital": 0.5763,
+      "resident_community": 0.1958,
+      "informal": 0.0325
+     },
+     "L1_to_target": 0.3507,
+     "cosine_to_target": 0.972,
+     "rank_L1": 2,
+     "rank_cosine": 3
+    },
+    {
+     "candidate": "garden_city+ville_radieuse",
+     "expected_profile": {
+      "government": 0.3812,
+      "developer_capital": 0.5692,
+      "resident_community": 0.1978,
+      "informal": 0.0379
+     },
+     "L1_to_target": 0.3522,
+     "cosine_to_target": 0.9724,
+     "rank_L1": 3,
+     "rank_cosine": 2
+    },
+    {
+     "candidate": "gb50180",
+     "expected_profile": {
+      "government": 0.3899,
+      "developer_capital": 0.5687,
+      "resident_community": 0.2012,
+      "informal": 0.0338
+     },
+     "L1_to_target": 0.3563,
+     "cosine_to_target": 0.9702,
+     "rank_L1": 4,
+     "rank_cosine": 4
+    },
+    {
+     "candidate": "garden_city+gb50180",
+     "expected_profile": {
+      "government": 0.3822,
+      "developer_capital": 0.5616,
+      "resident_community": 0.2037,
+      "informal": 0.0385
+     },
+     "L1_to_target": 0.3629,
+     "cosine_to_target": 0.9702,
+     "rank_L1": 5,
+     "rank_cosine": 5
+    },
+    {
+     "candidate": "ville_radieuse+microrayon",
+     "expected_profile": {
+      "government": 0.3963,
+      "developer_capital": 0.5632,
+      "resident_community": 0.2045,
+      "informal": 0.0341
+     },
+     "L1_to_target": 0.3718,
+     "cosine_to_target": 0.9671,
+     "rank_L1": 6,
+     "rank_cosine": 7
+    },
+    {
+     "candidate": "garden_city",
+     "expected_profile": {
+      "government": 0.3711,
+      "developer_capital": 0.5508,
+      "resident_community": 0.2076,
+      "informal": 0.0455
+     },
+     "L1_to_target": 0.3734,
+     "cosine_to_target": 0.9699,
+     "rank_L1": 7,
+     "rank_cosine": 6
+    },
+    {
+     "candidate": "microrayon+gb50180",
+     "expected_profile": {
+      "government": 0.3946,
+      "developer_capital": 0.5546,
+      "resident_community": 0.2108,
+      "informal": 0.0357
+     },
+     "L1_to_target": 0.3864,
+     "cosine_to_target": 0.9651,
+     "rank_L1": 8,
+     "rank_cosine": 8
+    },
+    {
+     "candidate": "garden_city+microrayon",
+     "expected_profile": {
+      "government": 0.3833,
+      "developer_capital": 0.5378,
+      "resident_community": 0.2183,
+      "informal": 0.0443
+     },
+     "L1_to_target": 0.4081,
+     "cosine_to_target": 0.9629,
+     "rank_L1": 9,
+     "rank_cosine": 9
+    },
+    {
+     "candidate": "ville_radieuse+neighbourhood_unit",
+     "expected_profile": {
+      "government": 0.3876,
+      "developer_capital": 0.5386,
+      "resident_community": 0.2194,
+      "informal": 0.0529
+     },
+     "L1_to_target": 0.4213,
+     "cosine_to_target": 0.961,
+     "rank_L1": 10,
+     "rank_cosine": 10
+    },
+    {
+     "candidate": "neighbourhood_unit+gb50180",
+     "expected_profile": {
+      "government": 0.3877,
+      "developer_capital": 0.5347,
+      "resident_community": 0.223,
+      "informal": 0.0503
+     },
+     "L1_to_target": 0.4263,
+     "cosine_to_target": 0.9599,
+     "rank_L1": 11,
+     "rank_cosine": 11
+    },
+    {
+     "candidate": "garden_city+neighbourhood_unit",
+     "expected_profile": {
+      "government": 0.3721,
+      "developer_capital": 0.508,
+      "resident_community": 0.2361,
+      "informal": 0.0657
+     },
+     "L1_to_target": 0.4659,
+     "cosine_to_target": 0.9533,
+     "rank_L1": 12,
+     "rank_cosine": 12
+    },
+    {
+     "candidate": "microrayon",
+     "expected_profile": {
+      "government": 0.4096,
+      "developer_capital": 0.5096,
+      "resident_community": 0.2413,
+      "informal": 0.0417
+     },
+     "L1_to_target": 0.483,
+     "cosine_to_target": 0.9448,
+     "rank_L1": 13,
+     "rank_cosine": 13
+    },
+    {
+     "candidate": "neighbourhood_unit+microrayon",
+     "expected_profile": {
+      "government": 0.3971,
+      "developer_capital": 0.4509,
+      "resident_community": 0.2781,
+      "informal": 0.078
+     },
+     "L1_to_target": 0.6022,
+     "cosine_to_target": 0.9154,
+     "rank_L1": 14,
+     "rank_cosine": 14
+    },
+    {
+     "candidate": "neighbourhood_unit",
+     "expected_profile": {
+      "government": 0.3756,
+      "developer_capital": 0.3507,
+      "resident_community": 0.3408,
+      "informal": 0.1399
+     },
+     "L1_to_target": 0.8057,
+     "cosine_to_target": 0.8316,
+     "rank_L1": 15,
+     "rank_cosine": 15
+    }
+   ]
+  },
+  "RES-first": {
+   "target": {
+    "government": 0.2,
+    "developer_capital": 0.2,
+    "resident_community": 0.8,
+    "informal": 0.4
+   },
+   "winner_L1": "neighbourhood_unit",
+   "winner_cosine": "neighbourhood_unit",
+   "metrics_agree_on_winner": true,
+   "picked": "neighbourhood_unit",
+   "pick_rule": "L1 (cosine reported; on disagreement L1 decides, as specified)",
+   "table": [
+    {
+     "candidate": "neighbourhood_unit",
+     "expected_profile": {
+      "government": 0.3756,
+      "developer_capital": 0.3507,
+      "resident_community": 0.3408,
+      "informal": 0.1399
+     },
+     "L1_to_target": 1.0455,
+     "cosine_to_target": 0.799,
+     "rank_L1": 1,
+     "rank_cosine": 1
+    },
+    {
+     "candidate": "neighbourhood_unit+microrayon",
+     "expected_profile": {
+      "government": 0.3971,
+      "developer_capital": 0.4509,
+      "resident_community": 0.2781,
+      "informal": 0.078
+     },
+     "L1_to_target": 1.2919,
+     "cosine_to_target": 0.6768,
+     "rank_L1": 2,
+     "rank_cosine": 2
+    },
+    {
+     "candidate": "garden_city+neighbourhood_unit",
+     "expected_profile": {
+      "government": 0.3721,
+      "developer_capital": 0.508,
+      "resident_community": 0.2361,
+      "informal": 0.0657
+     },
+     "L1_to_target": 1.3784,
+     "cosine_to_target": 0.6171,
+     "rank_L1": 3,
+     "rank_cosine": 3
+    },
+    {
+     "candidate": "microrayon",
+     "expected_profile": {
+      "government": 0.4096,
+      "developer_capital": 0.5096,
+      "resident_community": 0.2413,
+      "informal": 0.0417
+     },
+     "L1_to_target": 1.4362,
+     "cosine_to_target": 0.601,
+     "rank_L1": 4,
+     "rank_cosine": 4
+    },
+    {
+     "candidate": "neighbourhood_unit+gb50180",
+     "expected_profile": {
+      "government": 0.3877,
+      "developer_capital": 0.5347,
+      "resident_community": 0.223,
+      "informal": 0.0503
+     },
+     "L1_to_target": 1.4491,
+     "cosine_to_target": 0.5842,
+     "rank_L1": 5,
+     "rank_cosine": 5
+    },
+    {
+     "candidate": "ville_radieuse+neighbourhood_unit",
+     "expected_profile": {
+      "government": 0.3876,
+      "developer_capital": 0.5386,
+      "resident_community": 0.2194,
+      "informal": 0.0529
+     },
+     "L1_to_target": 1.4539,
+     "cosine_to_target": 0.5809,
+     "rank_L1": 6,
+     "rank_cosine": 6
+    },
+    {
+     "candidate": "garden_city+microrayon",
+     "expected_profile": {
+      "government": 0.3833,
+      "developer_capital": 0.5378,
+      "resident_community": 0.2183,
+      "informal": 0.0443
+     },
+     "L1_to_target": 1.4585,
+     "cosine_to_target": 0.576,
+     "rank_L1": 7,
+     "rank_cosine": 7
+    },
+    {
+     "candidate": "garden_city",
+     "expected_profile": {
+      "government": 0.3711,
+      "developer_capital": 0.5508,
+      "resident_community": 0.2076,
+      "informal": 0.0455
+     },
+     "L1_to_target": 1.4688,
+     "cosine_to_target": 0.5636,
+     "rank_L1": 8,
+     "rank_cosine": 8
+    },
+    {
+     "candidate": "garden_city+gb50180",
+     "expected_profile": {
+      "government": 0.3822,
+      "developer_capital": 0.5616,
+      "resident_community": 0.2037,
+      "informal": 0.0385
+     },
+     "L1_to_target": 1.5016,
+     "cosine_to_target": 0.5511,
+     "rank_L1": 9,
+     "rank_cosine": 10
+    },
+    {
+     "candidate": "microrayon+gb50180",
+     "expected_profile": {
+      "government": 0.3946,
+      "developer_capital": 0.5546,
+      "resident_community": 0.2108,
+      "informal": 0.0357
+     },
+     "L1_to_target": 1.5028,
+     "cosine_to_target": 0.5569,
+     "rank_L1": 10,
+     "rank_cosine": 9
+    },
+    {
+     "candidate": "garden_city+ville_radieuse",
+     "expected_profile": {
+      "government": 0.3812,
+      "developer_capital": 0.5692,
+      "resident_community": 0.1978,
+      "informal": 0.0379
+     },
+     "L1_to_target": 1.5147,
+     "cosine_to_target": 0.5426,
+     "rank_L1": 11,
+     "rank_cosine": 13
+    },
+    {
+     "candidate": "ville_radieuse+microrayon",
+     "expected_profile": {
+      "government": 0.3963,
+      "developer_capital": 0.5632,
+      "resident_community": 0.2045,
+      "informal": 0.0341
+     },
+     "L1_to_target": 1.5209,
+     "cosine_to_target": 0.5472,
+     "rank_L1": 12,
+     "rank_cosine": 11
+    },
+    {
+     "candidate": "gb50180",
+     "expected_profile": {
+      "government": 0.3899,
+      "developer_capital": 0.5687,
+      "resident_community": 0.2012,
+      "informal": 0.0338
+     },
+     "L1_to_target": 1.5235,
+     "cosine_to_target": 0.5429,
+     "rank_L1": 13,
+     "rank_cosine": 12
+    },
+    {
+     "candidate": "ville_radieuse+gb50180",
+     "expected_profile": {
+      "government": 0.3902,
+      "developer_capital": 0.5763,
+      "resident_community": 0.1958,
+      "informal": 0.0325
+     },
+     "L1_to_target": 1.5382,
+     "cosine_to_target": 0.5346,
+     "rank_L1": 14,
+     "rank_cosine": 14
+    },
+    {
+     "candidate": "ville_radieuse",
+     "expected_profile": {
+      "government": 0.3906,
+      "developer_capital": 0.5863,
+      "resident_community": 0.1886,
+      "informal": 0.0309
+     },
+     "L1_to_target": 1.5575,
+     "cosine_to_target": 0.5237,
+     "rank_L1": 15,
+     "rank_cosine": 15
+    }
+   ]
+  }
+ },
+ "winners": {
+  "GOV-first": {
+   "winner": "neighbourhood_unit+microrayon",
+   "expected_profile": {
+    "government": 0.3971,
+    "developer_capital": 0.4509,
+    "resident_community": 0.2781,
+    "informal": 0.078
+   },
+   "realized_readback_R0": {
+    "government": 0.3438,
+    "developer_capital": 0.3596,
+    "resident_community": 0.3647,
+    "informal": 0.1469
+   },
+   "target": {
+    "government": 0.8,
+    "developer_capital": 0.2,
+    "resident_community": 0.3,
+    "informal": 0.0
+   },
+   "L1_expected_vs_target": 0.7537,
+   "L1_realized_vs_target": 0.8274,
+   "L1_expected_vs_realized_gap": 0.3,
+   "single_seed_disclosure": "realized = one seed-0 generation; no variance estimate",
+   "low_confidence_gfa_share": 0.8519,
+   "unlabeled_gfa_share": 0.0123,
+   "n_buildings_labeled": 664,
+   "indicators": {
+    "FAR": 0.5128,
+    "coverage": 0.1121,
+    "height_p50": 9.9113,
+    "height_p90": 20.5767,
+    "median_fp_area": 99.9457,
+    "share_house": 0.7262,
+    "share_slab": 0.1245,
+    "share_tower": 0.0088,
+    "share_large_footprint": 0.0029,
+    "share_midrise_other": 0.1376
+   },
+   "semantic_collage_fallback_rate": 0.0,
+   "generation": {
+    "blend_built_budget": {
+     "T1": 122,
+     "T2": 24,
+     "T3": 27,
+     "T4": 23,
+     "T7": 2
+    },
+    "reserved_civic_cells": 4,
+    "civic_T2_overdraw_beyond_budget": 0,
+    "skeleton_build_cells": 280,
+    "reconciliation": "86 skeleton build cells left E_VACANT (blend under-fills)",
+    "achieved_tokens": {
+     "T1": 122,
+     "T2": 24,
+     "T3": 27,
+     "T4": 23,
+     "T7": 2,
+     "E_VACANT": 86,
+     "E_ROAD": 76,
+     "E_GREEN": 40
+    }
+   }
+  },
+  "DEV-first": {
+   "winner": "ville_radieuse",
+   "expected_profile": {
+    "government": 0.3906,
+    "developer_capital": 0.5863,
+    "resident_community": 0.1886,
+    "informal": 0.0309
+   },
+   "realized_readback_R0": {
+    "government": 0.4013,
+    "developer_capital": 0.4992,
+    "resident_community": 0.2985,
+    "informal": 0.0497
+   },
+   "target": {
+    "government": 0.3,
+    "developer_capital": 0.8,
+    "resident_community": 0.2,
+    "informal": 0.0
+   },
+   "L1_expected_vs_target": 0.3466,
+   "L1_realized_vs_target": 0.5504,
+   "L1_expected_vs_realized_gap": 0.2267,
+   "single_seed_disclosure": "realized = one seed-0 generation; no variance estimate",
+   "low_confidence_gfa_share": 0.994,
+   "unlabeled_gfa_share": 0.0,
+   "n_buildings_labeled": 247,
+   "indicators": {
+    "FAR": 1.1762,
+    "coverage": 0.0696,
+    "height_p50": 58.0342,
+    "height_p90": 87.2087,
+    "median_fp_area": 216.5453,
+    "share_house": 0.0162,
+    "share_slab": 0.0729,
+    "share_tower": 0.664,
+    "share_large_footprint": 0.0,
+    "share_midrise_other": 0.247
+   },
+   "semantic_collage_fallback_rate": 0.0,
+   "generation": {
+    "note": "pure paradigm: cached D3 unit reused verbatim (seed 0)"
+   }
+  },
+  "RES-first": {
+   "winner": "neighbourhood_unit",
+   "expected_profile": {
+    "government": 0.3756,
+    "developer_capital": 0.3507,
+    "resident_community": 0.3408,
+    "informal": 0.1399
+   },
+   "realized_readback_R0": {
+    "government": 0.257,
+    "developer_capital": 0.1419,
+    "resident_community": 0.5127,
+    "informal": 0.3144
+   },
+   "target": {
+    "government": 0.2,
+    "developer_capital": 0.2,
+    "resident_community": 0.8,
+    "informal": 0.4
+   },
+   "L1_expected_vs_target": 1.0455,
+   "L1_realized_vs_target": 0.488,
+   "L1_expected_vs_realized_gap": 0.6737,
+   "single_seed_disclosure": "realized = one seed-0 generation; no variance estimate",
+   "low_confidence_gfa_share": 0.9059,
+   "unlabeled_gfa_share": 0.0299,
+   "n_buildings_labeled": 1285,
+   "indicators": {
+    "FAR": 0.4615,
+    "coverage": 0.1534,
+    "height_p50": 9.9108,
+    "height_p90": 13.3531,
+    "median_fp_area": 94.9879,
+    "share_house": 0.8459,
+    "share_slab": 0.0544,
+    "share_tower": 0.0007,
+    "share_large_footprint": 0.0,
+    "share_midrise_other": 0.099
+   },
+   "semantic_collage_fallback_rate": 0.0,
+   "generation": {
+    "note": "pure paradigm: cached D3 unit reused verbatim (seed 0)"
+   }
+  }
+ }
+}

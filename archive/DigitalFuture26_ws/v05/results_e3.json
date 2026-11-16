@@ -1,0 +1,1122 @@
+{
+ "meta": {
+  "script": "v05/exp3_triangle.py",
+  "n_windows": 24,
+  "n_train": 18,
+  "n_heldout": 6,
+  "seed": 0,
+  "n_perm": 10000,
+  "alphas": [
+   0.1,
+   1.0,
+   10.0,
+   100.0
+  ],
+  "alpha_selection": "nested LOO on the 23 (outer-LOO) / 18 (heldout check) training points, min SSE",
+  "standardization": "StandardScaler fit inside each fold (no leakage)",
+  "type_features": "8 semantic GFA shares rescaled to shares of TOTAL window GFA + unlabeled share (sum=1)",
+  "caveats": [
+   "n=24 windows: every statistic here is small-sample; permutation p-values and LOO used throughout, but estimates remain unstable.",
+   "TYPE feature set is circular by construction (E2 profiles are GFA-weighted priors over the same semantic classes) and is reported only as a ceiling. It is not an exact ceiling: residential_estate priors are age-conditioned, and age regimes are not in the TYPE features.",
+   "POWER profiles are asserted from literature priors, not observed; this experiment tests internal recoverability, not ground truth."
+  ]
+ },
+ "correlation_screen": {
+  "government": {
+   "PC1": {
+    "rho": 0.1922,
+    "p_perm": 0.36116,
+    "bh_fdr10": false
+   },
+   "PC2": {
+    "rho": -0.5774,
+    "p_perm": 0.0051,
+    "bh_fdr10": true
+   },
+   "FAR": {
+    "rho": 0.2409,
+    "p_perm": 0.24958,
+    "bh_fdr10": false
+   },
+   "coverage": {
+    "rho": 0.6157,
+    "p_perm": 0.0021,
+    "bh_fdr10": true
+   },
+   "h_p50": {
+    "rho": -0.273,
+    "p_perm": 0.19758,
+    "bh_fdr10": false
+   },
+   "h_p90": {
+    "rho": -0.3243,
+    "p_perm": 0.12739,
+    "bh_fdr10": false
+   },
+   "median_fp": {
+    "rho": 0.0122,
+    "p_perm": 0.9568,
+    "bh_fdr10": false
+   },
+   "sh_house": {
+    "rho": 0.22,
+    "p_perm": 0.30497,
+    "bh_fdr10": false
+   },
+   "sh_slab": {
+    "rho": 0.2901,
+    "p_perm": 0.16608,
+    "bh_fdr10": false
+   },
+   "sh_tower": {
+    "rho": -0.1487,
+    "p_perm": 0.48935,
+    "bh_fdr10": false
+   },
+   "sh_large": {
+    "rho": -0.2696,
+    "p_perm": 0.20538,
+    "bh_fdr10": false
+   },
+   "sh_mid": {
+    "rho": 0.3243,
+    "p_perm": 0.12489,
+    "bh_fdr10": false
+   }
+  },
+  "developer_capital": {
+   "PC1": {
+    "rho": -0.2496,
+    "p_perm": 0.24028,
+    "bh_fdr10": false
+   },
+   "PC2": {
+    "rho": 0.6878,
+    "p_perm": 0.0006,
+    "bh_fdr10": true
+   },
+   "FAR": {
+    "rho": -0.3009,
+    "p_perm": 0.15378,
+    "bh_fdr10": false
+   },
+   "coverage": {
+    "rho": -0.6191,
+    "p_perm": 0.0021,
+    "bh_fdr10": true
+   },
+   "h_p50": {
+    "rho": 0.3896,
+    "p_perm": 0.06079,
+    "bh_fdr10": false
+   },
+   "h_p90": {
+    "rho": 0.3522,
+    "p_perm": 0.09439,
+    "bh_fdr10": false
+   },
+   "median_fp": {
+    "rho": 0.0765,
+    "p_perm": 0.72283,
+    "bh_fdr10": false
+   },
+   "sh_house": {
+    "rho": -0.3052,
+    "p_perm": 0.14399,
+    "bh_fdr10": false
+   },
+   "sh_slab": {
+    "rho": -0.2518,
+    "p_perm": 0.23188,
+    "bh_fdr10": false
+   },
+   "sh_tower": {
+    "rho": 0.1157,
+    "p_perm": 0.58284,
+    "bh_fdr10": false
+   },
+   "sh_large": {
+    "rho": 0.4304,
+    "p_perm": 0.0395,
+    "bh_fdr10": false
+   },
+   "sh_mid": {
+    "rho": -0.4591,
+    "p_perm": 0.0239,
+    "bh_fdr10": true
+   }
+  },
+  "resident_community": {
+   "PC1": {
+    "rho": -0.2791,
+    "p_perm": 0.18728,
+    "bh_fdr10": false
+   },
+   "PC2": {
+    "rho": -0.4113,
+    "p_perm": 0.0467,
+    "bh_fdr10": false
+   },
+   "FAR": {
+    "rho": -0.3243,
+    "p_perm": 0.12469,
+    "bh_fdr10": false
+   },
+   "coverage": {
+    "rho": 0.0287,
+    "p_perm": 0.89171,
+    "bh_fdr10": false
+   },
+   "h_p50": {
+    "rho": -0.4765,
+    "p_perm": 0.0194,
+    "bh_fdr10": true
+   },
+   "h_p90": {
+    "rho": -0.4739,
+    "p_perm": 0.022,
+    "bh_fdr10": true
+   },
+   "median_fp": {
+    "rho": -0.0826,
+    "p_perm": 0.69753,
+    "bh_fdr10": false
+   },
+   "sh_house": {
+    "rho": 0.4417,
+    "p_perm": 0.0323,
+    "bh_fdr10": true
+   },
+   "sh_slab": {
+    "rho": 0.2605,
+    "p_perm": 0.21548,
+    "bh_fdr10": false
+   },
+   "sh_tower": {
+    "rho": -0.4591,
+    "p_perm": 0.0252,
+    "bh_fdr10": true
+   },
+   "sh_large": {
+    "rho": -0.6783,
+    "p_perm": 0.0004,
+    "bh_fdr10": true
+   },
+   "sh_mid": {
+    "rho": 0.0791,
+    "p_perm": 0.70953,
+    "bh_fdr10": false
+   }
+  },
+  "informal": {
+   "PC1": {
+    "rho": -0.2617,
+    "p_perm": 0.21788,
+    "bh_fdr10": false
+   },
+   "PC2": {
+    "rho": -0.4678,
+    "p_perm": 0.0247,
+    "bh_fdr10": true
+   },
+   "FAR": {
+    "rho": -0.2991,
+    "p_perm": 0.15868,
+    "bh_fdr10": false
+   },
+   "coverage": {
+    "rho": 0.0696,
+    "p_perm": 0.74693,
+    "bh_fdr10": false
+   },
+   "h_p50": {
+    "rho": -0.5,
+    "p_perm": 0.0146,
+    "bh_fdr10": true
+   },
+   "h_p90": {
+    "rho": -0.4713,
+    "p_perm": 0.0231,
+    "bh_fdr10": true
+   },
+   "median_fp": {
+    "rho": -0.147,
+    "p_perm": 0.49005,
+    "bh_fdr10": false
+   },
+   "sh_house": {
+    "rho": 0.4739,
+    "p_perm": 0.0205,
+    "bh_fdr10": true
+   },
+   "sh_slab": {
+    "rho": 0.2579,
+    "p_perm": 0.22298,
+    "bh_fdr10": false
+   },
+   "sh_tower": {
+    "rho": -0.4635,
+    "p_perm": 0.0233,
+    "bh_fdr10": true
+   },
+   "sh_large": {
+    "rho": -0.587,
+    "p_perm": 0.0036,
+    "bh_fdr10": true
+   },
+   "sh_mid": {
+    "rho": 0.04,
+    "p_perm": 0.85761,
+    "bh_fdr10": false
+   }
+  }
+ },
+ "bh_fdr10_survivors": [
+  {
+   "dim": "resident_community",
+   "var": "sh_large",
+   "rho": -0.6783,
+   "p_perm": 0.0004
+  },
+  {
+   "dim": "developer_capital",
+   "var": "PC2",
+   "rho": 0.6878,
+   "p_perm": 0.0006
+  },
+  {
+   "dim": "government",
+   "var": "coverage",
+   "rho": 0.6157,
+   "p_perm": 0.0021
+  },
+  {
+   "dim": "developer_capital",
+   "var": "coverage",
+   "rho": -0.6191,
+   "p_perm": 0.0021
+  },
+  {
+   "dim": "informal",
+   "var": "sh_large",
+   "rho": -0.587,
+   "p_perm": 0.0036
+  },
+  {
+   "dim": "government",
+   "var": "PC2",
+   "rho": -0.5774,
+   "p_perm": 0.0051
+  },
+  {
+   "dim": "informal",
+   "var": "h_p50",
+   "rho": -0.5,
+   "p_perm": 0.0146
+  },
+  {
+   "dim": "resident_community",
+   "var": "h_p50",
+   "rho": -0.4765,
+   "p_perm": 0.0194
+  },
+  {
+   "dim": "informal",
+   "var": "sh_house",
+   "rho": 0.4739,
+   "p_perm": 0.0205
+  },
+  {
+   "dim": "resident_community",
+   "var": "h_p90",
+   "rho": -0.4739,
+   "p_perm": 0.022
+  },
+  {
+   "dim": "informal",
+   "var": "h_p90",
+   "rho": -0.4713,
+   "p_perm": 0.0231
+  },
+  {
+   "dim": "informal",
+   "var": "sh_tower",
+   "rho": -0.4635,
+   "p_perm": 0.0233
+  },
+  {
+   "dim": "developer_capital",
+   "var": "sh_mid",
+   "rho": -0.4591,
+   "p_perm": 0.0239
+  },
+  {
+   "dim": "informal",
+   "var": "PC2",
+   "rho": -0.4678,
+   "p_perm": 0.0247
+  },
+  {
+   "dim": "resident_community",
+   "var": "sh_tower",
+   "rho": -0.4591,
+   "p_perm": 0.0252
+  },
+  {
+   "dim": "resident_community",
+   "var": "sh_house",
+   "rho": 0.4417,
+   "p_perm": 0.0323
+  }
+ ],
+ "n_tests": 48,
+ "loo": {
+  "FORM": {
+   "government": {
+    "loo_r2": 0.1034,
+    "mae": 0.0473,
+    "alpha_mode": 10.0,
+    "alphas_used": [
+     10.0,
+     100.0
+    ]
+   },
+   "developer_capital": {
+    "loo_r2": 0.4593,
+    "mae": 0.063,
+    "alpha_mode": 10.0,
+    "alphas_used": [
+     10.0
+    ]
+   },
+   "resident_community": {
+    "loo_r2": -0.4485,
+    "mae": 0.0439,
+    "alpha_mode": 10.0,
+    "alphas_used": [
+     0.1,
+     1.0,
+     10.0
+    ]
+   },
+   "informal": {
+    "loo_r2": -2.2399,
+    "mae": 0.015,
+    "alpha_mode": 100.0,
+    "alphas_used": [
+     1.0,
+     10.0,
+     100.0
+    ]
+   }
+  },
+  "TYPE": {
+   "government": {
+    "loo_r2": -0.2267,
+    "mae": 0.0535,
+    "alpha_mode": 100.0,
+    "alphas_used": [
+     10.0,
+     100.0
+    ]
+   },
+   "developer_capital": {
+    "loo_r2": 0.0349,
+    "mae": 0.0776,
+    "alpha_mode": 100.0,
+    "alphas_used": [
+     10.0,
+     100.0
+    ]
+   },
+   "resident_community": {
+    "loo_r2": 0.9621,
+    "mae": 0.0093,
+    "alpha_mode": 1.0,
+    "alphas_used": [
+     0.1,
+     1.0
+    ]
+   },
+   "informal": {
+    "loo_r2": 0.824,
+    "mae": 0.0022,
+    "alpha_mode": 0.1,
+    "alphas_used": [
+     0.1,
+     1.0
+    ]
+   }
+  },
+  "BOTH": {
+   "government": {
+    "loo_r2": -0.2086,
+    "mae": 0.0461,
+    "alpha_mode": 1.0,
+    "alphas_used": [
+     0.1,
+     1.0,
+     10.0
+    ]
+   },
+   "developer_capital": {
+    "loo_r2": 0.3317,
+    "mae": 0.0707,
+    "alpha_mode": 10.0,
+    "alphas_used": [
+     0.1,
+     1.0,
+     10.0
+    ]
+   },
+   "resident_community": {
+    "loo_r2": 0.828,
+    "mae": 0.0143,
+    "alpha_mode": 1.0,
+    "alphas_used": [
+     0.1,
+     1.0,
+     10.0
+    ]
+   },
+   "informal": {
+    "loo_r2": 0.7537,
+    "mae": 0.0035,
+    "alpha_mode": 0.1,
+    "alphas_used": [
+     0.1
+    ]
+   }
+  }
+ },
+ "loo_form_predictions": {
+  "A01": {
+   "government": 0.4119,
+   "developer_capital": 0.622,
+   "resident_community": 0.1725,
+   "informal": 0.034
+  },
+  "A02": {
+   "government": 0.4582,
+   "developer_capital": 0.4575,
+   "resident_community": 0.2149,
+   "informal": 0.0383
+  },
+  "A04": {
+   "government": 0.3881,
+   "developer_capital": 0.5443,
+   "resident_community": 0.1989,
+   "informal": 0.0369
+  },
+  "A07": {
+   "government": 0.3998,
+   "developer_capital": 0.6021,
+   "resident_community": 0.1622,
+   "informal": 0.036
+  },
+  "A09": {
+   "government": 0.4747,
+   "developer_capital": 0.3941,
+   "resident_community": 0.2611,
+   "informal": 0.0444
+  },
+  "A10": {
+   "government": 0.5004,
+   "developer_capital": 0.3423,
+   "resident_community": 0.2803,
+   "informal": 0.0459
+  },
+  "A13": {
+   "government": 0.4548,
+   "developer_capital": 0.4589,
+   "resident_community": 0.2386,
+   "informal": 0.0427
+  },
+  "A17": {
+   "government": 0.4493,
+   "developer_capital": 0.4423,
+   "resident_community": 0.2683,
+   "informal": 0.0438
+  },
+  "A19": {
+   "government": 0.4226,
+   "developer_capital": 0.4956,
+   "resident_community": 0.2586,
+   "informal": 0.042
+  },
+  "A20": {
+   "government": 0.4531,
+   "developer_capital": 0.4474,
+   "resident_community": 0.2539,
+   "informal": 0.043
+  },
+  "A21": {
+   "government": 0.4637,
+   "developer_capital": 0.4365,
+   "resident_community": 0.2677,
+   "informal": 0.043
+  },
+  "A26": {
+   "government": 0.4533,
+   "developer_capital": 0.4439,
+   "resident_community": 0.2694,
+   "informal": 0.0442
+  },
+  "A27": {
+   "government": 0.4099,
+   "developer_capital": 0.6364,
+   "resident_community": 0.1196,
+   "informal": 0.0347
+  },
+  "A29": {
+   "government": 0.4815,
+   "developer_capital": 0.4789,
+   "resident_community": 0.2218,
+   "informal": 0.0393
+  },
+  "A32": {
+   "government": 0.4054,
+   "developer_capital": 0.3977,
+   "resident_community": 0.6055,
+   "informal": 0.169
+  },
+  "A33": {
+   "government": 0.4191,
+   "developer_capital": 0.5298,
+   "resident_community": 0.202,
+   "informal": 0.0378
+  },
+  "A35": {
+   "government": 0.4721,
+   "developer_capital": 0.4013,
+   "resident_community": 0.2712,
+   "informal": 0.0454
+  },
+  "A36": {
+   "government": 0.4166,
+   "developer_capital": 0.5006,
+   "resident_community": 0.2371,
+   "informal": 0.0426
+  },
+  "A39": {
+   "government": 0.4836,
+   "developer_capital": 0.3993,
+   "resident_community": 0.2506,
+   "informal": 0.0443
+  },
+  "A41": {
+   "government": 0.4355,
+   "developer_capital": 0.5031,
+   "resident_community": 0.2536,
+   "informal": 0.0414
+  },
+  "A43": {
+   "government": 0.4494,
+   "developer_capital": 0.4616,
+   "resident_community": 0.255,
+   "informal": 0.0438
+  },
+  "A45": {
+   "government": 0.4579,
+   "developer_capital": 0.4315,
+   "resident_community": 0.2646,
+   "informal": 0.0448
+  },
+  "A47": {
+   "government": 0.3866,
+   "developer_capital": 0.5663,
+   "resident_community": 0.203,
+   "informal": 0.046
+  },
+  "A49": {
+   "government": 0.4627,
+   "developer_capital": 0.4345,
+   "resident_community": 0.2355,
+   "informal": 0.0437
+  }
+ },
+ "heldout_check": {
+  "FORM": {
+   "government": {
+    "alpha": 10.0,
+    "mae": 0.0692,
+    "r2_heldout_n6_unstable": 0.2064,
+    "per_window": {
+     "A02": {
+      "actual": 0.4147,
+      "pred": 0.4602,
+      "error": -0.0455
+     },
+     "A07": {
+      "actual": 0.2875,
+      "pred": 0.4061,
+      "error": -0.1186
+     },
+     "A20": {
+      "actual": 0.3854,
+      "pred": 0.4484,
+      "error": -0.063
+     },
+     "A29": {
+      "actual": 0.4169,
+      "pred": 0.4612,
+      "error": -0.0443
+     },
+     "A35": {
+      "actual": 0.4678,
+      "pred": 0.4659,
+      "error": 0.0019
+     },
+     "A43": {
+      "actual": 0.6003,
+      "pred": 0.4586,
+      "error": 0.1417
+     }
+    }
+   },
+   "developer_capital": {
+    "alpha": 1.0,
+    "mae": 0.0886,
+    "r2_heldout_n6_unstable": 0.306,
+    "per_window": {
+     "A02": {
+      "actual": 0.4969,
+      "pred": 0.4497,
+      "error": 0.0472
+     },
+     "A07": {
+      "actual": 0.6701,
+      "pred": 0.589,
+      "error": 0.0811
+     },
+     "A20": {
+      "actual": 0.5603,
+      "pred": 0.4726,
+      "error": 0.0877
+     },
+     "A29": {
+      "actual": 0.4791,
+      "pred": 0.5032,
+      "error": -0.0241
+     },
+     "A35": {
+      "actual": 0.4635,
+      "pred": 0.3863,
+      "error": 0.0772
+     },
+     "A43": {
+      "actual": 0.2422,
+      "pred": 0.4567,
+      "error": -0.2145
+     }
+    }
+   },
+   "resident_community": {
+    "alpha": 10.0,
+    "mae": 0.0234,
+    "r2_heldout_n6_unstable": 0.664,
+    "per_window": {
+     "A02": {
+      "actual": 0.2066,
+      "pred": 0.2189,
+      "error": -0.0123
+     },
+     "A07": {
+      "actual": 0.1418,
+      "pred": 0.163,
+      "error": -0.0212
+     },
+     "A20": {
+      "actual": 0.2776,
+      "pred": 0.2543,
+      "error": 0.0233
+     },
+     "A29": {
+      "actual": 0.253,
+      "pred": 0.2242,
+      "error": 0.0288
+     },
+     "A35": {
+      "actual": 0.2331,
+      "pred": 0.2707,
+      "error": -0.0376
+     },
+     "A43": {
+      "actual": 0.2344,
+      "pred": 0.2517,
+      "error": -0.0173
+     }
+    }
+   },
+   "informal": {
+    "alpha": 100.0,
+    "mae": 0.0059,
+    "r2_heldout_n6_unstable": 0.0137,
+    "per_window": {
+     "A02": {
+      "actual": 0.0342,
+      "pred": 0.0395,
+      "error": -0.0053
+     },
+     "A07": {
+      "actual": 0.03,
+      "pred": 0.0369,
+      "error": -0.0069
+     },
+     "A20": {
+      "actual": 0.049,
+      "pred": 0.0439,
+      "error": 0.0051
+     },
+     "A29": {
+      "actual": 0.0431,
+      "pred": 0.0406,
+      "error": 0.0025
+     },
+     "A35": {
+      "actual": 0.039,
+      "pred": 0.0458,
+      "error": -0.0068
+     },
+     "A43": {
+      "actual": 0.0353,
+      "pred": 0.0439,
+      "error": -0.0086
+     }
+    }
+   }
+  },
+  "TYPE": {
+   "government": {
+    "alpha": 100.0,
+    "mae": 0.0677,
+    "r2_heldout_n6_unstable": 0.2349,
+    "per_window": {
+     "A02": {
+      "actual": 0.4147,
+      "pred": 0.4398,
+      "error": -0.0251
+     },
+     "A07": {
+      "actual": 0.2875,
+      "pred": 0.4293,
+      "error": -0.1418
+     },
+     "A20": {
+      "actual": 0.3854,
+      "pred": 0.4449,
+      "error": -0.0595
+     },
+     "A29": {
+      "actual": 0.4169,
+      "pred": 0.4523,
+      "error": -0.0354
+     },
+     "A35": {
+      "actual": 0.4678,
+      "pred": 0.4438,
+      "error": 0.024
+     },
+     "A43": {
+      "actual": 0.6003,
+      "pred": 0.4797,
+      "error": 0.1206
+     }
+    }
+   },
+   "developer_capital": {
+    "alpha": 100.0,
+    "mae": 0.0764,
+    "r2_heldout_n6_unstable": 0.3892,
+    "per_window": {
+     "A02": {
+      "actual": 0.4969,
+      "pred": 0.4931,
+      "error": 0.0038
+     },
+     "A07": {
+      "actual": 0.6701,
+      "pred": 0.5247,
+      "error": 0.1454
+     },
+     "A20": {
+      "actual": 0.5603,
+      "pred": 0.4598,
+      "error": 0.1005
+     },
+     "A29": {
+      "actual": 0.4791,
+      "pred": 0.4528,
+      "error": 0.0263
+     },
+     "A35": {
+      "actual": 0.4635,
+      "pred": 0.4766,
+      "error": -0.0131
+     },
+     "A43": {
+      "actual": 0.2422,
+      "pred": 0.4115,
+      "error": -0.1693
+     }
+    }
+   },
+   "resident_community": {
+    "alpha": 1.0,
+    "mae": 0.01,
+    "r2_heldout_n6_unstable": 0.9108,
+    "per_window": {
+     "A02": {
+      "actual": 0.2066,
+      "pred": 0.2067,
+      "error": -0.0001
+     },
+     "A07": {
+      "actual": 0.1418,
+      "pred": 0.1594,
+      "error": -0.0176
+     },
+     "A20": {
+      "actual": 0.2776,
+      "pred": 0.2905,
+      "error": -0.0129
+     },
+     "A29": {
+      "actual": 0.253,
+      "pred": 0.2748,
+      "error": -0.0218
+     },
+     "A35": {
+      "actual": 0.2331,
+      "pred": 0.2301,
+      "error": 0.003
+     },
+     "A43": {
+      "actual": 0.2344,
+      "pred": 0.2391,
+      "error": -0.0047
+     }
+    }
+   },
+   "informal": {
+    "alpha": 0.1,
+    "mae": 0.0006,
+    "r2_heldout_n6_unstable": 0.9882,
+    "per_window": {
+     "A02": {
+      "actual": 0.0342,
+      "pred": 0.0341,
+      "error": 0.0001
+     },
+     "A07": {
+      "actual": 0.03,
+      "pred": 0.0294,
+      "error": 0.0006
+     },
+     "A20": {
+      "actual": 0.049,
+      "pred": 0.05,
+      "error": -0.001
+     },
+     "A29": {
+      "actual": 0.0431,
+      "pred": 0.0429,
+      "error": 0.0002
+     },
+     "A35": {
+      "actual": 0.039,
+      "pred": 0.0381,
+      "error": 0.0009
+     },
+     "A43": {
+      "actual": 0.0353,
+      "pred": 0.0346,
+      "error": 0.0007
+     }
+    }
+   }
+  },
+  "BOTH": {
+   "government": {
+    "alpha": 100.0,
+    "mae": 0.0669,
+    "r2_heldout_n6_unstable": 0.2626,
+    "per_window": {
+     "A02": {
+      "actual": 0.4147,
+      "pred": 0.4448,
+      "error": -0.0301
+     },
+     "A07": {
+      "actual": 0.2875,
+      "pred": 0.4193,
+      "error": -0.1318
+     },
+     "A20": {
+      "actual": 0.3854,
+      "pred": 0.4466,
+      "error": -0.0612
+     },
+     "A29": {
+      "actual": 0.4169,
+      "pred": 0.4531,
+      "error": -0.0362
+     },
+     "A35": {
+      "actual": 0.4678,
+      "pred": 0.4505,
+      "error": 0.0173
+     },
+     "A43": {
+      "actual": 0.6003,
+      "pred": 0.4756,
+      "error": 0.1247
+     }
+    }
+   },
+   "developer_capital": {
+    "alpha": 10.0,
+    "mae": 0.0624,
+    "r2_heldout_n6_unstable": 0.5789,
+    "per_window": {
+     "A02": {
+      "actual": 0.4969,
+      "pred": 0.4881,
+      "error": 0.0088
+     },
+     "A07": {
+      "actual": 0.6701,
+      "pred": 0.6367,
+      "error": 0.0334
+     },
+     "A20": {
+      "actual": 0.5603,
+      "pred": 0.4382,
+      "error": 0.1221
+     },
+     "A29": {
+      "actual": 0.4791,
+      "pred": 0.4524,
+      "error": 0.0267
+     },
+     "A35": {
+      "actual": 0.4635,
+      "pred": 0.4358,
+      "error": 0.0277
+     },
+     "A43": {
+      "actual": 0.2422,
+      "pred": 0.3982,
+      "error": -0.156
+     }
+    }
+   },
+   "resident_community": {
+    "alpha": 1.0,
+    "mae": 0.0109,
+    "r2_heldout_n6_unstable": 0.9001,
+    "per_window": {
+     "A02": {
+      "actual": 0.2066,
+      "pred": 0.1948,
+      "error": 0.0118
+     },
+     "A07": {
+      "actual": 0.1418,
+      "pred": 0.1165,
+      "error": 0.0253
+     },
+     "A20": {
+      "actual": 0.2776,
+      "pred": 0.2922,
+      "error": -0.0146
+     },
+     "A29": {
+      "actual": 0.253,
+      "pred": 0.2514,
+      "error": 0.0016
+     },
+     "A35": {
+      "actual": 0.2331,
+      "pred": 0.2426,
+      "error": -0.0095
+     },
+     "A43": {
+      "actual": 0.2344,
+      "pred": 0.2319,
+      "error": 0.0025
+     }
+    }
+   },
+   "informal": {
+    "alpha": 0.1,
+    "mae": 0.0029,
+    "r2_heldout_n6_unstable": 0.7398,
+    "per_window": {
+     "A02": {
+      "actual": 0.0342,
+      "pred": 0.0304,
+      "error": 0.0038
+     },
+     "A07": {
+      "actual": 0.03,
+      "pred": 0.0255,
+      "error": 0.0045
+     },
+     "A20": {
+      "actual": 0.049,
+      "pred": 0.0519,
+      "error": -0.0029
+     },
+     "A29": {
+      "actual": 0.0431,
+      "pred": 0.0396,
+      "error": 0.0035
+     },
+     "A35": {
+      "actual": 0.039,
+      "pred": 0.0383,
+      "error": 0.0007
+     },
+     "A43": {
+      "actual": 0.0353,
+      "pred": 0.0374,
+      "error": -0.0021
+     }
+    }
+   }
+  }
+ },
+ "sensitivity_form_loo_excl_zero_age": {
+  "government": {
+   "loo_r2": -0.0699,
+   "mae": 0.0559,
+   "n": 20,
+   "excluded": [
+    "A29",
+    "A32",
+    "A33",
+    "A41"
+   ]
+  },
+  "developer_capital": {
+   "loo_r2": 0.4606,
+   "mae": 0.0683,
+   "n": 20,
+   "excluded": [
+    "A29",
+    "A32",
+    "A33",
+    "A41"
+   ]
+  }
+ },
+ "findings": [
+  "Screen: 16/48 power-dim x form-variable Spearman tests survive BH FDR 0.10. The gov/dev axis is carried by PC2 and coverage, NOT PC1 as hypothesized: developer_capital vs PC2 rho=+0.688 (p=0.0006), vs coverage rho=-0.619; government vs coverage rho=+0.616, vs PC2 rho=-0.577. Developer-weighted windows are sparse-spike low-coverage fabrics; government-weighted windows are dense-mat high-coverage fabrics. PC1 (intensity) never exceeds |rho|=0.31 with any power dim.",
+  "LOO FORM-only: developer_capital is the only well-recovered dim (R2=+0.46, MAE 0.063); government barely (R2=+0.10); resident_community FAILS as point prediction (R2=-0.45) despite strong rank correlations (sh_large rho=-0.678 was the single strongest screen result); informal collapses (R2=-2.24) \u2014 but its target sd is only 0.016 (range 0.008-0.088), so MAE is still just 0.015. Monotone association without point-predictability = the form signal exists but is shared with non-informal lowrise, exactly as the priors' design implies.",
+  "SURPRISE \u2014 TYPE is NOT a ceiling for gov/dev: TYPE-only LOO R2 = -0.23 (government) and +0.04 (developer) vs FORM's +0.10 and +0.46. Reason: gov/dev profile variance is dominated by the AGE-conditioned residential_estate priors (pre1985 gov-heavy vs post1998 dev-heavy), and age regimes are absent from type shares. FORM (heights, towers, PC2) partially proxies construction era, so form beats the very type composition the profiles were built from. The circular ceiling holds only for the age-independent dims: resident_community R2=0.96, informal R2=0.82.",
+  "BOTH never beats the best single set (gov -0.21, dev +0.33, res +0.83, inf +0.75): at n=24 with 19 features, adding the weaker block dilutes the stronger one despite ridge regularization.",
+  "Train(18)->heldout(6): FORM MAE gov 0.069 / dev 0.089 / res 0.023 / inf 0.006. Largest errors are regression-to-the-mean at the extremes: A43 Liangcheng (most gov-dominant, 0.600) predicted 0.459; its developer weight (actual 0.242, the minimum) predicted 0.457 (error -0.215). A07 Bund (lowest gov, 0.288) overpredicted at 0.406.",
+  "Caveat inherited from E2: 4 of 5 zero-age suburbs (A29,A32,A33,A41) carry artifactual no_age-fallback gov/dev targets (low-confidence GFA shares 0.73-0.96), adding noise to the regression TARGET itself. Sensitivity LOO on the remaining 20 windows: developer_capital is ROBUST (R2=+0.461 vs +0.459 at n=24), but government FLIPS NEGATIVE (R2=-0.070 vs +0.103) \u2014 government's apparent weak recoverability does not survive removing the artifact targets. Only developer_capital is robustly form-recoverable."
+ ]
+}

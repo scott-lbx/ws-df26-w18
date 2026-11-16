@@ -1,0 +1,9 @@
+{
+  "task": "v05 methodology diagrams",
+  "figures": [
+    "/Users/jinbao/Projects/Urban-Stakeholder-Workshop/typology_foundation/v05/fig/fig_d1_triangle.png",
+    "/Users/jinbao/Projects/Urban-Stakeholder-Workshop/typology_foundation/v05/fig/fig_d2_pipeline.png",
+    "/Users/jinbao/Projects/Urban-Stakeholder-Workshop/typology_foundation/v05/fig/fig_d3_twolayer.png"
+  ],
+  "note": "pure drawing; all quoted numbers come from v03/v04/probe upstream results, none computed here"
+}

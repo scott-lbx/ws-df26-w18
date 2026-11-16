@@ -1,0 +1,1669 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Circular Urban AI 工作坊重新設計 — DigitalFUTURES 2026</title>
+<style>
+  /* ===== 全域調色盤(BRIEF house style)===== */
+  :root{
+    --ink:#1a1d23; --muted:#6b7280; --line:#e5e7eb; --bg:#fafaf8; --card:#fff;
+    --accent:#0f5e63; --accent2:#b45309; --warn:#9f1239;
+    --state:#4a6fa5; --dev:#c0654a; --comm:#5a9367; --inf:#c2a23c;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font:15.5px/1.7 "Avenir Next","PingFang TC","Noto Sans TC",system-ui,-apple-system,sans-serif;
+  }
+  .wrap{max-width:1000px; margin:0 auto; padding:46px 28px 90px;}
+
+  /* ---- 標題頁 ---- */
+  header.cover{border-bottom:3px solid var(--ink); padding-bottom:26px; margin-bottom:8px;}
+  .kicker{font-size:12.5px; letter-spacing:.18em; color:var(--accent); font-weight:700; text-transform:uppercase;}
+  h1{font-size:31px; line-height:1.28; margin:10px 0 8px;}
+  h1 .sub{display:block; font-size:18px; color:var(--muted); font-weight:600; margin-top:6px;}
+  .meta{color:var(--muted); font-size:13.5px; margin-top:8px;}
+  .lead{font-size:16.5px; color:#2a2e36; margin:20px 0;}
+
+  /* ---- 章節標題 ---- */
+  h2{font-size:22px; margin:60px 0 14px; padding:6px 0 6px 16px; border-left:5px solid var(--accent); line-height:1.3;}
+  h2 .no{color:var(--accent); font-family:Georgia,"Times New Roman",serif; margin-right:10px; font-weight:700;}
+  h3{font-size:17.5px; margin:34px 0 8px; color:var(--accent2);}
+  h4{font-size:15.5px; margin:22px 0 6px; color:var(--ink); font-weight:700;}
+  p{margin:11px 0;}
+  ul,ol{margin:10px 0; padding-left:26px;}
+  li{margin:6px 0;}
+  a{color:var(--accent); text-decoration:none; border-bottom:1px solid rgba(15,94,99,.3);}
+  a:hover{border-bottom-color:var(--accent);}
+
+  /* ---- 行內元素 ---- */
+  code{background:#f0ede7; padding:1.5px 6px; border-radius:4px; font-size:12.8px;
+       font-family:"SF Mono",Menlo,Consolas,monospace; color:#3a3a3a; word-break:break-word;}
+  strong,b{color:var(--ink);}
+
+  /* ---- 表格 ---- */
+  .tbl-scroll{overflow-x:auto; margin:16px 0;}
+  table{border-collapse:collapse; width:100%; font-size:13.5px; background:var(--card);}
+  th{background:#f1f3f1; text-align:left; font-weight:700; color:var(--ink);}
+  th,td{border:1px solid var(--line); padding:8px 11px; vertical-align:top; line-height:1.55;}
+  tr:nth-child(even) td{background:#fbfbf9;}
+
+  /* ---- blockquote / 引言框 ---- */
+  blockquote{margin:18px 0; padding:13px 20px; background:#f0f7f6; border-left:4px solid var(--accent);
+             border-radius:0 8px 8px 0; color:#22343a; font-size:15px;}
+  blockquote.warn{background:#fdf2f4; border-left-color:var(--warn); color:#4a1620;}
+  blockquote p{margin:6px 0;}
+  blockquote strong{color:inherit;}
+
+  /* ---- 卡片 / 專欄 ---- */
+  .box{background:var(--card); border:1px solid var(--line); border-left:4px solid var(--accent2);
+       border-radius:6px; padding:14px 20px; margin:18px 0;}
+  .box.warn{border-left-color:var(--warn);}
+  .box.key{border-left-color:var(--accent);}
+  .box .t{font-weight:700; font-size:12.5px; letter-spacing:.06em; color:var(--muted); text-transform:uppercase; margin-bottom:4px;}
+
+  /* ---- 摘要統計 ---- */
+  .stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:11px; margin:24px 0;}
+  .stat{background:var(--card); border:1px solid var(--line); border-radius:8px; padding:13px 15px;}
+  .stat .n{font-size:20px; font-weight:800; color:var(--accent); font-family:Georgia,serif; line-height:1.1;}
+  .stat .l{font-size:12px; color:var(--muted); line-height:1.45; margin-top:5px;}
+
+  /* ---- 四派系色票 ---- */
+  .fac{display:inline-block; padding:1px 9px; border-radius:20px; font-size:12px; font-weight:700; color:#fff; white-space:nowrap;}
+  .fac.state{background:var(--state);} .fac.dev{background:var(--dev);}
+  .fac.comm{background:var(--comm);} .fac.inf{background:var(--inf);}
+
+  /* ---- 目錄 ---- */
+  .toc{background:#f1f3f1; border:1px solid var(--line); border-radius:8px; padding:18px 26px; margin:28px 0;}
+  .toc b{display:block; margin-bottom:8px; font-size:13px; letter-spacing:.06em; color:var(--muted); text-transform:uppercase;}
+  .toc ol{margin:4px 0; padding-left:22px;}
+  .toc a{border-bottom:none;}
+  .toc a:hover{border-bottom:1px solid var(--accent);}
+
+  /* ---- ASCII 圖 ---- */
+  pre.ascii{background:#1f2228; color:#e6e4dc; padding:18px 20px; border-radius:8px; overflow-x:auto;
+            font-size:11.5px; line-height:1.5; font-family:"SF Mono",Menlo,Consolas,monospace; margin:18px 0;}
+
+  /* ---- 鐵律列表 ---- */
+  .laws{counter-reset:law; list-style:none; padding-left:0;}
+  .laws>li{position:relative; padding:12px 16px 12px 52px; margin:12px 0; background:var(--card);
+           border:1px solid var(--line); border-radius:8px;}
+  .laws>li::before{counter-increment:law; content:counter(law); position:absolute; left:14px; top:13px;
+                   width:26px; height:26px; border-radius:50%; background:var(--warn); color:#fff;
+                   font-weight:800; font-size:14px; display:flex; align-items:center; justify-content:center;}
+
+  /* ---- footer ---- */
+  footer{font-size:12.5px; color:var(--muted); border-top:1px solid var(--line); margin-top:60px; padding-top:18px; line-height:1.7;}
+
+  .note{font-size:13px; color:var(--muted);}
+  .divider{border:0; border-top:1px dashed var(--line); margin:30px 0;}
+
+  /* ===================================================================
+     WIDGET-1 styles (class 前綴 wall-)
+     =================================================================== */
+.wall-root{
+  --ink:#1a1d23; --muted:#6b7280; --line:#e5e7eb; --bg:#fafaf8; --card:#fff;
+  --accent:#0f5e63; --accent2:#b45309; --warn:#9f1239;
+  --state:#4a6fa5; --dev:#c0654a; --comm:#5a9367; --inf:#c2a23c;
+  font:15.5px/1.7 "Avenir Next","PingFang TC","Noto Sans TC",system-ui;
+  color:var(--ink); background:var(--bg);
+  border:1px solid var(--line); border-radius:12px; padding:22px 24px; max-width:980px; margin:18px auto;
+  box-sizing:border-box;
+}
+.wall-root *{box-sizing:border-box;}
+.wall-h{font-size:20px; font-weight:700; margin:0 0 4px; letter-spacing:.2px;}
+.wall-sub{color:var(--muted); margin:0 0 14px; font-size:13.5px;}
+.wall-demoflag{
+  display:inline-block; font-size:12px; color:var(--accent2);
+  background:#fff7ed; border:1px solid #fed7aa; border-radius:6px; padding:2px 9px; margin-bottom:14px;
+}
+.wall-modebar{display:flex; gap:0; margin:0 0 16px; border:1px solid var(--line); border-radius:10px; overflow:hidden; background:var(--card);}
+.wall-mode{
+  flex:1; padding:11px 12px; border:none; background:transparent; cursor:pointer;
+  font:inherit; font-size:14px; color:var(--muted); text-align:center; transition:.18s; border-right:1px solid var(--line);
+}
+.wall-mode:last-child{border-right:none;}
+.wall-mode .wall-modet{font-weight:700; color:var(--ink); display:block;}
+.wall-mode.wall-on{background:#f0f7f6;}
+.wall-mode.wall-on.wall-form .wall-modet{color:var(--warn);}
+.wall-mode.wall-on.wall-meta .wall-modet{color:var(--accent);}
+.wall-mode.wall-on{box-shadow:inset 0 -3px 0 currentColor;}
+.wall-mode.wall-on.wall-form{box-shadow:inset 0 -3px 0 var(--warn);}
+.wall-mode.wall-on.wall-meta{box-shadow:inset 0 -3px 0 var(--accent);}
+
+.wall-readout{
+  display:flex; flex-wrap:wrap; align-items:center; gap:18px;
+  background:var(--card); border:1px solid var(--line); border-radius:10px; padding:14px 18px; margin-bottom:16px;
+}
+.wall-acc{display:flex; align-items:baseline; gap:8px;}
+.wall-accnum{font-size:34px; font-weight:800; line-height:1; font-variant-numeric:tabular-nums;}
+.wall-accnum.wall-low{color:var(--warn);}
+.wall-accnum.wall-high{color:var(--accent);}
+.wall-acclbl{font-size:13px; color:var(--muted);}
+.wall-bar{flex:1; min-width:160px; height:12px; background:#eef0ee; border-radius:6px; overflow:hidden; position:relative;}
+.wall-barfill{height:100%; width:0; transition:width .5s ease; border-radius:6px;}
+.wall-barfill.wall-low{background:var(--warn);}
+.wall-barfill.wall-high{background:var(--accent);}
+.wall-baseline{position:absolute; top:-3px; bottom:-3px; width:2px; background:var(--ink); opacity:.55;}
+.wall-baselbl{position:absolute; top:-18px; transform:translateX(-50%); font-size:10.5px; color:var(--muted); white-space:nowrap;}
+.wall-task{font-size:13px; color:var(--muted);}
+.wall-task b{color:var(--ink);}
+
+.wall-v05{
+  font-size:12.5px; color:var(--muted); background:#f6f7f6; border:1px dashed var(--line);
+  border-radius:8px; padding:9px 13px; margin-bottom:16px; line-height:1.6;
+}
+.wall-v05 b{color:var(--ink);} .wall-v05 .wall-r{color:var(--warn); font-weight:700;}
+
+.wall-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(168px,1fr)); gap:11px;}
+.wall-cell{
+  background:var(--card); border:1px solid var(--line); border-radius:10px; padding:11px 12px;
+  position:relative; transition:.2s; overflow:hidden;
+}
+.wall-cell .wall-shape{
+  height:46px; display:flex; align-items:flex-end; justify-content:center; gap:3px; margin-bottom:8px;
+}
+.wall-bk{background:var(--muted); border-radius:2px 2px 0 0; transition:.25s;}
+.wall-nm{font-size:12.5px; font-weight:700; line-height:1.35; min-height:34px;}
+.wall-meta-row{font-size:11px; color:var(--muted); margin-top:3px; line-height:1.45;}
+.wall-meta-row span{color:var(--ink);}
+.wall-verdict{
+  margin-top:9px; padding-top:8px; border-top:1px solid var(--line);
+  font-size:12px; display:flex; align-items:center; gap:6px;
+}
+.wall-tag{display:inline-block; padding:1px 8px; border-radius:20px; font-size:11.5px; font-weight:700; color:#fff; white-space:nowrap;}
+.wall-truth{font-size:11px; color:var(--muted); margin-top:5px;}
+.wall-truth b{color:var(--ink);}
+.wall-icon{font-size:13px; font-weight:800;}
+.wall-icon.wall-ok{color:var(--accent);}
+.wall-icon.wall-no{color:var(--warn);}
+.wall-cell.wall-wrong{background:#fff5f6; border-color:#fbcfe1;}
+.wall-cell.wall-right{background:#f1f8f5; border-color:#bfe3cf;}
+.wall-foot{font-size:11.5px; color:var(--muted); margin-top:16px; line-height:1.6;}
+.wall-foot code{background:#f0f0ee; padding:1px 5px; border-radius:4px; font-size:11px;}
+
+  /* ===================================================================
+     WIDGET-2 styles (class 前綴 game-)
+     =================================================================== */
+/* ===== Widget-2:博弈棋盤 + 讀回裁判(class 前綴 game-)===== */
+.game-wrap{--state:#4a6fa5;--dev:#c0654a;--comm:#5a9367;--inf:#c2a23c;
+  --ink:#1a1d23;--muted:#6b7280;--line:#e5e7eb;--bg:#fafaf8;--card:#fff;
+  --accent:#0f5e63;--accent2:#b45309;--warn:#9f1239;
+  background:var(--card);border:2px solid var(--ink);border-radius:12px;overflow:hidden;
+  font:15.5px/1.7 "Avenir Next","PingFang TC","Noto Sans TC",system-ui,sans-serif;
+  color:var(--ink);max-width:1120px;margin:22px auto;}
+.game-head{padding:13px 18px;background:#f4f5f3;border-bottom:1px solid var(--line);}
+.game-head h3{margin:0 0 2px;font-size:16px;color:var(--accent);}
+.game-head .game-note{font-size:12px;color:var(--muted);}
+.game-body{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(280px,1fr);gap:0;}
+@media(max-width:860px){.game-body{grid-template-columns:1fr;}}
+.game-left{padding:14px 16px;border-right:1px solid var(--line);}
+@media(max-width:860px){.game-left{border-right:none;border-bottom:1px solid var(--line);}}
+.game-right{padding:14px 16px;background:#fcfcfb;}
+
+/* toolbar */
+.game-bar{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;margin-bottom:10px;font-size:12.5px;}
+.game-bar label{color:var(--muted);margin-right:3px;}
+.game-bar select{font:inherit;font-size:12.5px;padding:3px 6px;border:1px solid #cdd2d6;border-radius:6px;background:#fff;}
+.game-seg{display:inline-flex;border:1px solid #cdd2d6;border-radius:7px;overflow:hidden;}
+.game-seg button{font:inherit;font-size:12px;padding:4px 9px;border:none;background:#fff;cursor:pointer;color:var(--muted);border-right:1px solid #e3e6e8;}
+.game-seg button:last-child{border-right:none;}
+.game-seg button.on{color:#fff;}
+.game-seg button.on.game-as{background:var(--state);} .game-seg button.on.game-ad{background:var(--dev);}
+.game-seg button.on.game-ac{background:var(--comm);} .game-seg button.on.game-ai{background:var(--inf);}
+.game-seg button.on.game-mode{background:var(--accent);}
+.game-btn{font:inherit;font-size:12px;padding:4px 11px;border-radius:7px;border:1px solid #cdd2d6;background:#fff;cursor:pointer;}
+.game-btn:hover{background:#f1f3f4;}
+.game-btn.game-primary{background:var(--accent);color:#fff;border-color:var(--accent);}
+.game-btn.game-primary:hover{background:#0b4a4e;}
+
+/* canvas */
+.game-canvas-box{position:relative;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#f0efe9;}
+.game-canvas-box canvas{display:block;width:100%;height:auto;cursor:crosshair;}
+.game-stamp{position:absolute;left:8px;bottom:7px;font-size:11px;color:#6b7280;background:rgba(255,255,255,.78);
+  padding:2px 8px;border-radius:5px;letter-spacing:.02em;}
+
+/* mode hint + use picker */
+.game-hint{font-size:12px;color:var(--muted);margin:8px 2px 0;}
+.game-uses{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;}
+.game-uses button{font:inherit;font-size:11.5px;padding:3px 8px;border-radius:6px;border:1px solid var(--line);
+  background:#fff;cursor:pointer;display:flex;align-items:center;gap:5px;}
+.game-uses button .game-sw{width:11px;height:11px;border-radius:3px;display:inline-block;}
+.game-uses button.on{outline:2px solid var(--ink);outline-offset:0;}
+
+/* sliders */
+.game-slid{margin-top:10px;}
+.game-slid .game-row{display:flex;align-items:center;gap:9px;margin:5px 0;font-size:12.5px;}
+.game-slid .game-row .game-lab{width:128px;color:var(--muted);}
+.game-slid .game-row .game-lab b{color:var(--ink);font-weight:700;}
+.game-slid input[type=range]{flex:1;accent-color:var(--accent);}
+.game-slid .game-val{width:54px;text-align:right;font-variant-numeric:tabular-nums;}
+
+/* readback panel */
+.game-panel h4{font-size:13px;margin:0 0 6px;color:var(--accent);letter-spacing:.02em;}
+.game-panel h4:not(:first-child){margin-top:16px;}
+.game-bars{margin:2px 0 4px;}
+.game-bar-row{display:flex;align-items:center;gap:8px;margin:4px 0;font-size:12px;}
+.game-bar-row .game-tag{width:74px;color:var(--muted);}
+.game-bar-row .game-track{flex:1;height:15px;background:#eef0f1;border-radius:5px;overflow:hidden;}
+.game-bar-row .game-fill{height:100%;border-radius:5px;transition:width .25s;}
+.game-bar-row .game-pct{width:46px;text-align:right;font-variant-numeric:tabular-nums;}
+.game-fs{background:var(--state)} .game-fd{background:var(--dev)} .game-fc{background:var(--comm)} .game-fi{background:var(--inf)}
+.game-cs{color:var(--state)} .game-cd{color:var(--dev)} .game-cc{color:var(--comm)} .game-ci{color:var(--inf)}
+
+.game-verdict{border-radius:9px;padding:11px 13px;font-size:13px;margin:6px 0;border:1px solid var(--line);background:#fff;}
+.game-verdict b{font-size:14.5px;}
+.game-verdict.game-warn{background:#fef2f2;border-color:#fecaca;}
+
+.game-grav{border-left:4px solid var(--dev);background:#f7ece6;border-radius:0 8px 8px 0;padding:10px 13px;margin:8px 0;font-size:12.5px;}
+.game-grav .game-big{font-size:13.5px;font-weight:700;color:var(--dev);}
+.game-grav .game-flip{display:flex;justify-content:space-between;gap:8px;margin-top:6px;font-size:11.5px;}
+.game-grav .game-flip span{flex:1;text-align:center;padding:5px 4px;border-radius:6px;background:#fff;border:1px solid #ecd9cf;}
+.game-grav .game-flip span b{display:block;font-size:14px;}
+
+.game-mini{display:flex;gap:8px;margin:6px 0;}
+.game-mini .game-stat{flex:1;background:#fff;border:1px solid var(--line);border-radius:8px;padding:7px 9px;text-align:center;}
+.game-mini .game-stat .game-k{font-size:10.5px;color:var(--muted);}
+.game-mini .game-stat .game-v{font-size:16px;font-weight:700;font-variant-numeric:tabular-nums;}
+
+.game-missing{font-size:12.5px;margin:4px 0;}
+.game-chip{display:inline-block;padding:1px 8px;border-radius:20px;font-size:11.5px;font-weight:600;color:#fff;margin:2px 4px 2px 0;}
+.game-none{color:var(--muted);}
+.game-foot{padding:9px 18px;border-top:1px solid var(--line);background:#f4f5f3;font-size:11.5px;color:var(--muted);}
+
+  /* ===== 響應式:單欄 ===== */
+  @media (max-width:980px){
+    .wrap{padding:32px 18px 70px;}
+    h1{font-size:25px;}
+    h2{font-size:19px;}
+    .stats{grid-template-columns:repeat(auto-fit,minmax(130px,1fr));}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ============================================================= -->
+<!-- 0. 標題頁 + 摘要                                                -->
+<!-- ============================================================= -->
+<header class="cover" id="top">
+  <div class="kicker">Workshop Redesign · Discussion Draft</div>
+  <h1>Circular Urban AI 工作坊重新設計
+    <span class="sub">From Stakeholders to City Form — READ 教學階梯 × WRITE 利益相關者博弈</span>
+  </h1>
+  <div class="meta">
+    DigitalFUTURES 2026 · 同濟大學 CAUP · 2026-06-27 → 07-05(9 天)· 24 名學生 / 6 組 × 4 人<br>
+    主持 Prof. June-Hao Hou(NYCU)· 協同 Jinbao Zhong(NYCU)、Cheng-An Wang · 本檔日期 2026-06-18(開課前 9 天)
+  </div>
+</header>
+
+<p class="lead">
+  本次重新設計把工作坊重做成兩台互補的教學引擎:<strong>Part 1(READ)</strong> 是一條用真實上海資料搭起的五級資料科學階梯——可視化 → 分類 → 聚合 → 變成 ML 訓練資料 → AI,每爬一級就讓學生親手撞中本專案一個硬發現;<strong>Part 2(WRITE)</strong> 是一場 Monopoly 式的非對稱多方協商桌遊,玩家扮演四派系在紅線基地上爭地、爭控制、爭容積,城市是鬥爭的殘渣,終局用「讀回」評分並用影像生成 API 算成印象圖。
+</p>
+
+<blockquote>
+  <p><strong>認識論支點(整個 9 天只圍著它轉):power → form 是窄的前向通道;form → power 是病態的逆問題。</strong></p>
+  <p>一條誠實脊梁穿過兩部分——<strong>Part 1 讓學生親手撞牆「形態讀不回權力」;Part 2 讀回時眼睜睜看見這座城無法被完整讀回是誰建的,而開發商照樣靠塔樓贏 GFA。</strong></p>
+</blockquote>
+
+<div class="stats">
+  <div class="stat"><div class="n">2 部分</div><div class="l">READ 教學階梯<br>× WRITE 博弈</div></div>
+  <div class="stat"><div class="n">9 天</div><div class="l">Part1 占 Day1–5<br>Part2 占 Day6–9</div></div>
+  <div class="stat"><div class="n">5 級</div><div class="l">可視化→分類→聚合<br>→ML資料→AI</div></div>
+  <div class="stat"><div class="n">4 派系</div><div class="l">政府·開發商<br>社區·在地</div></div>
+  <div class="stat"><div class="n">5 鐵律</div><div class="l">被 v05–v07 三方<br>獨立證實</div></div>
+</div>
+
+<div class="toc">
+  <b>目錄</b>
+  <ol>
+    <li><a href="#s1">重新設計總覽:兩台引擎、9 天弧線、為何「不共用素材」反而更好</a></li>
+    <li><a href="#s2">Part 1(READ)— 資料科學教學階梯(含「形態讀不回權力」互動牆)</a></li>
+    <li><a href="#s3">Part 2(WRITE)— 利益相關者博弈(含博弈棋盤 + 讀回裁判)</a></li>
+    <li><a href="#s4">連接與地平線 + 9 天逐日大綱 + 評量 + 物料</a></li>
+    <li><a href="#s5">誠實脊梁與用詞紀律 + 反類型學自我審計</a></li>
+    <li><a href="#s6">參考文獻</a></li>
+  </ol>
+</div>
+
+<!-- ============================================================= -->
+<!-- 1. 重新設計總覽                                                 -->
+<!-- ============================================================= -->
+<h2 id="s1"><span class="no">1</span>重新設計總覽</h2>
+
+<h3>兩台教學引擎</h3>
+<p>工作坊重做成兩個大部分,<strong>兩部分不必共用同一套素材</strong>(這是業主明確放寬的約束),各自取最優:</p>
+<ul>
+  <li><strong>Part 1(READ)= 一條資料科學教學階梯</strong>:資料可視化 → 分類 → 聚合 → 變成 ML 訓練資料 → AI。每一級教一個真技能,而且踩中本專案的一個硬發現(把抽象概念落到真實城市問題上)。Part1 用真實上海資料。</li>
+  <li><strong>Part 2(WRITE)= 一場 Monopoly 式的「非對稱多方協商/鬥爭」桌遊</strong>:玩家=利益相關者派系(<span class="fac state">政府</span> / <span class="fac dev">開發商</span> / <span class="fac comm">社區</span> / <span class="fac inf">在地</span>),在一塊基地(紅線)上爭地、爭控制、爭容積,城市是鬥爭的殘渣;終局用「讀回」評分(這是誰的城 / 誰被犧牲 / 缺了誰);最後把終局棋盤態烘成參考圖,用影像生成 API(在 Grasshopper 內直連,不走 ComfyUI)算成印象圖。Part2 的棋盤是為玩法設計的抽象基地。</li>
+</ul>
+
+<h3>9 天弧線一覽</h3>
+<p>Part 1 占 Day 1–5,五道牆連成一句話:<strong>可視化會騙人 → 分類會塌縮 → 聚合會抹除 → ML 會洩漏 → AI 連自己生成的城都讀不回。</strong>Day 4 是論述高潮「撞牆日」給整天。Day 6 上午用文生圖暖身把 Part 1 第 5 級的「模型先驗」直接轉成 Part 2 影像軌的引子,下午切到博弈。Part 2 占 Day 6–9,三到四局滾動,Day 8–9 烘圖算圖評圖。完整逐日表見<a href="#s4">第 4 節</a>。</p>
+
+<h3>為何「不共用素材」反而更好</h3>
+<p>一句話:<strong>Part 1 要的是「真實資料的真實傷口」,Part 2 要的是「可控的權力沙盤」。</strong>把兩者綁在同一套素材上,只會讓真實資料被當成可隨意貼身分的玩具(踩鐵律②禁止虛構),又讓桌遊被真實資料的雜訊拖慢。分開,各自最優,而誠實脊梁靠<strong>規則引擎</strong>而非素材來連接。詳細對照表見<a href="#s4">第 4 節</a>。</p>
+
+<!-- ============================================================= -->
+<!-- 2. PART 1 (READ)                                               -->
+<!-- ============================================================= -->
+<h2 id="s2"><span class="no">2</span>Part 1(READ)— 資料科學教學階梯</h2>
+
+<h3>開場:為什麼這條階梯是好教學法</h3>
+<p>這條階梯的脊椎是資料科學的標準弧線——<strong>可視化 → 分類 → 聚合 → 變成 ML 訓練資料 → AI</strong>。任何一本資料科學教科書都會這樣排:先看資料、再給標籤、再升尺度彙總、再切訓練集、最後上模型。但本工作坊把這條中性的弧線架在一個<strong>有立場的真城市問題</strong>上:同一塊上海,政府圈了最多地,開發商靠塔樓贏走容積,社區與在地的痕跡正在被抹去——而我們手上的資料能不能把這件事「讀回來」?</p>
+<p>關鍵的教學設計是:<strong>每一級的技術難點,正好就是這個城市問題的真實難點</strong>,兩者不是比喻關係,是同一件事。</p>
+
+<div class="tbl-scroll">
+<table>
+  <thead><tr><th>級</th><th>技術難點(資料科學)</th><th>城市問題難點(同一件事)</th></tr></thead>
+  <tbody>
+    <tr><td>1 可視化</td><td>著色前要先看分布、判斷垃圾尾</td><td>AI 高度低估超高層,「資料不是真相」</td></tr>
+    <tr><td>2 分類</td><td>高 accuracy 可能是謊言,要看混淆矩陣</td><td>形態認得出住宅家族,卻認不出醫院、政府(機能 ≠ 形態)</td></tr>
+    <tr><td>3 聚合</td><td>聚合單元、加權方式不是中性彙總</td><td>用「佔地」還是「GFA 加權」量,贏家會換人</td></tr>
+    <tr><td>4 變成 ML 訓練資料</td><td>切分方式決定你學到的是規律還是洩漏</td><td>形態根本讀不回權力——權力歸屬只能走 metadata+文獻+年代</td></tr>
+    <tr><td>5 AI</td><td>模型不等於服從條件</td><td>生成的城連自己都讀不回是誰建的;讀回必須帶不確定性</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>學生不是被「告知」這些限制,而是<strong>親手撞牆</strong>:他們會先看到漂亮的 72% 準確率而自滿,再親手把它打碎。這比任何口頭警告都有力。最終,這條階梯的五道牆連成一句話:</p>
+<blockquote><p><strong>可視化會騙人 → 分類會塌縮 → 聚合會抹除 → ML 會洩漏 → AI 連自己生成的城都讀不回。</strong></p></blockquote>
+<p>而學生在第 2、3 級會自己推導出本專案的核心架構——<strong>雙層類型系統</strong>(見下方專欄)。這不是我們塞給他們的,是他們的直覺順序自然長出來的。</p>
+
+<blockquote class="warn">
+  <p><strong>⚠ 全程鐵律(寫在每張投影片頁尾)</strong></p>
+  <p>1. <strong>形態看不見權力</strong>:絕不從幾何形態斷言某棟是政府/開發商/居民。<br>
+  2. 權力歸屬只能走 metadata(EULUC 501/POI 政府機構)+ 文獻 + 年代。<br>
+  3. 輸出層用詞紀律:用 <strong>configuration / 位置 / 形態家族</strong>,不用 regime / type / category 指稱權力。<br>
+  4. 高度為 <strong>AI 推估</strong>:相對排序正確、絕對值偏低,所有圖例須註記。</p>
+</blockquote>
+
+<div class="box key">
+  <div class="t">架構心臟 · 專欄</div>
+  <h4>雙層類型系統(學生在第 2–3 級自己推導出來)</h4>
+  <p>這是整個 Part 1 的架構心臟,必須在第 2 級講清楚,第 3 級坐實:</p>
+  <ul>
+    <li><strong>語義層(分類級,監督)</strong>:標籤從 <strong>metadata</strong> 來——POI、EULUC 用地碼、AOI、建築名、年代。覆蓋率高(EULUC 86–94%、POI 50m 內 83–98%)。權力先驗 P(權重 | 語義類型, 年代, 土地制度)<strong>只掛在這一層</strong>,加法、非互斥、帶不確定性。這是「<strong>從 metadata 貼語義標籤</strong>」。</li>
+    <li><strong>形態家族層(聚合/分類級,無監督)</strong>:標籤從<strong>幾何</strong>算——足印、高度、密度、長寬比、鄰里平均高。用 KMeans/分位分箱把建築或格分到連續的形態家族(house/板式/塔式商辦)。這是「<strong>在形態上做無監督分群</strong>」。</li>
+    <li><strong>兩層之間用共現統計當橋</strong>,<strong>不可互相指派</strong>(這是第 4 級反循環鐵律的源頭)。</li>
+  </ul>
+  <p>學生的直覺順序會是:第 2 級先想「我直接用形態分類就好了吧?」→ 撞到醫院塌縮 → 自己意識到「機能標籤得從別的地方來」→ 這就是語義層與形態層的分裂。<strong>他們推導出了雙層系統,我們只是命名它。</strong></p>
+</div>
+
+<h3>第 1 級 — 資料可視化(Data Visualization)</h3>
+<p class="note"><strong>落在:Day 1(下午)</strong> — 開課當天,最低門檻、立刻有圖,建立「先審計再畫」的習慣。</p>
+
+<h4>① 學習目標</h4>
+<p>把一份未經處理的真實 GIS 向量資料讀進來、投影、按一個連續量(高度)著色,並排比較三種對比強烈的城市肌理。學會:FlatGeobuf 讀檔、EPSG:4326→32651 投影、把一個數值欄位映成空間圖案、判讀「同一張圖三個世界」。</p>
+<h4>② 具體 hands-on</h4>
+<ul>
+  <li><strong>資料</strong>:<code>simple_workflows/data/patch_lujiazui.fgb</code>(陸家嘴 322 棟,p50 42m,max 338m)、<code>patch_laoximen.fgb</code>(老城廂 1,962 棟,p50 14m 細粒)、<code>patch_caoyang.fgb</code>(曹楊 523 棟,p50 17m 行列式)。各組再自切第四窗:從 <code>01-建筑轮廓/②AI解析/上海市_建筑-AI影像解译-带高度.shp</code>(全市 1,366,427 棟血緣母層)切一個自選座標的窗。</li>
+  <li><strong>工具/wf</strong>:<code>simple_workflows/wf1_quantile_rule/run.py</code> 的讀檔段抽出當骨架;<code>step1_read.png</code> 當「目標長相」示範。</li>
+  <li><strong>步驟</strong>:(a) 先畫高度直方圖,判斷有無垃圾尾、決定封頂百分位;(b) 三區共用色階重畫;(c) 對照「離散分箱 vs 連續漸層」如何改變空間敘事。</li>
+</ul>
+<h4>③ 學生交付物</h4>
+<p>一張三(或四)聯高度著色圖 + 一段 100 字「資料誠實註記」(高度來源、垃圾尾處理方式、封頂百分位的選擇理由)。</p>
+<h4>④ 埋在這一級的硬發現 / 教學高潮</h4>
+<p><strong>「資料不是真相」就在第一張圖</strong>。AI 推估高度系統性低估超高層:三區樣本內 max 僅 338m,而上海中心實高 632m。且原始百度層 height 有垃圾尾——出現過 977m、72 棟 &gt;300m、736 棟、72 棟 = 0。教學高潮:學生<strong>著色前必須先看分布</strong>,自己判斷尾巴是真高樓還是噪音,並學會在圖例註明「高度為 AI 估計、相對排序正確、絕對值偏低」。這是把<strong>資料審計放在可視化的第一步</strong>,而非事後補丁。(出處:任務盤點 honestFinding;<code>simple_workflows/data/patch_*.fgb</code> 統計)</p>
+<blockquote><p>延伸可視化練習(銜接 F6):把「接縫/邊界帶」當一等分析對象,分別給帶內與內部著色——預告第 3 級的邊界效應。</p></blockquote>
+
+<h3>第 2 級 — 分類(Classification)</h3>
+<p class="note"><strong>落在:Day 2–Day 3(橫跨兩個半天)</strong> — Day 2 無監督形態分群,Day 3 監督分類 + 混淆矩陣撞牆。</p>
+<h4>① 學習目標</h4>
+<p>兩種分類路線並學,並親手體會它們屬於<strong>兩個不同層</strong>:</p>
+<ul>
+  <li><strong>(a) 無監督 / 形態家族層</strong>:分位分箱、KMeans+PCA,把建築/格分到形態類。</li>
+  <li><strong>(b) 監督 / 語義層</strong>:從 metadata 標籤訓練分類器,試圖從形態特徵預測「建築類型標籤」。</li>
+</ul>
+<p>核心技能:特徵工程(fp_area、height、elongation、density_100m、nbr_mean_h)、in-sample 準確率判讀、混淆矩陣判讀、「離散類 vs 連續漸層」的資訊損失。</p>
+<h4>② 具體 hands-on</h4>
+<ul>
+  <li><strong>無監督(Day 2)</strong>:<code>simple_workflows/wf2_kmeans_resample/run.py</code> 對三 patch 跑逐棟 4 維特徵 + KMeans k=4 + PCA 強度軸,並排離散 k=4 與 PC1 連續漸層。</li>
+  <li><strong>監督(Day 3)</strong>:用 <code>01-建筑轮廓/③其它/上海市_建筑-带type.shp</code>(145,923 棟,約 75% 有 type)當 Y 標籤、形態特徵當 X,自訓一個小 RandomForest,複現 <code>C_type_stats.md</code> 的混淆矩陣。</li>
+  <li><strong>標準答案核對</strong>:<code>typology_foundation/signatures.csv</code>(9 類 p10/p50/p90 形態簽名)、<code>fig_C1_confusion_form_vs_semantics.png</code>、<code>fig_C3_form_space.png</code>。</li>
+</ul>
+<h4>③ 學生交付物</h4>
+<p>一張自製混淆矩陣 + 一張「可分 / 塌縮」分類表(每類附一句塌縮原因:機能 vs 形態)+ KMeans 離散/連續對照圖。</p>
+<h4>④ 埋在這一級的硬發現 / 教學高潮 —— 撞牆(一):形態認不出機能與權力</h4>
+<p>學生先看到<strong>漂亮的總體準確率</strong>:形態單獨(6 特徵)就把 accuracy 從 55.2% 基準拉到 <strong>72.0%</strong>(加語意 17 特徵到 76.6%)。然後看混淆矩陣,牆就在這裡:</p>
+<div class="tbl-scroll">
+<table>
+  <thead><tr><th>形態<strong>可分</strong>的家族</th><th>形態<strong>塌縮</strong>的機能/權力類</th></tr></thead>
+  <tbody>
+    <tr><td>house P/R/F1 = <strong>0.78/0.78/0.78</strong></td><td><strong>hospital P/R/F1 = 0/0/0</strong>(純形態完全認不出)</td></tr>
+    <tr><td>apartments recall <strong>0.93</strong></td><td>hospital → <strong>72% 被判成 apartments</strong></td></tr>
+    <tr><td>commercial F1 0.57(部分可分)</td><td>education → <strong>59% 判成 apartments</strong></td></tr>
+    <tr><td></td><td>office_tower → 68% 判成 commercial</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>為什麼</strong>:醫院量體就是「大一點的板樓」,校舍與住宅板樓同構——這是<strong>機能(program)差異而非形態差異</strong>。教學高潮一句話:<strong>「72% 的漂亮 accuracy 是謊言,它把醫院全猜成公寓。」</strong> 這直接鋪墊第 4 級的洩漏課。</p>
+<p class="note">(出處:<code>typology_foundation/C_type_stats.md</code> §2.1–2.3;<code>fig_C1_confusion_form_vs_semantics.png</code>。注意 C 報告的 hospital n=29、office_tower n=19 樣本極小,須誠實標明。)</p>
+<blockquote><p><strong>這一級坐實雙層系統</strong>:學生親手發現「形態分得出家族、分不出機能」,於是理解——機能/權力標籤必須來自<strong>語義層的 metadata</strong>,不能從形態反推。撞牆(一)的完整版,在第 4 級用 leave-windows-out 兌現。</p></blockquote>
+
+<h3>第 3 級 — 聚合(Aggregation)</h3>
+<p class="note"><strong>落在:Day 3(下午)</strong> — 緊接分類,承上(逐棟)啟下(逐格特徵向量正是第 4 級 ML 的訓練樣本)。</p>
+<h4>① 學習目標</h4>
+<p>從「逐棟」升到「逐格/逐街廓」:把點狀建築質心落格成網格,逐格算 FAR、coverage、面積加權平均高、建築數、開放空間指數。學會聚合會<strong>抹除個體、放大模式</strong>,以及<strong>聚合單元的選擇(格大小、質心落格 vs 面積交集、逐棟中位數 vs GFA 加權)如何改變結論</strong>。也學跨來源融合聚合(POI/EULUC 掛接到格)。</p>
+<h4>② 具體 hands-on</h4>
+<ul>
+  <li><strong>形態聚合</strong>:<code>wf1_quantile_rule/run.py</code>(質心落格 → 100m 網格 → 逐格 FAR/coverage/平均高,可手算驗證)+ <code>wf6_procedural/run.py</code>(coverage 用 <code>gpd.overlay</code> 面積交集,比質心法精確;grain、spacing、OSI)。</li>
+  <li><strong>改變聚合單元</strong>:同一塊地用 50m / 100m / 200m 三種格大小重算,量化「曹楊到底有多密」如何隨格大小漂移。</li>
+  <li><strong>語義聚合</strong>:用 <code>A_metadata_inventory.md</code> 的掛接法把 <code>02-POI&amp;AOI</code> 的 POI 數聚合進每格,畫 POI 直方圖,標出覆蓋率最低的格(曹楊 POI 50m 僅 83%)。</li>
+  <li><strong>欄位規範</strong>:照 <code>cell_record_schema.md</code>(一格的 B 形態 / C 程式 / D POI 直方圖欄位字典)。</li>
+</ul>
+<h4>③ 學生交付物</h4>
+<p>一份逐格聚合表(CSV,欄位照 cell_record_schema B–D)+ 一張「同地不同格大小 → 不同密度結論」對照圖 + 一句聚合誠實註記。</p>
+<h4>④ 埋在這一級的硬發現 / 教學高潮 —— 度量陷阱:換尺就換贏家</h4>
+<p>聚合<strong>不是中性彙總,是一次編輯決定</strong>。三個硬發現在這級坐實:</p>
+<ul>
+  <li><strong>度量陷阱(F8)</strong>:逐棟 h_p90 被大量小建築主導,會把開發商之城讀成 ≤8–9m(10 個生成提案中 5 個如此);改用 <strong>GFA 加權高度</strong>才恢復正確的 DEV&gt;STATE&gt;COMM&gt;INF 層級(GFA 加權後 DEV&gt;STATE、DEV&gt;COMM、DEV&gt;INF 都 10/10 不變)。<strong>同一批建築,逐棟中位數 vs GFA 加權,給出相反的「誰主導」結論。</strong>(出處:<code>v07/results_cross.json</code> convergence_MONO;NOTES_V07.md)</li>
+  <li><strong>開發商引力 · 土地 ≠ 容積(F4)</strong>:讓學生對真實窗口同時算 coverage 與 GFA 加權,看到塔樓如何讓小地塊主導容積。v08 原型重現:core-periphery 下開發商只擁有外環卻拿 <strong>76% GFA</strong>。這正是 AI 高度天花板最該被點名的地方。(出處:<code>v06/results_d6.json</code>、<code>v08/NOTES_V08.md</code>)</li>
+  <li><strong>抹除是一種立場(F7)</strong>:質心落格忽略跨格建築(wf1 自認局限);抹除本身是開發商的簽名。</li>
+</ul>
+<p>教學高潮:<strong>「換一把尺,這座城就換一個主人。」</strong> 加權選擇是價值判斷,不是技術細節。</p>
+
+<h3>第 4 級 — 變成 ML 訓練資料(Becoming ML Training Data)</h3>
+<p class="note"><strong>落在:Day 4(全天)</strong> — Part 1 的論述高潮「撞牆日」。需要完整一天:先讓學生複現好看的數字,再親手打碎它。</p>
+<h4>① 學習目標</h4>
+<p>把聚合後的格/棟做成監督學習訓練集(X 特徵矩陣 + Y 標籤),並學最關鍵的一課:<strong>訓練/測試切分的方式決定你學到的是真規律還是洩漏</strong>。具體學 in-sample CV vs leave-windows-out(留出整個地理窗),以及標籤循環(用形態定標籤再用形態預測標籤=作弊)的禁律。</p>
+<h4>② 具體 hands-on</h4>
+<ul>
+  <li><strong>資料</strong>:<code>typology_foundation/v05/dataset.parquet</code>(14,527 棟 × 24 窗 + 脈絡特徵,含窗 id)+ <code>windows.json</code>(24 個地理窗,當分組鍵)。</li>
+  <li><strong>工具/wf</strong>:<code>v05/exp1_recognition.py</code>(雙 CV × 雙特徵組,可重跑看洩漏)。</li>
+  <li><strong>步驟</strong>:對<strong>同一個 RandomForest、同一組特徵</strong>跑兩次——
+    <ol>
+      <li><strong>StratifiedKFold 隨機切</strong>(複現 in-sample 的漂亮數字);</li>
+      <li><strong>GroupKFold 按 window 切</strong>(leave-windows-out,看 recall 崩盤)。</li>
+    </ol>
+  </li>
+  <li><strong>延伸</strong>:故意把一個會洩漏標籤來源的特徵加進去,看 in-sample 飆高、留窗仍崩,理解標籤循環。反循環規範看 <code>data_collection/README.md</code> §2、<code>labelling_codebook.md</code>(confidence≥2 必須有非形態文獻來源)。</li>
+</ul>
+<h4>③ 學生交付物</h4>
+<p>兩種切分的 per-class recall 對照長條圖 + 一段「為何 in-sample 72% 不可信」的洩漏診斷 + 一行標籤循環反例 + 寫出「<strong>哪一個數字我敢拿給業主、為什麼</strong>」。</p>
+<h4>④ 埋在這一級的硬發現 / 教學高潮 —— 撞牆(二)/ 整個 Part 1 的最高潮:洩漏</h4>
+<p>這是硬發現①「<strong>form cannot see power</strong>」的決定性實證。同一模型、同一特徵,只換切分方式:</p>
+<div class="tbl-scroll">
+<table>
+  <thead><tr><th>切分方式</th><th>整體 accuracy</th><th>public_admin recall</th><th>healthcare recall</th><th>education recall</th></tr></thead>
+  <tbody>
+    <tr><td>in-sample(StratifiedKFold,FORM+CTX)</td><td><strong>0.744</strong></td><td>0.154</td><td>0.008</td><td>0.147</td></tr>
+    <tr><td><strong>leave-windows-out</strong>(GroupKFold,FORM+CTX)</td><td><strong>0.641</strong></td><td><strong>0.0</strong></td><td><strong>0.0</strong></td><td>0.002</td></tr>
+    <tr><td>多數類基線</td><td>0.601</td><td>—</td><td>—</td><td>—</td></tr>
+  </tbody>
+</table>
+</div>
+<ul>
+  <li>留窗後識別力<strong>塌回基線附近</strong>(0.641 vs 基線 0.601;純 FORM 0.627)。權力類 pooled recall 從 in-sample 的 13.9% 崩到 <strong>0.07%</strong>;<strong>healthcare 直接歸零、public_admin 歸零</strong>。(出處:<code>typology_foundation/v05/results_e1.json</code>;<code>NOTES_V05.md</code> E1)</li>
+  <li>學生<strong>親手做兩種切分</strong>,看到隨機切給 72%、按地理窗切崩盤,體會:(1) 漂亮的 CV 數字可能全是<strong>空間自相關的洩漏</strong>;(2) <strong>形態根本讀不回權力類別</strong>。</li>
+</ul>
+<p>教學高潮兩句話:<strong>「那個 72% 是窗口洩漏,不是學會。形態讀不回權力,所以權力歸屬只能走 metadata + 文獻 + 年代,絕不從形態認人。」</strong> 這道牆直接交棒給 Part 2:讀回時的不對稱,就建在這裡。</p>
+<blockquote><p>補充給進階組的精準度(F2,出處 <code>v05/results_e3.json</code>):在窗口剖面迴歸裡,<strong>只有 developer_capital 一維穩健可回收</strong>(LOO R²=0.46),government 僅 0.10(剔除無年代假物窗後甚至翻負 −0.07)、resident_community −0.45、informal −2.24。且訊號住在 PC2 不在 PC1(coverage~gov ρ=+0.62、PC2~dev ρ=+0.69)。<strong>最大方差不等於最有用;真正缺的維度是年代。</strong></p></blockquote>
+
+<h3>第 5 級 — AI(Generative / Deep Models)</h3>
+<p class="note"><strong>落在:Day 5(全天)</strong> — Part 1 收官,銜接 Part 2。輸出「規則引擎 = 語義類型 → 權力先驗 · 共現 · reader」交給 Part 2 當遊戲規則。</p>
+<h4>① 學習目標</h4>
+<p>見識深度表徵與深度生成模型的<strong>能與不能</strong>:β-VAE 把格特徵壓進 2 維潛在空間、條件式擴散(DDPM)從 6 維條件向量取樣。核心技能不是「會用 AI」,而是<strong>審查 AI</strong>:判讀潛在軸無物理單位、條件不被服從、模型先驗壓過輸入條件。</p>
+<h4>② 具體 hands-on</h4>
+<ul>
+  <li><strong>VAE</strong>:<code>wf4_vae_latent/run.py</code>(5→16→2→16→5 微型 β-VAE,300 格 5 秒訓完,重建 R²=0.923)。現場調 β(2.0/1.0/0.5)看重建 R² 變化,沿潛在強度軸走 λ 生成 GFA×1.3,用 z0 柵格把潛在軸翻譯回 coverage/高度。</li>
+  <li><strong>擴散</strong>:<code>wf5_diffusion/run.py</code>(DDIM 20 步 + CFG,重用凍結 <code>data_collection/generative/track_a2_model.pt</code>)。對三區各要不同 coverage,把 requested vs generated 填成落差表(規格與量化證據見 <code>wf5_diffusion/NOTES.md</code>)。</li>
+  <li><strong>展示</strong>:每組在 <code>simple_workflows/GALLERY.html</code> 框架下並排自己的 step1–4 成果。</li>
+</ul>
+<h4>③ 學生交付物</h4>
+<p>一張 requested-vs-generated 落差表 + 一段「AI 的能與不能」審查報告(含「此檢查點為何<strong>不可</strong>用於增密情境推演」的理由)+ 並入 GALLERY 的個人四步圖。</p>
+<h4>④ 埋在這一級的硬發現 / 教學高潮 —— 撞牆(三):模型不等於服從條件</h4>
+<p>學生餵<strong>同一個 FAR×1.3</strong> 給擴散模型,眼睜睜看到輸出幾乎不動:</p>
+<div class="tbl-scroll">
+<table>
+  <thead><tr><th>區域</th><th>requested cov</th><th>生成 cov(基線)</th><th>生成 cov(FAR×1.3)</th></tr></thead>
+  <tbody>
+    <tr><td>陸家嘴</td><td>0.115</td><td>0.416 ± 0.008</td><td>0.417 ± 0.008</td></tr>
+    <tr><td>老西門</td><td>0.387</td><td>0.456 ± 0.008</td><td>0.457 ± 0.008</td></tr>
+    <tr><td>曹楊</td><td>0.211</td><td>0.433 ± 0.008</td><td>0.435 ± 0.008</td></tr>
+  </tbody>
+</table>
+</div>
+<ul>
+  <li><strong>高覆蓋率先驗</strong>:要求值橫跨 3.4 倍(0.115→0.387),生成值只動了 0.04,一律 ≈0.42–0.46(語料庫平均 cov=0.20)。</li>
+  <li><strong>條件靈敏度近零</strong>:FAR×1.3 只進了條件向量,<strong>沒進輸出</strong>。</li>
+  <li>VAE 解碼出的是 100m 格統計指標、不是建築幾何,潛在軸無物理單位;兩個條件維(landuse_mixing、commercial_share)本資料算不出,被填成語料庫平均(z=0)。(出處:<code>wf5_diffusion/NOTES.md</code> z 值表與落差表)</li>
+</ul>
+<p>教學高潮:<strong>「生成式 AI 是最好的反面教材——它連自己生成的城都讀不回是誰建的。」</strong> 比口頭警告有力。同時帶 F3「鏡片有年代」:把同一套讀回鏈套到五個經典範式上,4/5 翻向 developer_capital(garden_city 教義宣稱社區主導 0.9、讀回卻是開發商 0.49 居首,L1 落差 1.107)——<strong>模型/先驗不是中立測量儀,是有 vintage 的鏡片</strong>(出處:<code>v06/results_d4.json</code>)。再帶 F9「曹楊錨 MISS」:1951 工人新村今日形態讀回最近親戚竟是陸家嘴/加密 microrayon,真正的社區錨點落在簽名雲外——<strong>單城單時點的鏡片會讓特定權力配置「無家可歸」</strong>(出處:<code>v06/results_d5.json</code>)。</p>
+
+<h3>收尾:第 5 級產出「reader」,規則引擎交棒 Part 2</h3>
+<p>第 5 級的真正產出不是一張生成圖,而是一個<strong>規則引擎 = 語義類型 → 權力先驗 · 共現 · reader</strong>:</p>
+<ul>
+  <li><strong>reader</strong> 嘗試從聚合後的形態,反推每塊地/每格的權力配置後驗(developer / state / community / informal 的權重)。</li>
+  <li>它的輸出<strong>必須帶不確定性</strong>:<strong>後驗越寬 = 形態越有爭議 = 讀回越不可靠</strong>。這不是 bug,是<strong>誠實輸出</strong>——它把第 4 級「form cannot see power」的牆,直接畫成一張地圖上的寬窄。developer 那一維會窄(可回收,LOO R²=0.46);state/community/informal 那幾維會寬到接近無資訊(F2),地圖上就該畫成大誤差條或灰色。</li>
+</ul>
+<p><strong>交棒 Part 2</strong>:這套規則引擎(類型 → 權力先驗 · 共現 · reader)就是 Part 2 桌遊的規則底層——</p>
+<ul>
+  <li>派系「<strong>蓋什麼</strong>」(用途配比、容積傾向)寫死進牌組 = <strong>理論層</strong>(F5:power→form 是窄前向通道,可生成);</li>
+  <li>終局把棋盤烘成形態後,reader 試圖反推「<strong>這是誰的城</strong>」,並當眾失敗(權力類讀不回)= <strong>病態逆問題</strong>(form→power);</li>
+  <li>不對稱讀回(developer 容易被讀出、state/community/informal 幾乎讀不回)就是 Part 2「<strong>誰被犧牲 / 誰被讀不到</strong>」終局提問的物理基礎。</li>
+</ul>
+<blockquote><p><strong>誠實脊樑穿過兩部分</strong>:Part 1 撞牆(形態讀不回權力);Part 2 讀回時眼睜睜看到這座城無法被完整讀回是誰建的,而開發商照樣贏 GFA。</p></blockquote>
+
+<!-- ===== WIDGET-1 嵌入 ===== -->
+<h3>互動牆 · Widget-1:形態讀不回權力,metadata 讀得回類型</h3>
+<p class="note">下方互動元件即時演示第 2、4 級的「撞牆」:切換兩種讀法,看權力類 recall 崩潰、metadata 類型鎖定。數字錨點來自 <code>v05/results_e1.json</code>。</p>
+
+<div class="wall-root" id="wall-widget">
+  <div class="wall-h">形態讀不回權力，metadata 讀得回類型</div>
+  <p class="wall-sub">同一批上海建築，切換兩種讀法：用幾何形態猜「誰建的（權力／身分）」會散掉，用 metadata 讀「這是什麼（語義類型）」會鎖定。</p>
+  <span class="wall-demoflag">教學示意 · 數字為演示用途，非真實模型輸出 · 機制呼應 v05 E1</span>
+
+  <div class="wall-modebar" role="tablist">
+    <button class="wall-mode wall-form wall-on" id="wall-btn-form" role="tab">
+      <span class="wall-modet">① 只用「形態」猜權力／身分</span>
+      面積·高度·長細比·鄰域密度 → 猜誰建的
+    </button>
+    <button class="wall-mode wall-meta" id="wall-btn-meta" role="tab">
+      <span class="wall-modet">② 用「metadata」讀類型</span>
+      POI·EULUC·名稱·年代 → 讀這是什麼
+    </button>
+  </div>
+
+  <div class="wall-readout">
+    <div class="wall-acc">
+      <span class="wall-accnum wall-low" id="wall-accnum">62.7%</span>
+      <span class="wall-acclbl" id="wall-acclbl">準確率</span>
+    </div>
+    <div class="wall-bar">
+      <div class="wall-barfill wall-low" id="wall-barfill"></div>
+      <div class="wall-baseline" style="left:60.1%"><span class="wall-baselbl" style="left:60.1%">多數類基線 60.1%</span></div>
+    </div>
+    <div class="wall-task" id="wall-task"></div>
+  </div>
+
+  <div class="wall-v05" id="wall-v05"></div>
+
+  <div class="wall-grid" id="wall-grid"></div>
+
+  <div class="wall-foot">
+    讀法說明：模式①的「準確率」顯示 v05 E1 的留窗 <code>FORM 0.627</code>（僅略高於多數類基線 0.601）；
+    卡片即時演示權力類 recall 崩潰——醫院／學校／政府被一律讀成「開發商／住宅」（developer gravity）。
+    模式②的 metadata 讀類型在本示意樣本鎖定到 100%。權力歸屬只能走 metadata＋文獻＋年代，<b>絕不從形態認人</b>。
+    來源：<code>typology_foundation/v05/results_e1.json</code> · <code>NOTES_V05.md E1</code>。
+  </div>
+</div>
+
+<!-- ============================================================= -->
+<!-- 3. PART 2 (WRITE)                                              -->
+<!-- ============================================================= -->
+<h2 id="s3"><span class="no">3</span>Part 2(WRITE)— 利益相關者博弈</h2>
+
+<h3>§1 傳統與創新:站在參與式規劃遊戲的肩上</h3>
+<p>「把利益相關者拆成派系、各自帶目標、面對面協商權衡」這套機制在參與式規劃文獻中是成熟做法(見<a href="#s6">第 6 節文獻①</a>:EquiCity、Game.UP、嚴肅遊戲綜述)。本工作坊的創新在於把它和 v05–v07 的硬發現綁在一起——<strong>非對稱玩家</strong>(Root 式:每派系不同資源/動作/勝利條件/讀回難度)與<strong>競爭鬥爭但共享殘渣</strong>(沒有人能把城市贏走,所有人都住進自己吵出來的城)。</p>
+
+<h3>§2 與 Monopoly 的兩處決裂</h3>
+<ol>
+  <li><strong>非對稱玩家(① Break)</strong>:不像 Monopoly 人人同質,四派系資源/可動作/勝利條件/讀回難度全不同。<strong>為何</strong>:對稱規則學不到「權力本來就不對稱」;<strong>機制後果</strong>:政府靠規劃權+否決、開發商靠資本+塔樓、社區靠人口+正當性、在地靠最細顆粒+插縫求生,各走各的勝利軸。</li>
+  <li><strong>競爭鬥爭但共享結果(② Break)</strong>:沒有人把城市贏走;終局是同一座城,大家都住進去。<strong>為何</strong>:城市不是零和籌碼,是鬥爭的物質殘渣;<strong>機制後果</strong>:終局用「讀回」評分而非積分,問「這是誰的城/誰被犧牲/缺了誰」。</li>
+</ol>
+
+<h3>§3 四派系(非對稱)</h3>
+<div class="tbl-scroll">
+<table>
+  <thead><tr><th>派系</th><th>資源</th><th>可動作</th><th>私目標 · 勝利條件</th><th>形態文法</th></tr></thead>
+  <tbody>
+    <tr><td><span class="fac state">政府 State</span></td><td>規劃權 + 否決</td><td>劃定用途分區、否決他人下子、配置公共設施</td><td>公共指標達標(綠地/設施/形象)</td><td>monument 紀念性、低覆蓋(cov 0.12)、高度上限 80m</td></tr>
+    <tr><td><span class="fac dev">開發商 Developer</span></td><td>資本(最多)</td><td>競標地塊、起塔樓、改用途為辦公/商業</td><td>GFA / 利潤最大化</td><td>podiumtower 裙樓+塔樓、高覆蓋(cov 0.55)、高度上限 185m</td></tr>
+    <tr><td><span class="fac comm">社區 Community</span></td><td>人口 / 正當性</td><td>圍合街廓、爭居住與生活機能、抵抗置換</td><td>宜居性 / 不被置換</td><td>perimeter 周邊式、cov 0.62、高度上限 45m</td></tr>
+    <tr><td><span class="fac inf">在地 Informal</span></td><td>最細顆粒</td><td>插縫自建、見縫插針、求生存</td><td>存活(不被抹除)</td><td>finemat 細密肌理、cov 0.78、高度上限 24m</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="box warn">
+  <div class="t">非對稱讀回難度(F2「隱身值」)</div>
+  <p>四派系終局被讀回的難度不同:<span class="fac dev">開發商</span>痕跡最容易被讀出(developer_capital LOO R²=0.46,塔樓是強簽名);<span class="fac state">政府</span>(R²=0.10)、<span class="fac comm">社區</span>(−0.45)、<span class="fac inf">在地</span>(−2.24)幾乎讀不回。這個不對稱不是設定,是 v05 實測——它就是終局「誰被讀不到」提問的物理基礎。</p>
+</div>
+
+<h3>§4 棋盤:抽象網格 vs 真實紅線</h3>
+<p>建議用<strong>抽象 6×6(或更細)網格</strong>而非真實上海地塊。對齊 v08.1 的 36 街廓,核心格可重現 core-periphery。理由(也呼應<a href="#s4">第 4 節「不共用素材」</a>):用真實地塊當棋盤會誘使學生「猜這棟是政府還是開發商」,直接違反鐵律②禁止虛構;抽象棋盤的派系領地用<strong>設計給定的 partition layout</strong> 而非從形態反推,正好示範「權力歸屬只能走 metadata,不能認形態」。partition 清單:quad(學規則局)、bands、core、bipolar、cityish(決勝局)。</p>
+
+<h3>§5 回合結構</h3>
+<p>把 v08 的五種介入當回合動作:<strong>allocate(指派地塊)/ steer(改用途)/ override(否決)/ gesture(姿態)/ read-back(讀回)</strong>。外加<strong>接縫協商機制</strong>(F6:MOSAIC ×0.73 FAR 壕溝 vs BIPOLAR ×1.11 資本攻擊邊界的切換)。每個動作記進 provenance log——這份下子紀錄是唯一合法的「誰建的」證據,絕不從形態認人。</p>
+
+<h3>§6 讀回 = 勝負</h3>
+<p>終局用四個維度評分,並把硬發現寫死成規則,讓學生<strong>輸給結構</strong>:</p>
+<ul>
+  <li><strong>誰的城(by GFA)</strong>:以 GFA 計誰拿下容積主導——<span class="fac dev">開發商</span>常贏(F4 開發商引力:沒佔最多地,靠塔樓拿下 GFA)。</li>
+  <li><strong>誰被置換</strong>:被抹除的派系(F7「抹除是開發商的簽名」)。</li>
+  <li><strong>形態讀不回是誰建的</strong>:讀回故意失敗,權力類 recall→0(F1)。</li>
+  <li><strong>缺了誰 + 接縫</strong>:不在桌上或足跡 &lt;3% 的派系;接縫 FAR 壕溝(F6)。</li>
+</ul>
+<p>選配:<strong>綱領牌(F3 鏡片有年代)</strong>、<strong>置換牌(F9 曹楊錨 MISS)</strong>。度量陷阱(F8)寫成明規則:換尺(GFA 加權 vs 逐棟中位數)就換贏家——GFA→開發商,逐棟→在地。</p>
+
+<h3>§7 可玩數位結算原型 + AI 收尾</h3>
+<p>原型跑完整 8 回合一局,評四個讀回維度,印出 GH→影像 API 的 payload。32 情境 DOM-free 驗證:0 例外,開發商贏「誰的城」100%(F4),兩把尺 32/32 不一致(F8),讀回準確率 ~0.66 但權力類 recall 0(F1/F2),平均每局 ~3.3 地塊被抹除(F7)。6 桌 → 6 城 → 6 印象圖,Day 9 對比。(原型刻意不真呼叫 API,需金鑰;但完整演示結算鏈並吐出 GH 直連 payload + 提示詞。)</p>
+
+<h3>§8 平衡與可行性</h3>
+<p>8 回合,多軸勝利(無單一冠軍),反失控規則;實體/數位/混合三方案中建議<strong>混合(實體玩 + 數位結算)</strong>。9 天排程見<a href="#s4">第 4 節</a>。</p>
+
+<h3>§9 誠實邊界</h3>
+<p>Arnstein 參與階梯 / form-washing / 誰算利益相關者(缺席者、非人)。紀律:遊戲只操作<strong>控制力</strong>(誰擁有/決定/下了這子),<strong>絕不從形態讀身分</strong>。完整審計見<a href="#s5">第 5 節</a>。</p>
+
+<!-- ===== WIDGET-2 嵌入 ===== -->
+<h3>互動棋盤 · Widget-2:博弈棋盤 + 讀回裁判</h3>
+<p class="note">下方互動元件是 Part 2 的可玩縮影:在紅線基地上把地塊分給四派系、改主導用途、拉兩個參數,右側即時讀回「這是誰的城」。觀察開發商引力(F4)、接縫 FAR 壕溝(F6)、缺席偵測(F1)。</p>
+
+<div class="game-wrap" id="gameWidget">
+  <div class="game-head">
+    <h3>博弈棋盤 + 讀回裁判 — Part 2 可玩縮影</h3>
+    <div class="game-note">在紅線基地上把地塊分給四派系、改主導用途、拉兩個參數;右側即時讀回「這是誰的城」。<b>初步量體、示意</b>,非真實設計。</div>
+  </div>
+
+  <div class="game-body">
+    <!-- 左:棋盤 -->
+    <div class="game-left">
+      <div class="game-bar">
+        <span><label>基地</label>
+          <select id="gameSite">
+            <option value="riverbend">河灣(凹)</option>
+            <option value="ortho">方整</option>
+            <option value="Lshape">L 形(凹)</option>
+            <option value="wedge">楔形</option>
+          </select>
+        </span>
+        <span><label>網格</label>
+          <select id="gameRes">
+            <option value="10">10×8</option>
+            <option value="12" selected>12×9</option>
+            <option value="16">16×12</option>
+          </select>
+        </span>
+        <button class="game-btn" id="gameReset">重置分配</button>
+        <button class="game-btn" id="gameClear">清空</button>
+      </div>
+
+      <div class="game-bar">
+        <span><label>模式</label>
+          <span class="game-seg" id="gameMode">
+            <button data-mode="allocate" class="on game-mode">指派地塊</button>
+            <button data-mode="override">改用途</button>
+          </span>
+        </span>
+        <span id="gameActorPick"><label>畫筆派系</label>
+          <span class="game-seg" id="gameActors">
+            <button data-actor="state" class="on game-as">政府</button>
+            <button data-actor="developer" class="game-ad">開發商</button>
+            <button data-actor="community" class="game-ac">社區</button>
+            <button data-actor="informal" class="game-ai">在地</button>
+          </span>
+        </span>
+      </div>
+
+      <div class="game-canvas-box">
+        <canvas id="gameCanvas" width="920" height="560"></canvas>
+        <div class="game-stamp">初步量體 · 圖底/用途著色 · 示意</div>
+      </div>
+
+      <div class="game-uses" id="gameUses"></div>
+      <div class="game-hint" id="gameHint">指派模式:選好畫筆派系,在格子上點擊或拖曳上色。</div>
+
+      <div class="game-slid">
+        <div class="game-row">
+          <span class="game-lab"><b id="gameIntName">開發商</b> 開發強度</span>
+          <input type="range" id="gameIntensity" min="0.4" max="1.8" step="0.05" value="1">
+          <span class="game-val" id="gameIntVal">1.00×</span>
+        </div>
+        <div class="game-row">
+          <span class="game-lab"><b id="gameCapName">開發商</b> 高度上限</span>
+          <input type="range" id="gameHcap" min="24" max="220" step="2" value="185">
+          <span class="game-val" id="gameCapVal">185 m</span>
+        </div>
+        <div class="game-hint">滑桿作用於「畫筆派系」。塔樓越高,GFA 越往開發商傾斜——觀察右側讀回的反差。</div>
+      </div>
+    </div>
+
+    <!-- 右:讀回裁判 -->
+    <div class="game-right game-panel">
+      <h4>GFA 佔比(容積)</h4>
+      <div class="game-bars" id="gameBars"></div>
+      <div class="game-hint">虛線=該派系的「佔地比例」。長條(GFA)超過虛線(土地)=靠塔樓奪容積。</div>
+
+      <h4>這是誰的城</h4>
+      <div class="game-verdict" id="gameVerdict">—</div>
+
+      <div class="game-mini" id="gameMini"></div>
+
+      <h4>開發商引力(土地 ≠ 容積)</h4>
+      <div class="game-grav" id="gameGrav">—</div>
+
+      <h4>接縫 FAR 比</h4>
+      <div class="game-verdict" id="gameSeam">—</div>
+      <div class="game-hint">相鄰異派系交界帶的 FAR ÷ 內部 FAR。&lt;1=邊界樓變矮(FAR 壕溝,碎片接壤的簽名)。</div>
+
+      <h4>桌上缺了誰</h4>
+      <div class="game-missing" id="gameMissing">—</div>
+    </div>
+  </div>
+
+  <div class="game-foot">
+    讀回只用棋盤幾何反推 → 開發商痕跡最容易被讀出,政府/社區/在地常讀不回(form cannot see power)。真正的權力歸屬須靠玩家的下子紀錄(provenance log),不可從形態認人。資料天花板:單城單時點、AI 低估超高層。
+  </div>
+</div>
+
+<!-- ============================================================= -->
+<!-- 4. 連接與地平線 + 9 天大綱 + 評量 + 物料                        -->
+<!-- ============================================================= -->
+<h2 id="s4"><span class="no">4</span>連接與地平線 + 9 天逐日大綱 + 評量 + 物料</h2>
+
+<h3>一、設計總綱(一句話)</h3>
+<p><strong>Part 1(READ)</strong> 是一條五級資料科學階梯,用真實上海資料,每爬一級就撞中本專案一個硬發現;<strong>Part 2(WRITE)</strong> 是一場非對稱多方協商桌遊,在抽象紅線基地上爭地爭容積,城市是鬥爭的殘渣,終局用「讀回」評分並用影像 API 算成印象圖。<strong>一條誠實脊梁穿過兩部分:Part 1 讓學生親手撞牆「形態讀不回權力」;Part 2 讀回時眼睜睜看見這座城無法被完整讀回是誰建的,而開發商照樣贏 GFA。</strong></p>
+<p>兩部分<strong>不共用素材</strong>(業主放寬的約束):Part 1 吃真實上海切片(<code>patch_*.fgb</code>),Part 2 用為玩法設計的抽象棋盤。各自取最優——理由見本節第四小節。</p>
+
+<h3>二、9 天逐日大綱</h3>
+<p class="note">標記:🟩 = hands-on(動手)| 🟦 = 講授/demo | 🟧 = 評圖/協商 | 上午 ≈ 09:30–12:30,下午 ≈ 14:00–17:30</p>
+<div class="tbl-scroll">
+<table>
+  <thead><tr><th>Day</th><th>日期</th><th>段落</th><th>上午</th><th>下午</th><th>模式</th><th>當日交付</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><strong>1</strong></td><td>06-27</td><td>開場 + 第1級 資料可視化</td>
+      <td>🟦 開場:主題、誠實脊梁、四派系、9 天地圖、分組(6×4);走訪三區衛星影像直覺</td>
+      <td>🟩 <strong>第1級 暖身</strong>:讀 <code>patch_{lujiazui,laoximen,caoyang}.fgb</code> → EPSG:4326→32651 → 高度著色三聯圖;<strong>著色前先畫高度直方圖看垃圾尾</strong>(977m、72 棟=0)</td>
+      <td>上 🟦 / 下 🟩</td>
+      <td>三(/四)聯高度著色圖 + 100 字「資料誠實註記」(高度來源 / 垃圾尾處理 / 封頂百分位理由)</td>
+    </tr>
+    <tr>
+      <td><strong>2</strong></td><td>06-28</td><td>第2級 分類(上) 無監督</td>
+      <td>🟩 跑 <code>wf2</code> 對三 patch 做 KMeans k=4 + PCA;並排離散 k=4 vs PC1 連續漸層</td>
+      <td>🟩 討論「群 ≠ 高度分級」;特徵工程入門(fp_area、height、elongation、density_100m、nbr_mean_h)</td>
+      <td>全天 🟩</td>
+      <td>KMeans 離散/連續對照圖 + 特徵向量表</td>
+    </tr>
+    <tr>
+      <td><strong>3</strong></td><td>06-29</td><td>第2級 分類(下) + 第3級 聚合</td>
+      <td>🟩 <strong>撞牆 A</strong>:用 <code>带type.shp</code> 標籤自訓小 RandomForest,複現 in-sample <strong>72%</strong> 漂亮數字,再開混淆矩陣看 <strong>hospital recall=0</strong>(全猜成 apartments)</td>
+      <td>🟩 <strong>第3級 聚合</strong>:跑 <code>wf1+wf6</code> encode 步,逐格 FAR/coverage/grain/spacing;改 50/100/200m 格大小,量化「曹楊到底多密」如何漂移</td>
+      <td>全天 🟩</td>
+      <td>自製混淆矩陣 + 「可分/塌縮」分類表(每類一句塌縮原因)+ 逐格聚合 CSV(欄位照 <code>cell_record_schema</code> B–D)+ 同地不同格→不同密度對照圖</td>
+    </tr>
+    <tr>
+      <td><strong>4</strong></td><td>06-30</td><td>第4級 變成 ML 訓練資料 —— <strong>撞牆日</strong></td>
+      <td>🟩 <strong>撞牆 B(高潮)</strong>:用 <code>v05/dataset.parquet</code>+<code>windows.json</code>,同一 RandomForest 跑兩次——StratifiedKFold 隨機切(復現 ~72%)vs GroupKFold 按窗切(recall 崩盤、<strong>healthcare=0</strong>、power 類 ≤1.2%)</td>
+      <td>🟩 畫兩條 per-class recall 對照長條;延伸:故意加一個洩漏標籤來源的特徵,看 in-sample 飆高、留窗仍崩(標籤循環反例)</td>
+      <td>全天 🟩</td>
+      <td>兩種切分 per-class recall 對照圖 + 「為何 in-sample 72% 不可信」洩漏診斷 + 標籤循環一行反例</td>
+    </tr>
+    <tr>
+      <td><strong>5</strong></td><td>07-01</td><td>第5級 AI(生成 / 深度模型)—— Part 1 收官</td>
+      <td>🟩 跑 <code>wf4</code> β-VAE(現場調 β=2.0/1.0/0.5 看重建 R²),沿潛在強度軸走 λ 生成 GFA×1.3,用 z0 柵格把潛在軸翻回 coverage/高度</td>
+      <td>🟩 跑 <code>wf5</code> 擴散:對三區各要不同 coverage,把 <strong>requested vs generated</strong> 落差填成表(要 0.115/0.387 都吐 ≈0.43);各組四步圖並入 <code>GALLERY.html</code> 框架</td>
+      <td>全天 🟩</td>
+      <td>requested-vs-generated 落差表 + 「AI 的能與不能」審查(含此檢查點不可用於增密推演的理由)+ GALLERY 四步圖</td>
+    </tr>
+    <tr>
+      <td><strong>6</strong></td><td>07-02</td><td><strong>橋接日</strong>:文生圖暖身 + Part 2 規則發布 + 第一局</td>
+      <td>🟦+🟩 <strong>文生圖暖身</strong>:讀「模型的城市先驗」200 字練習(同一 FAR×1.3 餵擴散,輸出幾乎不動;純提示詞 vs 提示詞+參考圖對照),寫出模型先驗 → <strong>這就是 Part 2 影像軌要量的東西</strong></td>
+      <td>🟦 Part 2 規則發布:四派系 + 紅線基地 + 回合機制 + <strong>讀回不對稱</strong>;🟧 <strong>第一局</strong>(學規則局,partition=quad/bands)</td>
+      <td>上 🟩 / 下 🟦+🟧</td>
+      <td>200 字「模型的城市先驗」+ 第一局 provenance log</td>
+    </tr>
+    <tr>
+      <td><strong>7</strong></td><td>07-03</td><td>Part 2 主賽(多輪)</td>
+      <td>🟧 <strong>第二局正式賽</strong>(各組抽 site + partition:core/bipolar/cityish);每回合選身分操作,動作記進 provenance log</td>
+      <td>🟧 <strong>第三局</strong>;期中讀回:GFA 佔比 / 街牆圍合度 / 街網連通度 / 路口密度 / 誰被犧牲 / 缺了誰</td>
+      <td>全天 🟧</td>
+      <td>每局終局棋盤態 + 讀回卡(誰主導 / 誰被犧牲 / 缺了誰)×3 局</td>
+    </tr>
+    <tr>
+      <td><strong>8</strong></td><td>07-04</td><td>Part 2 終局 + 烘參考圖 + 開始算圖</td>
+      <td>🟧 <strong>決勝局</strong>:鎖定各組最終棋盤態;🟩 把終局態烘成參考圖(圖底 / 深度 / 彩色分割=功能占比)</td>
+      <td>🟩 <strong>GH 直連影像 API</strong>(nano-banana 2 / gpt-image,不走 ComfyUI):一根杆同驅 ① GH 幾何 ② 提示詞 ③ 參考圖;seed 化批次出圖</td>
+      <td>全天 🟧+🟩</td>
+      <td>終局棋盤態 + 烘焙參考圖(圖底/深度/分割)+ 第一批 API 印象圖 + 失控量測(API 先驗壓過控制多少)</td>
+    </tr>
+    <tr>
+      <td><strong>9</strong></td><td>07-05</td><td>AI 渲染收尾 + 6 組對比 + 評圖</td>
+      <td>🟩 補算 / 挑圖 / 排版各組最終印象圖;對齊讀回卡</td>
+      <td>🟧 <strong>6 組並排評圖</strong>:每組講「這是誰的城 / 誰被犧牲 / 缺了誰 / 我這格在哪洩漏 / API 先驗改寫了什麼」;頒「最誠實獎」非「最美獎」;🟦 收束 + 課後流形地平線預告</td>
+      <td>上 🟩 / 下 🟧</td>
+      <td>6 組成果板(終局棋盤 + 讀回卡 + 印象圖 + 誠實註記)+ 個人反思一頁</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<p><strong>節奏邏輯</strong>:Part 1 占 Day 1–5(可視化會騙人 → 分類會塌縮 → 聚合會抹除 → ML 會洩漏 → AI 連自己生成的城都讀不回),Day 4 是論述高潮「撞牆日」給整天。Day 6 上午用文生圖暖身把 Part 1 第5級的「模型先驗」直接轉成 Part 2 影像軌的引子,下午切到博弈。Part 2 占 Day 6–9,三到四局滾動,Day 8–9 烘圖算圖評圖。</p>
+
+<h3>三、連接圖</h3>
+<pre class="ascii">
+            PART 1 (READ) — 真實上海資料,五級階梯,每級撞一道牆
+ ┌──────────────────────────────────────────────────────────────────┐
+ │ ①可視化      ②分類        ③聚合        ④ML訓練資料      ⑤AI       │
+ │ 資料不是真相 → 形態塌縮 → 聚合抹除 → 留窗洩漏(72%假) → 生成讀不回 │
+ │  (Day1)       (Day2-3)    (Day3)       (Day4 高潮)      (Day5)     │
+ └───────────────────────────────┬──────────────────────────────────┘
+                                  │  學出
+                                  ▼
+                  ┌───────────────────────────────┐
+                  │      規則引擎 RULE ENGINE       │
+                  │  類型 → 權力先驗 P(權重|類型,    │
+                  │  年代,土地制度)· 共現統計 ·     │
+                  │  reader(讀回器)                │
+                  └───────────────┬───────────────┘
+                                  │  當作遊戲規則
+   ┌──────────────────────────────▼──────────────────────────────────┐
+ │ PART 2 (WRITE) — 抽象棋盤,非對稱多方協商桌遊  (Day6-9)            │
+ │   政府 · 開發商 · 社區 · 在地  在紅線基地上爭地/爭控制/爭容積       │
+ │   每回合選身分 → provenance log → 量體湧現 → ↩讀回(GFA/圍合/連通)│
+ │   ◀── 文生圖暖身(讀模型先驗 200 字,Day6 上午)銜接影像軌 ──▶      │
+ │   終局棋盤態 → GH 烘參考圖 → 影像 API 印象圖(失控=被量測的東西)  │
+ └──────────────────────────────┬──────────────────────────────────┘
+                                  │  每局產出
+                                  ▼
+                  ┌───────────────────────────────┐
+                  │   一座帶標籤的城(語料)         │
+                  │   棋盤態 + provenance + 讀回卡   │
+                  └───────────────┬───────────────┘
+                                  │  餵回
+                                  ▼
+       ╔═══════════════════════════════════════════════════════╗
+       ║   課後地平線:機器自己生成新城市(流形 / latent 採樣)  ║
+       ║   ★ 不進 9 天 hands-on — 批判層 + 課後研究地平線 ★     ║
+       ╚═══════════════════════════════════════════════════════╝
+
+ 誠實脊梁: Part1 撞牆(形態讀不回權力) ══════▶ Part2 讀回時眼睜睜看到
+           這座城無法被完整讀回是誰建的,而開發商照樣靠塔樓贏 GFA。
+</pre>
+
+<h3>四、「不共用素材」為何反而更好</h3>
+<div class="tbl-scroll">
+<table>
+  <thead><tr><th></th><th>Part 1(READ)</th><th>Part 2(WRITE)</th></tr></thead>
+  <tbody>
+    <tr><td><strong>素材</strong></td><td>真實上海切片 <code>patch_*.fgb</code> + 全市 <code>带高度.shp</code> 母層</td><td>為玩法設計的<strong>抽象紅線棋盤</strong>(quad/core/bipolar/bands/cityish)</td></tr>
+    <tr><td><strong>目的</strong></td><td>教<strong>讀真實資料</strong>會發生什麼(騙、塌、抹、洩、讀不回)</td><td>教<strong>權力如何寫城市</strong>的因果與不對稱</td></tr>
+    <tr><td><strong>若硬要共用會壞在哪</strong></td><td>—</td><td>用真實上海地塊當棋盤 → 學生會去「猜這棟是政府還是開發商」,直接違反鐵律②禁止虛構,把 Part 1 撞牆的成果抵銷掉</td></tr>
+    <tr><td><strong>抽象棋盤的好處</strong></td><td>—</td><td>(1)避免從形態斷言身分;(2)派系領地用<strong>設計給定</strong>(partition layout)而非從形態反推,正好示範「權力歸屬只能走 metadata,不能認形態」;(3)規則可調、回合可控、可重玩,教學節奏穩定</td></tr>
+    <tr><td><strong>真實切片的好處</strong></td><td>(1)三區對比強烈、立刻有圖;(2)垃圾尾、塌縮、洩漏都是<strong>真資料才撞得到</strong>的牆,抽象資料造不出這種痛</td><td>—</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>一句話</strong>:Part 1 要的是「真實資料的真實傷口」,Part 2 要的是「可控的權力沙盤」。把兩者綁在同一套素材上,只會讓真實資料被當成可隨意貼身分的玩具(踩鐵律②),又讓桌遊被真實資料的雜訊拖慢。分開,各自最優,而誠實脊梁靠<strong>規則引擎</strong>而非素材來連接。</p>
+
+<h3>五、評量 Rubric(不獎勵「漂亮結果」)</h3>
+<blockquote><p>核心信條:<strong>漂亮的 accuracy 可以是謊言;能把「讓誰主導」變可見、能誠實標註失敗,才是這個工作坊的成功。</strong></p></blockquote>
+<div class="tbl-scroll">
+<table>
+  <thead><tr><th>維度</th><th>權重</th><th>滿分表現(獎勵什麼)</th><th>零分表現(不獎勵什麼)</th></tr></thead>
+  <tbody>
+    <tr><td><strong>讓主導可見</strong>(Visible Power)</td><td>30%</td><td>讀回卡清楚指認「這是誰的城、誰被犧牲、缺了誰」;能說明開發商如何沒佔最多地卻靠塔樓贏 GFA</td><td>只交一張好看的城市印象圖,不說是誰的城</td></tr>
+    <tr><td><strong>誠實標註不確定性與失敗</strong>(Honest Failure)</td><td>30%</td><td>高度註記寫明「AI 估計、相對排序對、絕對值低」;混淆矩陣指出哪類塌縮並解釋(機能 vs 形態);敢說「這個 AI 檢查點不可用於增密推演」</td><td>隱藏垃圾尾、把 72% 當真、宣稱模型「服從」了條件</td></tr>
+    <tr><td><strong>能說清自己在哪洩漏</strong>(Locate the Leak)</td><td>25%</td><td>能指出「我這格的 in-sample 數字哪裡是空間自相關洩漏」「我哪個特徵造成標籤循環」「我哪個聚合決定抹除了什麼」</td><td>交了崩盤前的數字當結論,說不出洩漏在哪</td></tr>
+    <tr><td><strong>過程與協作</strong>(Process)</td><td>15%</td><td>provenance log 完整、可重跑、組內四人分工可追溯、評圖時能互相質詢</td><td>黑箱結果、無法復現、無法回答「你這步的來源是什麼」</td></tr>
+  </tbody>
+</table>
+</div>
+<p><strong>附加(非加分,而是門檻)</strong>:任何斷言「某建築/某派系是政府/開發商/居民」而無 metadata+文獻+年代支撐者,該項記為<strong>未達門檻</strong>(鐵律②)。</p>
+
+<h3>六、物料 / 軟體清單</h3>
+<h4>Part 1(真實資料 · 純跑得動)</h4>
+<p><strong>軟體</strong></p>
+<ul>
+  <li>Python 3.10+:<code>geopandas</code>、<code>shapely</code>、<code>pyproj</code>、<code>scikit-learn</code>、<code>matplotlib</code>、<code>numpy</code>、<code>pandas</code>、<code>pyarrow</code>(讀 parquet)、<code>torch</code>(CPU 即可,VAE 5 秒內、擴散用凍結檢查點)</li>
+  <li>QGIS(選用,給不熟 Python 的學生看 <code>.fgb</code> / <code>.shp</code> 的 GIS 介面)</li>
+  <li>讀 FlatGeobuf(注意:GPKG 的 sqlite 在掛載碟上會壞,故統一用 <code>.fgb</code>)</li>
+</ul>
+<p><strong>資料切片(現成,在 repo 內)</strong></p>
+<ul>
+  <li><code>simple_workflows/data/patch_{lujiazui,laoximen,caoyang}.fgb</code>(三區,EPSG:32651,欄位 height/fp_area/floors)</li>
+  <li><code>simple_workflows/data/step1_read.png</code>(目標長相示範)</li>
+  <li>母層(自切新窗用):<code>data_collection/上海城市数据集/01-建筑轮廓/②AI解析/上海市_建筑-AI影像解译-带高度.shp</code>(全市 1,366,427 棟)</li>
+  <li>標籤層:<code>.../③其它/上海市_建筑-带type.shp</code>(145,923 棟,59.7% 有 type)</li>
+  <li>語義層:<code>data_collection/上海城市数据集/02-POI&amp;AOI/</code>(政府機構 54,444 點含行政層級 / AOI 小區)</li>
+</ul>
+<p><strong>可重跑程式(每個 wf 資料夾有 <code>run.py</code>)</strong></p>
+<ul>
+  <li><code>wf1_quantile_rule/run.py</code>(聚合最乾淨,可手算驗證)、<code>wf2_kmeans_resample/run.py</code>(無監督分類)、<code>wf6_procedural/run.py</code>(coverage/grain/spacing/OSI)、<code>wf4_vae_latent/run.py</code>(β-VAE)、<code>wf5_diffusion/run.py</code>(擴散,載 <code>data_collection/generative/track_a2_model.pt</code> 凍結檢查點)</li>
+  <li>撞牆日:<code>typology_foundation/v05/exp1_recognition.py</code> + <code>dataset.parquet</code> + <code>windows.json</code> + <code>results_e1.json</code>(標準答案核對)</li>
+  <li>標準答案 / 規範:<code>typology_foundation/C_type_stats.md</code>、<code>signatures.csv</code>、<code>fig_C1/C3.png</code>、<code>data_collection/README.md</code>(§2 反循環)、<code>labelling_codebook.md</code>、<code>cell_record_schema.md</code>、<code>A_metadata_inventory.md</code></li>
+  <li>成果展示框架:<code>simple_workflows/GALLERY.html</code>(zh-Hant 自含單檔)</li>
+</ul>
+<h4>Part 2(博弈 + 影像)</h4>
+<p><strong>桌遊本體(實體 + 數位雙軌)</strong></p>
+<ul>
+  <li>實體棋盤組件(6 組各一套):紅線基地底板、四派系領地塊(政府 <code>--state #4a6fa5</code> / 開發商 <code>--dev #c0654a</code> / 社區 <code>--comm #5a9367</code> / 在地 <code>--inf #c2a23c</code>)、量體積木(按 heightCap:政府高 / 開發商 podiumtower 上限 185 / 社區 perimeter 45 / 在地 finemat 24)、容積籌碼、provenance log 記錄卡、回合骰/事件卡</li>
+  <li>數位版(現成原型可改):<code>typology_foundation/V08_STAKEHOLDER_DESIGN.html</code>(四派系 ACTORS 表 + partition 佈局 + 讀回引擎,純 JS 即拨即算)——可投影當裁判台,自動算 GFA 佔比 / 圍合度 / 連通度 / 路口密度 / dominant / missing</li>
+  <li>partition 佈局清單:quad(四象限,學規則局)、bands(三帶)、core(核心-邊緣)、bipolar(雙極 State|Dev)、cityish(混合城,決勝局)</li>
+</ul>
+<p><strong>影像生成(Day 8–9)</strong></p>
+<ul>
+  <li><strong>Grasshopper(Rhino)直連影像 API,不走 ComfyUI</strong>(業主已定):GH 烘參考圖(圖底/深度/彩色分割=功能占比)→ GH 內 HTTP POST(參考圖 + 提示詞 + seed)→ API</li>
+  <li>API:<strong>nano-banana 2 / gpt-image</strong>(閉源、只吃 text + reference-image,故不能塞 ControlNet——這正是影像軌要量的「失控」)</li>
+  <li>控制台原型(梳理控制鏈,不真呼叫 API):<code>PART2_IMPRESSION_LEVERS.html</code>(W→參數→參考圖→提示詞 三通道映射,沿用 V08.1 ACTORS 表)</li>
+  <li><strong>金鑰 / 預算(需開課前備妥)</strong>:
+    <ul>
+      <li>為 6 組各備一把 API key(或一把共用 key + 用量配額),Day 6 暖身對照 + Day 8–9 批次出圖</li>
+      <li>粗估用量:6 組 × 每組(暖身對照 ~4 張 + 終局印象 4 seed × 多 partition ~12 張)≈ 100 張/組 × 6 ≈ <strong>約 600 張</strong>;按 gpt-image / nano-banana 2 高解析張價抓上緣,<strong>請以每張預算 × 600 + 30% 緩衝編列</strong>,並在 GH 端設每次 POST 的 seed 與張數上限避免暴衝</li>
+      <li>開課前 <strong>務必做一次 end-to-end 連線測試</strong>(GH HTTP POST → API → 圖回 Rhino 視圖),確認金鑰、額度、網路(Tongji 校網對外 API 的可達性)三者都通</li>
+    </ul>
+  </li>
+</ul>
+
+<h4>相關檔案路徑(本大綱引用的現成資產)</h4>
+<ul class="note">
+  <li>Part 1 階梯:<code>/Users/jinbao/Projects/Urban-Stakeholder-Workshop/simple_workflows/</code>(<code>data/patch_*.fgb</code>、<code>wf1/2/4/5/6/run.py</code>、<code>GALLERY.html</code>、<code>README.md</code>)</li>
+  <li>撞牆日核心:<code>/Users/jinbao/Projects/Urban-Stakeholder-Workshop/typology_foundation/v05/</code>(<code>exp1_recognition.py</code>、<code>dataset.parquet</code>、<code>windows.json</code>、<code>results_e1.json</code>)</li>
+  <li>分類 / 聚合教材:<code>/Users/jinbao/Projects/Urban-Stakeholder-Workshop/typology_foundation/</code>(<code>C_type_stats.md</code>、<code>signatures.csv</code>、<code>fig_C1_confusion_form_vs_semantics.png</code>、<code>fig_C3_form_space.png</code>、<code>A_metadata_inventory.md</code>)</li>
+  <li>規範 / 反循環:<code>/Users/jinbao/Projects/Urban-Stakeholder-Workshop/data_collection/</code>(<code>README.md</code>、<code>labelling_codebook.md</code>、<code>cell_record_schema.md</code>)</li>
+  <li>Part 2 桌遊原型:<code>/Users/jinbao/Projects/Urban-Stakeholder-Workshop/typology_foundation/V08_STAKEHOLDER_DESIGN.html</code></li>
+  <li>Part 2 影像軌:<code>/Users/jinbao/Projects/Urban-Stakeholder-Workshop/PART2_IMPRESSION_LEVERS.html</code></li>
+  <li>擴散檢查點:<code>/Users/jinbao/Projects/Urban-Stakeholder-Workshop/data_collection/generative/track_a2_model.pt</code></li>
+</ul>
+
+<!-- ============================================================= -->
+<!-- 5. 誠實脊梁與用詞紀律                                           -->
+<!-- ============================================================= -->
+<h2 id="s5"><span class="no">5</span>誠實脊梁與用詞紀律 — 反類型學自我審計</h2>
+
+<blockquote><p>這一節不是免責聲明,是工作坊的骨架。整個重新設計只在一個前提下成立:我們知道自己在哪裡作了簡化,而且把每一處簡化攤在學生面前。Part 1 教學生撞牆,Part 2 讓學生在牆的另一邊照樣輸;兩部分共用同一根脊梁——<strong>權力會在形態上留下痕跡,但形態讀不回權力</strong>。</p></blockquote>
+
+<h3>5.1 五條鐵律,寫給讀者</h3>
+<p>這五條不是 9 天裡偶爾提一句的注意事項,它們是被 v05、v06、v07 三次獨立研究分別撞出來、彼此印證的硬結論。工作坊的每一個機制都是為了讓學生親手碰到它們。</p>
+<ol class="laws">
+  <li><strong>形態看不見權力(form cannot see power)。</strong>這是最反直覺、也最重要的一條。我們有上海 137 萬棟建築的幾何,可以算出每一塊地的容積率、覆蓋率、樓層、量體比例——但當我們把這些幾何特徵餵給分類器、要它判斷「這是誰蓋的(政府/開發商/社區/在地)」,而且<strong>用它沒看過的城市窗口來考它</strong>(leave-windows-out),它整個塌掉:權力類別的召回率掉到 1.2% 以下,醫院類直接是 0。同一個模型在「看過的資料」上能拿 72%——那 72% 是洩漏(leakage),不是能力。結論:純形態無法可靠地識別權力歸屬。形態是病態的逆問題。</li>
+  <li><strong>禁止虛構(no fabrication)。</strong>因為①,我們明令禁止任何「從一棟樓的高/矮/胖/瘦,斷言它是政府的、開發商的、還是居民的」這類陳述。形態這一層我們只允許<strong>量測統計</strong>:這塊地容積率 3.2、覆蓋率 41%、平均 18 層、塔樓占比高。誰建的、為誰建的——這是<strong>身分歸屬</strong>,只能走文獻證據(產權、規劃檔案、土地出讓、年代、土地制度),不能從幾何反推。被退掉的反例:一個把高度門檻直接翻成「國家規劃+全球資本」「開發商主導」的命名啟發法,就是虛構。</li>
+  <li><strong>雙層類型系統(語義層 ↔ 形態家族層)。</strong>我們把「類型」拆成兩個彼此獨立、用不同證據支撐的層:
+    <div class="tbl-scroll">
+    <table>
+      <thead><tr><th>層</th><th>從哪讀</th><th>覆蓋</th><th>性質</th><th>角色</th></tr></thead>
+      <tbody>
+        <tr><td><strong>語義類型</strong></td><td>metadata:POI / EULUC 土地利用 / AOI / 名稱 / 年代</td><td>98%+</td><td>離散、可審計、有文獻證據</td><td>掛權力先驗、做讀回</td></tr>
+        <tr><td><strong>形態家族</strong></td><td>純幾何量測(p10/p50/p90 連續分布)</td><td>100%</td><td>連續、無身分</td><td>生成操作在這裡發生</td></tr>
+      </tbody>
+    </table>
+    </div>
+    權力先驗 <code>P(權重 | 類型, 年代, 土地制度)</code> 只掛在<strong>語義層</strong>,而且是<strong>加法的、非互斥的、帶不確定性的</strong>(政府在中國土地制度下有一個下限值,不會歸零——Wu 2016 / Lu et al. 2020)。生成永遠在<strong>形態家族層</strong>操作。兩層之間不靠規則硬接,靠<strong>資料測出來的共現統計</strong>當橋。一句話:語義層回答「這是什麼、可能是誰的」,形態家族層回答「它長什麼樣」,中間隔著一道我們不偷渡的牆。</li>
+  <li><strong>雙層為主線,流形為批判層(本次業主拍板)。</strong>這是本次重新設計最重要的取捨。離散的語義雙層系統是 <strong>9 天的主線工具</strong>——它能跑、可教、可審計,學生能在一個下午裡親手操作它。連續形態流形(反類型學的最終形態、<code>project_brief_v2 §2</code> 的終極承諾)是<strong>教給學生的批判層與課後研究地平線</strong>,不進 9 天的 hands-on。我們對學生誠實地說:你們手上這套離散工具是簡化版,它本身就是 §8 在批判的東西的一個受控版本;真正的承諾是連續流形,那是你們畢業課題的方向。<strong>latent 採樣是地平線,不是這週的作業。</strong></li>
+  <li><strong>已知資料天花板(誠實列出,不藏)。</strong>這套東西建立在一堆已知的限制上,我們在開課第一天就列給學生:
+    <ul>
+      <li><strong>單城</strong>:只有上海,seed 0,跨城遷移未驗證。</li>
+      <li><strong>年代截斷</strong>:Age 在 1985 前被截斷(約 25% 擠在那一格),5 個郊區窗口年代是 0%——而 v05 證明<strong>年代是缺得最致命的那一層</strong>(三角形是靠 TIME 閉合的)。</li>
+      <li><strong>無地籍/產權層</strong>:8 層多源裡,土地產權(tenure)是上海公開資料缺的那一層,只能靠 4 個參照城市三角定位。</li>
+      <li><strong>AI 高度低估超高層</strong>:AI 推估高度會把超高層截頂、用 100m 平均抹平,真正的高層 token 極稀(全上海訓練集 21 格 / 29 棟)。<strong>我們沒有一個真正的高層 token。</strong></li>
+      <li><strong>生成資料的隱性洩漏</strong>:in-sample 漂亮的分數多半是開卷考。</li>
+    </ul>
+  </li>
+</ol>
+
+<h3>5.2 對照 <code>project_brief_v2 §8</code> 禁則的逐條審計</h3>
+<p>§8 列了 8 條禁則。下面逐條給判定:<strong>我們在哪守住,哪裡是刻意的工作坊簡化並標明</strong>。誠實的部分是——我們在兩處刻意違反了 §8,因為那正是要教給學生的東西;這兩處被明確標為「受控違反」,且被 §5.1.④ 的「雙層為主線/流形為批判層」框架包住。</p>
+
+<h4>禁則 1 — 把利益相關者向量映射到離散 regime 標籤。</h4>
+<p>判定:<strong>刻意的工作坊簡化(受控違反),已標明。</strong> Part 1 的「分類」級和 Part 2 的派系本身,都用了離散的權力類別。§8 禁的是把它當成生成的最終表徵;我們把它降格為<strong>主線教學工具 + 診斷層</strong>,並在④裡明說連續流形才是真承諾。守住的地方:我們<strong>沒有</strong>把離散標籤接到任何聲稱是最終形態流形的東西上;生成操作仍在連續的形態家族層(p10/p50/p90)。</p>
+<h4>禁則 2 — 用固定的形態原型庫當模板或檢索目標。</h4>
+<p>判定:<strong>守住。</strong> 生成走連續的形態家族分布,不是從一個「政府城/開發商城/社區城」的成品圖庫裡檢索。Part 2 烘出的參考圖是當局棋盤態的幾何投影,不是從原型庫抽卡。注意一個邊界:Part 2 的 GH 幾何是參數化長出來的,不是檢索的——這點守住了 §8 的精神(「檢索就是偽裝的類型學閉合」)。</p>
+<h4>禁則 3 — 手寫條件規則(「若政府主導則格網」)。</h4>
+<p>判定:<strong>部分受控違反,已標明。</strong> Part 2 是一場桌遊,它<strong>必須</strong>有規則,而那些規則(v07 的 16 格控制矩陣、41 條規則、FAR 壕溝)有一部分是理論驅動的手寫機制。但這裡有一個關鍵的誠實區分:v07 已經證明 <strong>WHAT(一種權力蓋什麼)是理論驅動的窄前向通道</strong>,所以「政府傾向蓋什麼」用理論規則編碼是<strong>站得住的</strong>(power→form 是窄但存在的前向通道);我們禁止的是反方向——<strong>不准用規則從形態反推是誰</strong>(form→power)。所以 Part 2 的規則只跑前向(誰主導 → 城市長怎樣),讀回(form→power)時我們<strong>不用規則認人</strong>,而是讓學生眼睜睜看到讀不回去。這正是不對稱性的遊戲化。</p>
+<h4>禁則 4 — 把利益相關者向量壓到 8 維以下。</h4>
+<p>判定:<strong>工作坊簡化,已標明。</strong> Part 2 的玩家派系是 4 個(政府/開發商/社區/在地),遠低於 §3.1 的 8–12 維。我們明說:4 派系是<strong>玩法的可玩性簡化</strong>,是把高維權力向量投影到一張桌子能容納的維度。完整的 compact-12 schema(<code>stakeholder_vector_schema.v1.yaml</code>)是課後/研究線的輸入接口,4 派系是它的教學投影。權力先驗仍保留加法·非互斥·帶不確定性的結構(政府有下限),沒有退化成互斥的 4 選 1。</p>
+<h4>禁則 5 — 只在「形態純淨」的城市樣本上訓練。</h4>
+<p>判定:<strong>守住,且上海是優勢。</strong> Part 1 用真實上海,而上海正是語料裡最強的 palimpsest(里弄 / 單位 / 裙樓塔樓 / 租界格網 / 後 1990 封閉小區 / 仕紳化歷史街區共存)。我們不挑純淨樣本;我們把混雜當主菜。</p>
+<h4>禁則 6 — 任何按「類型」分類輸出的可視化(「這個輸出是 A 型城」)。</h4>
+<p>判定:<strong>守住於形態層,但 Part 2 讀回有一個受控的例外,已標明。</strong> 我們不把生成的城市標成「這是 X 型城」。但 Part 2 的終局評分<strong>會</strong>問「這是誰的城/誰被犧牲/缺了誰」——這看起來像分類,其實不是:它報的是<strong>控制力的分布與缺席</strong>(誰拿到 GFA 主導、誰被抹除),用的是 v06「開發商引力」那種<strong>量測</strong>(誰沒佔最多地卻靠塔樓拿下 GFA),不是給城市貼類型標籤。而且讀回的高潮恰恰是<strong>讀不回去</strong>——學生會看到這座城無法被完整讀回是誰建的,這是反類型學的勝利,不是違反。</p>
+<h4>禁則 7 — 任何文字用 regime / type / category 描述輸出。</h4>
+<p>判定:<strong>守住,列為硬性用詞紀律。</strong> 輸出層一律用 <strong>configuration / 位置(position)/ 形態座標</strong>,不用 regime / type / category。中文對應:用「配置」「在分布上的位置」,不用「政體/類型/類別」。<code>classify→locate(定位)</code>,<code>belongs to type X→occupies a position near 樣本 X,Y,Z(落在某些參照樣本附近)</code>。這條紀律延伸到學生交付物與介面文字,在 code-review 時把關。<strong>注意</strong>:Part 1 的「分類」級在教學上<strong>會</strong>用到 classify 這個詞——但那正是要被撞翻的牆,我們在教學語境裡保留它,只為了讓學生親手體驗它的失敗;輸出層仍守紀律。</p>
+<h4>禁則 8 — 把上海(或任何 palimpsest 城市)當成單一形態類別。</h4>
+<p>判定:<strong>守住,且是核心教材。</strong> 見禁則 5。上海的混雜性是 Part 1 的高潮素材;v06 的 Caoyang 錨點失準(蓋出來的曹楊讀回成「密化的鄰里單元」而非 Perry 鄰里)正是「不能用單一類別套上海」的活教材。</p>
+
+<div class="box key">
+  <div class="t">審計小結</div>
+  <p>8 條禁則裡,4 條完全守住(2、5、7、8),1 條守住於形態層、Part 2 讀回有受控例外(6),3 條是<strong>刻意的、已標明的工作坊簡化</strong>(1、3、4)。三處簡化都不是偷渡——它們是教學標的本身,且都被「雙層為主線、流形為批判層」(§5.1.④)的框架包住:離散工具能跑能教,連續流形是被誠實標出的地平線。<strong>沒有任何一處把離散類型學接到聲稱是最終生成流形的東西上。</strong></p>
+</div>
+
+<h3>5.3 整個工作坊的認識論支點</h3>
+<p>整個 9 天只圍著<strong>一個發現</strong>轉,而這個發現被教兩次、玩一次:</p>
+<blockquote><p><strong>power → form 是窄的前向通道;form → power 是病態的逆問題。</strong></p></blockquote>
+<ul>
+  <li><strong>前向(power→form)是窄但存在的通道。</strong> v07 證明:WHAT(一種權力蓋什麼)是理論驅動的——25/36 的排序不變量成立(覆蓋率 INF&gt;COMM&gt;DEV&gt;STATE,GFA-高度 DEV&gt;STATE&gt;COMM&gt;INF,顆粒度 INF 最小 10/10)。所以你<strong>可以</strong>從「誰主導」前向生成一座合理的城。Part 2 的遊戲規則就跑這條前向通道。</li>
+  <li><strong>逆向(form→power)是病態的。</strong> v05 證明:從形態反推權力,在留出窗口下崩潰(recall ≤1.2%)。所以你<strong>不能</strong>從一座城反推出是誰建的。</li>
+</ul>
+<p><strong>同一個發現,教兩次,玩一次:</strong></p>
+<ol>
+  <li><strong>Part 1 撞牆(教第一次)。</strong> 在「ML 訓練資料」這一級,學生親手訓一個 form→class 分類器,在 in-sample 上看到漂亮的 72%,然後我們把它放到沒看過的窗口上考——它塌到基線。學生親手撞到「形態讀不回權力」這道牆,並親手認出那 72% 是洩漏。<strong>這是把 v05 變成一堂洩漏課。</strong></li>
+  <li><strong>Part 2 讀回不對稱(教第二次、玩一次)。</strong> 學生用前向通道玩一整局(誰主導 → 城市長怎樣),終局時用讀回評分。高潮是:<strong>這座城無法被完整讀回是誰建的</strong>(逆問題病態),但<strong>開發商照樣贏了 GFA</strong>(v06 的「開發商引力」:沒佔最多地,靠塔樓拿下容積主導;v07 的「抹除是開發商的簽名」)。學生在遊戲裡眼睜睜看到——前向贏家清清楚楚,逆向讀回卻一片模糊。</li>
+</ol>
+<p>兩部分共用這根脊梁,但<strong>不必共用同一套素材</strong>(Part 1 用真實上海資料,Part 2 用抽象基地)——因為脊梁是認識論的,不是資料的。</p>
+
+<h3>5.4 Part 2 印象圖:這是「印象/控制力研究」,不是城市真相</h3>
+<p>最後一條紀律,單獨拉出來標,因為它最容易被誤讀:</p>
+<blockquote class="warn"><p><strong>Part 2 終局烘出的影像生成 API 印象圖,是「印象」,不是城市真相,也不是規劃方案。</strong></p></blockquote>
+<ul>
+  <li><strong>它研究的是兩件合法的事</strong>,不是第三件被禁止的事:
+    <ol>
+      <li><strong>可控性</strong>:從純語言到結構條件,我們能把這個不可控的文生圖過程捏到什麼程度,每根控制杆買到多少控制力。</li>
+      <li><strong>基礎模型自帶的 stakeholder 先驗</strong>:你打「開發商主導的城市」,模型吐回來的是它<strong>訓練語料的偏見</strong>——這是 v06「鏡頭有年份(the lens has a vintage)」的影像版。把這個偏見逼出來、量出來,是真發現。</li>
+    </ol>
+  </li>
+  <li><strong>它不宣稱的事</strong>:不從印象圖反推「這是誰的城市」。那是 form→power 的病態逆問題,v05–v07 已證會崩、且 §8 明令禁止虛構。</li>
+  <li><strong>API 失控的那一段不是 bug,是量測對象。</strong> 當影像 API 用自己的先驗改寫了你給的幾何(印象 vs 你輸入的棋盤幾何,差多少),那個差量正是這條軌要量的東西:「API 的先驗壓過了你多少控制」。</li>
+  <li><strong>遊戲操作的是控制力,不是讀身分。</strong> Part 2 的每根杆驅動的是「誰主導變得多可見」與「控制力本身」,玩家拨的是 power→form 的前向旋鈕;沒有任何一根杆聲稱能從形態讀出身分。對照 Studio Tim Fu 的 UrbanGPT(收斂成「一句話→一個漂亮結果」,優化形態好看),這裡優化的是<strong>控制力本身與讓誰主導變得可見</strong>。</li>
+</ul>
+<p class="note">相關檔案(絕對路徑):<code>/Users/jinbao/Projects/Urban-Stakeholder-Workshop/project_brief_v2.md</code>(§8 禁則 234–242 行;§10 用詞紀律 259–273 行)· <code>/Users/jinbao/Projects/Urban-Stakeholder-Workshop/PART2_IMPRESSION_LEVERS.html</code>(印象軌定位)· <code>/Users/jinbao/Projects/Urban-Stakeholder-Workshop/typology_foundation/</code>(v05/v06/v07 報告與資料)。</p>
+
+<!-- ============================================================= -->
+<!-- 6. 參考文獻                                                     -->
+<!-- ============================================================= -->
+<h2 id="s6"><span class="no">6</span>參考文獻</h2>
+
+<h3>① 參與式規劃嚴肅遊戲 / 都市規劃遊戲化(Part 2 桌遊的學理依據)</h3>
+<p>「把利益相關者拆成派系、各自帶目標、面對面協商權衡」這套機制在參與式規劃文獻中是成熟且被反覆驗證的做法——嚴肅遊戲被定位為「中介基礎設施」,讓玩家透過扮演不同利益方來練習談判、成本效益分析,並理解他者立場。EquiCity 的「自動評分/讀回」與本案的不對稱協商鬥爭可形成對照引用。</p>
+<ul>
+  <li><a href="https://www.nature.com/articles/s41598-024-61093-4" target="_blank" rel="noopener">EquiCity game: a mathematical serious game for participatory design of spatial configurations</a>(Scientific Reports, 2024)</li>
+  <li><a href="https://www.tandfonline.com/doi/full/10.1080/10447318.2021.2012379" target="_blank" rel="noopener">Game.UP: Gamified Urban Planning Participation Enhancing Exploration, Motivation, and Interactions</a>(IJHCI, 2022)</li>
+  <li><a href="https://www.cogitatiopress.com/urbanplanning/article/download/1261/744" target="_blank" rel="noopener">All Work and No Play? Facilitating Serious Games and Gamified Applications in Participatory Urban Planning and Governance</a>(Urban Planning, 2018, 開放取用)</li>
+</ul>
+<p class="note">(補充可選:YouPlaceIt! 空間協商與共識建構遊戲,以及 ScienceDirect 上的 Edible City Game,均為真實案例,可作為「協商型」桌遊的旁證。)</p>
+
+<h3>② 資料科學 → ML → 生成 的教學弧線(Part 1 階梯的正當性)</h3>
+<p>「可視化 → 分類 → 聚合 → 訓練資料 → 生成」這條由探索式分析逐級走向預測/生成的教學路徑,正是當代資料科學教育公認的「資料科學生命週期(data science lifecycle)」教學法。最權威的學理依據是 UC Berkeley 把運算思維與推論思維交織的本科課程設計(Data 8 / Data 100)——其同儕審查論文明確主張先教可視化與推論,再把「預測」當作推論的延伸來教(模型對未見資料的不確定性),與 Part 1 把「分類在 leave-windows-out 下崩潰」當教學高潮在認識論上完全一致。</p>
+<ul>
+  <li><a href="https://arxiv.org/pdf/2102.09391" target="_blank" rel="noopener">Interleaving Computational and Inferential Thinking: Data Science for Undergraduates at Berkeley</a>(arXiv 2102.09391;後刊於 Harvard Data Science Review)</li>
+  <li><a href="https://ds100.org/" target="_blank" rel="noopener">Data 100: Principles and Techniques of Data Science</a>(UC Berkeley,資料科學生命週期課綱)</li>
+  <li><a href="https://www.mdpi.com/2227-7102/15/2/186" target="_blank" rel="noopener">Curriculum, Pedagogy, and Teaching/Learning Strategies in Data Science Education</a>(Education Sciences, MDPI, 2025, 開放取用)</li>
+</ul>
+
+<h3>③ 影像生成模型控制都市形態:現況 +「幾何模仿 vs 綜合生成」批評(Part 2 烘焙印象圖 + 誠實脊梁)</h3>
+<ul>
+  <li><a href="https://arxiv.org/abs/2409.17049" target="_blank" rel="noopener">From Geometric Mimicry to Comprehensive Generation: A Context-Informed Multimodal Diffusion Model for Urban Morphology Synthesis</a>(arXiv 2409.17049, v3;IJGIS 2026)——舊版/別名「ControlCity」。核心論點:純幾何方法把生成「過度簡化為純幾何問題」,而多模態融合才是「從『幾何模仿』走向『基於理解的綜合生成』」的關鍵。這正是 Part 2 把棋盤態烘成印象圖時要警惕的批評。</li>
+  <li><a href="https://arxiv.org/abs/2505.24260" target="_blank" rel="noopener">Generative AI for Urban Design: A Stepwise Approach Integrating Human Expertise with Multimodal Diffusion Models</a>(arXiv 2505.24260)——把生成拆成三階段(路網與土地使用 → 建築佈局 → 細部與渲染),每階段由多模態擴散模型生草案再由人審改,批評端到端管線「控制力有限、忽視設計的迭代本質」。本案「人在迴圈、分階段控制」的正面對照。</li>
+  <li><a href="https://arxiv.org/abs/2507.14730" target="_blank" rel="noopener">Towards Urban Planning AI Agent in the Age of Agentic AI</a>(arXiv 2507.14730)——點出現有生成研究的兩個缺口:生成結構常由人預先設定、且忽視規劃師領域工具的能力。支撐本案「規則引擎由 Part 1 學出、再驅動 Part 2」的設計取向。</li>
+  <li><a href="https://parametric-architecture.com/urban-gpt-alpha-studio-tim-fu/" target="_blank" rel="noopener">Studio Tim Fu's Urban-GPT-Alpha</a>(ParametricArchitecture 報導)——在 Rhino/Grasshopper 內串接 ChatGPT 與擴散模型,由文字提示生 3D 都市量體。直接對應本案「在 Grasshopper 內直連影像生成 API、不走 ComfyUI」的技術選擇。</li>
+  <li><a href="https://blog.pebblous.ai/project/UrbanGPT/urbangpt2-pebblous/en/" target="_blank" rel="noopener">UrbanGPT 2.0 — Designing Cities with a Single Line of Text</a>(2026, STF Labs)——能用單行文字(如「70% 住宅、30% 商業、目標 FAR 450%」)即時生成並自動優化 GFA;其「自動優化 GFA」與 v06 的「開發商引力/GFA 主導」可形成批判性對讀。</li>
+</ul>
+<p class="note">注:2409.17049 業主備註記為「ControlCity」,為該論文的舊版/別名;正式引用用新題「From Geometric Mimicry to Comprehensive Generation」,該題本身即「幾何模仿 vs 綜合生成」批評最直接的學理出處。所有連結皆已查證為真實可達。</p>
+
+<!-- ============================================================= -->
+<footer>
+  <p><strong>本檔為工作坊重新設計討論稿。</strong>沿用 v05–v08 發現(form cannot see power · the lens has a vintage · power→form 窄前向通道 / form→power 病態逆問題 · 開發商引力 · 抹除是開發商的簽名)。開課前 9 天版本(2026-06-18)。</p>
+  <p>DigitalFUTURES 2026 · 同濟大學 CAUP · 主題 <em>Circular Urban AI: From Stakeholders to City Form</em> · 主持 June-Hao Hou(NYCU)· 協同 Jinbao Zhong(NYCU)、Cheng-An Wang。</p>
+  <p class="note">本頁全自含、無外部 CDN/字型/JS 依賴、開檔即跑。Widget-1 / Widget-2 數字為教學示意,錨點對源檔核實。權力歸屬只能走 metadata+文獻+年代,絕不從形態認人。</p>
+  <p><a href="#top">↑ 回到頂端</a></p>
+</footer>
+
+</div><!-- /.wrap -->
+
+<!-- ===================================================================
+     WIDGET-1 script (IIFE, seeded, 不污染全域)
+     =================================================================== -->
+<script>
+(function(){
+  "use strict";
+  var root = document.getElementById("wall-widget");
+  if(!root) return;
+
+  // ---- seeded RNG (mulberry32) ----
+  function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+
+  // 四派系權力色
+  var PCOL={"政府":"#4a6fa5","政府/單位":"#4a6fa5","開發商":"#c0654a","開發商/資本":"#c0654a",
+            "社區":"#5a9367","公共/醫療":"#5a9367","公共/教育":"#5a9367","在地/非正式":"#c2a23c","未知":"#6b7280"};
+
+  // 13 個手造樣本：形態特徵 + metadata + 真實語義類型 + 真實權力族
+  var SAMPLES=[
+    {id:1, name:"市第一人民醫院 住院樓", truthType:"醫院",    power:"公共/醫療",  area:8600,h:48, slender:1.9,dens:0.42, poi:"醫院·三甲",euluc:"公共服務",age:2008},
+    {id:2, name:"建橋實驗小學",          truthType:"學校",    power:"公共/教育",  area:5200,h:18, slender:0.7,dens:0.30, poi:"教育·小學",euluc:"公共服務",age:2012},
+    {id:3, name:"區政府行政中心",        truthType:"政府辦公", power:"政府",      area:7400,h:36, slender:1.2,dens:0.25, poi:"政府機構",euluc:"公共管理",age:2005},
+    {id:4, name:"濱江一號 高層住宅",      truthType:"商品房",  power:"開發商",    area:1100,h:96, slender:6.5,dens:0.55, poi:"住宅小區",euluc:"居住",  age:2016},
+    {id:5, name:"陽光花園 高層住宅",      truthType:"商品房",  power:"開發商",    area:1250,h:84, slender:5.8,dens:0.58, poi:"住宅小區",euluc:"居住",  age:2014},
+    {id:6, name:"棉紡三廠 工人新村",      truthType:"單位大院", power:"政府/單位", area:3200,h:18, slender:0.9,dens:0.46, poi:"老舊小區",euluc:"居住",  age:1958},
+    {id:7, name:"曹楊新村 一村",          truthType:"單位大院", power:"政府/單位", area:2900,h:15, slender:0.8,dens:0.50, poi:"老舊小區",euluc:"居住",  age:1951},
+    {id:8, name:"城中村 自建房群",        truthType:"城中村",  power:"在地/非正式",area:140, h:12, slender:1.1,dens:0.85, poi:"無POI",  euluc:"居住",  age:1995},
+    {id:9, name:"環城路 自建握手樓",      truthType:"城中村",  power:"在地/非正式",area:120, h:15, slender:1.3,dens:0.88, poi:"無POI",  euluc:"居住",  age:1999},
+    {id:10,name:"陸家嘴 金融大廈",        truthType:"商辦",    power:"開發商",    area:3600,h:180,slender:4.2,dens:0.40, poi:"寫字樓",euluc:"商業服務",age:2010},
+    {id:11,name:"社區衛生服務中心",       truthType:"醫院",    power:"公共/醫療",  area:1400,h:18, slender:1.0,dens:0.48, poi:"醫院·社區",euluc:"公共服務",age:2011},
+    {id:12,name:"老式多層公房",          truthType:"單位大院", power:"政府/單位", area:1600,h:18, slender:0.9,dens:0.52, poi:"老舊小區",euluc:"居住",  age:1985},
+    {id:13,name:"陽明苑 多層住宅",        truthType:"商品房",  power:"開發商",    area:1500,h:24, slender:1.4,dens:0.50, poi:"住宅小區",euluc:"居住",  age:2002}
+  ];
+
+  // ---- 模式① 形態猜權力：忠於 F1，崩回多數類（開發商/住宅），權力類 recall→0 ----
+  function formGuessPower(s, rnd){
+    var g;
+    if(s.dens>=0.82){ g = (rnd()<0.6) ? "在地/非正式" : "開發商"; } // 連非正式都會滑掉
+    else { g = "開發商"; } // 中低層量體一律被讀成開發商/住宅（developer gravity）
+    if(rnd()<0.18){ var slips=["政府","公共/醫療","政府/單位","在地/非正式","公共/教育"]; g=slips[Math.floor(rnd()*slips.length)]; }
+    return g;
+  }
+
+  // ---- 模式② metadata 讀類型：確定性、鎖定 ----
+  function metaReadType(s){
+    if(s.poi.indexOf("醫院")>=0) return "醫院";
+    if(s.poi.indexOf("教育")>=0) return "學校";
+    if(s.poi.indexOf("政府")>=0) return "政府辦公";
+    if(s.poi.indexOf("寫字樓")>=0) return "商辦";
+    if(s.poi.indexOf("無POI")>=0 && s.dens>=0.8) return "城中村";
+    if(s.poi.indexOf("老舊小區")>=0) return "單位大院";   // 年代背書的單位大院
+    if(s.poi.indexOf("住宅小區")>=0) return "商品房";
+    return "未知";
+  }
+
+  // ---- 形態小條圖（用高度/長細比畫成樓） ----
+  function shapeBars(s){
+    var n = s.slender>=4 ? 1 : (s.dens>=0.8 ? 5 : 3);
+    var maxH=44, hpx=Math.max(8, Math.min(maxH, s.h/180*maxH+8));
+    var w = s.slender>=4 ? 9 : (s.dens>=0.8 ? 6 : 16);
+    var out="";
+    for(var i=0;i<n;i++){
+      var jitter = (i===1?0.82:(i===2?0.9:1));
+      out += '<div class="wall-bk" style="width:'+w+'px;height:'+Math.round(hpx*jitter)+'px;"></div>';
+    }
+    return out;
+  }
+
+  // ---- 元件 refs ----
+  var grid=document.getElementById("wall-grid");
+  var btnForm=document.getElementById("wall-btn-form");
+  var btnMeta=document.getElementById("wall-btn-meta");
+  var accNum=document.getElementById("wall-accnum");
+  var accLbl=document.getElementById("wall-acclbl");
+  var barFill=document.getElementById("wall-barfill");
+  var taskEl=document.getElementById("wall-task");
+  var v05El=document.getElementById("wall-v05");
+
+  // v05 真實數字（來自 results_e1.json）
+  var V05={base:0.6012, formWin:0.6274, ctxWin:0.6413, insample:0.7436};
+
+  function esc(t){return String(t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+
+  function render(mode){
+    var rnd=mulberry32(11); // seeded：每次切換結果一致
+    var html="";
+    var liveHit=0;
+
+    for(var k=0;k<SAMPLES.length;k++){
+      var s=SAMPLES[k];
+      var guessLabel, ok, truthLabel, kind;
+      if(mode==="form"){
+        guessLabel = formGuessPower(s, rnd);
+        ok = (guessLabel===s.power);
+        truthLabel = s.power;     // 真實權力族
+        kind = "權力／身分";
+      } else {
+        guessLabel = metaReadType(s);
+        ok = (guessLabel===s.truthType);
+        truthLabel = s.truthType; // 真實語義類型
+        kind = "語義類型";
+      }
+      if(ok) liveHit++;
+
+      var col = mode==="form" ? (PCOL[guessLabel]||"#6b7280") : "#0f5e63";
+      var cls = ok ? "wall-right" : "wall-wrong";
+      html += ''
+        + '<div class="wall-cell '+cls+'">'
+        +   '<div class="wall-shape">'+shapeBars(s)+'</div>'
+        +   '<div class="wall-nm">'+esc(s.name)+'</div>'
+        +   '<div class="wall-meta-row">形態：<span>'+s.area+'㎡ · '+s.h+'m · 長細'+s.slender.toFixed(1)+' · 密'+s.dens.toFixed(2)+'</span></div>'
+        +   '<div class="wall-meta-row">meta：<span>'+esc(s.poi)+' · '+esc(s.euluc)+' · '+s.age+'</span></div>'
+        +   '<div class="wall-verdict">'
+        +     '<span class="wall-icon '+(ok?'wall-ok':'wall-no')+'">'+(ok?'✓':'✕')+'</span>'
+        +     '讀成 <span class="wall-tag" style="background:'+col+'">'+esc(guessLabel)+'</span>'
+        +   '</div>'
+        +   '<div class="wall-truth">真實'+kind+'：<b>'+esc(truthLabel)+'</b></div>'
+        + '</div>';
+    }
+    grid.innerHTML=html;
+
+    // 切換頂部讀數
+    if(mode==="form"){
+      btnForm.classList.add("wall-on"); btnMeta.classList.remove("wall-on");
+      accNum.className="wall-accnum wall-low";
+      accNum.textContent=(V05.formWin*100).toFixed(1)+"%";
+      barFill.className="wall-barfill wall-low";
+      barFill.style.width=(V05.formWin*100).toFixed(1)+"%";
+      accLbl.textContent="留窗 FORM 準確率";
+      taskEl.innerHTML="任務：<b>形態 → 權力／身分</b>。本示意樣本即時命中 "+liveHit+"/"+SAMPLES.length
+        +"，醫院／學校／政府全被讀成開發商（recall→0）。";
+      v05El.innerHTML="<b>v05 E1（leave-windows-out, n=13,812 棟·8 類）：</b>多數類基線 <b>0.601</b>；留窗 FORM <b>0.627</b>、FORM+CTX <b>0.641</b>——僅略高於基線。"
+        +"權力類 recall 崩潰：<span class='wall-r'>public_admin 1.56%→0%、healthcare 0%、office_finance ~14–15%</span>。"
+        +"同模型在 in-sample CV 卻衝到 <b>0.744</b>——這 ~72% 是窗口洩漏。<b>form cannot see power.</b>";
+    } else {
+      btnMeta.classList.add("wall-on"); btnForm.classList.remove("wall-on");
+      var metaAcc = liveHit/SAMPLES.length;
+      accNum.className="wall-accnum wall-high";
+      accNum.textContent=(metaAcc*100).toFixed(0)+"%";
+      barFill.className="wall-barfill wall-high";
+      barFill.style.width=(metaAcc*100).toFixed(1)+"%";
+      accLbl.textContent="metadata 讀類型準確率（本示意樣本）";
+      taskEl.innerHTML="任務：<b>metadata → 語義類型</b>。POI／EULUC／年代鎖定，"+liveHit+"/"+SAMPLES.length+" 全中。";
+      v05El.innerHTML="<b>語義層（metadata 讀類型）：</b>POI／EULUC／AOI／名稱／年代在真實資料覆蓋 98%+，可確定性鎖定醫院／學校／政府／商品房／單位大院／城中村。"
+        +"這是雙層類型系統的<b>語義主線</b>；形態家族另走幾何計算。權力歸屬掛在語義層的先驗 P(權重｜類型,年代,土地制度)，<b>不從形態認人</b>。";
+    }
+  }
+
+  btnForm.addEventListener("click",function(){render("form");});
+  btnMeta.addEventListener("click",function(){render("meta");});
+
+  render("form"); // 預設先撞牆
+})();
+</script>
+
+<!-- ===================================================================
+     WIDGET-2 script (IIFE, mulberry32, 不污染全域)
+     =================================================================== -->
+<script>
+(function(){
+  "use strict";
+  var W = document.getElementById("gameWidget");
+  if(!W) return;
+  function $(id){ return document.getElementById(id); }
+
+  /* ---------- seeded RNG ---------- */
+  function mulberry32(a){
+    return function(){
+      a |= 0; a = a + 0x6D2B79F5 | 0;
+      var t = Math.imul(a ^ a >>> 15, 1 | a);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+
+  /* ---------- catalogs (faithful to v08) ---------- */
+  var ACTORS = {
+    state:    {name:"政府 State", color:"#4a6fa5", tint:"#e7eef7", heightCap:80,  tissue:"monument",    cov:0.12, mainUse:"civic"},
+    developer:{name:"開發商 Developer", color:"#c0654a", tint:"#f7ece6", heightCap:185, tissue:"podiumtower", cov:0.55, mainUse:"office"},
+    community:{name:"社區 Community", color:"#5a9367", tint:"#e9f3ec", heightCap:45,  tissue:"perimeter",   cov:0.62, mainUse:"residential"},
+    informal: {name:"在地 Informal", color:"#c2a23c", tint:"#f6f1e0", heightCap:24,  tissue:"finemat",     cov:0.78, mainUse:"residential"}
+  };
+  var ORDER = ["state","developer","community","informal"];
+  var SHORT = {state:"政府",developer:"開發商",community:"社區",informal:"在地"};
+  var FILLCLS = {state:"game-fs",developer:"game-fd",community:"game-fc",informal:"game-fi"};
+
+  var USE = {
+    civic:{name:"行政",color:"#3d5a80",fh:4.6,floors:4},
+    park:{name:"公園",color:"#86b86a",fh:0,floors:0},
+    office:{name:"辦公",color:"#5b7aa8",fh:4.0,floors:14},
+    mall:{name:"商業",color:"#cf8a4f",fh:5.5,floors:3},
+    hotel:{name:"酒店",color:"#a96fb0",fh:3.6,floors:11},
+    residential:{name:"住宅",color:"#e7b34e",fh:3.1,floors:6},
+    school:{name:"學校",color:"#5aa6ad",fh:4.0,floors:3},
+    factory:{name:"工廠",color:"#94a0b3",fh:7.5,floors:2}
+  };
+  var USE_KEYS = ["civic","office","mall","hotel","residential","school","factory","park"];
+
+  var SITES = {
+    riverbend:[[80,120],[640,70],[900,200],[920,520],[640,650],[150,600],[60,360]],
+    ortho:[[110,90],[890,90],[890,630],[110,630]],
+    Lshape:[[100,90],[900,90],[900,360],[470,360],[470,630],[100,630]],
+    wedge:[[120,140],[880,80],[860,560],[420,640],[140,520]]
+  };
+
+  /* ---------- geometry ---------- */
+  function pointInPoly(x,y,poly){
+    var inside=false, i, j;
+    for(i=0,j=poly.length-1;i<poly.length;j=i++){
+      var xi=poly[i][0],yi=poly[i][1],xj=poly[j][0],yj=poly[j][1];
+      if(((yi>y)!=(yj>y)) && (x < (xj-xi)*(y-yi)/(yj-yi)+xi)) inside=!inside;
+    }
+    return inside;
+  }
+  function bbox(poly){
+    var x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;
+    poly.forEach(function(p){x0=Math.min(x0,p[0]);y0=Math.min(y0,p[1]);x1=Math.max(x1,p[0]);y1=Math.max(y1,p[1]);});
+    return {x0:x0,y0:y0,x1:x1,y1:y1,w:x1-x0,h:y1-y0};
+  }
+
+  /* ---------- state ---------- */
+  var ST = {
+    siteKey:"riverbend", nx:12, ny:9, mode:"allocate", brush:"state",
+    overrideUse:"office", grid:null, seed:20260618,
+    intensity:{state:1,developer:1,community:1,informal:1},
+    heightCap:{state:80,developer:185,community:45,informal:24}
+  };
+
+  function makeGrid(){
+    var poly=SITES[ST.siteKey], b=bbox(poly);
+    var cw=b.w/ST.nx, ch=b.h/ST.ny, cells=[], r, c;
+    for(r=0;r<ST.ny;r++) for(c=0;c<ST.nx;c++){
+      var cx=b.x0+(c+0.5)*cw, cy=b.y0+(r+0.5)*ch;
+      if(pointInPoly(cx,cy,poly)){
+        cells.push({c:c,r:r,cx:cx,cy:cy,x:b.x0+c*cw,y:b.y0+r*ch,cw:cw,ch:ch,area:cw*ch,actor:null,use:null});
+      }
+    }
+    ST.grid={cells:cells,cw:cw,ch:ch,b:b,poly:poly};
+  }
+
+  function defaultAllocate(){
+    var b=ST.grid.b;
+    ST.grid.cells.forEach(function(cell){
+      var left=cell.cx < b.x0+b.w/2, top=cell.cy < b.y0+b.h/2;
+      cell.actor = top ? (left?"state":"developer") : (left?"community":"informal");
+      cell.use = ACTORS[cell.actor].mainUse;
+    });
+  }
+  function clearAllocate(){ ST.grid.cells.forEach(function(c){c.actor=null;c.use=null;}); }
+
+  /* ---------- massing (faithful: podium+tower drives developer gravity) ---------- */
+  function clampFloors(f, fh, cap){ if(fh<=0) return 0; return (f*fh>cap)? Math.max(1,Math.floor(cap/fh)) : f; }
+
+  function cellMassing(actor, use, inten, cap, rnd){
+    var A=ACTORS[actor];
+    if(use==="park") return {use:"park",cov:1,floors:0,tower:null};
+    var floors, tower=null, repFh=USE[use]?USE[use].fh:USE.residential.fh;
+    if(A.tissue==="monument"){
+      floors=Math.max(2, Math.round(USE.civic.floors*inten)); repFh=USE.civic.fh;
+    } else if(A.tissue==="podiumtower"){
+      var pf=Math.max(2, Math.min(4, Math.round(USE.mall.floors*inten)));
+      var tb=Math.round(USE.office.floors*inten*1.4);
+      tower=Math.max(6, Math.round(tb*(0.7+rnd()*0.6)));
+      floors=pf; repFh=USE.office.fh;
+    } else if(A.tissue==="perimeter"){
+      floors=Math.max(1, Math.round(USE.residential.floors*inten)+(rnd()<0.5?1:0)); repFh=USE.residential.fh;
+    } else { // finemat
+      floors=Math.max(1, 1+Math.floor(rnd()*4)); repFh=USE.residential.fh;
+    }
+    floors=clampFloors(floors, repFh, cap);
+    if(tower!=null && tower*USE.office.fh>cap) tower=Math.max(1, Math.floor(cap/USE.office.fh));
+    return {use:use, cov:A.cov, floors:floors, tower:tower, repFh:repFh, tissue:A.tissue};
+  }
+
+  function cellGFA(area, m){
+    if(m.use==="park") return {gfa:0, fp:0, hRep:0};
+    if(m.tower!=null){
+      var podiumFP=area*m.cov*0.55, towerFP=area*m.cov*0.28;
+      var gfa=podiumFP*m.floors + towerFP*m.tower, fp=podiumFP+towerFP;
+      return {gfa:gfa, fp:fp, hRep:m.tower*USE.office.fh};
+    }
+    var f=area*m.cov;
+    return {gfa:f*m.floors, fp:f, hRep:m.floors*m.repFh};
+  }
+
+  /* ---------- readback ---------- */
+  function readback(){
+    var rnd=mulberry32(ST.seed>>>0);
+    var byActor={state:0,developer:0,community:0,informal:0};
+    var landBy={state:0,developer:0,community:0,informal:0};
+    var gfa=0, fp=0, siteArea=0, recs=[];
+    ST.grid.cells.forEach(function(cell){
+      siteArea+=cell.area;
+      if(!cell.actor){ recs.push({cell:cell,m:null,g:null}); return; }
+      landBy[cell.actor]+=cell.area;
+      var inten=ST.intensity[cell.actor]!=null?ST.intensity[cell.actor]:1;
+      var cap=ST.heightCap[cell.actor]!=null?ST.heightCap[cell.actor]:ACTORS[cell.actor].heightCap;
+      var m=cellMassing(cell.actor, cell.use||ACTORS[cell.actor].mainUse, inten, cap, rnd);
+      var g=cellGFA(cell.area, m);
+      byActor[cell.actor]+=g.gfa; gfa+=g.gfa; fp+=g.fp;
+      recs.push({cell:cell,m:m,g:g});
+    });
+    var dom=null,dv=-1,domLand=null,dlv=-1;
+    ORDER.forEach(function(a){ if(byActor[a]>dv){dv=byActor[a];dom=a;} if(landBy[a]>dlv){dlv=landBy[a];domLand=a;} });
+    var present={}; ST.grid.cells.forEach(function(c){ if(c.actor) present[c.actor]=1; });
+    var missing=ORDER.filter(function(a){ return !present[a] || (byActor[a]/Math.max(gfa,1))<0.03; });
+    // seam analysis
+    var idx={}; ST.grid.cells.forEach(function(c){ idx[c.c+","+c.r]=c; });
+    var recByKey={}; recs.forEach(function(rc){ recByKey[rc.cell.c+","+rc.cell.r]=rc; });
+    var seamG=0,seamA=0,intG=0,intA=0, D=[[1,0],[-1,0],[0,1],[0,-1]];
+    recs.forEach(function(rc){
+      if(!rc.cell.actor || !rc.g) return;
+      var seam=false;
+      D.forEach(function(d){ var nb=idx[(rc.cell.c+d[0])+","+(rc.cell.r+d[1])]; if(nb&&nb.actor&&nb.actor!==rc.cell.actor) seam=true; });
+      if(seam){ seamG+=rc.g.gfa; seamA+=rc.cell.area; } else { intG+=rc.g.gfa; intA+=rc.cell.area; }
+    });
+    var seamFAR=seamA?seamG/seamA:0, intFAR=intA?intG/intA:0;
+    return {
+      byActor:byActor, landBy:landBy, gfa:gfa, fp:fp, siteArea:siteArea,
+      FAR:siteArea?gfa/siteArea:0, coverage:siteArea?fp/siteArea:0,
+      dominant:gfa>0?dom:null, dominantLand:dlv>0?domLand:null, missing:missing,
+      seamFAR:seamFAR, intFAR:intFAR, seamRatio:intFAR?seamFAR/intFAR:1,
+      gravity:(gfa>0 && dom==="developer" && domLand && domLand!=="developer"),
+      recs:recByKey
+    };
+  }
+
+  /* ---------- render (Canvas2D, 圖底/用途) ---------- */
+  var cv=$("gameCanvas"), cx2=cv.getContext("2d");
+  function shade(hex,k){ // lighten/darken toward k>0 white, k<0 black
+    var n=parseInt(hex.slice(1),16),r=(n>>16)&255,g=(n>>8)&255,b=n&255;
+    if(k>=0){ r=r+(255-r)*k; g=g+(255-g)*k; b=b+(255-b)*k; } else { r=r*(1+k); g=g*(1+k); b=b*(1+k); }
+    return "rgb("+Math.round(r)+","+Math.round(g)+","+Math.round(b)+")";
+  }
+  function draw(R){
+    var b=ST.grid.b, W2=cv.width, H2=cv.height;
+    cx2.clearRect(0,0,W2,H2); cx2.fillStyle="#f0efe9"; cx2.fillRect(0,0,W2,H2);
+    // site polygon (red line)
+    cx2.beginPath();
+    ST.grid.poly.forEach(function(p,i){ i?cx2.lineTo(p[0],p[1]):cx2.moveTo(p[0],p[1]); });
+    cx2.closePath();
+    cx2.fillStyle="#ffffff"; cx2.fill();
+    cx2.lineWidth=2.4; cx2.strokeStyle="#9f1239"; cx2.setLineDash([7,4]); cx2.stroke(); cx2.setLineDash([]);
+    // cells: ground = faction tint; figure = a representative massing block coloured by use, scaled by height
+    ST.grid.cells.forEach(function(cell){
+      var rc=R.recs[cell.c+","+cell.r];
+      if(cell.actor){
+        cx2.fillStyle=ACTORS[cell.actor].tint;
+        cx2.fillRect(cell.x+0.5,cell.y+0.5,cell.cw-1,cell.ch-1);
+      } else {
+        cx2.fillStyle="#eceae3"; cx2.fillRect(cell.x+0.5,cell.y+0.5,cell.cw-1,cell.ch-1);
+      }
+      cx2.strokeStyle="rgba(26,29,35,.10)"; cx2.lineWidth=0.6; cx2.strokeRect(cell.x+0.5,cell.y+0.5,cell.cw-1,cell.ch-1);
+      if(cell.actor && rc && rc.m){
+        var u=cell.use||ACTORS[cell.actor].mainUse;
+        var ucol=USE[u]?USE[u].color:"#999";
+        var m=rc.m;
+        if(m.use==="park"){
+          cx2.fillStyle=USE.park.color; cx2.globalAlpha=.55;
+          cx2.fillRect(cell.x+2,cell.y+2,cell.cw-4,cell.ch-4); cx2.globalAlpha=1;
+        } else if(m.tissue==="podiumtower"){
+          // podium ring (low) + central tower (tall → darker)
+          var pd=Math.min(cell.cw,cell.ch)*0.16+2;
+          cx2.fillStyle=shade(ucol,.30);
+          cx2.fillRect(cell.x+2,cell.y+2,cell.cw-4,cell.ch-4);
+          var hf=m.tower?Math.min(1,m.tower*USE.office.fh/220):0;
+          var tw=Math.min(cell.cw,cell.ch)*(0.30+0.20*hf);
+          cx2.fillStyle=shade("#5b7aa8",-0.30*hf);
+          cx2.fillRect(cell.cx-tw/2,cell.cy-tw/2,tw,tw);
+        } else if(m.tissue==="monument"){
+          cx2.fillStyle=shade(USE.park.color,.30);
+          cx2.fillRect(cell.x+2,cell.y+2,cell.cw-4,cell.ch-4);
+          var mw=cell.cw*0.42, mh=cell.ch*0.34;
+          cx2.fillStyle=USE.civic.color;
+          cx2.fillRect(cell.cx-mw/2,cell.cy-mh/2,mw,mh);
+        } else if(m.tissue==="perimeter"){
+          var dd=Math.min(cell.cw,cell.ch)*0.30;
+          cx2.fillStyle=shade(ucol,-0.05);
+          cx2.fillRect(cell.x+2,cell.y+2,cell.cw-4,cell.ch-4);
+          cx2.fillStyle="#f3f4ef";
+          cx2.fillRect(cell.x+dd,cell.y+dd,cell.cw-2*dd,cell.ch-2*dd);
+        } else { // finemat grain
+          var g=3; var gw=(cell.cw-4)/g, gh=(cell.ch-4)/g, a,bb;
+          for(a=0;a<g;a++) for(bb=0;bb<g;bb++){
+            cx2.fillStyle=shade(ucol, (a+bb)%2? .12:-.04);
+            cx2.fillRect(cell.x+2+a*gw+0.4, cell.y+2+bb*gh+0.4, gw-0.8, gh-0.8);
+          }
+        }
+      }
+    });
+    // seam outline (adjacent different-actor edges)
+    cx2.strokeStyle="rgba(159,18,57,.55)"; cx2.lineWidth=1.6;
+    var idx={}; ST.grid.cells.forEach(function(c){ idx[c.c+","+c.r]=c; });
+    ST.grid.cells.forEach(function(cell){
+      if(!cell.actor) return;
+      var rgt=idx[(cell.c+1)+","+cell.r], dwn=idx[cell.c+","+(cell.r+1)];
+      if(rgt && rgt.actor && rgt.actor!==cell.actor){ cx2.beginPath(); cx2.moveTo(cell.x+cell.cw,cell.y); cx2.lineTo(cell.x+cell.cw,cell.y+cell.ch); cx2.stroke(); }
+      if(dwn && dwn.actor && dwn.actor!==cell.actor){ cx2.beginPath(); cx2.moveTo(cell.x,cell.y+cell.ch); cx2.lineTo(cell.x+cell.cw,cell.y+cell.ch); cx2.stroke(); }
+    });
+  }
+
+  /* ---------- panel render ---------- */
+  function pct(x){ return (x*100).toFixed(0); }
+  function renderPanel(R){
+    // GFA bars with land-share dashed marker
+    var bars="";
+    ORDER.forEach(function(a){
+      var gShare=R.gfa>0?R.byActor[a]/R.gfa:0;
+      var lShare=R.siteArea>0?R.landBy[a]/R.siteArea:0;
+      bars+='<div class="game-bar-row"><span class="game-tag '+
+        {state:"game-cs",developer:"game-cd",community:"game-cc",informal:"game-ci"}[a]+'">'+SHORT[a]+'</span>'+
+        '<span class="game-track"><span class="game-fill '+FILLCLS[a]+'" style="width:'+pct(gShare)+'%"></span>'+
+        '<span style="position:relative;display:block;height:0"><span style="position:absolute;top:-15px;left:'+pct(lShare)+'%;width:2px;height:15px;background:#1a1d23;opacity:.55"></span></span>'+
+        '</span><span class="game-pct">'+pct(gShare)+'%</span></div>';
+    });
+    $("gameBars").innerHTML=bars;
+
+    // verdict
+    var vb=$("gameVerdict");
+    if(!R.dominant || R.gfa<=0){
+      vb.className="game-verdict"; vb.innerHTML="桌面空白 — 尚未分配地塊。";
+    } else {
+      var dn=SHORT[R.dominant], gp=pct(R.byActor[R.dominant]/R.gfa);
+      vb.className="game-verdict"+(R.gravity?" game-warn":"");
+      vb.innerHTML="這是 <b class=\""+{state:"game-cs",developer:"game-cd",community:"game-cc",informal:"game-ci"}[R.dominant]+
+        "\">"+dn+"</b> 的城。<br>以 GFA 計,該派系拿下 <b>"+gp+"%</b> 容積主導。";
+    }
+
+    // mini stats
+    $("gameMini").innerHTML=
+      '<div class="game-stat"><div class="game-k">總 GFA(示意)</div><div class="game-v">'+Math.round(R.gfa).toLocaleString()+'</div></div>'+
+      '<div class="game-stat"><div class="game-k">基地 FAR</div><div class="game-v">'+R.FAR.toFixed(2)+'</div></div>'+
+      '<div class="game-stat"><div class="game-k">覆蓋率</div><div class="game-v">'+pct(R.coverage)+'%</div></div>';
+
+    // developer gravity
+    var gb=$("gameGrav");
+    var devG=R.gfa>0?R.byActor.developer/R.gfa:0, devL=R.siteArea>0?R.landBy.developer/R.siteArea:0;
+    if(R.gravity){
+      gb.innerHTML='<span class="game-big">⚡ 開發商引力觸發</span><br>開發商<b>不</b>是佔地最多的派系('+
+        SHORT[R.dominantLand]+'佔地最多),卻靠塔樓在容積上奪下主導。'+
+        '<div class="game-flip"><span>開發商佔地<b>'+pct(devL)+'%</b></span><span>開發商佔 GFA<b style="color:#c0654a">'+pct(devG)+'%</b></span></div>';
+    } else if(devG>devL+0.02){
+      gb.innerHTML='開發商佔地 <b>'+pct(devL)+'%</b>、卻佔 GFA <b style="color:#c0654a">'+pct(devG)+'%</b> — 塔樓把容積往上拉(尚未奪下全城主導)。';
+    } else {
+      gb.innerHTML='<span class="game-none">目前開發商未靠塔樓拉開土地↔容積差距。試著縮小開發商地塊但拉高其高度上限,看引力如何浮現。</span>';
+    }
+
+    // seam
+    var sb=$("gameSeam");
+    if(R.intFAR>0 && R.seamFAR>0){
+      var ratio=R.seamRatio;
+      var tag = ratio<0.92 ? "FAR 壕溝(邊界讓步)" : (ratio>1.08?"資本面向邊界(雙極特徵)":"中性");
+      sb.innerHTML="接縫 FAR / 內部 FAR = <b>"+ratio.toFixed(2)+"</b> &nbsp;<span style=\"color:#6b7280\">("+tag+")</span><br>"+
+        "<span style=\"font-size:11.5px;color:#6b7280\">接縫 FAR "+R.seamFAR.toFixed(2)+" · 內部 FAR "+R.intFAR.toFixed(2)+"</span>";
+    } else {
+      sb.innerHTML='<span class="game-none">尚無異派系接縫(需要至少兩個相鄰派系)。</span>';
+    }
+
+    // missing
+    var mb=$("gameMissing");
+    if(R.missing.length===0){ mb.innerHTML='<span class="game-none">四派系都在桌上且都有可讀回的容積足跡。</span>'; }
+    else {
+      var chips=R.missing.map(function(a){
+        var col={state:"#4a6fa5",developer:"#c0654a",community:"#5a9367",informal:"#c2a23c"}[a];
+        return '<span class="game-chip" style="background:'+col+'">'+SHORT[a]+'</span>';
+      }).join("");
+      mb.innerHTML=chips+'<br><span style="font-size:11.5px;color:#6b7280">這些派系不在桌上、或容積足跡 &lt;3% 幾乎讀不回 —— 誰被犧牲 / 誰缺席。</span>';
+    }
+  }
+
+  /* ---------- full recompute ---------- */
+  function refresh(){ var R=readback(); draw(R); renderPanel(R); }
+
+  /* ---------- use picker UI ---------- */
+  function buildUsePicker(){
+    var html="";
+    USE_KEYS.forEach(function(u){
+      html+='<button data-use="'+u+'"'+(u===ST.overrideUse?' class="on"':'')+'>'+
+        '<span class="game-sw" style="background:'+USE[u].color+'"></span>'+USE[u].name+'</button>';
+    });
+    $("gameUses").innerHTML=html;
+    Array.prototype.forEach.call($("gameUses").querySelectorAll("button"), function(btn){
+      btn.addEventListener("click", function(){
+        ST.overrideUse=btn.getAttribute("data-use");
+        Array.prototype.forEach.call($("gameUses").querySelectorAll("button"), function(b){ b.classList.remove("on"); });
+        btn.classList.add("on");
+      });
+    });
+  }
+
+  /* ---------- canvas hit-testing ---------- */
+  function cellAt(evt){
+    var rect=cv.getBoundingClientRect();
+    var sx=cv.width/rect.width, sy=cv.height/rect.height;
+    var px=(evt.clientX-rect.left)*sx, py=(evt.clientY-rect.top)*sy;
+    var found=null;
+    ST.grid.cells.forEach(function(cell){
+      if(px>=cell.x && px<cell.x+cell.cw && py>=cell.y && py<cell.y+cell.ch) found=cell;
+    });
+    return found;
+  }
+  function applyTo(cell){
+    if(!cell) return;
+    if(ST.mode==="allocate"){
+      cell.actor=ST.brush;
+      if(!cell.use) cell.use=ACTORS[ST.brush].mainUse;
+    } else { // override
+      if(cell.actor) cell.use=ST.overrideUse;
+    }
+  }
+  var dragging=false;
+  cv.addEventListener("mousedown", function(e){ dragging=true; applyTo(cellAt(e)); refresh(); });
+  cv.addEventListener("mousemove", function(e){ if(dragging){ applyTo(cellAt(e)); refresh(); } });
+  window.addEventListener("mouseup", function(){ dragging=false; });
+  cv.addEventListener("click", function(e){ applyTo(cellAt(e)); refresh(); });
+
+  /* ---------- toolbar wiring ---------- */
+  $("gameSite").addEventListener("change", function(e){ ST.siteKey=e.target.value; makeGrid(); defaultAllocate(); refresh(); });
+  $("gameRes").addEventListener("change", function(e){
+    var v=e.target.value; ST.nx=parseInt(v,10); ST.ny={"10":8,"12":9,"16":12}[v]||9;
+    makeGrid(); defaultAllocate(); refresh();
+  });
+  $("gameReset").addEventListener("click", function(){ defaultAllocate(); refresh(); });
+  $("gameClear").addEventListener("click", function(){ clearAllocate(); refresh(); });
+
+  Array.prototype.forEach.call($("gameMode").querySelectorAll("button"), function(btn){
+    btn.addEventListener("click", function(){
+      ST.mode=btn.getAttribute("data-mode");
+      Array.prototype.forEach.call($("gameMode").querySelectorAll("button"), function(b){ b.classList.remove("on","game-mode"); });
+      btn.classList.add("on","game-mode");
+      $("gameActorPick").style.opacity = ST.mode==="allocate"?"1":"0.4";
+      $("gameUses").style.opacity = ST.mode==="override"?"1":"0.4";
+      $("gameHint").textContent = ST.mode==="allocate"
+        ? "指派模式:選好畫筆派系,在格子上點擊或拖曳上色。"
+        : "改用途模式:先選下方用途,再點已分配的地塊改其主導用途。";
+    });
+  });
+
+  function setBrushActive(actor){
+    Array.prototype.forEach.call($("gameActors").querySelectorAll("button"), function(b){
+      b.classList.remove("on","game-as","game-ad","game-ac","game-ai");
+    });
+    var btn=$("gameActors").querySelector('[data-actor="'+actor+'"]');
+    var cls={state:"game-as",developer:"game-ad",community:"game-ac",informal:"game-ai"}[actor];
+    btn.classList.add("on",cls);
+  }
+  Array.prototype.forEach.call($("gameActors").querySelectorAll("button"), function(btn){
+    btn.addEventListener("click", function(){
+      ST.brush=btn.getAttribute("data-actor"); setBrushActive(ST.brush); syncSliders();
+    });
+  });
+
+  /* ---------- sliders (act on brush faction) ---------- */
+  function syncSliders(){
+    var a=ST.brush;
+    $("gameIntName").textContent=SHORT[a]; $("gameCapName").textContent=SHORT[a];
+    $("gameIntensity").value=ST.intensity[a]; $("gameIntVal").textContent=Number(ST.intensity[a]).toFixed(2)+"×";
+    $("gameHcap").value=ST.heightCap[a]; $("gameCapVal").textContent=Math.round(ST.heightCap[a])+" m";
+  }
+  $("gameIntensity").addEventListener("input", function(e){
+    ST.intensity[ST.brush]=parseFloat(e.target.value);
+    $("gameIntVal").textContent=Number(e.target.value).toFixed(2)+"×"; refresh();
+  });
+  $("gameHcap").addEventListener("input", function(e){
+    ST.heightCap[ST.brush]=parseFloat(e.target.value);
+    $("gameCapVal").textContent=Math.round(e.target.value)+" m"; refresh();
+  });
+
+  /* ---------- init ---------- */
+  function init(){
+    makeGrid(); defaultAllocate(); buildUsePicker(); setBrushActive(ST.brush);
+    $("gameUses").style.opacity="0.4"; syncSliders(); refresh();
+  }
+  init();
+})();
+</script>
+
+</body>
+</html>

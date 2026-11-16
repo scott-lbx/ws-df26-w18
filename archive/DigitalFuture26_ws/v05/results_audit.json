@@ -1,0 +1,181 @@
+{
+ "meta": {
+  "script": "v05/audit_v05.py",
+  "seed": 0,
+  "independent": "re-derived from raw inputs; exp scripts NOT imported"
+ },
+ "check1_A13_profile": {
+  "government": {
+   "audit": 0.4155,
+   "e2": 0.4155,
+   "match_3dp": true
+  },
+  "developer_capital": {
+   "audit": 0.5248,
+   "e2": 0.5248,
+   "match_3dp": true
+  },
+  "resident_community": {
+   "audit": 0.2275,
+   "e2": 0.2275,
+   "match_3dp": true
+  },
+  "informal": {
+   "audit": 0.0416,
+   "e2": 0.0416,
+   "match_3dp": true
+  }
+ },
+ "check1b_all24_profiles_max_absdiff_vs_e2": 4.9e-05,
+ "check1c_dominance": {
+  "gov_dominant_audit": [
+   "A04",
+   "A09",
+   "A10",
+   "A17",
+   "A26",
+   "A35",
+   "A39",
+   "A43",
+   "A49"
+  ],
+  "n_gov": 9,
+  "dev_dominant_audit": [
+   "A01",
+   "A02",
+   "A07",
+   "A13",
+   "A19",
+   "A20",
+   "A21",
+   "A27",
+   "A29",
+   "A32",
+   "A33",
+   "A36",
+   "A41",
+   "A45",
+   "A47"
+  ],
+  "n_dev": 15,
+  "matches_e2": true
+ },
+ "check2_e1_group24_FORM": {
+  "audit_balanced_acc_rf120": 0.2345,
+  "e1_balanced_acc_rf400": 0.2355,
+  "audit_acc_rf120": 0.6253,
+  "e1_acc_rf400": 0.6274,
+  "n_labeled_audit": 13812,
+  "n_labeled_e1": 13812,
+  "within_3pp": true,
+  "note": "audit uses 120 trees vs exp1's 400 (documented difference)"
+ },
+ "check3_bridge_lowrise_house_count_train": {
+  "audit": 0.9985,
+  "audit_counts": "1355/1357",
+  "e2": 0.9985,
+  "e2_counts": "1355/1357",
+  "match": true
+ },
+ "check4_loo_r2_dev_form": {
+  "audit_r2_alpha10_fixed": 0.4665,
+  "e3_r2_nested_alpha": 0.4593,
+  "e3_alphas_actually_used": [
+   10.0
+  ],
+  "same_sign": true,
+  "note": "audit fixes alpha=10; exp3 selected alpha by nested LOO (documented difference); audit targets are independently recomputed profiles"
+ },
+ "check5_cf_DEV_FAR": {
+  "audit_FAR_from_geometry": 1.3002,
+  "audit_FAR_from_gfa_col": 1.3002,
+  "e4_FAR": 1.3002,
+  "n_buildings_audit": 664,
+  "n_buildings_e4": 664
+ },
+ "check6_sanity": {
+  "e0_n_rows_eq_dataset": true,
+  "e0_per_window_n_sum": 14527,
+  "e0_per_window_match_dataset": true,
+  "e0_semantic_counts_sum": 14527,
+  "e0_family_counts_sum": 14527,
+  "e1_n_labeled_eq_total_minus_unlabeled": true,
+  "e1_majority_baseline_recompute": 0.6012,
+  "e1_per_window_n_sum": 13812,
+  "e1_per_window_n_match_labeled": true,
+  "e1_confusion_consistency": {
+   "strat5_FORM": {
+    "row_sums_match_support": true,
+    "acc_from_confusion": 0.6659,
+    "acc_reported": 0.6659,
+    "bal_from_confusion": 0.266,
+    "bal_reported": 0.266,
+    "total_n": 13812
+   },
+   "strat5_FORM+CTX": {
+    "row_sums_match_support": true,
+    "acc_from_confusion": 0.7436,
+    "acc_reported": 0.7436,
+    "bal_from_confusion": 0.3576,
+    "bal_reported": 0.3576,
+    "total_n": 13812
+   },
+   "group24_FORM": {
+    "row_sums_match_support": true,
+    "acc_from_confusion": 0.6274,
+    "acc_reported": 0.6274,
+    "bal_from_confusion": 0.2355,
+    "bal_reported": 0.2355,
+    "total_n": 13812
+   },
+   "group24_FORM+CTX": {
+    "row_sums_match_support": true,
+    "acc_from_confusion": 0.6413,
+    "acc_reported": 0.6413,
+    "bal_from_confusion": 0.2392,
+    "bal_reported": 0.2392,
+    "total_n": 13812
+   }
+  },
+  "e1_power_pooled_recall_g24ctx_recompute": 0.0007,
+  "e1_n_power_buildings_recompute": 1472,
+  "note_dist_water_nan": {
+   "e0_all": 0.5197,
+   "e1_labeled": 0.53569
+  },
+  "e2_bridge_row_totals_sum": 10705,
+  "e2_n_train_labeled": 10705,
+  "e2_bridge_rows_sum_to_1": true,
+  "e2_age_regime_shares_sum_to_1": true,
+  "e2_dominant_dim_consistent": true,
+  "e2_n_dom": {
+   "gov": 9,
+   "dev": 15,
+   "other": 0
+  },
+  "e3_n_tests": 48,
+  "e3_bh_survivors": 16,
+  "e4_real_FAR_recompute": 1.4556,
+  "e4_token_cells_sum_293": {
+   "GOV": 293,
+   "DEV": 293,
+   "RES": 293
+  },
+  "e4_semantic_mix_sums": {
+   "GOV": 1.0,
+   "DEV": 1.0,
+   "RES": 1.0
+  }
+ },
+ "check7_dataset_claims_recompute": {
+  "nan_share_dist_water": 0.5197,
+  "nan_share_dist_green": 0.0489,
+  "nan_share_age": 0.608,
+  "median_dist_road_all_m": 23.1,
+  "median_dist_road_major_m": 81.4,
+  "median_density_100m": 23.0,
+  "share_dated_le_1985": 0.5807,
+  "res_estate_no_age_gfa_share_pooled": 0.4571,
+  "A47_unlabeled_gfa_share": 0.7553
+ }
+}

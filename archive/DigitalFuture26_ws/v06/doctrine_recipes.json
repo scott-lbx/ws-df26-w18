@@ -1,0 +1,205 @@
+{
+  "_schema": {
+    "quantity": "{value | range:[lo,hi], unit, provenance (source + locus), confidence: high|medium|low, doctrine_silent: bool, note?}",
+    "land_budget": "fractions of the canonical unit's land; sum may be <1; 'remainder_unspecified' states the residual; doctrine_silent fractions carry no value",
+    "stakeholder_apriori": "4 additive non-exclusive dims in [0,1], matching TF/v05/power_priors_v05.json vocabulary {government, developer_capital, resident_community, informal}; these are ASSERTED doctrine-level priors (who the doctrine empowers), not observed morphology",
+    "provenance_discipline": "every number sourced; ranges preferred over fabricated precision; conflicting sources recorded as ranges; verified 2026-06-12 via web cross-checks listed in doctrine_sources.md"
+  },
+  "doctrines": {
+    "garden_city": {
+      "meta": {
+        "name_en": "Garden City",
+        "name_zh": "田园城市",
+        "year": "1898/1902",
+        "primary_source": "Ebenezer Howard, To-morrow: A Peaceful Path to Real Reform (London: Swan Sonnenschein, 1898); revised as Garden Cities of To-morrow (1902), esp. ch.1-2 and Diagrams 2-3 ('Garden City' and 'Ward and Centre').",
+        "geometry_one_liner": "A radial-concentric town of ~1,000 acres inside a 5,000-acre agricultural belt: six 120-ft boulevards divide six wards around a 145-acre Central Park, ringed by the Crystal Palace shopping arcade, the 420-ft Grand Avenue park strip, and an outer factory ring on a circular railway."
+      },
+      "quantities": {
+        "population": {"value": 32000, "unit": "persons (30,000 town + 2,000 agricultural belt)", "provenance": "Howard 1902, ch.1; cross-checked Wikipedia 'Garden city movement' and planningtank.com", "confidence": "high", "doctrine_silent": false},
+        "area": {"value": 2428, "unit": "ha total estate (6,000 acres: town 405 ha / 1,000 acres + belt 2,023 ha / 5,000 acres)", "provenance": "Howard 1902, ch.1 ('an estate of 6,000 acres... Garden City, which is to be built near the centre... covers an area of 1,000 acres')", "confidence": "high", "doctrine_silent": false},
+        "density_gross_town": {"value": 74, "unit": "persons/ha (30,000 / 405 ha)", "provenance": "derived from Howard's own population and town area", "confidence": "high", "doctrine_silent": false},
+        "density_gross_estate": {"value": 13, "unit": "persons/ha (32,000 / 2,428 ha)", "provenance": "derived from Howard's figures", "confidence": "high", "doctrine_silent": false},
+        "land_budget": {
+          "denominator": "town area, 1,000 acres",
+          "residential": {"value": 0.33, "unit": "fraction", "provenance": "derived: Howard specifies 5,500 building lots of average 20 ft x 130 ft = ~328 acres (Howard 1902, ch.1)", "confidence": "medium", "doctrine_silent": false},
+          "work_industry": {"doctrine_silent": true, "note": "outer ring of factories, warehouses, dairies fronting the circular railway is prescribed in location but Howard gives no acreage"},
+          "commercial_shops": {"doctrine_silent": true, "note": "'Crystal Palace' ring arcade prescribed in location, no acreage"},
+          "civic_public": {"doctrine_silent": true, "note": "town hall, library, museum, hospital sit inside Central Park; schools sit inside Grand Avenue; no separate acreage stated"},
+          "green_open": {"value": 0.26, "unit": "fraction", "provenance": "Central Park 145 acres + Grand Avenue 115 acres = 260/1,000 (Howard 1902, ch.1; Grand Avenue 420 ft wide)", "confidence": "high", "doctrine_silent": false},
+          "roads": {"doctrine_silent": true, "note": "six 120-ft boulevards + ring avenues prescribed in width, total acreage not stated"},
+          "remainder_unspecified": {"value": 0.41, "unit": "fraction", "note": "industry + shops + roads + civic absorbed here; Howard's text fixes their geometry, not their area"}
+        },
+        "height_regime": {"doctrine_silent": true, "note": "Howard specifies no storey counts; built practice at Letchworth/Welwyn was 2-storey cottages, but that is realization, not doctrine"},
+        "ground_coverage": {"doctrine_silent": true, "note": "not stated; implied low by 20x130 ft lots with gardens"},
+        "block_grain": {"value": 67, "unit": "ha per ward (town/6, ~167 acres; ~5,000 persons each); avg lot 20 ft x 130 ft", "provenance": "Howard 1902, ch.1 and Diagram 3 ('Ward and Centre')", "confidence": "high", "doctrine_silent": false},
+        "street_doctrine": {"value": "radial-concentric: 6 radial boulevards (120 ft) from centre, concentric Avenues (First-Fifth), 420-ft Grand Avenue ring, circular railway at perimeter", "provenance": "Howard 1902, Diagrams 2-3", "confidence": "high", "doctrine_silent": false},
+        "service_radii": {"doctrine_silent": true, "note": "no walking radii; services allocated per ward (~5,000 persons) — schools in Grand Avenue, shops in Crystal Palace ring; ward radius geometrically ~400-600 m but Howard never states it as a norm"}
+      },
+      "stakeholder_apriori": {
+        "config": {"government": 0.3, "developer_capital": 0.2, "resident_community": 0.9, "informal": 0.05},
+        "provenance": "Howard 1902 chs.2-4: freehold land held in trust for the community; 'rate-rents' retire debt then fund local welfare; growth increment ('unearned increment') captured collectively; capital raised at limited dividend (4-5%) — so capital is present but capped; municipal functions run by an elected Board of Management, not the state.",
+        "confidence": "high",
+        "anachronism_note": "Howard's cooperative limited-dividend trust has no clean slot in our China-derived 4-dim vocabulary: it is neither 'government' (it is voluntary and anti-statist) nor 'developer_capital' (dividends capped, speculation excluded). We render it as resident_community 0.9 with small government (board-as-quasi-municipality) and small developer_capital (limited-dividend investors); 'informal' 0.05 acknowledges the pro-temperance, fully planned estate leaves almost no informal room."
+      },
+      "silences": ["building heights/storeys", "ground coverage", "exact industry/shops/roads/civic acreage", "service walking radii", "dwelling unit sizes", "FAR (concept did not exist)"]
+    },
+    "ville_radieuse": {
+      "meta": {
+        "name_en": "Radiant City (Ville Radieuse) / Athens Charter functional city",
+        "name_zh": "光辉城市 / 雅典宪章功能城市",
+        "year": "1933 (book La Ville radieuse 1935; CIAM IV Athens Charter 1933, publ. 1943)",
+        "primary_source": "Le Corbusier, La Ville radieuse (Boulogne: Editions de l'Architecture d'Aujourd'hui, 1935); CIAM, La Charte d'Athenes (1943), pts. 23-29 (dwelling), 77-95 (functional separation, plan as authority).",
+        "geometry_one_liner": "An extensible linear-band city of parallel functional zones (business towers, housing, industry, separated by green), with cruciform 60-storey office towers at ~5% ground coverage and continuous 'a redent' housing slabs on pilotis at ~12% coverage in a continuous park, all circulation classified and separated."
+      },
+      "quantities": {
+        "population": {"range": [1500000, 3000000], "unit": "persons (demonstration plans; doctrine is scale-extensible)", "provenance": "Ville Contemporaine 1922 drawn for 3M; Ville Radieuse demonstration plan commonly given as ~1.5M (Wikipedia 'Ville Radieuse'; architecturelab.net); the doctrine itself fixes densities, not total size", "confidence": "medium", "doctrine_silent": false},
+        "area": {"doctrine_silent": true, "note": "linear bands of indefinite length; no canonical unit area is fixed"},
+        "density_net_residential": {"value": 1000, "unit": "persons/ha in the housing sector", "provenance": "Le Corbusier, La Ville radieuse (1935); cross-checked ScienceDirect S2095263521000388 and Grokipedia 'Ville Radieuse' (vs 400-500/ha in existing centres)", "confidence": "high", "doctrine_silent": false},
+        "land_budget": {
+          "denominator": "housing sector ground plane (citywide fractions never stated)",
+          "residential": {"value": 0.12, "unit": "fraction of ground built (a redent slabs)", "provenance": "La Ville radieuse: housing district ground occupation ~12%; secondary literature gives towers-in-park coverage 5-15% (Grokipedia 'Towers in the park'; ScienceDirect S2095263521000388)", "confidence": "medium", "doctrine_silent": false},
+          "work_industry": {"doctrine_silent": true, "note": "industry banished to its own band; band widths/areas not fixed"},
+          "commercial_shops": {"doctrine_silent": true, "note": "services are 'extensions of the dwelling' inside blocks, no land fraction"},
+          "civic_public": {"doctrine_silent": true, "note": "no land fraction stated"},
+          "green_open": {"value": 0.88, "unit": "fraction of housing-sector ground open/park ('the ground is given to the pedestrian')", "provenance": "complement of 12% coverage; business district stated as ~95% open around 60-storey towers (Wikipedia/Grokipedia 'Ville Radieuse')", "confidence": "medium", "doctrine_silent": false},
+          "roads": {"doctrine_silent": true, "note": "elevated classified motorways; land fraction unstated because ground plane is continuous park"},
+          "remainder_unspecified": {"value": 0.0, "unit": "fraction", "note": "sector-level budget is binary built/open by construction"}
+        },
+        "height_regime": {"range": [12, 60], "unit": "storeys (a redent housing ~12-15 storeys / ~50 m; cruciform business towers 60 storeys / ~200 m)", "provenance": "La Ville radieuse plates; tower count/height cross-checked (24 cruciform towers, 200 m, Wikipedia 'Ville Radieuse'); Athens Charter pt.29 demands 'high buildings, set wide apart'", "confidence": "medium", "doctrine_silent": false},
+        "ground_coverage": {"range": [0.05, 0.12], "unit": "fraction (5% business district, ~12% housing district)", "provenance": "La Ville radieuse; '95% of site to parks' for tower district (architecturelab.net; Grokipedia)", "confidence": "medium", "doctrine_silent": false},
+        "block_grain": {"value": 400, "unit": "m superblock module (orthogonal motorway grid inherited from Ville Contemporaine)", "provenance": "Ville Contemporaine 1922 400-m grid, retained in VR demonstration plans; secondary (urbanutopias.net)", "confidence": "medium", "doctrine_silent": false},
+        "street_doctrine": {"value": "total separation of pedestrian and machine; classified speeds; elevated arterials; death of the corridor street; superblock grid", "provenance": "La Ville radieuse; Athens Charter pts.59-64 (circulation as autonomous function)", "confidence": "high", "doctrine_silent": false},
+        "service_radii": {"doctrine_silent": true, "note": "communal services (creche, laundry, catering) embedded in housing unit itself; no walking-radius norm"}
+      },
+      "stakeholder_apriori": {
+        "config": {"government": 0.95, "developer_capital": 0.1, "resident_community": 0.1, "informal": 0.0},
+        "provenance": "Athens Charter pt.95: 'private interest will be subordinated to the collective interest'; the plan is to be drawn by experts and imposed by an Authority; VR assumes land mobilization and a syndicalist-technocratic administration — residents receive 'essential joys', they do not decide; capital is an instrument, not an author.",
+        "confidence": "high",
+        "anachronism_note": "Corbusier's 'Authority' is technocracy, not an electoral state and not the Chinese party-state our priors were tuned on; we map technocratic command to 'government' 0.95. The informal dimension is doctrinally annihilated (0.0) — the plan tolerates no unplanned use."
+      },
+      "silences": ["canonical unit area", "citywide land-budget fractions", "service walking radii", "block-level demographic unit", "commercial floorspace", "parking quantities"]
+    },
+    "neighbourhood_unit": {
+      "meta": {
+        "name_en": "Neighbourhood Unit",
+        "name_zh": "邻里单位",
+        "year": 1929,
+        "primary_source": "Clarence A. Perry, 'The Neighborhood Unit', Monograph I in Neighborhood and Community Planning, Regional Survey of New York and Its Environs, vol. VII (New York, 1929).",
+        "geometry_one_liner": "A ~160-acre cell bounded on all sides by arterial roads that exclude through traffic, with the elementary school and community institutions at the centre within a 1/4-mile walk, ~10% of land in small parks, and shops pushed to the arterial corners."
+      },
+      "quantities": {
+        "population": {"range": [5000, 6000], "unit": "persons (sized to support one elementary school of 1,000-1,200 pupils)", "provenance": "Perry 1929, principle 1 (size); cross-checked Wikipedia/Grokipedia 'Neighbourhood unit', TC Columbia Erickson & Highsmith paper", "confidence": "high", "doctrine_silent": false},
+        "area": {"value": 64.7, "unit": "ha (160 acres at the worked density of 10 families/acre)", "provenance": "Perry 1929 worked example; cross-checked planningtank.com, Grokipedia", "confidence": "high", "doctrine_silent": false},
+        "density_net": {"value": 24.7, "unit": "dwellings/ha (10 families/acre); ~77-93 persons/ha gross (derived)", "provenance": "Perry 1929 ('ten families per acre'); persons/ha derived from 5,000-6,000 over 64.7 ha", "confidence": "high", "doctrine_silent": false},
+        "land_budget": {
+          "denominator": "unit area, 160 acres",
+          "residential": {"doctrine_silent": true, "note": "residual after streets/parks/sites; Perry's demonstration plans vary it, the doctrine fixes no fraction"},
+          "work_industry": {"doctrine_silent": true, "note": "no workplaces inside the unit; employment is external by construction (fraction = 0 by omission, not by budget)"},
+          "commercial_shops": {"doctrine_silent": true, "note": "principle 6: shop frontage 'adequate to the population served', located at periphery traffic junctions; no land fraction given"},
+          "civic_public": {"doctrine_silent": true, "note": "school + church + community buildings grouped at central common; site sizes shown in plans, no doctrinal fraction"},
+          "green_open": {"value": 0.10, "unit": "fraction", "provenance": "Perry 1929, principle 3: 'small parks and recreation space... about 10 per cent'", "confidence": "high", "doctrine_silent": false},
+          "roads": {"doctrine_silent": true, "note": "principle 5: internal street system 'proportioned to its probable traffic load', designed to discourage through traffic; no fraction"},
+          "remainder_unspecified": {"value": 0.90, "unit": "fraction", "note": "residential + streets + shops + civic; geometry prescribed, areas not"}
+        },
+        "height_regime": {"doctrine_silent": true, "note": "no storey norm; 10 families/acre implies 1-2.5-storey single-family/row fabric (derived, low confidence); Perry allowed apartment variants at higher density"},
+        "ground_coverage": {"doctrine_silent": true, "note": "not stated"},
+        "block_grain": {"value": 800, "unit": "m across (half-mile cell; 1/4-mile radius from school)", "provenance": "Perry 1929 diagram ('radius 1/4 mile')", "confidence": "high", "doctrine_silent": false},
+        "street_doctrine": {"value": "perimeter arterials as hard boundary; no through traffic inside; internal hierarchy, curvilinear permitted; shops at arterial corners", "provenance": "Perry 1929, principles 2, 5, 6", "confidence": "high", "doctrine_silent": false},
+        "service_radii": {"value": 400, "unit": "m (1/4 mile) to elementary school and local services without crossing an arterial", "provenance": "Perry 1929 diagram and principle 4; cross-checked Wikipedia 'Neighbourhood unit' (400 m)", "confidence": "high", "doctrine_silent": false}
+      },
+      "stakeholder_apriori": {
+        "config": {"government": 0.3, "developer_capital": 0.6, "resident_community": 0.7, "informal": 0.05},
+        "provenance": "Perry's stated aim is face-to-face community life organized around the school (resident_community high); but the instrument was published in a regional plan addressed to subdividers and planning commissions, and was adopted as a realtor/FHA subdivision template (developer_capital mid-high) with municipal adoption via zoning (government low-mid). Erickson & Highsmith (TC Record) document its use for school-centred racial/class homogeneity — community for some, exclusion for others.",
+        "confidence": "medium",
+        "anachronism_note": "Our 'resident_community' dim cannot distinguish empowered residents from residents-as-marketing-image; Perry's unit scores high on both readings. The exclusionary-deed-restriction history arguably belongs partly under developer_capital, which is why both dims are elevated."
+      },
+      "silences": ["building heights", "ground coverage", "residential/street/shop/civic land fractions", "FAR", "tenure and governance mechanism (Perry specifies form, not ownership)"],
+      "caoyang_note": {
+        "claim": "Caoyang New Village (曹杨新村, Putuo, Shanghai; begun 1951; chief planner Wang Dingzeng 汪定曾, M.Arch Illinois) is documented as the PRC's first workers' new village and was explicitly planned on Perry's neighbourhood-unit principles: primary school at the core with ~600 m service radius, public facilities within a 7-8 minute walk, >=10% public open space, curvilinear internal roads following creeks.",
+        "verification": "VERIFIED 2026-06-12 via people.com.cn (sh.people.com.cn/n2/2021/1101/c134768-34984590.html), thepaper.cn 15056702, zhuanlan.zhihu.com/p/122979022, zh.wikipedia 曹杨新村; primary academic source: 汪定曾, 上海曹杨新村住宅区的规划设计, 建筑学报 1956(2).",
+        "anchor_role": "Caoyang is the study's empirical bridge: it is real Shanghai fabric inside our token/pool vocabulary (pre-1985 residential_estate, workers'-housing power prior: government-built, work-unit allocated), planned from a Western community doctrine by a socialist state — asserted stakeholder (community) vs commissioning stakeholder (state) already diverge at the anchor.",
+        "confidence": "high"
+      }
+    },
+    "microrayon": {
+      "meta": {
+        "name_en": "Microrayon (Soviet microdistrict)",
+        "name_zh": "小区 (苏联微型居住区)",
+        "year": "1958-1989 (codified across SNiP editions, consolidated in SNiP 2.07.01-89)",
+        "primary_source": "SNiP 2.07.01-89* Gradostroitel'stvo. Planirovka i zastroika gorodskikh i sel'skikh poselenii (USSR Gosstroy, 1989), esp. sec. 2 (residential territory) and service-radius tables; earlier SNiP II-K.2-62 et seq.",
+        "geometry_one_liner": "A 10-60 ha superblock for 8,000-12,000 people bounded (never crossed) by arterial roads, filled with standardized 5-16-storey panel housing freely arranged by insolation rules around schools, kindergartens and daily services within a 300-500 m walk."
+      },
+      "quantities": {
+        "population": {"range": [8000, 12000], "unit": "persons (residential district level: 10,000-30,000; late-Soviet practice up to ~20,000)", "provenance": "Wikipedia 'Microdistrict' citing SNiP 2.07.01-89; danarti.org", "confidence": "high", "doctrine_silent": false},
+        "area": {"range": [10, 60], "unit": "ha (not exceeding 80 ha)", "provenance": "SNiP 2.07.01-89 via Wikipedia 'Microdistrict'", "confidence": "high", "doctrine_silent": false},
+        "density_gross": {"range": [200, 450], "unit": "persons/ha (canonical ~330 = 10,000/30 ha; SNiP density tables vary by city size and climate)", "provenance": "derived from population/area norms; range typical of built microrayons (secondary literature)", "confidence": "medium", "doctrine_silent": false},
+        "land_budget": {
+          "denominator": "microdistrict territory",
+          "residential": {"doctrine_silent": true, "note": "SNiP-era handbooks contain full land-balance tables (zhilaya territoriya vs uchastki) but values were not independently verified here; not invented"},
+          "work_industry": {"doctrine_silent": true, "note": "workplaces excluded from the microrayon by functional zoning; employment external"},
+          "commercial_shops": {"doctrine_silent": true, "note": "stated as per-capita service norms (m2 of floorspace per 1,000 inhabitants), not land fractions"},
+          "civic_public": {"doctrine_silent": true, "note": "school/kindergarten site-size norms exist per 1,000 residents; not verified, not invented"},
+          "green_open": {"value": 0.20, "unit": "fraction (derived: >=6 m2/person greenery at ~330 p/ha; norm excludes school/kindergarten grounds)", "provenance": "SNiP 2.07.01-89 sec. 2.11: ozelenennye territorii of microdistrict >= 6 m2/person (3-5 m2 in far-north subzones); verified via docs.cntd.ru/garant full texts", "confidence": "medium", "doctrine_silent": false},
+          "roads": {"doctrine_silent": true, "note": "internal drives (proezdy) sized by access rules, no fraction"},
+          "remainder_unspecified": {"value": 0.80, "unit": "fraction", "note": "housing + school sites + drives + parking; normed per capita, not as land shares"}
+        },
+        "height_regime": {"range": [5, 16], "unit": "storeys (5-storey khrushchevka series 1958-60s; 9-16-storey panel series 1970s-80s; norms fix spacing/insolation, the standardized series fix floors)", "provenance": "standard typology literature (danarti.org, Springer 'Large Housing Estates in the Baltic Countries'); SNiP itself does not fix storeys", "confidence": "medium", "doctrine_silent": false},
+        "ground_coverage": {"doctrine_silent": true, "note": "no coverage norm; building spacing governed by insolation (norma insolyatsii) and fire-separation rules instead"},
+        "block_grain": {"range": [300, 800], "unit": "m (superblock dimension; entrances from bounding streets no further than 300 m apart)", "provenance": "SNiP 2.07.01-89 via Wikipedia 'Microdistrict' (entrance spacing); block size implied by 10-60 ha", "confidence": "medium", "doctrine_silent": false},
+        "street_doctrine": {"value": "superblock: major roads and through streets must not cross the microdistrict; arterials/greenways form boundaries; free (non-perimeter) building placement inside", "provenance": "SNiP 2.07.01-89 via Wikipedia 'Microdistrict'", "confidence": "high", "doctrine_silent": false},
+        "service_radii": {"value": "daily services <= 500 m; kindergarten ~300 m; school ~750 m", "unit": "m", "provenance": "500 m limit for public-service buildings (excl. schools/preschools) verified via Wikipedia/SNiP; 300 m kindergarten and 750 m school are SNiP 2.07.01-89 table values widely cited in secondary literature but not re-verified against the table text here", "confidence": "medium", "doctrine_silent": false}
+      },
+      "stakeholder_apriori": {
+        "config": {"government": 0.95, "developer_capital": 0.0, "resident_community": 0.15, "informal": 0.0},
+        "provenance": "State monopoly over land, design (state institutes, standardized series), construction (house-building combines) and allocation (waiting lists via work units/soviets); the collective-services programme speaks the language of community but residents have no decision power — community is provisioned, not empowered. No private developer exists in the system.",
+        "confidence": "high",
+        "anachronism_note": "Doctrinally informal = 0.0, yet lived microrayons grew garages, kiosks and self-help adaptations; our prior describes the norm, not the life. 'Developer_capital' at 0.0 is exact for the doctrine but breaks for post-1991 infill of the same fabric."
+      },
+      "silences": ["land-balance fractions (exist in handbooks, unverified here)", "ground coverage (replaced by insolation spacing)", "FAR (per-capita floorspace norms used instead)", "tenure (state by default, unstated in planning norms)"],
+      "caoyang_note": {
+        "claim": "Caoyang New Village (1951) PREDATES microrayon codification (post-1957 USSR). China's sequence ran: Perry-style neighbourhood unit (Caoyang, criticized mid-1950s as Anglo-American), then Soviet perimeter-quarter (street-wall 'large quarter', e.g. 1952 'liang-wan-hu' villages), then xiaoqu (小区) — the direct Chinese descendant of the microrayon — after 1957-58, which is the lineage GB 50180 still administers.",
+        "verification": "Sequence documented in Chinese planning historiography (e.g. Lu Duanfang, Remaking Chinese Urban Form, 2006; zhuanlan.zhihu.com/p/122979022 narrates the same arc for Caoyang); Caoyang facts as in neighbourhood_unit.caoyang_note.",
+        "anchor_role": "For the generator, microrayon and neighbourhood_unit bracket Caoyang from two sides: same site, two doctrines; the Shanghai token vocabulary (T2/T3 slab fabric, pre-1985 estates) carries both inheritances.",
+        "confidence": "medium"
+      }
+    },
+    "gb50180": {
+      "meta": {
+        "name_en": "GB 50180-2018 Standard for urban residential area planning and design (15-minute life-circle hierarchy)",
+        "name_zh": "GB 50180-2018 城市居住区规划设计标准（生活圈居住区分级）",
+        "year": 2018,
+        "primary_source": "GB 50180-2018 城市居住区规划设计标准 (MOHURD/SAMR, effective 2018-12-01), Tables 3.0.4, 4.0.1-4.0.3, 4.0.4, 4.0.7, sec. 5-6; full text via awhouse.art/gb50180-2018 and fqghj.net.",
+        "geometry_one_liner": "A nested hierarchy — 15/10/5-minute life circles (100k/25k/12k people) decomposed into 2-4 ha residential blocks (居住街坊) of 1,000-3,000 people on a dense road grid (spacing 150-250 m), with FAR/coverage/green/height jointly capped per climate zone and per-capita public green per circle."
+      },
+      "quantities": {
+        "population": {"range": [50000, 100000], "unit": "persons per 15-min circle (10-min: 15,000-25,000; 5-min: 5,000-12,000; block: 1,000-3,000, i.e. 300-1,000 units)", "provenance": "GB 50180-2018 Table 3.0.4 (quoted verbatim from full text, awhouse.art)", "confidence": "high", "doctrine_silent": false},
+        "area_block": {"range": [2, 4], "unit": "ha per 居住街坊 (residential block, the basic unit)", "provenance": "GB 50180-2018 Table 3.0.4 / terms 2.0.6", "confidence": "high", "doctrine_silent": false},
+        "density_block": {"range": [250, 1500], "unit": "persons/ha (derived: 1,000-3,000 over 2-4 ha; Shanghai-typical high-rise I blocks ~700-1,000 p/ha)", "provenance": "derived from Table 3.0.4 ranges", "confidence": "high", "doctrine_silent": false},
+        "far_block_climate_III": {"range": [1.0, 3.1], "unit": "FAR by height class (low-rise 1.0-1.2; multi I 1.3-1.6; multi II 1.7-2.1; high-rise I 2.2-2.8; high-rise II 2.9-3.1)", "provenance": "GB 50180-2018 Table 4.0.2, climate zones III/IV/V (Shanghai = III); quoted from full text", "confidence": "high", "doctrine_silent": false},
+        "per_capita_residential_land_15min": {"range": [22, 28], "unit": "m2/person (one full-text extraction; Table 4.0.1 varies by climate zone and height class)", "provenance": "GB 50180-2018 Table 4.0.1 via awhouse.art extraction — NOT independently re-verified; treat as indicative", "confidence": "low", "doctrine_silent": false},
+        "land_budget": {
+          "denominator": "residential block (街坊) ground plane, climate III, by height class",
+          "residential": {"range": [0.22, 0.43], "unit": "fraction = max building density (建筑密度): low-rise 43%, multi I 32%, multi II 30%, high-rise I/II 22%", "provenance": "GB 50180-2018 Table 4.0.2", "confidence": "high", "doctrine_silent": false},
+          "work_industry": {"doctrine_silent": true, "note": "outside the standard's scope; residential standard assumes employment elsewhere"},
+          "commercial_shops": {"doctrine_silent": true, "note": "configured as facility checklists (配套设施) per circle, not land fractions at block level"},
+          "civic_public": {"doctrine_silent": true, "note": "same: itemized facilities per circle (e.g. street comprehensive service centre >=1 ha per 15-min circle), no block fraction"},
+          "green_open": {"range": [0.25, 0.35], "unit": "fraction = min 绿地率 (low-rise 25%, multi 30%, high-rise 35%); plus per-capita public green: 15-min 2.0 / 10-min 1.0 / 5-min 1.0 m2/person, block concentrated green >=0.5 m2/person (new areas)", "provenance": "GB 50180-2018 Tables 4.0.2, 4.0.4, sec. 4.0.7 (cross-checked two full-text mirrors; a conflicting 1.5/1.0/0.5 extraction was discarded as a misread)", "confidence": "high", "doctrine_silent": false},
+          "roads": {"doctrine_silent": true, "note": "specified as network density (>=8 km/km2) and spacing, not a land fraction"},
+          "remainder_unspecified": {"range": [0.22, 0.53], "unit": "fraction", "note": "circulation, parking, setbacks between coverage max and green min"}
+        },
+        "height_regime": {"range": [18, 80], "unit": "m max by class (18/27/36/54/80 m for 1-3/4-6/7-9/10-18/19-26 storeys); absolute residential cap 80 m", "provenance": "GB 50180-2018 Table 4.0.2", "confidence": "high", "doctrine_silent": false},
+        "ground_coverage": {"range": [0.22, 0.43], "unit": "fraction, max by height class (see land_budget.residential)", "provenance": "GB 50180-2018 Table 4.0.2", "confidence": "high", "doctrine_silent": false},
+        "block_grain": {"range": [150, 250], "unit": "m preferred road spacing (城市道路间距不应超过300m, 宜为150-250m; blocks 2-4 ha)", "provenance": "GB 50180-2018 sec. 6.0.2", "confidence": "high", "doctrine_silent": false},
+        "street_doctrine": {"value": "small blocks, dense network ('小街区、密路网'): road network density >= 8 km/km2, open block edges to city streets; explicit reversal of the gated superblock", "provenance": "GB 50180-2018 sec. 6.0.2; aligned with 2016 CPC/State Council urban work directive", "confidence": "high", "doctrine_silent": false},
+        "service_radii": {"value": "circles defined by walk time 15/10/5 min (~800-1000/500/300 m in the standard's commentary); 5-min-circle facilities service radius <=500 m; block-level facilities <=300 m", "unit": "min / m", "provenance": "GB 50180-2018 terms 2.0.2-2.0.5 and sec. 5 (facility service radii quoted from full text: 5-min facilities <=500 m wording per awhouse.art extraction; commentary radii 300/500/800-1000 m widely cited)", "confidence": "medium", "doctrine_silent": false}
+      },
+      "stakeholder_apriori": {
+        "config": {"government": 0.8, "developer_capital": 0.7, "resident_community": 0.3, "informal": 0.0},
+        "provenance": "The state writes and enforces the norm (mandatory national standard; height/FAR/green caps; facility checklists) — government high; execution happens parcel-by-parcel through leasehold sales to commodity-housing developers who optimize within Table 4.0.2 envelopes — developer_capital high; the '15-minute life circle' addresses residents as service recipients ('以人为本') and 共建共享 rhetoric invites participation without transferring control — resident_community 0.3; informal space is normed out (0.0).",
+        "confidence": "medium",
+        "anachronism_note": "Unlike the four historical doctrines this one was written FOR our study's vocabulary (the v05 priors are China-shaped), so the strain is reversed: the standard is a hybrid author — a state pen moving a developer hand — and a single additive config flattens that sequencing (norm first, capital second)."
+      },
+      "silences": ["work/industry land (out of scope)", "tenure and gating (silent on walls; openness implied via 6.0.2)", "commercial land fractions (facility lists instead)", "design of public space quality (quantities only)", "block-level facility radii beyond quoted limits"]
+    }
+  }
+}

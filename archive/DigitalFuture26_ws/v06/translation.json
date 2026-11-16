@@ -1,0 +1,1011 @@
+{
+ "_schema": {
+  "skeleton": "20x20 int16 .npy; 0=E_VACANT(build-allowed) 9=E_ROAD 10=E_WATER(unused) 11=E_GREEN -1=RESERVED_CIVIC; cell=50 m; window=1 km",
+  "token_budget": "400-cell composition; T-counts include RESERVED_CIVIC cells (their carrier token is stated per paradigm); E_WATER unused (flat site)",
+  "semantic_mix": "DEMANDED mix over built cells; rule: residential split by doctrine height regime (>=18 m -> residential_estate else residential_lowrise); civic split per the doctrine's NAMED institutions; commercial/industrial from designated cells. office_finance=0 everywhere: no doctrine allocates office land inside the residential unit (VR banishes it to the business band, out of window).",
+  "provenance": "doctrine numbers from V06/doctrine_recipes.json (D1); token stats measured from TF/v03/tokens.json; civic carrier T2 chosen because pools give T2 the highest public_admin share (.075) and education present (.023) \u2014 measured, not asserted."
+ },
+ "paradigms": {
+  "garden_city": {
+   "token_budget": {
+    "T1": 108,
+    "T2": 10,
+    "T7": 44,
+    "E_VACANT": 32,
+    "E_ROAD": 96,
+    "E_GREEN": 110
+   },
+   "claims": [
+    {
+     "claim": "residential = 0.33 of town (5,500 lots of 20x130 ft)",
+     "source": "doctrine_recipes garden_city.land_budget.residential (medium)",
+     "allocation": {
+      "T1": 108
+     },
+     "reason": "T1 house-token cells = 108/400 = 0.27 (short of .33: road/industry quantization eats lots; deviation reported)"
+    },
+    {
+     "claim": "green = 0.26 (Central Park 145 + Grand Avenue 115 acres)",
+     "source": "garden_city.land_budget.green_open (high)",
+     "allocation": {
+      "E_GREEN": 110
+     },
+     "reason": "park disk + Grand-Avenue annulus = 110/400 = 0.28"
+    },
+    {
+     "claim": "factory ring on circular railway (acreage silent)",
+     "source": "garden_city.land_budget.work_industry (doctrine_silent)",
+     "allocation": {
+      "T7": 32,
+      "E_VACANT": 32
+     },
+     "reason": "1-cell ring inside rail; alternate T7 shed / E_VACANT yard (derived resolution of remainder_unspecified)"
+    },
+    {
+     "claim": "Crystal Palace ring arcade (acreage silent)",
+     "source": "garden_city.land_budget.commercial_shops (doctrine_silent)",
+     "allocation": {
+      "T7": 12
+     },
+     "reason": "12 cells by angle on the park-edge ring"
+    },
+    {
+     "claim": "civic in park + schools in Grand Avenue",
+     "source": "garden_city.land_budget.civic_public (doctrine_silent)",
+     "allocation": {
+      "T2_as_RESERVED_CIVIC": 10
+     },
+     "reason": "2x2 centre cluster + 6 ward schools; T2 = measured civic carrier"
+    },
+    {
+     "claim": "6 boulevards + rail ring (acreage silent)",
+     "source": "garden_city.street_doctrine (high)",
+     "allocation": {
+      "E_ROAD": 96
+     },
+     "reason": "geometry generates the road budget the text never states"
+    }
+   ],
+   "geometry_constants": [
+    {
+     "name": "perimeter rail+ring road",
+     "value": "1-cell border (76 cells)",
+     "source": "Howard 1902 Diagram 2: circular railway around the town"
+    },
+    {
+     "name": "industry strip",
+     "value": "1-cell ring inside rail (alternating shed/yard)",
+     "source": "Howard 1902 ch.1: factories/warehouses front the circular railway; acreage doctrine-silent"
+    },
+    {
+     "name": "Central Park disk",
+     "value": "radius 4.5 cells (=225 m, half-scale)",
+     "source": "Central Park 145 acres = 14.5% of town; window compresses Howard's 2.27-km town to 1 km"
+    },
+    {
+     "name": "Grand Avenue annulus",
+     "value": "r in [6.25,7.75) cells, 1.5 cells wide",
+     "source": "Grand Avenue 420 ft = 128 m wide = 2.56 cells; halved at window half-scale"
+    },
+    {
+     "name": "radial boulevards",
+     "value": "4 orthogonal 1-cell radials (Howard: 6 x 120 ft)",
+     "source": "Howard 1902 Diagram 2; 6->4 adaptation to the square grid; 120 ft = 37 m < 50-m cell"
+    },
+    {
+     "name": "civic cluster",
+     "value": "2x2 cells (1 ha) at centre",
+     "source": "Howard 1902 ch.1: town hall/library/museum/hospital in Central Park; site sizes silent"
+    },
+    {
+     "name": "schools",
+     "value": "6 cells spaced by angle inside Grand Avenue",
+     "source": "Howard 1902 ch.1: schools sited in Grand Avenue, one cluster per ward (6 wards)"
+    }
+   ],
+   "reserved_civic_semantics": {
+    "(8, 2)": "education",
+    "(3, 7)": "education",
+    "(4, 14)": "education",
+    "(11, 17)": "education",
+    "(16, 12)": "education",
+    "(15, 5)": "education",
+    "(9, 9)": "public_admin",
+    "(9, 10)": "public_admin",
+    "(10, 9)": "healthcare",
+    "(10, 10)": "public_admin"
+   },
+   "designated_semantic_cells": {
+    "commercial_retail": [
+     [
+      8,
+      5
+     ],
+     [
+      6,
+      6
+     ],
+     [
+      5,
+      8
+     ],
+     [
+      5,
+      11
+     ],
+     [
+      6,
+      13
+     ],
+     [
+      8,
+      14
+     ],
+     [
+      11,
+      14
+     ],
+     [
+      13,
+      13
+     ],
+     [
+      14,
+      11
+     ],
+     [
+      14,
+      8
+     ],
+     [
+      13,
+      6
+     ],
+     [
+      11,
+      5
+     ]
+    ],
+    "industrial": [
+     [
+      8,
+      1
+     ],
+     [
+      6,
+      1
+     ],
+     [
+      4,
+      1
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      1,
+      6
+     ],
+     [
+      1,
+      8
+     ],
+     [
+      1,
+      11
+     ],
+     [
+      1,
+      13
+     ],
+     [
+      1,
+      15
+     ],
+     [
+      1,
+      17
+     ],
+     [
+      2,
+      18
+     ],
+     [
+      4,
+      18
+     ],
+     [
+      6,
+      18
+     ],
+     [
+      8,
+      18
+     ],
+     [
+      11,
+      18
+     ],
+     [
+      13,
+      18
+     ],
+     [
+      15,
+      18
+     ],
+     [
+      17,
+      18
+     ],
+     [
+      18,
+      17
+     ],
+     [
+      18,
+      15
+     ],
+     [
+      18,
+      13
+     ],
+     [
+      18,
+      11
+     ],
+     [
+      18,
+      8
+     ],
+     [
+      18,
+      6
+     ],
+     [
+      18,
+      4
+     ],
+     [
+      18,
+      2
+     ],
+     [
+      17,
+      1
+     ],
+     [
+      15,
+      1
+     ],
+     [
+      13,
+      1
+     ],
+     [
+      11,
+      1
+     ]
+    ]
+   },
+   "semantic_mix_demanded": {
+    "residential_estate": 0.0,
+    "residential_lowrise": 0.6667,
+    "commercial_retail": 0.0741,
+    "office_finance": 0.0,
+    "industrial": 0.1975,
+    "public_admin": 0.0185,
+    "education": 0.037,
+    "healthcare": 0.0062
+   },
+   "window_checks": {
+    "window_FAR": 1.482,
+    "window_ground_coverage": 0.16,
+    "built_cells": 162,
+    "green_frac": 0.275,
+    "road_frac": 0.24,
+    "vacant_frac": 0.08,
+    "residential_GFA_m2": 137298,
+    "implied_persons": 6241,
+    "implied_persons_per_ha": 62.4,
+    "persons_assumption": "22 m2 GFA/p: Victorian cottage ~120 m2 / 5.45 p-household (Howard's 5,500 lots/30,000)"
+   },
+   "doctrine_targets": {
+    "green_frac": 0.26,
+    "residential_frac": 0.33,
+    "density_p_ha": 74
+   },
+   "notes": [
+    "Window = half-scale town (1 km vs Howard's ~2.27 km diameter); ring radii halved, area FRACTIONS conserved (green 26% target).",
+    "Agricultural belt (5/6 of the estate) is entirely out of frame."
+   ]
+  },
+  "ville_radieuse": {
+   "token_budget": {
+    "T6": 100,
+    "E_ROAD": 76,
+    "E_GREEN": 224,
+    "E_VACANT": 0
+   },
+   "claims": [
+    {
+     "claim": "housing 1,000 p/ha; ground coverage 5-12%; 12-60 storeys",
+     "source": "vr.density_net_residential (high), ground_coverage (medium), height_regime (medium)",
+     "allocation": {
+      "T6": 100
+     },
+     "reason": "100 T6 cells solve 1,000 p/ha at LC's 14 m2/p cell with measured T6 GFA (14299 m2); block coverage = 0.077 in [.05,.12]"
+    },
+    {
+     "claim": "ground is a continuous park ('88-95% open')",
+     "source": "vr.land_budget.green_open (medium)",
+     "allocation": {
+      "E_GREEN": 224
+     },
+     "reason": "green carpet = 224/400; open ground incl. roads = 0.75 of window"
+    },
+    {
+     "claim": "400-m superblock arterial grid, circulation separated",
+     "source": "vr.block_grain (medium), street_doctrine (high)",
+     "allocation": {
+      "E_ROAD": 76
+     },
+     "reason": "rows/cols {4,12}: window edges mid-module (carpet is extensible, unit has no edge)"
+    }
+   ],
+   "geometry_constants": [
+    {
+     "name": "arterial grid",
+     "value": "1-cell E_ROAD rows/cols at 8-cell (400 m) spacing, offset to rows/cols {4,12} so window edges fall mid-module",
+     "source": "Ville Contemporaine 1922 400-m grid retained in VR (doctrine_recipes block_grain)"
+    },
+    {
+     "name": "tower sockets",
+     "value": "100 cells on a 2-cell (100 m) lattice in the green carpet",
+     "source": "count solves LC's own numbers: 1,000 p/ha at 14 m2/person dwelling cell (La Ville radieuse 1935) with measured T6 GFA; coverage lands inside doctrinal 5-12%"
+    }
+   ],
+   "reserved_civic_semantics": {},
+   "designated_semantic_cells": {},
+   "semantic_mix_demanded": {
+    "residential_estate": 1.0,
+    "residential_lowrise": 0.0,
+    "commercial_retail": 0.0,
+    "office_finance": 0.0,
+    "industrial": 0.0,
+    "public_admin": 0.0,
+    "education": 0.0,
+    "healthcare": 0.0
+   },
+   "window_checks": {
+    "window_FAR": 1.43,
+    "window_ground_coverage": 0.077,
+    "built_cells": 100,
+    "green_frac": 0.56,
+    "road_frac": 0.19,
+    "vacant_frac": 0.0,
+    "residential_GFA_m2": 1429914,
+    "implied_persons": 102137,
+    "implied_persons_per_ha": 1021.4,
+    "persons_assumption": "14 m2/p: Le Corbusier's dwelling-cell norm (La Ville radieuse, 1935)"
+   },
+   "doctrine_targets": {
+    "coverage": [
+     0.05,
+     0.12
+    ],
+    "density_p_ha": 1000
+   },
+   "notes": [
+    "Business district (24 cruciform 200-m towers at ~5% coverage) is NOT in the window: the land-budget denominator in D1 is the housing sector; the vocabulary also has no 5%-coverage tower utterance (see expressiveness_gaps).",
+    "Doctrine wants few colossal towers per 400-m module; Shanghai T6 (60 m) is 3.3x shorter, so doctrinal density forces a tower every 100 m: 'many short towers' where the text says 'few tall ones'."
+   ]
+  },
+  "neighbourhood_unit": {
+   "token_budget": {
+    "T1": 245,
+    "T2": 39,
+    "E_ROAD": 76,
+    "E_GREEN": 40,
+    "E_VACANT": 0
+   },
+   "claims": [
+    {
+     "claim": "open space 'about 10 per cent'",
+     "source": "nu.land_budget.green_open (high)",
+     "allocation": {
+      "E_GREEN": 40
+     },
+     "reason": "central common + 4 quadrant parks = 40/400 = 0.10 exactly"
+    },
+    {
+     "claim": "school at centre, 400-m walk (principle 4)",
+     "source": "nu.service_radii (high)",
+     "allocation": {
+      "T2_as_RESERVED_CIVIC": 4
+     },
+     "reason": "2x2 civic core in the common: 3 education + 1 public_admin (community house)"
+    },
+    {
+     "claim": "shops at arterial corner junctions (principle 6, land silent)",
+     "source": "nu.land_budget.commercial_shops (doctrine_silent)",
+     "allocation": {
+      "T2_corner_shops": 8
+     },
+     "reason": "2 cells per corner; T2 = lowrise retail row"
+    },
+    {
+     "claim": "residential = residual at 10 families/acre",
+     "source": "nu.density_net (high); residential fraction doctrine_silent",
+     "allocation": {
+      "T1": 245,
+      "T2_apartments": 27
+     },
+     "reason": "residual fabric; 10% apartment variant share (Perry's worked examples)"
+    },
+    {
+     "claim": "bounding arterials, no through traffic",
+     "source": "nu.street_doctrine (high)",
+     "allocation": {
+      "E_ROAD": 76
+     },
+     "reason": "window border = the four arterials"
+    }
+   ],
+   "geometry_constants": [
+    {
+     "name": "bounding arterials",
+     "value": "1-cell E_ROAD border (window = unit)",
+     "source": "Perry 1929 principle 2: arterials on all sides; unit is 800 m across, stretched to our 1,000-m window"
+    },
+    {
+     "name": "central common + school",
+     "value": "6x6 green block, 2x2 civic core",
+     "source": "Perry 1929 principle 4: school at centre within 1/4-mile (400 m) walk"
+    },
+    {
+     "name": "small parks",
+     "value": "4 x 2-cell parks at quadrant centres; green total = 10%",
+     "source": "Perry 1929 principle 3: 'about 10 per cent' recreation space"
+    },
+    {
+     "name": "corner shops",
+     "value": "2 cells at each of 4 arterial corners",
+     "source": "Perry 1929 principle 6: shops at periphery traffic junctions; land fraction silent"
+    },
+    {
+     "name": "interior local streets",
+     "value": "NOT marked (sub-cell, carried by pools)",
+     "source": "Perry 1929 principle 5: internal hierarchy discourages through traffic"
+    }
+   ],
+   "reserved_civic_semantics": {
+    "(9, 9)": "education",
+    "(9, 10)": "education",
+    "(10, 9)": "education",
+    "(10, 10)": "public_admin"
+   },
+   "designated_semantic_cells": {
+    "commercial_retail": [
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      18
+     ],
+     [
+      2,
+      18
+     ],
+     [
+      18,
+      1
+     ],
+     [
+      17,
+      1
+     ],
+     [
+      18,
+      18
+     ],
+     [
+      18,
+      17
+     ]
+    ]
+   },
+   "semantic_mix_demanded": {
+    "residential_estate": 0.0,
+    "residential_lowrise": 0.9577,
+    "commercial_retail": 0.0282,
+    "office_finance": 0.0,
+    "industrial": 0.0,
+    "public_admin": 0.0035,
+    "education": 0.0106,
+    "healthcare": 0.0
+   },
+   "window_checks": {
+    "window_FAR": 0.404,
+    "window_ground_coverage": 0.128,
+    "built_cells": 284,
+    "green_frac": 0.1,
+    "road_frac": 0.19,
+    "vacant_frac": 0.0,
+    "residential_GFA_m2": 375361,
+    "implied_persons": 9384,
+    "implied_persons_per_ha": 93.8,
+    "persons_assumption": "40 m2 GFA/p: ~220 m2 house / 5.5-person 1929 family (indicative)"
+   },
+   "doctrine_targets": {
+    "green_frac": 0.1,
+    "density_p_ha": [
+     77,
+     93
+    ]
+   },
+   "notes": [
+    "Window stretches the 800-m unit to 1,000 m (+25% linear): corner cells lie >400 m from the school, violating principle 4 at the corners (recorded as gap).",
+    "10% apartment share within housing is a translation choice: Perry's worked examples admit apartment variants; doctrine fixes no share."
+   ]
+  },
+  "microrayon": {
+   "token_budget": {
+    "T3": 54,
+    "T4": 45,
+    "T2": 8,
+    "T7": 4,
+    "E_VACANT": 125,
+    "E_ROAD": 76,
+    "E_GREEN": 88
+   },
+   "claims": [
+    {
+     "claim": "density 200-450 p/ha (canonical 330)",
+     "source": "mr.density_gross (medium)",
+     "allocation": {
+      "T3": 54,
+      "T4": 45
+     },
+     "reason": "cell count anchored on 330 p/ha at 15 m2 GFA/p; T3/T4 = 5-16-storey panel series rendered by the same-lineage Shanghai estate tokens"
+    },
+    {
+     "claim": ">=6 m2/person green (>=20% at 330 p/ha)",
+     "source": "mr.land_budget.green_open (medium)",
+     "allocation": {
+      "E_GREEN": 88
+     },
+     "reason": "wedge cross = 88/400 = 0.22 >= .20"
+    },
+    {
+     "claim": "school 750 m + kindergarten 300 m service radii",
+     "source": "mr.service_radii (medium)",
+     "allocation": {
+      "T2_as_RESERVED_CIVIC": 8
+     },
+     "reason": "1 school (2x2) + 4 kindergartens at 300-m coverage spacing"
+    },
+    {
+     "claim": "daily services per-capita norms (land silent)",
+     "source": "mr.land_budget.commercial_shops (doctrine_silent)",
+     "allocation": {
+      "T7": 4
+     },
+     "reason": "one 4-cell service block (torgovy tsentr analogue)"
+    },
+    {
+     "claim": "uncrossable superblock; land balance unstated",
+     "source": "mr.street_doctrine (high); land_budget silences",
+     "allocation": {
+      "E_ROAD": 76,
+      "E_VACANT": 125
+     },
+     "reason": "border arterials; E_VACANT = the doctrine's unbudgeted drives/parking/yards"
+    }
+   ],
+   "geometry_constants": [
+    {
+     "name": "bounding arterials",
+     "value": "1-cell E_ROAD border",
+     "source": "SNiP 2.07.01-89: major roads must not cross the microdistrict"
+    },
+    {
+     "name": "green wedges",
+     "value": "2-cell cross + edge flares + centre pocket = 88 cells (22% > 20% target)",
+     "source": "SNiP 2.07.01-89 sec 2.11: >=6 m2/person greenery at ~330 p/ha => >=20%"
+    },
+    {
+     "name": "school site",
+     "value": "2x2 cells (1 ha) tangent to central green",
+     "source": "school radius ~750 m (SNiP table value) -> one site serves the window"
+    },
+    {
+     "name": "kindergartens",
+     "value": "4 x 1-cell sites at (4,4),(4,15),(15,4),(15,15)",
+     "source": "kindergarten radius ~300 m -> 4 sites cover the 1-km window"
+    },
+    {
+     "name": "residential cell count",
+     "value": "99 cells (T3 54 / T4 45)",
+     "source": "anchored on 330 p/ha x 100 ha at 15 m2 GFA/person (9 m2 living-space sanitary norm grossed up; translation-layer assumption, labeled)"
+    }
+   ],
+   "reserved_civic_semantics": {
+    "(6, 6)": "education",
+    "(6, 7)": "education",
+    "(7, 6)": "education",
+    "(7, 7)": "education",
+    "(4, 4)": "education",
+    "(4, 15)": "education",
+    "(15, 4)": "education",
+    "(15, 15)": "education"
+   },
+   "designated_semantic_cells": {
+    "commercial_retail": [
+     [
+      12,
+      12
+     ],
+     [
+      12,
+      13
+     ],
+     [
+      13,
+      12
+     ],
+     [
+      13,
+      13
+     ]
+    ]
+   },
+   "semantic_mix_demanded": {
+    "residential_estate": 0.8919,
+    "residential_lowrise": 0.0,
+    "commercial_retail": 0.036,
+    "office_finance": 0.0,
+    "industrial": 0.0,
+    "public_admin": 0.0,
+    "education": 0.0721,
+    "healthcare": 0.0
+   },
+   "window_checks": {
+    "window_FAR": 0.634,
+    "window_ground_coverage": 0.08,
+    "built_cells": 111,
+    "green_frac": 0.22,
+    "road_frac": 0.19,
+    "vacant_frac": 0.312,
+    "residential_GFA_m2": 494763,
+    "implied_persons": 32984,
+    "implied_persons_per_ha": 329.8,
+    "persons_assumption": "15 m2 GFA/p: 9 m2 living-space sanitary norm grossed up (SNiP era)"
+   },
+   "doctrine_targets": {
+    "green_frac": 0.2,
+    "density_p_ha": [
+     200,
+     450
+    ]
+   },
+   "notes": [
+    "Window (100 ha) exceeds the SNiP microrayon maximum (60-80 ha) by 25%+ (gap).",
+    "Density-anchored translation leaves 125 E_VACANT cells (drives/parking/yards): a faithful rendering of SNiP's land-balance silence (remainder_unspecified = 0.80)."
+   ]
+  },
+  "gb50180": {
+   "token_budget": {
+    "T4": 81,
+    "T6": 75,
+    "T2": 6,
+    "T7": 16,
+    "E_VACANT": 0,
+    "E_ROAD": 144,
+    "E_GREEN": 78
+   },
+   "claims": [
+    {
+     "claim": "block FAR 2.2-2.8, coverage <=22%, height class mix (Table 4.0.2, climate III)",
+     "source": "gb.far_block_climate_III (high), ground_coverage (high)",
+     "allocation": {
+      "T4": 81,
+      "T6": 75
+     },
+     "reason": "T4/T6 split solved for block FAR 2.5; block coverage lands <= .22 via green embedding"
+    },
+    {
+     "claim": "green rate >=30% + concentrated central green",
+     "source": "gb.land_budget.green_open (high)",
+     "allocation": {
+      "E_GREEN": 78
+     },
+     "reason": "centre block + per-block strips = 78 cells = 0.33 of block land"
+    },
+    {
+     "claim": "dense road grid <=300 m, >=8 km/km2",
+     "source": "gb.block_grain + street_doctrine (high)",
+     "allocation": {
+      "E_ROAD": 144
+     },
+     "reason": "rows/cols {0,6,13,19}: 250/300/250-m spacing, 8 km/km2 exact"
+    },
+    {
+     "claim": "5-min-circle facilities (school, service centre, clinic)",
+     "source": "gb.service_radii (medium); facility checklists",
+     "allocation": {
+      "T2_as_RESERVED_CIVIC": 6
+     },
+     "reason": "school 2x2 + admin 1 + health 1"
+    },
+    {
+     "claim": "arterial commercial podium (GB land-silent; practice)",
+     "source": "gb.land_budget.commercial_shops (doctrine_silent)",
+     "allocation": {
+      "T7": 16
+     },
+     "reason": "16-cell podium row along northern arterial"
+    }
+   ],
+   "geometry_constants": [
+    {
+     "name": "road grid",
+     "value": "1-cell E_ROAD rows/cols {0,6,13,19}: spacings 250/300/250 m; network density 8 km/km2",
+     "source": "GB 50180-2018 6.0.2: spacing 150-250 m pref., <=300 m; density >=8 km/km2 (met exactly)"
+    },
+    {
+     "name": "central garden",
+     "value": "full 6x6 centre block",
+     "source": "GB 50180-2018 4.0.4/4.0.7: concentrated public green per circle"
+    },
+    {
+     "name": "green strips",
+     "value": "mid-row strip per block; total green 78 cells = 0.33 of block land",
+     "source": "GB 50180-2018 Table 4.0.2: green rate 30% (multi) / 35% (high-rise) minimums"
+    },
+    {
+     "name": "commercial podium row",
+     "value": "16 T7 cells along northern arterial",
+     "source": "street-wall podium practice along arterials; GB itself lists facilities, not commercial land (doctrine-silent)"
+    },
+    {
+     "name": "civic sites",
+     "value": "school 2x2 + service centre 1 + clinic 1",
+     "source": "GB 50180-2018 sec 5: 5-min-circle facility checklist (school, community service, health station), radius <=300-500 m"
+    },
+    {
+     "name": "T4/T6 split",
+     "value": "T4 81 / T6 75 solves block FAR = 2.5",
+     "source": "GB 50180-2018 Table 4.0.2 high-rise I FAR 2.2-2.8 (climate III, Shanghai)"
+    }
+   ],
+   "reserved_civic_semantics": {
+    "(10, 2)": "education",
+    "(10, 3)": "education",
+    "(11, 2)": "education",
+    "(11, 3)": "education",
+    "(10, 16)": "public_admin",
+    "(11, 16)": "healthcare"
+   },
+   "designated_semantic_cells": {
+    "commercial_retail": [
+     [
+      1,
+      1
+     ],
+     [
+      1,
+      2
+     ],
+     [
+      1,
+      3
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      1,
+      7
+     ],
+     [
+      1,
+      8
+     ],
+     [
+      1,
+      9
+     ],
+     [
+      1,
+      10
+     ],
+     [
+      1,
+      11
+     ],
+     [
+      1,
+      12
+     ],
+     [
+      1,
+      14
+     ],
+     [
+      1,
+      15
+     ],
+     [
+      1,
+      16
+     ],
+     [
+      1,
+      17
+     ],
+     [
+      1,
+      18
+     ]
+    ]
+   },
+   "semantic_mix_demanded": {
+    "residential_estate": 0.8764,
+    "residential_lowrise": 0.0,
+    "commercial_retail": 0.0899,
+    "office_finance": 0.0,
+    "industrial": 0.0,
+    "public_admin": 0.0056,
+    "education": 0.0225,
+    "healthcare": 0.0056
+   },
+   "window_checks": {
+    "window_FAR": 1.991,
+    "window_ground_coverage": 0.144,
+    "built_cells": 178,
+    "green_frac": 0.195,
+    "road_frac": 0.36,
+    "vacant_frac": 0.0,
+    "residential_GFA_m2": 1496805,
+    "implied_persons": 42766,
+    "implied_persons_per_ha": 427.7,
+    "persons_assumption": "35 m2/p: current Chinese urban per-capita housing floorspace (indicative)"
+   },
+   "doctrine_targets": {
+    "far_block": [
+     2.2,
+     2.8
+    ],
+    "coverage_block_max": 0.22,
+    "green_rate_min": 0.3
+   },
+   "notes": [
+    "All three GB caps satisfied simultaneously at block level: FAR 2.49 (cap band 2.2-2.8), coverage 0.17 (<=0.22), green 0.33 (>=0.30).",
+    "50-m cells quantize every road to 50 m width: 36% road land vs ~15-20% real; the 8 km/km2 norm is hit exactly, the land take is a resolution artifact."
+   ]
+  }
+ },
+ "expressiveness_gaps": {
+  "garden_city": [
+   {
+    "demand": "1-2 storey cottages on 20x130 ft garden lots (built practice; doctrine height-silent)",
+    "nearest_shanghai_utterance": "T1 (cov .17, h 10.0 m, house .95)",
+    "distortion": "height inflated ~1.5-2x; Shanghai T1 is attached village/lilong fabric, not detached cottages"
+   },
+   {
+    "demand": "Crystal Palace: single-storey glass ring arcade around Central Park",
+    "nearest_shanghai_utterance": "T7 big-box (cov .98, h 29.4 m)",
+    "distortion": "a thin glass ring becomes 12 opaque podium cells ~3x too tall"
+   },
+   {
+    "demand": "factory/warehouse sheds (~10 m) fronting the circular railway",
+    "nearest_shanghai_utterance": "T7 (h 29.4 m) alternating with E_VACANT yards",
+    "distortion": "shed height ~3x inflated; rail siding grain lost at 50-m cells"
+   },
+   {
+    "demand": "radial-concentric geometry: 6 boulevards, circular rings",
+    "nearest_shanghai_utterance": "square grid: 4 orthogonal radials, square 'rings'",
+    "distortion": "6-fold symmetry -> 4-fold; circles -> squares; boulevards widened 37->50 m"
+   },
+   {
+    "demand": "5,000-acre agricultural belt (5/6 of the estate)",
+    "nearest_shanghai_utterance": "none (out of frame)",
+    "distortion": "the doctrine's core anti-speculation instrument is invisible in a 1-km window"
+   }
+  ],
+  "ville_radieuse": [
+   {
+    "demand": "cruciform business towers, 60 storeys / ~200 m, ~5% ground coverage",
+    "nearest_shanghai_utterance": "T8 (h 94.5 m, cov .99) or T6 (h 60.4 m, cov .31)",
+    "distortion": "NO token says 'very tall AND nearly no footprint': T8 inverts the open ground (coverage .99), T6 is a third of the height; business district omitted from window"
+   },
+   {
+    "demand": "a-redent continuous housing slabs, 12-15 storeys (~50 m), on pilotis",
+    "nearest_shanghai_utterance": "T3 slab (h 21.5 m) OR T6 tower (h 60.4 m) \u2014 never slab-at-50m",
+    "distortion": "vocabulary can say 'slab' or '50-60 m' but not both; we chose T6: height kept, continuous redent form becomes point towers"
+   },
+   {
+    "demand": "one colossal tower per 400-m module ('few, tall, far apart')",
+    "nearest_shanghai_utterance": "T6 socket every 100 m",
+    "distortion": "to carry 1,000 p/ha with 60-m towers the carpet needs 4x the tower count"
+   },
+   {
+    "demand": "elevated motorways; ground 100% pedestrian",
+    "nearest_shanghai_utterance": "E_ROAD at grade",
+    "distortion": "grade separation unsayable; 19% of ground becomes road surface"
+   }
+  ],
+  "neighbourhood_unit": [
+   {
+    "demand": "single-family houses, 10 families/acre (1-2.5 storeys, detached/row)",
+    "nearest_shanghai_utterance": "T1 (cov .17, h 10.0 m, house .95)",
+    "distortion": "T1 is denser attached Shanghai fabric; ~3 storeys vs 1-2.5; tenure image (freehold lot) not carried"
+   },
+   {
+    "demand": "800-m unit with all dwellings within 400 m of the school",
+    "nearest_shanghai_utterance": "1,000-m window (unit stretched +25%)",
+    "distortion": "corner cells sit 500-700 m from the school: principle 4 fails at corners"
+   },
+   {
+    "demand": "curvilinear interior streets discouraging through traffic",
+    "nearest_shanghai_utterance": "sub-cell street grain carried implicitly by pools",
+    "distortion": "interior street pattern invisible at 50-m resolution (not marked, by design)"
+   }
+  ],
+  "microrayon": [
+   {
+    "demand": "5-storey khrushchevka panel series (~15 m)",
+    "nearest_shanghai_utterance": "T3 (h 21.5 m, slab .92)",
+    "distortion": "height inflated ~40%; Shanghai pre-1985 estates are the same lineage, so form family is faithful"
+   },
+   {
+    "demand": "microrayon 10-60 ha (max 80 ha)",
+    "nearest_shanghai_utterance": "100-ha window",
+    "distortion": "frame oversizes the canonical unit by >=25%; one window ~ 1.5-3 microrayons"
+   },
+   {
+    "demand": "free insolation-driven slab placement (no coverage norm)",
+    "nearest_shanghai_utterance": "50-m cell tokens with fixed internal arrangements",
+    "distortion": "insolation spacing is sub-cell; carried only as far as Shanghai pools already embody it"
+   }
+  ],
+  "gb50180": [
+   {
+    "demand": "high-rise I residential: coverage <=22%, height <=54 m (Table 4.0.2)",
+    "nearest_shanghai_utterance": "T6 (cov .31, h 60.4 m)",
+    "distortion": "the measured Shanghai high-rise token VIOLATES the standard's own cell-level caps; compliance only re-emerges at block level via green embedding"
+   },
+   {
+    "demand": "open small blocks, dense network ('xiao jiequ, mi luwang', 6.0.2)",
+    "nearest_shanghai_utterance": "300-m gated-superblock grid (built practice)",
+    "distortion": "we encode the gated practice the standard administers, not the open-block reform it asks for: doctrine-vs-practice tension made explicit"
+   },
+   {
+    "demand": "road land ~15-20% at 8 km/km2",
+    "nearest_shanghai_utterance": "1-cell (50 m) road lines",
+    "distortion": "road land overstated at 36% by 50-m quantization (network density exact)"
+   }
+  ]
+ }
+}

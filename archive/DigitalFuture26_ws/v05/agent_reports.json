@@ -1,0 +1,525 @@
+{
+ "ds": {
+  "for_report": "Phase A assembled the v05 analysis dataset from the frozen v03/v04 foundation. One rerunnable script (v05/build_dataset.py, seed 0) produces four outputs. (1) dataset.parquet: all 14,527 library buildings (EPSG:32651, geometry kept) with new columns: 20x20 grid row/col from the building centroid (same rule as v03, verified 100% consistent with v03 token_pools on token/row/col), token_v03 and token_v04 (the typed-void grid), distances from the centroid to the window's road-major, road-all, water and green mask geometries, neighbour density within 100 m and mean neighbour height, plus role and window name. (2) windows.json: per-window GFA totals, label coverage, semantic GFA shares over labeled GFA, family GFA shares, residential-estate age-regime GFA splits matching the power-prior periodization (pre1985 / 1985-1997 / post1998 / no_age), v04 void-cell composition, and a copy of the v03 signature indicators and PCA coordinates. (3) results_e0.json: summary counts and NaN shares. (4) Two checked figures: a study-area map of all 24 windows with non-overlapping labels, and a two-panel dataset overview (semantic GFA stacked bars sorted by label coverage; building counts with labeled-percent line). Key facts established for later phases: dist_water is NaN for 52% of buildings because 10 of 24 windows contain no mapped water; dist_green is NaN for 4.9% (two windows lack green). All distances are upper bounds because masks are clipped to the 1 km windows. Age is the weakest field: only 39.2% of buildings have a construction year, the earliest stamp is 1984, and 58% of dated buildings are stamped 1984-85 — the source evidently truncates pre-1985 construction onto a floor value, so the 'pre1985' regime is a floor category, and famous 1950s Caoyang Xincun shows only 6% pre-1985 GFA. Pooled, 45.7% of residential-estate GFA has no age at all, meaning the time-conditioned power priors will often fall back to their no_age cell. A47 West Bund Xuhui riverside is a labeling outlier (31% of buildings labeled; 75.5% of its GFA unlabeled), so its semantic composition rests on a small labeled minority. 192 buildings (1.3%) sit in grid cells typed EMPTY or void (coverage <2%); they are kept and flagged rather than reassigned.",
+  "honest_notes": [
+   "Distances are UPPER BOUNDS: v04 masks are clipped to the 1 km window, so a road/river just outside the window is invisible; edge bias is identical for all windows but absolute distances near window edges are overstated.",
+   "density_100m and nbr_mean_h undercount near window edges (no neighbours exist outside the window in the data).",
+   "dist_water is NaN for 52.0% of buildings (10/24 windows have no mapped water: A02,A10,A13,A17,A20,A29,A35,A36,A39,A43); dist_green NaN for 4.9% (A32, A33 lack green). NaN means 'class absent in window', not distance unknown.",
+   "Age data is structurally truncated: earliest stamp 1984, 58% of dated buildings stamped <=1985 (a floor category, not real vintage), and only 39.2% of buildings have any age; 45.7% of pooled residential_estate GFA falls in the no_age regime, so time-conditioned power priors will frequently hit their no_age fallback. Caoyang Xincun (1950s workers' village) shows only 6% pre-1985 GFA - early construction is NOT reliably dated.",
+   "A47 West Bund Xuhui riverside: only 31.0% of buildings labeled and 75.5% of GFA unlabeled - its semantic composition is based on a small labeled minority and should be caveated wherever used.",
+   "192 buildings (1.3%) lie in 50 m cells typed EMPTY (v03 T0, coverage <2%) or void (v04); token columns record this honestly instead of forcing a built token.",
+   "Buildings inside green/water polygons get distance 0 (parks legitimately contain buildings, consistent with v04 mask notes).",
+   "Figure label placement took three debugging iterations (estimated-width collision too optimistic; Annotation bbox unions in the leader line and vetoed all far candidates; text-only extents need update_positions first) - final map verified overlap-free by rendered-extent pairwise check."
+  ],
+  "choices": [
+   {
+    "choice": "Building rep point = polygon centroid (not shapely representative_point)",
+    "alternatives": "representative_point() (guaranteed inside polygon); footprint-area-weighted cell overlap",
+    "reason": "v03 cells.parquet assigned buildings to 50 m cells by centroid; using the same rule makes token_v03 exactly the token of the cell each building was pooled into (verified: 100% agreement with v03 token_pools on token, row and col for all 11,175 pooled buildings)."
+   },
+   {
+    "choice": "labeled_pct = share of BUILDINGS (count) with semantic != unlabeled; GFA-based unlabeled share reported separately as unlabeled_gfa_share",
+    "alternatives": "GFA-weighted labeled percent only",
+    "reason": "Count answers 'how many objects did the cascade label', GFA answers 'how much built mass is classified'; both matter for the power analysis, so both are stored and the figure shows both."
+   },
+   {
+    "choice": "Semantic GFA shares computed over LABELED GFA only (8 classes sum to 1), unlabeled disclosed alongside; figure stacks them rescaled to total GFA + explicit grey unlabeled segment",
+    "alternatives": "shares over total GFA with unlabeled as a 9th class throughout",
+    "reason": "Task specified shares over labeled GFA; the figure rescaling keeps the visual honest about how much mass is actually unclassified per window."
+   },
+   {
+    "choice": "residential_estate age regimes: pre1985 = age<=1985, 1985_1997 = 1986-1997, post1998 = age>=1998, plus explicit no_age bucket; GFA-weighted",
+    "alternatives": "count-weighted; treating no_age as imputable",
+    "reason": "Boundaries mirror power_priors_v01.json time-conditioned cells (housing-reform periodization); GFA weighting because the power analysis is about built mass; no_age kept explicit rather than imputed (no fabrication)."
+   },
+   {
+    "choice": "Distances = shapely point-to-polygon distance from the centroid to the window-clipped mask geometry; 0 if inside; NaN + has_<cls>_in_window=False when the class is absent in that window",
+    "alternatives": "footprint-edge-to-mask distance; unclipped citywide masks",
+    "reason": "Centroid-based is consistent with the grid assignment and cheap; window-clipped masks are the only ones available in v04 cache — the resulting edge bias is disclosed, identical treatment for all windows."
+   },
+   {
+    "choice": "density_100m counts OTHER buildings within 100 m in the same window (cKDTree); nbr_mean_h = unweighted mean of those neighbours' heights",
+    "alternatives": "GFA-weighted density; KDE bandwidths; cross-window neighbours",
+    "reason": "Simple, interpretable local-context features; cross-window neighbours do not exist in the data (windows are discontiguous 1 km samples), so edge undercount is disclosed instead of pretended away."
+   },
+   {
+    "choice": "token_v04 taken verbatim from the typed grid even where it is a void token (192 buildings sit in cells typed EMPTY/road/water/green)",
+    "alternatives": "forcing nearest built token",
+    "reason": "Those cells genuinely have <2% coverage; overwriting would fabricate built context. The count is recorded in results_e0.json."
+   },
+   {
+    "choice": "Map labels: greedy rectangle-collision placement in display space using TRUE rendered text extents + leader lines for displaced labels",
+    "alternatives": "v03 point-distance heuristic; label only notable windows; inset zoom panel",
+    "reason": "The v03 heuristic produced overlapping labels in the dense inner-city cluster (5 windows within ~0.03 deg). Three debugging iterations were needed: (1) estimated text widths too small, (2) Annotation.get_window_extent unions in the leader-line bbox which vetoed every far candidate, (3) Text-only extent requires update_positions(renderer) first or the offset transform is stale. Final figure has all 24 full-name labels with zero overlaps."
+   }
+  ],
+  "key_numbers": {
+   "n_buildings": 14527,
+   "n_windows": 24,
+   "n_train": 18,
+   "n_heldout": 6,
+   "nan_share_dist_water": 0.5197,
+   "nan_share_dist_green": 0.0489,
+   "nan_share_age": 0.608,
+   "n_windows_without_water": 10,
+   "n_windows_without_green": 2,
+   "token_v03_match_vs_v03_pools": 1,
+   "buildings_in_void_or_T0_cells": 192,
+   "share_dated_buildings_stamped_le_1985": 0.581,
+   "res_estate_gfa_share_no_age_pooled": 0.457,
+   "A47_unlabeled_gfa_share": 0.7553,
+   "A47_labeled_pct_buildings": 31,
+   "median_density_100m": 23,
+   "median_dist_road_all_m": 23.1,
+   "median_dist_road_major_m": 81.4
+  }
+ },
+ "e1": {
+  "for_report": "Experiment 1 asks whether a computer can recognize a building's fusion-derived semantic type from form alone, and whether that skill transfers across windows. Using the 13,812 labeled buildings in v05/dataset.parquet (8 classes; 715 unlabeled dropped), I trained RandomForests (400 trees, class-balanced, seed 0) on two feature sets: FORM (footprint area, height, floors, elongation) and FORM+CTX (adding 100m neighbour density, neighbour mean height, and the four v0.4 mask distances with median imputation plus is-NaN flags; dist_water is missing in 52% of rows). POI/EULUC/AOI features were excluded because they produced the labels. Two cross-validation designs were compared via cross_val_predict: random StratifiedKFold(5), comparable to the old 3-window C report, and GroupKFold by window (leave-one-window-out), the honest spatial-transfer test.\n\nThe gap between the two designs is the main finding. Random CV: FORM 66.6% accuracy, FORM+CTX 74.4% (macro-F1 0.40), against a 60.1% majority baseline. Under window transfer both collapse toward the baseline: FORM 62.7%, FORM+CTX 64.1%, balanced accuracy ~0.24 (8-class chance is 0.125), macro-F1 0.22. The old C-report figure of 72% form-only does not survive scale plus honest splitting; what remains is essentially res_estate-vs-res_lowrise discrimination.\n\nThe power-typed headline is starkly negative: pooled recall of public_admin + education + healthcare (1,472 buildings) under transfer is 1.2% with FORM and 0.07% with FORM+CTX; healthcare recall is exactly 0 in every design. Context features more than double power-class recall under random CV (13.9%, public_admin precision 0.93) but make it worse than form alone under transfer — clear evidence the dist features act as within-window location fingerprints enabling parcel memorization, not transferable knowledge. The confusion matrices show all three power classes absorbed almost entirely into the two residential classes.\n\nPer-window held-out accuracy spans 0.11-0.90 (median 0.63) and is largely a residential-share proxy: best are residential-dominated windows (A41 Fengjing 0.90; heldout A20/A29 around 0.82), worst are the office/industrial windows A47 West Bund (0.11) and A27 Lingang (0.24). A32 Minhang urban village scores 0.20 despite 100% residential_estate labels, suggesting parcel-level label coarseness as much as model error. Feature importances (full fit, descriptive) rank neighbour mean height, dist_green and density above any single form variable, so the new v0.4 distances do matter within-window — they just do not transfer for rare classes. All numbers are in results_e1.json; both figures were visually checked.",
+  "honest_notes": [
+   "The old C-report result (72% form-only accuracy, 3 windows, OSM labels) does NOT replicate at 14k scale with fused labels: form-only random-CV accuracy is 66.6% against a 60.1% majority baseline, and only 62.7% under spatial transfer — most of the apparent skill is majority-class prediction plus the morphologically distinctive res_lowrise class.",
+   "Context features look impressive under random CV (74.4% acc, public_admin precision 0.93) but this is leakage, not transfer: under leave-one-window-out the power-class pooled recall collapses from 13.9% to 0.07% — WORSE than form alone (1.15%). The dist_* features act as within-window location fingerprints that let the forest memorize parcels.",
+   "Headline negative result: pooled recall of {public_admin, education, healthcare} under spatial transfer is at most 1.2% (FORM) and 0.07% (FORM+CTX); healthcare recall is exactly 0 in every CV design, replicating and strengthening the C-report hospital-recall-0 finding.",
+   "Balanced accuracy under transfer (0.235-0.239) is barely above 8-class chance (0.125); the model effectively distinguishes only res_estate vs res_lowrise across windows.",
+   "Per-window accuracy is largely a residential-share proxy: best windows A41/A20/A29 are 80-94% residential_estate; worst are A47 West Bund (industrial/office, 0.11) and A27 Lingang (office-dominated, 0.24).",
+   "A32 Minhang urban village scores 0.20 despite being labeled ~100% residential_estate by the fusion — the model predicts house-like classes there. This plausibly reflects parcel-level label coarseness (EULUC parcels painting village houses as residential_estate) at least as much as model failure; flagged as a label-quality caveat, not resolved.",
+   "dist_water is NaN in 52% of buildings (no water in window); all reported numbers depend on the median+flag imputation choice for that column.",
+   "Fused labels are EULUC-parcel-dominated, so buildings in one parcel share labels; random 5-fold therefore overstates skill via parcel-label leakage as well as spatial autocorrelation. GroupKFold by window is the honest unit and is what all headline claims use."
+  ],
+  "choices": [
+   {
+    "choice": "Excluded all POI/EULUC/AOI-derived features from the predictors",
+    "alternatives": "Include label-source covariates for higher accuracy",
+    "reason": "These sources produced the fused semantic labels; using them would be circular. Task mandate, recorded as design choice."
+   },
+   {
+    "choice": "Also excluded token_v03/token_v04 grid tokens as features",
+    "alternatives": "Include cell token as a context feature",
+    "reason": "Tokens were clustered partly on family composition, which correlates with the fusion pipeline; treated as label-adjacent to keep the form-only claim clean."
+   },
+   {
+    "choice": "NaN handling: per-column median imputation plus binary <col>_isnan flags for the four dist_* features (dist_water is NaN in 52% of rows = windows with no water)",
+    "alternatives": "Fill with a large sentinel distance (e.g. 1500 m); drop dist_water entirely; use the existing has_*_in_window booleans",
+    "reason": "Median+flag lets the forest separate 'feature absent in window' from a real distance without inventing a fake metric distance; flags for road dists are constant 0 and harmless. dist_water_isnan picked up 0.017 importance, so absence itself carries some signal."
+   },
+   {
+    "choice": "GroupKFold with n_splits=24, i.e. leave-one-window-out",
+    "alternatives": "GroupKFold(5 or 6) with multiple windows per fold",
+    "reason": "Gives every window an honest held-out score, which the per-window-accuracy deliverable requires; 24 folds x 400 trees is cheap at 14k rows."
+   },
+   {
+    "choice": "Power-supergroup statistic = pooled (micro) recall over {public_admin, education, healthcare}: correct predictions / 1472 buildings",
+    "alternatives": "Macro-average of the three class recalls",
+    "reason": "Pooled per task spec; per-class recalls are also stored in results_e1.json so both views are available."
+   },
+   {
+    "choice": "Feature importances from impurity-based importance of one RF fit on all data",
+    "alternatives": "Permutation importance on held-out windows (more transfer-honest but slower)",
+    "reason": "Task spec asked for a full-data fit; figure caption and JSON mark it as descriptive, not a transfer-validated claim."
+   },
+   {
+    "choice": "Rows restricted to semantic != 'unlabeled' (dropped 715 of 14,527)",
+    "alternatives": "Treat unlabeled as a ninth class",
+    "reason": "Unlabeled is absence of evidence, not a type; predicting it would mostly model label coverage, not form."
+   }
+  ],
+  "key_numbers": {
+   "n_buildings_labeled": 13812,
+   "majority_baseline_acc": 0.6012,
+   "strat5_FORM_acc": 0.666,
+   "strat5_FORMCTX_acc": 0.744,
+   "group24_FORM_acc": 0.627,
+   "group24_FORMCTX_acc": 0.641,
+   "group24_FORM_balanced_acc": 0.235,
+   "group24_FORMCTX_balanced_acc": 0.239,
+   "group24_FORMCTX_macroF1": 0.221,
+   "strat5_FORMCTX_macroF1": 0.397,
+   "power_pooled_recall_strat5_FORM": 0.0591,
+   "power_pooled_recall_strat5_FORMCTX": 0.1393,
+   "power_pooled_recall_group24_FORM": 0.0115,
+   "power_pooled_recall_group24_FORMCTX": 0.0007,
+   "n_power_buildings": 1472,
+   "healthcare_recall_group24_both": 0,
+   "per_window_acc_min_A47": 0.113,
+   "per_window_acc_median": 0.628,
+   "per_window_acc_max_A41": 0.9,
+   "top_feature_importance_nbr_mean_h": 0.1317,
+   "dist_green_importance": 0.128,
+   "dist_water_nan_share": 0.5197
+  }
+ },
+ "e2": {
+  "for_report": "Experiment 2 re-ran the power-attribution chain from the 3-patch probe at full 24-window scale (script v05/exp2_power.py, seed 0). The literature priors (TF/probe/power_priors_v01.json) were reused verbatim as power_priors_v05.json — all 8 semantic classes were already covered, so no baseline fallback was needed; a top-level note records that these remain uncalibrated literature priors with per-cell provenance and confidence. Each of the 13,812 labeled buildings received a 4-dim additive weight vector (government, developer_capital, resident_community, informal): residential_estate via age regime (age<=1985 / 1986-1997 / >=1998 / no_age; the Age layer truncates at 1984, so 'pre1985' means '1985 or earlier'), other classes via their single prior cell; the 715 unlabeled buildings were excluded and reported as per-window unlabeled GFA shares. Window profiles are GFA-weighted means, with a low-confidence GFA share ('low'+'medium-low' cells) as a separate diagnostic. Probe findings held where they should: Caoyang A13 still reads developer_capital (0.525) above government (0.416) — an exact reproduction, as expected with identical priors. Across 24 windows, 9 are government-dominant (peak A43 Liangcheng 0.600) and 15 developer-dominant; no window is resident- or informal-dominant (maxima 0.319 and 0.088, both A33), which is structurally baked into the priors since GFA weighting suppresses the small self-built houses that carry the resident/informal weights. The five age_filled=0 suburban windows expose a real weakness: in four of them (A29, A32, A33, A41) 73-96% of labeled GFA sits in the low-confidence no_age fallback cell, so their developer-dominance is an artifact of the fallback weights, not evidence; these are drawn with open markers in fig_e2_profiles.png. A07 Bund surprisingly has the lowest government weight (0.288) because the class-based priors lack any heritage/state-preservation channel. The semantic-to-family bridge on 18 train windows (10,705 buildings, counts and GFA-weighted, row-normalized) confirms the probe's clean cell — residential_lowrise to house = 0.999 vs probe 1.00 (n=1,357) — while the smeared residential_estate row stays smeared but flips its modal family: slab rises from 0.34 to 0.398 and midrise_other falls from 0.504 to 0.379, meaning the probe's three patches overrepresented midrise estates. A47 West Bund (75.5% unlabeled GFA) is flagged as unreliable. Outputs: results_e2.json, power_priors_v05.json, fig_e2_profiles.png (4-column lollipop, non-simplex weights), fig_e2_bridge.png (heatmap + flagship probe-vs-v05 panel), both checked visually.",
+  "honest_notes": [
+   "The Caoyang A13 match to the probe (gov 0.4155/dev 0.5248 vs probe 0.416/0.524) is a reproduction check, not independent confirmation — same priors, same labels, same window; agreement to 3 decimals only proves the pipeline is consistent.",
+   "Zero windows are resident_community- or informal-dominant (max 0.319 and 0.088, both A33). This is structurally near-guaranteed by the prior design: resident weight peaks at 0.6 only for residential_lowrise, whose small houses are suppressed by GFA weighting. It is a property of the priors, not a finding about Shanghai.",
+   "dev>gov in 4 of the 5 zero-age suburbs (A29, A32, A33, A41) is an artifact: with age_filled=0, all residential_estate falls into the no_age fallback cell (gov .4/dev .5, confidence low), and those windows' low-confidence GFA shares are 0.73-0.96. Their dev-dominance should not be reported as evidence. A27 Lingang is the exception (estates are only 9.9% of labeled GFA; its dev-dominance 0.728 comes from office/commercial/industrial priors).",
+   "A07 Bund has the LOWEST government weight of all 24 windows (0.2875) — counterintuitive for a state-controlled heritage waterfront. The class-based priors have no heritage/state-preservation channel; office_finance/commercial classes drive the score.",
+   "A47 West Bund profile describes only 24.5% of window GFA (75.5% unlabeled) — annotated on the figure, profile should be treated as unreliable.",
+   "The probe's residential_estate modal family flipped at scale: midrise_other 0.504 -> 0.379 while slab rose 0.34 -> 0.398; the 3 probe patches overrepresented midrise estates.",
+   "Bridge industrial row rests on only n=144 train buildings and shows house share 0.39 — likely small sheds landing in the house family; treat that row with caution."
+  ],
+  "choices": [
+   {
+    "choice": "Reused power_priors_v01.json verbatim as power_priors_v05.json (all 8 semantic classes were already covered; no baseline fallback needed), adding only a top-level note that v05 is uncalibrated literature priors with provenance/confidence kept.",
+    "alternatives": "Recalibrate weights against v05 data; merge/redistribute confidence levels.",
+    "reason": "Task mandate; also keeps the power layer falsifiable — any window-level pattern is traceable to a cited prior cell, not to fitting."
+   },
+   {
+    "choice": "Age-regime binning: age<=1985 -> pre1985, 1986-1997 -> 1985_1997, >=1998 -> post1998, NaN -> no_age; ages verified integer-valued with hard floor at 1984.",
+    "alternatives": "Treat 1984-85 spike as missing; shift boundary to 1986.",
+    "reason": "Matches the prior periodization (danwei / dual-track / commodity housing); the 1984 truncation is recorded in both the priors note and results meta as 'pre1985 = 1985 or earlier'."
+   },
+   {
+    "choice": "Low-confidence GFA share counts prior cells with confidence in {low, medium-low} only; buildings are NOT down-weighted by confidence in the profile mean.",
+    "alternatives": "Include 'medium'; confidence-weighted averaging.",
+    "reason": "Task definition for the share; keeping the mean un-reweighted keeps aggregation transparent — confidence is reported as a separate diagnostic, not folded into the estimate."
+   },
+   {
+    "choice": "Unlabeled buildings excluded from power aggregation; per-window unlabeled GFA share reported and annotated on the figure when >20%.",
+    "alternatives": "Assign baseline_unspecified weights to unlabeled.",
+    "reason": "Task spec + house discipline: imputing power to unlabeled morphology would assert stakeholder identity from form alone."
+   },
+   {
+    "choice": "Bridge computed two ways (building counts and GFA-weighted), row-normalized semantic->family, TRAIN windows only; probe matrix (stored family-major in probe/results.json) re-read as P(family|semantic) for comparison.",
+    "alternatives": "Count-only; all 24 windows.",
+    "reason": "GFA weighting matches how power profiles aggregate; restricting to the 18 train windows mirrors how the probe bridge was learned and keeps heldout windows clean."
+   },
+   {
+    "choice": "Profiles figure = 4-column lollipop/dot panel sorted by government weight, open markers for low_confidence_gfa_share>0.5, asterisks for heldout, unlabeled-share annotation >20%.",
+    "alternatives": "Stacked bars; radar charts.",
+    "reason": "Weights are additive non-exclusive (not a simplex) so stacked bars would falsely imply shares summing to 1; task explicitly forbids them."
+   },
+   {
+    "choice": "'Dominant dim' = simple argmax over the 4 additive weights, used only as a labeling diagnostic.",
+    "alternatives": "Dominance margin thresholds; entropy measures.",
+    "reason": "Cheapest readable summary; full 4-vectors are in results_e2.json so nothing is hidden by the argmax."
+   }
+  ],
+  "key_numbers": {
+   "n_buildings_total": 14527,
+   "n_labeled": 13812,
+   "n_train_labeled": 10705,
+   "caoyang_A13_government": 0.4155,
+   "caoyang_A13_developer_capital": 0.5248,
+   "caoyang_dev_gt_gov_holds": "true (probe: 0.524 vs 0.416)",
+   "gov_dominant_windows_n": 9,
+   "dev_dominant_windows_n": 15,
+   "resident_or_informal_dominant_windows_n": 0,
+   "max_resident_community_weight": "0.3185 (A33)",
+   "max_informal_weight": "0.0879 (A33)",
+   "gov_weight_max": "0.6003 (A43 Liangcheng)",
+   "gov_weight_min": "0.2875 (A07 Bund)",
+   "bridge_lowrise_to_house_probe": 1,
+   "bridge_lowrise_to_house_v05_count": 0.9985,
+   "bridge_estate_to_slab_probe": 0.34,
+   "bridge_estate_to_slab_v05_count": 0.3977,
+   "bridge_estate_to_midrise_probe": 0.504,
+   "bridge_estate_to_midrise_v05_count": 0.3786,
+   "zero_age_windows_n": 5,
+   "zero_age_windows": "A27,A29,A32,A33,A41",
+   "low_conf_gfa_share_max": "0.9593 (A32)",
+   "low_conf_gfa_share_min": 0.0075,
+   "A47_unlabeled_gfa_share": 0.7553,
+   "priors_classes_added_as_fallback": 0
+  }
+ },
+ "e3": {
+  "for_report": "Experiment 3 tests the triangle's third edge: how much of the E2-asserted power profile (built from type composition x age via literature priors) is recoverable from pure window-level form. With n=24 windows (disclosed everywhere, seed 0), three analyses were run. (1) Correlation screen: Spearman rho of each power dim against 12 form variables (PC1, PC2, 10 v03 indicators), permutation p-values (10,000 perms), BH FDR 0.10 over all 48 tests; 16 survive. The government/developer split rides on PC2 and coverage, not PC1 as hypothesized: developer_capital vs PC2 rho=+0.69, vs coverage rho=-0.62; government vs coverage rho=+0.62, vs PC2 rho=-0.58. Developer-weighted windows are sparse-spike, low-coverage fabrics; government-weighted ones are dense mats. No power dim correlates with PC1 beyond |rho|=0.31. (2) LOO Ridge (nested-LOO alpha, fold-internal standardization): FORM-only recovers developer_capital (LOO R2=+0.46, MAE 0.063), barely government (+0.10), and fails resident_community (-0.45, despite its rho=-0.68 with sh_large — monotone association without point-predictability) and informal (-2.24; though target sd is only 0.016 so MAE stays 0.015 — informal is simply invisible at window level, as the prior design implies). The biggest surprise: TYPE, the planned circular ceiling, is NOT a ceiling for gov/dev (R2 -0.23 and +0.04) because their variance is dominated by age-conditioned residential_estate priors, and age is absent from type shares. FORM beats TYPE for developer because heights/towers proxy construction era — the triangle closes through time. The ceiling holds only for the age-independent dims (resident 0.96, informal 0.82). BOTH never beats the best single set at n=24. (3) Train(18)->heldout(6): FORM MAE = 0.069/0.089/0.023/0.006 for gov/dev/res/inf; errors are regression-to-the-mean at extremes (A43 Liangcheng, the most gov-dominant window, has dev predicted 0.457 vs actual 0.242). A sensitivity LOO excluding the four zero-age artifact-target windows (A29/A32/A33/A41, flagged by E2) shows developer_capital is robust (+0.461) while government flips negative (-0.07): only developer_capital is robustly form-recoverable. Outputs: results_e3.json (full matrix, LOO, heldout, sensitivity, findings), fig_e3_cloud_power.png (power dims on the v03 PCA cloud), fig_e3_loo.png (FORM LOO scatters + R2 bars by feature set); both visually checked.",
+  "honest_notes": [
+   "n=24 windows everywhere: permutation tests and LOO are used, but every estimate here is small-sample fragile; this is disclosed in results_e3.json meta and figure titles.",
+   "The targets are ASSERTED power profiles (literature priors over type x age), not observed power. This experiment measures internal recoverability of the assertion from form, not anything about actual power in Shanghai.",
+   "The planned 'TYPE = ceiling' framing turned out to be wrong for government/developer: those dims depend on the age-conditioned residential_estate priors, which type shares cannot see. The report must not describe TYPE as a ceiling for gov/dev — it is one only for resident_community (LOO R2 0.96) and informal (0.82).",
+   "Government's apparent FORM recoverability (R2 +0.103) flips to -0.07 when the 4 zero-age artifact-target windows are excluded; only developer_capital (+0.46, stable at +0.461 on n=20) is robust. Do not report government as form-recoverable.",
+   "Informal's catastrophic LOO R2 (-2.24) is partly a variance-floor effect: target sd is 0.016 (range 0.008-0.088), so MAE is still only 0.015. The honest reading is 'informal is invisible to window-level form', consistent with the priors placing its mass on lowrise classes whose form is shared with non-informal lowrise.",
+   "Heldout R^2 at n=6 is reported but explicitly labeled unstable; MAE and per-window errors are the meaningful numbers there.",
+   "First run emitted 12MB of spurious macOS Accelerate matmul RuntimeWarnings; results were verified NaN/inf-free before silencing the warning in the script.",
+   "First version of fig_e3_cloud_power.png had overlapping extreme-window labels (A33/A45 share nearly identical PCA coordinates); fixed and visually re-verified."
+  ],
+  "choices": [
+   {
+    "choice": "TYPE feature set = 8 semantic labeled-GFA shares rescaled to shares of TOTAL window GFA, plus the unlabeled share (9 features summing to 1)",
+    "alternatives": "use labeled-only shares plus unlabeled as unnormalized features; drop unlabeled entirely",
+    "reason": "matches how E2 mixes priors over total GFA (unlabeled gets the baseline prior), so this is the most faithful version of the intended circular ceiling"
+   },
+   {
+    "choice": "permutation p-values use one shared set of 10,000 permutations per power dim across all 12 form variables (seed 0), two-sided p=(1+count)/(1+N)",
+    "alternatives": "independent permutation draws per (dim,variable) pair",
+    "reason": "statistically equivalent for marginal p-values, fully vectorized, and reproducible with a single rng stream"
+   },
+   {
+    "choice": "Benjamini-Hochberg FDR 0.10 applied jointly across all 48 tests as one family",
+    "alternatives": "per-power-dim families of 12 tests",
+    "reason": "single family is the more conservative and simpler disclosure; full 48-cell matrix is reported regardless"
+   },
+   {
+    "choice": "Ridge alpha from {0.1,1,10,100} chosen by brute-force nested LOO (min SSE) on the training points of each outer fold; StandardScaler refit inside every fold",
+    "alternatives": "GCV via RidgeCV; single fixed alpha; closed-form LOO hat-matrix shortcut",
+    "reason": "explicit nesting avoids any leakage including through standardization; at n=24 the brute force costs seconds and is easiest to audit"
+   },
+   {
+    "choice": "LOO R^2 defined as 1 - SSE/SST with SST around the overall mean; negative values reported as-is",
+    "alternatives": "fold-wise R^2; correlation-squared",
+    "reason": "task-specified; negative R^2 is contentful (worse than predicting the mean)"
+   },
+   {
+    "choice": "train(18)->heldout(6) check reports MAE and per-window errors as primary, with R^2 included but explicitly labeled unstable at n=6",
+    "alternatives": "omit heldout R^2 entirely",
+    "reason": "task instruction; keeping the number with a warning label beats hiding it"
+   },
+   {
+    "choice": "added an unplanned sensitivity LOO excluding the 4 zero-age artifact-target windows (A29,A32,A33,A41) for gov/dev, FORM only",
+    "alternatives": "keep only the planned n=24 analysis; exclude the windows from the main analysis",
+    "reason": "E2 flagged these targets as artifacts of the no_age prior fallback; testing robustness to them is required honesty, but the planned n=24 design is kept as the headline"
+   },
+   {
+    "choice": "suppressed RuntimeWarnings matching '.*matmul.*' in the script",
+    "alternatives": "leave 12MB of warning spam in every run",
+    "reason": "known spurious macOS Accelerate/numpy false positives; outputs were verified NaN/inf-free BEFORE adding the filter, and this is documented in the script comment"
+   },
+   {
+    "choice": "cloud figure annotates only the top-2/bottom-2 windows per power dim, with staggered side-aware label offsets",
+    "alternatives": "label all 24 windows; no labels",
+    "reason": "full labeling is unreadable at n=24 in a 2x2 grid; first render had A33/A45 labels superimposed, fixed by offset staggering and visually re-verified"
+   }
+  ],
+  "key_numbers": {
+   "n_windows": 24,
+   "n_tests_screen": 48,
+   "bh_fdr10_survivors": 16,
+   "strongest_rho": "resident_community vs sh_large rho=-0.678 (p_perm=0.0004)",
+   "dev_vs_PC2_rho": 0.6878,
+   "dev_vs_coverage_rho": -0.6191,
+   "gov_vs_coverage_rho": 0.6157,
+   "gov_vs_PC2_rho": -0.5774,
+   "max_abs_rho_with_PC1": 0.31,
+   "loo_form_r2_government": 0.103,
+   "loo_form_r2_developer": 0.4593,
+   "loo_form_r2_resident": -0.4478,
+   "loo_form_r2_informal": -2.2401,
+   "loo_form_mae_informal": 0.015,
+   "informal_target_sd": 0.016,
+   "loo_type_r2_government": -0.2272,
+   "loo_type_r2_developer": 0.035,
+   "loo_type_r2_resident": 0.9622,
+   "loo_type_r2_informal": 0.8238,
+   "loo_both_r2_developer": 0.3318,
+   "loo_both_r2_resident": 0.8283,
+   "sens_n20_r2_developer": 0.4606,
+   "sens_n20_r2_government": -0.0699,
+   "heldout_form_mae_gov": 0.0692,
+   "heldout_form_mae_dev": 0.0886,
+   "heldout_form_mae_res": 0.0234,
+   "heldout_form_mae_inf": 0.0059,
+   "A43_dev_heldout_error": -0.2145,
+   "A43_gov_heldout_error": 0.1417
+  }
+ },
+ "e4": {
+  "for_report": "E4 runs the probe's counterfactual Generate chain on v0.4 infrastructure: one site (heldout A20 Sanlin, 293 built cells, real FAR 1.46), one typed skeleton and road-water keep-out mask, three power configurations (GOV .8/.2/.3/.0, DEV .3/.8/.2/.0, RES .2/.2/.8/.4). Each config is pushed through: literature priors (no_age estate cell) to a semantic mix; the E2 GFA-weighted bridge to a 5-family GFA demand; NNLS against token family-shares times mean cell GFA (target = A20's real 1.456M m2) to token cell counts, rescaled to fill all 293 built cells (disclosed: x1.22 GOV, x1.07 DEV, x0.71 RES); rank-matched onto the skeleton and collaged from all-TRAIN pools with keep-out, fresh seed-0 RNG per config. The three canvases differ visibly and plausibly: RES is a flat house-dominated fabric (house share 0.70, h_p90 22 m, FAR 0.98), DEV is the tallest (h_p90 46.8 m, tower share 0.080, office-heavy mix), GOV sits between with the most public-ish demand. Of six direction checks, three held (DEV highest tower share and h_p90; RES highest house share), one tied exactly (T6+T8 cells GOV=DEV=27/293, a rounding quantization), and two failed instructively. First, DEV — not GOV — has the highest large-footprint share, because the empirical Shanghai bridge assigns large-footprint GFA to commercial/office (28-32%) rather than public_admin (near zero); the probe's fringe-belt expectation loses to data. Second, RES — not GOV — has the highest rendered public GFA share (0.085 vs 0.075), although GOV demanded 47.8% public-ish classes: pasted buildings carry the semantics of their form-matched pool donors, so the k=8 form vocabulary strips institutional identity in transit. Together the held and failed checks give the experiment's main result: this classification-to-form chain transmits verticality and house-ness but cannot transmit who owns the building — exactly the anti-physiognomy point of the house discipline. We also flag that GOV's higher total FAR (1.61 vs DEV 1.30) is largely the rescale artifact, not a substantive claim. Everything is stamped ILLUSTRATIVE, NOT PREDICTIVE (literature priors, single seed, one site). Outputs: results_e4.json, fig_e4_counterfactual.png (three columns: axon, semantic mix, family demand, indicator panel, verdicts), three canvases in V05/cache_gen.",
+  "honest_notes": [
+   "RESCALE DISTORTION: GOV's NNLS demand under-fills the site (240 raw cells) and is inflated x1.22 to 293; RES over-fills (410) and is compressed x0.71. GOV FAR (1.61) > DEV FAR (1.30) is partly this artifact — do NOT read total FAR as a statement about which power configuration builds more.",
+   "NNLS residual is exactly 0 for all three configs: 5 family equations, 8 token unknowns — underdetermined, so NNLS returns a sparse solution; tokens T2 and T4 are never used by any config. The token demand is A solution, not THE solution.",
+   "The T6+T8 cell-share check is an exact tie (GOV=DEV=27/293): with only ~9% high-intensity cells demanded, the largest-remainder rounding quantizes away the GOV-DEV difference. Reported as TIE, not as held.",
+   "GOV-highest-large_footprint FAILED (DEV 0.012 > GOV 0.009): the empirical TRAIN bridge puts large-footprint GFA with commercial/office (28-32% of their GFA: malls, podiums), not with public_admin (0.3% by count) — the probe's fringe-belt intuition is contradicted by the Shanghai bridge, not by the priors.",
+   "GOV-highest-rendered-public-GFA FAILED (RES 0.085 > GOV 0.075) despite GOV demanding 47.8% public-ish classes: rendered semantics come from form-matched pool buildings, so the form-token bottleneck strips semantic identity. This is a finding about the chain (form cannot encode use at k=8), not about Shanghai.",
+   "RES receives 1 T8 mega-cell (115k m2 mean GFA) — an NNLS granularity artifact of meeting an 11% large_footprint demand with whole cells from a 21-cell pool; visually negligible (RES h_p90 = 22.3 m).",
+   "Single seed, single site, literature priors: the whole experiment is illustrative. The 3 held checks (DEV tower share, DEV h_p90, RES house share) show the chain transmits VERTICALITY and HOUSE-ness; the 2 failures show it does not transmit institutional identity.",
+   "All three canvases share the same cell-GFA rank order for placement (real A20 cellgfa), so spatial pattern differences are purely token reallocation, not layout choice."
+  ],
+  "choices": [
+   {
+    "choice": "residential_estate scored with the no_age prior cell (gov .4 / dev .5 / res .3 / inf .05, confidence low)",
+    "alternatives": "time-conditioned cells (pre1985 / 1985_1997 / post1998)",
+    "reason": "task spec; a counterfactual has no construction age, so the fallback mixture is the only defensible cell — its low confidence is inherited by all three mixes"
+   },
+   {
+    "choice": "family demand via the GFA-weighted row-normalized bridge from results_e2.json",
+    "alternatives": "count-weighted bridge",
+    "reason": "power expresses through floor area, not building count; also matches the task's explicit instruction"
+   },
+   {
+    "choice": "NNLS in GFA space: minimize ||(M^T diag(g)) n - G*f|| with M = token family footprint shares, g = token mean cell GFA, G = A20's real total GFA (1.456M m2)",
+    "alternatives": "linear programming with composition constraints; direct proportional allocation",
+    "reason": "task spec; NNLS guarantees nonnegative cell counts and is deterministic (no seed sensitivity in the demand step)"
+   },
+   {
+    "choice": "rescale NNLS counts to fill all 293 built cells (largest-remainder rounding), factors GOV x1.221 / DEV x1.069 / RES x0.714 — recorded raw and rescaled",
+    "alternatives": "keep raw counts and let unfilled cells evacuate to E_VACANT",
+    "reason": "keeps the built-cell skeleton literally identical across configs (the experiment's control); cost disclosed: total FAR is no longer comparable as 'demand', only composition/verticality are"
+   },
+   {
+    "choice": "fresh np.random.default_rng(0) per config",
+    "alternatives": "one continuing rng across the three collages",
+    "reason": "configs must differ only by demand, not by RNG drift — with a shared rng, config order would change the draws"
+   },
+   {
+    "choice": "copied v0.4 helpers verbatim into the script with a provenance comment instead of importing run_generate_v04.py",
+    "alternatives": "import from the v04 module",
+    "reason": "v04 script writes to its own RESULTS path and is __main__-structured; verbatim copy keeps v05 self-contained and freezes the exact generation code used"
+   },
+   {
+    "choice": "public-share direction check evaluated on RENDERED canvas semantics (pool buildings), not the demanded mix",
+    "alternatives": "check the demanded mix (GOV trivially wins by construction)",
+    "reason": "the rendered check is the only non-circular one — it tests whether the form-token chain carries the semantic signal through; it failed, which is the finding"
+   },
+   {
+    "choice": "direction checks detect exact ties (1e-9) and report TIE rather than letting dict order pick a winner",
+    "alternatives": "naive argmax",
+    "reason": "T6+T8 cell share is GOV=DEV=27/293; naive argmax falsely reported FAILED(GOV) in the first run"
+   },
+   {
+    "choice": "all-TRAIN pools (src_window=None) for the collage",
+    "alternatives": "single-window source pools as in v0.3 transplant",
+    "reason": "task spec; the counterfactual should draw from the whole TRAIN vocabulary, not impersonate one donor window"
+   }
+  ],
+  "key_numbers": {
+   "site": "A20 Sanlin (heldout)",
+   "n_built_cells": 293,
+   "site_real_FAR": 1.4556,
+   "GOV_FAR": 1.6072,
+   "DEV_FAR": 1.3002,
+   "RES_FAR": 0.9781,
+   "GOV_h_p90_m": 39.8,
+   "DEV_h_p90_m": 46.8,
+   "RES_h_p90_m": 22.3,
+   "GOV_house_share": 0.4132,
+   "DEV_house_share": 0.4623,
+   "RES_house_share": 0.7023,
+   "GOV_tower_share": 0.0732,
+   "DEV_tower_share": 0.0798,
+   "RES_tower_share": 0.0328,
+   "GOV_large_fp_share": 0.0087,
+   "DEV_large_fp_share": 0.012,
+   "GOV_public_gfa_share_rendered": 0.0747,
+   "DEV_public_gfa_share_rendered": 0.0327,
+   "RES_public_gfa_share_rendered": 0.0852,
+   "GOV_demanded_public_mix": 0.478,
+   "rescale_factor_GOV": 1.2211,
+   "rescale_factor_DEV": 1.0692,
+   "rescale_factor_RES": 0.7143,
+   "direction_checks_held": "3/6",
+   "direction_checks_tied": 1,
+   "dropped_bld_GOV": 13,
+   "dropped_bld_DEV": 8,
+   "dropped_bld_RES": 3,
+   "dropped_gfa_share_max": "2.7% (DEV)",
+   "n_buildings_GOV": 806,
+   "n_buildings_DEV": 664,
+   "n_buildings_RES": 823
+  }
+ },
+ "diag": {
+  "for_report": "I produced the three v05 methodology diagrams as a single rerunnable script (V05/make_diagrams.py, pure matplotlib, English labels, dpi 140) writing to V05/fig/, plus a small provenance file (results_diagrams.json). No numbers were computed; every figure transcribes only values supplied from upstream v03/v04/probe results.\n\nfig_d1_triangle.png shows the research design as a triangle: CLASSIFICATION (semantic type, 8 classes) at the apex, FORM (morphological family + 50 m token grammar + window signature) bottom-left, POWER (4 additive actor weights: government / developer capital / resident community / informal) bottom-right. The two directional experiments read clockwise over the apex (E1 form-to-classification recognition test; E2 classification-to-power literature priors, age-conditioned), while the form-power base is deliberately drawn as two parallel edges: a double-headed E3 (window-level triangle test) above a one-way E4 power-to-form (counterfactual generation) below, because a correlational test and a generative counterfactual should not be visually merged. The subtitle carries the A/B/C 2026-06-11 finding verbatim: a building's power semantics ride on its metadata type, not its shape alone.\n\nfig_d2_pipeline.png shows the data-to-label pipeline: five source-layer boxes with measured per-building joinability from the 3-patch audit (EULUC 86-94%, AOI 23-78%, OSM building type 10-19%, Function+Age 22-45%, POI-within-50m 79-99%) fan into the fusion cascade box listing the five-step priority (EULUC prior, AOI override, OSM-type/Function override, POI 50 m majority >=2, morphology fallback), producing 8 classes + unlabeled at 31-99.8% coverage across 24 windows (median ~96%). A parallel green geometry track (AI footprints+heights, derived fp_area/height/floors=h/3.5/elongation, five family rules) runs below, with a dashed 'feeds step 5' connector making explicit that the morphology fallback is the geometry track's output. A full-width red banner states the guardrail: no cadastre/ownership layer exists, power is never read from form, documentary path only.\n\nfig_d3_twolayer.png shows the two-layer type system: blue SEMANTIC layer (8 classes; crimson note that power priors P(w | type, age regime) attach here with provenance and confidence), grey bridge of co-occurrence counts learned from 18 TRAIN windows, green MORPHOLOGICAL FAMILY layer (5 families; generation instantiates here from real-cell pools), and a right-margin age-regime axis (<=1985 danwei, 1986-97 dual track, >=1998 commodity) left unconnected to boxes to avoid implying a regime-family mapping. All three figures were visually verified at full resolution; two first-render defects (an arcing E4 edge and a bad line wrap) were caught and fixed.",
+  "honest_notes": [
+   "These figures compute nothing: every number (joinability ranges, fused coverage 31-99.8%, median ~96%, 18 TRAIN windows, class/family names) is transcribed from the task brief quoting upstream v03/v04/probe results. If sibling agents revise those numbers, the figure text must be re-synced manually.",
+   "First render had two visual defects caught by inspection and fixed: (1) D1's E4 arc curved upward into the E3 edge (arc3 rad sign read opposite to my expectation); (2) D2's middle geometry box wrapped to a dangling '· elongation' second line. Both fixed in the committed script.",
+   "D1's subtitle attributes the one-sentence finding to 'A/B/C 2026-06-11' exactly as given in the brief; I did not independently verify that claim against data.",
+   "D2/D3 display 'floors = h/3.5' as specified; the library actually defines floors = round(height/3.5) clamped to >=1, so the figure shorthand is slightly simplified relative to the data dictionary.",
+   "The wide D2 figure is downscaled by the image viewer, so verification was done on full-resolution crops (left half, right half, geometry-track region) rather than the thumbnail."
+  ],
+  "choices": [
+   {
+    "choice": "Triangle layout (D1): CLASSIFICATION at apex, FORM bottom-left, POWER bottom-right",
+    "alternatives": "POWER at apex; horizontal chain layout",
+    "reason": "The two clean directional experiments (E1 form->classification, E2 classification->power) read clockwise over the apex, leaving the contested form-power relationship on the base edge where there is room for two parallel edges."
+   },
+   {
+    "choice": "Form-power drawn as TWO parallel straight edges: double-headed E3 above, single-headed E4 (power->form) below",
+    "alternatives": "one curved edge with two labels; one arced E4 under a straight E3 (first attempt)",
+    "reason": "E3 (correlational window-level test) and E4 (counterfactual generation) are epistemically different and must not be visually merged; the first-render arced E4 curved up into the E3 edge, so it was straightened after visual inspection."
+   },
+   {
+    "choice": "Consistent palette across all three figures: blue=classification/semantic, green=form/geometry, crimson=power, amber=fusion cascade, red reserved for the warning box",
+    "alternatives": "monochrome publication style",
+    "reason": "Lets the reader track the three core concepts across the figure set; red appears only once so the no-cadastre guardrail stands out."
+   },
+   {
+    "choice": "D2 source boxes ordered by cascade priority (EULUC, AOI, OSM-type, Function+Age, POI), not by joinability strength",
+    "alternatives": "order by joinability (EULUC, POI, ...)",
+    "reason": "Top-to-bottom order then mirrors the numbered priority list inside the fusion box, making the fan-in arrows readable as priority."
+   },
+   {
+    "choice": "Added a dashed green 'feeds step 5' connector from the family-rules box up to the fusion cascade",
+    "alternatives": "keep the geometry track fully separate as the spec's word 'parallel' suggests",
+    "reason": "Cascade step 5 IS 'morphology fallback', i.e. the geometry track's output; the dashed style and green color mark it as a secondary cross-reference without merging the tracks."
+   },
+   {
+    "choice": "Red no-cadastre note as a full-width banner at the bottom of D2 rather than a small side box",
+    "alternatives": "small side-note box next to the output as literally specified",
+    "reason": "It is the project's central epistemic guardrail (power is never read from form) and applies to the whole pipeline, not to one stage; full width also guaranteed the long sentence fits without wrapping."
+   },
+   {
+    "choice": "D3 age-regime axis: upward-pointing arrow in the right margin, oldest regime at bottom, ticks NOT connected to any box",
+    "alternatives": "horizontal axis below; connector lines from regimes to layers",
+    "reason": "Age conditions the power priors (stated inside the semantic layer as P(w | type, age regime)), not the morphological families; connectors could fabricate a regime->family mapping, which violates house rules."
+   },
+   {
+    "choice": "Only numbers/strings from the brief were rendered; typographic substitutions limited to -> becoming an arrow glyph and <=/>= becoming Unicode comparison glyphs",
+    "alternatives": "enriching boxes with counts from library.parquet/tokens.json",
+    "reason": "Task explicitly forbids invented numbers; the diagrams are pure transcription of upstream A/B/C and v03/v04 results."
+   },
+   {
+    "choice": "Pure matplotlib (FancyBboxPatch + FancyArrowPatch) on axis-off data coordinates with small helper functions; dpi 140",
+    "alternatives": "graphviz/networkx auto-layout",
+    "reason": "Matplotlib-only was required; manual coordinates give exact overlap control, and helpers keep the three figures stylistically identical and rerunnable."
+   },
+   {
+    "choice": "Wrote provenance to own file results_diagrams.json (figure list + note that nothing was computed)",
+    "alternatives": "no results file, or writing into a shared results file",
+    "reason": "Parallel-agent discipline: never touch shared files; a tiny provenance record keeps the V05 folder auditable even though key_numbers is empty."
+   }
+  ],
+  "key_numbers": {}
+ },
+ "audit": {
+  "discrepancies": [
+   "No numeric discrepancies found in checks 1-5: every independently re-derived number matches the claimed results within the documented tolerance.",
+   "Denominator ambiguity, dist_water NaN share: results_e0.json reports 0.5197 (all 14527 buildings) while results_e1.json nan_handling reports 0.53569 (labeled 13812 subset). The orchestrator's key-number list cites 0.5197 under the e1 heading. Both numbers are correct for their own denominator; the report must state which subset it quotes or the two will look contradictory.",
+   "Same subset effect on imputation medians: e1 nan_handling medians (dist_road_all 23.04, dist_road_major 80.89) differ slightly from the dataset-wide medians (23.1, 81.4) because e1 computes them on labeled buildings only. Not an error; worth a footnote.",
+   "fig_e3_loo (and its legend) titles TYPE as 'the circular ceiling', but results_e3 findings explicitly report the surprise that TYPE is NOT a ceiling for government (R2=-0.23) and developer (+0.03). The figure wording asserts the hypothesis the experiment falsified for 2 of 4 dims; suggest 'intended circular ceiling' or similar.",
+   "Note on check 4 residual difference (not a discrepancy): exp3's nested-LOO alpha selection in fact always chose alpha=10 for developer/FORM (alphas_used=[10.0] in results_e3.json), so the audit's fixed-alpha=10 design difference is vacuous; the remaining 0.0072 R2 gap comes from the audit using unrounded recomputed power targets vs exp3 using the 4-decimal-rounded profiles stored in results_e2.json."
+  ],
+  "figure_defects": [
+   "fig_e4_counterfactual.png: text collision in the header — the second suptitle line ('power weights -> semantic mix -> ... seed 0') overlaps the GOV/DEV/RES per-config caption row; the strings interleave and partially obscure each other. Worth fixing before the report.",
+   "fig_e2_profiles.png: y-axis window names are truncated ('A49 Yangpu riverside ex-', 'A47 West Bund Xuhui rive', 'A19 Lianyang Huamu Pudon', 'A02 Nanjing Rd East / Re'); otherwise legible at full 1820x1050 resolution.",
+   "fig_e0_dataset.png panel (a): same window-name truncation ('A32 Minhang outskirts vi', 'A02 Nanjing Rd East / Pe *'); panel (b) dual x-axes (Labeled % top, Number of buildings bottom) are correct but the top axis label is easy to miss.",
+   "fig_e3_cloud_power.png: annotation crowding in the dense PC1/PC2 center cluster — 'A26 Jiading New City' and 'A43 Liangcheng Hongkou' labels overlap markers (A43 label crosses a data point); 'A07 Bund Wai-tan' and 'A01 Lujiazui CBD' labels nearly touch. Readable but should be nudged.",
+   "fig_e3_loo.png: bottom-panel title/legend wording 'TYPE is the circular ceiling' contradicts the experiment's own headline finding (TYPE fails as ceiling for gov/dev); also the -2.24 FORM/informal bar label sits at the very bottom edge of the bar (readable).",
+   "Clean figures, no defects worth fixing: fig_e0_map (good leader lines, no overlaps), fig_e1_confusion (counts verified against results_e1 confusion JSON for both panels incl. healthcare rows), fig_e1_transfer, fig_e2_bridge (bar values match probe 1.00/0.34/0.50 and v05 0.9985/0.3977/0.3786), fig_d1_triangle, fig_d2_pipeline, fig_d3_twolayer."
+  ],
+  "verdicts": [
+   {
+    "check": "1. A13 Caoyang power profile (GFA-weighted, labeled only) re-derived from dataset.parquet + power_priors_v05.json",
+    "verdict": "confirmed",
+    "evidence": "audit vs results_e2: government 0.4155 vs 0.4155, developer_capital 0.5248 vs 0.5248, resident_community 0.2275 vs 0.2275, informal 0.0416 vs 0.0416 — all 4 dims match at 4 decimals (required 3). Bonus: all 24 window profiles re-derived, max |diff| vs results_e2 = 4.9e-05; dominance sets reproduce exactly (9 gov-dominant, 15 dev-dominant, 0 other). Age-regime rule used: age<=1985 pre1985, 1986-1997 dual-track, >=1998 post1998, NaN no_age, per results_e2 meta."
+   },
+   {
+    "check": "2. E1 GroupKFold(24, by window) balanced accuracy, FORM-only, RandomForest(n_estimators=120, class_weight='balanced', random_state=0)",
+    "verdict": "confirmed",
+    "evidence": "audit RF120 balanced_acc 0.2345 vs results_e1 RF400 0.2355 (diff 0.10pp, well within 3pp); plain accuracy 0.6253 vs 0.6274. n_labeled 13812 matches. Documented difference: exp1_recognition.py uses n_estimators=400; the audit deliberately uses 120 so agreement is robustness, not reproduction. Also recomputed from the stored confusion matrices: reported acc/bal-acc/support reproduce exactly for all 4 runs (e.g., group24_FORM 0.6274/0.2355)."
+   },
+   {
+    "check": "3. Bridge cell residential_lowrise->house, count version, TRAIN windows, from dataset.parquet",
+    "verdict": "confirmed",
+    "evidence": "audit 1355/1357 = 0.9985 vs results_e2 counts_row_normalized 0.9985 (counts 1355/1357 identical). Bridge row totals sum to 10705 = e2 meta n_train_labeled."
+   },
+   {
+    "check": "4. LOO R^2 for developer_capital, FORM features (pca_xy + 10 v03 indicators), Ridge alpha=10 fixed, StandardScaler per fold",
+    "verdict": "confirmed",
+    "evidence": "audit R2 = +0.4665 vs results_e3 loo_r2 = +0.4593 — same sign, same magnitude (diff 0.007). Documented difference: exp3 selects alpha by nested LOO over {0.1,1,10,100}, but results_e3 records alphas_used=[10.0] (nested selection always picked 10), so the residual gap traces to the audit using its own unrounded recomputed power targets vs exp3's 4-dp-rounded e2 profiles. Targets were independently re-derived (check 1b), not read from results_e2."
+   },
+   {
+    "check": "5. FAR of V05/cache_gen/cf_DEV.parquet from geometry (sum area*floors / 1e6)",
+    "verdict": "confirmed",
+    "evidence": "audit FAR from shapely geometry areas = 1.3002; from the file's gfa column = 1.3002; results_e4 DEV indicators FAR = 1.3002. n_buildings 664 matches results_e4. Real-site FAR also reproduces: 1455569/1e6 = 1.4556."
+   },
+   {
+    "check": "6. Internal-consistency sweep of results_e0..e4.json + headline dataset claims",
+    "verdict": "confirmed",
+    "evidence": "e0: per-window n, semantic and family counts all sum to 14527 and match dataset.parquet exactly. e1: per-window labeled n sums to 13812 and matches dataset; majority baseline 8304/13812=0.6012; all 4 confusion matrices reproduce reported accuracy and balanced accuracy to 4dp; power supergroup 1472 buildings, pooled recall group24 FORM+CTX recomputes to 0.0007 (1/1472). e2: bridge rows normalize to 1, age-regime shares sum to 1, dominant_dim consistent with profiles for all 24 windows. e3: 48 screen tests, 16 BH-FDR10 survivors as claimed. e4: token cells sum to 293 for all 3 configs, semantic mixes sum to 1.0, RES T6+T8 13/293=0.0444. Dataset claims recomputed: NaN shares dist_water 0.5197 / dist_green 0.0489 / age 0.608; medians dist_road_all 23.1m, dist_road_major 81.4m, density_100m 23; dated<=1985 share 0.5807 (claimed 0.581); res_estate no-age GFA share pooled 0.4571 (claimed 0.457); A47 unlabeled GFA share 0.7553. Audit script: /Users/jinbao/Projects/Urban-Stakeholder-Workshop/typology_foundation/v05/audit_v05.py; numbers written to /Users/jinbao/Projects/Urban-Stakeholder-Workshop/typology_foundation/v05/results_audit.json (own file)."
+   }
+  ]
+ }
+}

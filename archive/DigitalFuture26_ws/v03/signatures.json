@@ -1,0 +1,843 @@
+{
+  "features": [
+    "tok_T0",
+    "tok_T1",
+    "tok_T2",
+    "tok_T3",
+    "tok_T4",
+    "tok_T5",
+    "tok_T6",
+    "tok_T7",
+    "tok_T8",
+    "FAR",
+    "coverage",
+    "h_p50",
+    "h_p90",
+    "median_fp",
+    "sh_house",
+    "sh_slab",
+    "sh_tower",
+    "sh_large",
+    "sh_mid"
+  ],
+  "zscore": "mu/sd from TRAIN windows only",
+  "pca": {
+    "fit_on": "TRAIN (18)",
+    "explained_variance_ratio": [
+      0.298,
+      0.27
+    ],
+    "top_loadings": {
+      "PC1": {
+        "FAR": 0.397,
+        "tok_T6": 0.35,
+        "tok_T4": 0.312,
+        "h_p50": 0.31,
+        "sh_tower": 0.299,
+        "sh_house": -0.287
+      },
+      "PC2": {
+        "tok_T0": 0.365,
+        "coverage": -0.336,
+        "h_p90": 0.322,
+        "tok_T8": 0.316,
+        "tok_T5": -0.297,
+        "sh_tower": 0.271
+      }
+    }
+  },
+  "windows": [
+    {
+      "id": "A01",
+      "name": "Lujiazui CBD",
+      "role": "train",
+      "type_group": "cbd_office",
+      "token_comp_T0_T8": [
+        0.635,
+        0.01,
+        0.03,
+        0.0625,
+        0.1175,
+        0.0125,
+        0.11,
+        0.0025,
+        0.02
+      ],
+      "indicators": {
+        "FAR": 2.5948,
+        "coverage": 0.1151,
+        "h_p50": 41.7458,
+        "h_p90": 123.7002,
+        "median_fp": 160.3767,
+        "sh_house": 0.0144,
+        "sh_slab": 0.1603,
+        "sh_tower": 0.2948,
+        "sh_large": 0.2275,
+        "sh_mid": 0.303
+      },
+      "pca_xy": [
+        3.452,
+        4.811
+      ]
+    },
+    {
+      "id": "A10",
+      "name": "Laoximen old town",
+      "role": "train",
+      "type_group": "historic_lilong",
+      "token_comp_T0_T8": [
+        0.08,
+        0.095,
+        0.1675,
+        0.1275,
+        0.1475,
+        0.3125,
+        0.0625,
+        0.0075,
+        0.0
+      ],
+      "indicators": {
+        "FAR": 2.2073,
+        "coverage": 0.3866,
+        "h_p50": 13.9639,
+        "h_p90": 26.7947,
+        "median_fp": 121.4585,
+        "sh_house": 0.2144,
+        "sh_slab": 0.2599,
+        "sh_tower": 0.0531,
+        "sh_large": 0.0201,
+        "sh_mid": 0.4525
+      },
+      "pca_xy": [
+        1.4054,
+        -4.0917
+      ]
+    },
+    {
+      "id": "A13",
+      "name": "Caoyang Xincun",
+      "role": "train",
+      "type_group": "worker_village",
+      "token_comp_T0_T8": [
+        0.3,
+        0.075,
+        0.045,
+        0.2975,
+        0.1975,
+        0.035,
+        0.0425,
+        0.0025,
+        0.005
+      ],
+      "indicators": {
+        "FAR": 1.5687,
+        "coverage": 0.2109,
+        "h_p50": 16.6537,
+        "h_p90": 37.2153,
+        "median_fp": 261.6485,
+        "sh_house": 0.0672,
+        "sh_slab": 0.4588,
+        "sh_tower": 0.0671,
+        "sh_large": 0.1355,
+        "sh_mid": 0.2713
+      },
+      "pca_xy": [
+        0.5191,
+        -0.5638
+      ]
+    },
+    {
+      "id": "A04",
+      "name": "Xujiahui hub",
+      "role": "train",
+      "type_group": "cbd_office",
+      "token_comp_T0_T8": [
+        0.2825,
+        0.005,
+        0.0175,
+        0.15,
+        0.2,
+        0.0775,
+        0.2525,
+        0.0075,
+        0.0075
+      ],
+      "indicators": {
+        "FAR": 3.2427,
+        "coverage": 0.2457,
+        "h_p50": 37.2228,
+        "h_p90": 78.2401,
+        "median_fp": 198.9123,
+        "sh_house": 0.0071,
+        "sh_slab": 0.2377,
+        "sh_tower": 0.3078,
+        "sh_large": 0.1055,
+        "sh_mid": 0.342
+      },
+      "pca_xy": [
+        5.1336,
+        1.4945
+      ]
+    },
+    {
+      "id": "A02",
+      "name": "Nanjing Rd East / People's Sq",
+      "role": "heldout",
+      "type_group": "cbd_office",
+      "token_comp_T0_T8": [
+        0.32,
+        0.005,
+        0.0225,
+        0.1275,
+        0.1325,
+        0.165,
+        0.195,
+        0.0325,
+        0.0
+      ],
+      "indicators": {
+        "FAR": 3.6158,
+        "coverage": 0.3194,
+        "h_p50": 33.7578,
+        "h_p90": 79.9155,
+        "median_fp": 271.9783,
+        "sh_house": 0.0094,
+        "sh_slab": 0.2275,
+        "sh_tower": 0.2404,
+        "sh_large": 0.1123,
+        "sh_mid": 0.4104
+      },
+      "pca_xy": [
+        4.3924,
+        0.194
+      ]
+    },
+    {
+      "id": "A07",
+      "name": "Bund Wai-tan",
+      "role": "heldout",
+      "type_group": "historic_lilong",
+      "token_comp_T0_T8": [
+        0.7325,
+        0.0175,
+        0.04,
+        0.05,
+        0.07,
+        0.0025,
+        0.065,
+        0.01,
+        0.0125
+      ],
+      "indicators": {
+        "FAR": 1.7172,
+        "coverage": 0.0922,
+        "h_p50": 28.8811,
+        "h_p90": 78.7425,
+        "median_fp": 151.8661,
+        "sh_house": 0.0295,
+        "sh_slab": 0.1603,
+        "sh_tower": 0.2776,
+        "sh_large": 0.3091,
+        "sh_mid": 0.2235
+      },
+      "pca_xy": [
+        0.7835,
+        4.0254
+      ]
+    },
+    {
+      "id": "A09",
+      "name": "Xintiandi Shikumen",
+      "role": "train",
+      "type_group": "historic_lilong",
+      "token_comp_T0_T8": [
+        0.2175,
+        0.055,
+        0.065,
+        0.1725,
+        0.17,
+        0.2125,
+        0.095,
+        0.0125,
+        0.0
+      ],
+      "indicators": {
+        "FAR": 2.4946,
+        "coverage": 0.3074,
+        "h_p50": 16.9212,
+        "h_p90": 55.5294,
+        "median_fp": 184.4439,
+        "sh_house": 0.1173,
+        "sh_slab": 0.2949,
+        "sh_tower": 0.1056,
+        "sh_large": 0.047,
+        "sh_mid": 0.4352
+      },
+      "pca_xy": [
+        2.1873,
+        -2.0628
+      ]
+    },
+    {
+      "id": "A17",
+      "name": "Tianshan Xincun",
+      "role": "train",
+      "type_group": "worker_village",
+      "token_comp_T0_T8": [
+        0.175,
+        0.0625,
+        0.03,
+        0.4425,
+        0.125,
+        0.0775,
+        0.08,
+        0.005,
+        0.0025
+      ],
+      "indicators": {
+        "FAR": 2.0493,
+        "coverage": 0.2651,
+        "h_p50": 17.1837,
+        "h_p90": 50.8016,
+        "median_fp": 258.7114,
+        "sh_house": 0.0886,
+        "sh_slab": 0.5554,
+        "sh_tower": 0.0854,
+        "sh_large": 0.0431,
+        "sh_mid": 0.2276
+      },
+      "pca_xy": [
+        1.0788,
+        -1.1106
+      ]
+    },
+    {
+      "id": "A21",
+      "name": "Jinqiao residential",
+      "role": "train",
+      "type_group": "developer_resid",
+      "token_comp_T0_T8": [
+        0.245,
+        0.05,
+        0.045,
+        0.47,
+        0.14,
+        0.0275,
+        0.0175,
+        0.005,
+        0.0
+      ],
+      "indicators": {
+        "FAR": 1.3622,
+        "coverage": 0.2134,
+        "h_p50": 20.1475,
+        "h_p90": 36.779,
+        "median_fp": 307.4161,
+        "sh_house": 0.0601,
+        "sh_slab": 0.6831,
+        "sh_tower": 0.0243,
+        "sh_large": 0.0337,
+        "sh_mid": 0.1987
+      },
+      "pca_xy": [
+        -0.1075,
+        -1.1903
+      ]
+    },
+    {
+      "id": "A19",
+      "name": "Lianyang Huamu Pudong",
+      "role": "train",
+      "type_group": "developer_resid",
+      "token_comp_T0_T8": [
+        0.5,
+        0.0325,
+        0.04,
+        0.295,
+        0.0675,
+        0.02,
+        0.04,
+        0.005,
+        0.0
+      ],
+      "indicators": {
+        "FAR": 1.0323,
+        "coverage": 0.1377,
+        "h_p50": 21.3935,
+        "h_p90": 58.6373,
+        "median_fp": 264.4812,
+        "sh_house": 0.0416,
+        "sh_slab": 0.6616,
+        "sh_tower": 0.0621,
+        "sh_large": 0.0353,
+        "sh_mid": 0.1994
+      },
+      "pca_xy": [
+        -0.6647,
+        0.4978
+      ]
+    },
+    {
+      "id": "A20",
+      "name": "Sanlin Pudong",
+      "role": "heldout",
+      "type_group": "developer_resid",
+      "token_comp_T0_T8": [
+        0.2675,
+        0.08,
+        0.0375,
+        0.3875,
+        0.165,
+        0.0225,
+        0.03,
+        0.0075,
+        0.0025
+      ],
+      "indicators": {
+        "FAR": 1.4556,
+        "coverage": 0.2046,
+        "h_p50": 19.8525,
+        "h_p90": 42.2805,
+        "median_fp": 202.7795,
+        "sh_house": 0.0642,
+        "sh_slab": 0.6007,
+        "sh_tower": 0.0424,
+        "sh_large": 0.0794,
+        "sh_mid": 0.2133
+      },
+      "pca_xy": [
+        0.1814,
+        -0.88
+      ]
+    },
+    {
+      "id": "A29",
+      "name": "Nanqiao Fengxian",
+      "role": "heldout",
+      "type_group": "new_town",
+      "token_comp_T0_T8": [
+        0.325,
+        0.0325,
+        0.0075,
+        0.4525,
+        0.1075,
+        0.03,
+        0.0225,
+        0.02,
+        0.0025
+      ],
+      "indicators": {
+        "FAR": 1.7698,
+        "coverage": 0.2464,
+        "h_p50": 20.2765,
+        "h_p90": 29.6479,
+        "median_fp": 469.9955,
+        "sh_house": 0.0213,
+        "sh_slab": 0.6512,
+        "sh_tower": 0.0377,
+        "sh_large": 0.1401,
+        "sh_mid": 0.1496
+      },
+      "pca_xy": [
+        -0.0791,
+        -0.2272
+      ]
+    },
+    {
+      "id": "A26",
+      "name": "Jiading New City",
+      "role": "train",
+      "type_group": "new_town",
+      "token_comp_T0_T8": [
+        0.265,
+        0.035,
+        0.0575,
+        0.42,
+        0.145,
+        0.04,
+        0.03,
+        0.005,
+        0.0025
+      ],
+      "indicators": {
+        "FAR": 1.4147,
+        "coverage": 0.2153,
+        "h_p50": 18.0848,
+        "h_p90": 26.5998,
+        "median_fp": 304.6251,
+        "sh_house": 0.0434,
+        "sh_slab": 0.6022,
+        "sh_tower": 0.0452,
+        "sh_large": 0.0308,
+        "sh_mid": 0.2785
+      },
+      "pca_xy": [
+        0.2304,
+        -1.2408
+      ]
+    },
+    {
+      "id": "A27",
+      "name": "Lingang Nanhui",
+      "role": "train",
+      "type_group": "new_town",
+      "token_comp_T0_T8": [
+        0.795,
+        0.0075,
+        0.04,
+        0.0375,
+        0.04,
+        0.0075,
+        0.045,
+        0.0175,
+        0.01
+      ],
+      "indicators": {
+        "FAR": 1.4051,
+        "coverage": 0.1,
+        "h_p50": 25.7134,
+        "h_p90": 90.6316,
+        "median_fp": 542.6775,
+        "sh_house": 0.0139,
+        "sh_slab": 0.1676,
+        "sh_tower": 0.2002,
+        "sh_large": 0.4476,
+        "sh_mid": 0.1707
+      },
+      "pca_xy": [
+        -0.318,
+        4.896
+      ]
+    },
+    {
+      "id": "A33",
+      "name": "Pudong peri-urban village",
+      "role": "train",
+      "type_group": "urban_village",
+      "token_comp_T0_T8": [
+        0.76,
+        0.12,
+        0.0375,
+        0.01,
+        0.0325,
+        0.015,
+        0.0175,
+        0.0075,
+        0.0
+      ],
+      "indicators": {
+        "FAR": 0.3916,
+        "coverage": 0.059,
+        "h_p50": 8.8852,
+        "h_p90": 30.3597,
+        "median_fp": 127.3257,
+        "sh_house": 0.36,
+        "sh_slab": 0.0818,
+        "sh_tower": 0.0693,
+        "sh_large": 0.1849,
+        "sh_mid": 0.3041
+      },
+      "pca_xy": [
+        -3.3859,
+        1.1639
+      ]
+    },
+    {
+      "id": "A32",
+      "name": "Minhang outskirts village",
+      "role": "train",
+      "type_group": "urban_village",
+      "token_comp_T0_T8": [
+        0.385,
+        0.52,
+        0.0025,
+        0.015,
+        0.065,
+        0.005,
+        0.005,
+        0.0025,
+        0.0
+      ],
+      "indicators": {
+        "FAR": 0.3483,
+        "coverage": 0.0998,
+        "h_p50": 9.3027,
+        "h_p90": 12.7489,
+        "median_fp": 198.0495,
+        "sh_house": 0.7866,
+        "sh_slab": 0.0207,
+        "sh_tower": 0.0145,
+        "sh_large": 0.0303,
+        "sh_mid": 0.1478
+      },
+      "pca_xy": [
+        -5.1584,
+        -0.2812
+      ]
+    },
+    {
+      "id": "A36",
+      "name": "Zhangjiang hi-tech",
+      "role": "train",
+      "type_group": "industrial",
+      "token_comp_T0_T8": [
+        0.5275,
+        0.0825,
+        0.0275,
+        0.16,
+        0.1375,
+        0.0175,
+        0.035,
+        0.0125,
+        0.0
+      ],
+      "indicators": {
+        "FAR": 1.0244,
+        "coverage": 0.1227,
+        "h_p50": 23.7732,
+        "h_p90": 50.188,
+        "median_fp": 196.824,
+        "sh_house": 0.1085,
+        "sh_slab": 0.3192,
+        "sh_tower": 0.1172,
+        "sh_large": 0.1302,
+        "sh_mid": 0.3249
+      },
+      "pca_xy": [
+        -0.3277,
+        0.6999
+      ]
+    },
+    {
+      "id": "A35",
+      "name": "Caohejing hi-tech",
+      "role": "heldout",
+      "type_group": "industrial",
+      "token_comp_T0_T8": [
+        0.275,
+        0.105,
+        0.0525,
+        0.2975,
+        0.1275,
+        0.1025,
+        0.0275,
+        0.0125,
+        0.0
+      ],
+      "indicators": {
+        "FAR": 1.5839,
+        "coverage": 0.2484,
+        "h_p50": 16.369,
+        "h_p90": 31.1322,
+        "median_fp": 256.2629,
+        "sh_house": 0.0997,
+        "sh_slab": 0.4194,
+        "sh_tower": 0.0585,
+        "sh_large": 0.0495,
+        "sh_mid": 0.3728
+      },
+      "pca_xy": [
+        0.1495,
+        -1.666
+      ]
+    },
+    {
+      "id": "A41",
+      "name": "Fengjing old town",
+      "role": "train",
+      "type_group": "heritage_watertown",
+      "token_comp_T0_T8": [
+        0.7275,
+        0.0125,
+        0.0475,
+        0.1125,
+        0.0775,
+        0.0125,
+        0.01,
+        0.0,
+        0.0
+      ],
+      "indicators": {
+        "FAR": 0.7735,
+        "coverage": 0.0727,
+        "h_p50": 19.705,
+        "h_p90": 75.7809,
+        "median_fp": 442.072,
+        "sh_house": 0.0604,
+        "sh_slab": 0.5299,
+        "sh_tower": 0.0433,
+        "sh_large": 0.0,
+        "sh_mid": 0.3665
+      },
+      "pca_xy": [
+        -1.0371,
+        1.4992
+      ]
+    },
+    {
+      "id": "A39",
+      "name": "Qibao old town",
+      "role": "train",
+      "type_group": "heritage_watertown",
+      "token_comp_T0_T8": [
+        0.2575,
+        0.1325,
+        0.0525,
+        0.225,
+        0.1175,
+        0.15,
+        0.0425,
+        0.02,
+        0.0025
+      ],
+      "indicators": {
+        "FAR": 2.2537,
+        "coverage": 0.3227,
+        "h_p50": 16.4413,
+        "h_p90": 33.6163,
+        "median_fp": 210.8158,
+        "sh_house": 0.1054,
+        "sh_slab": 0.3781,
+        "sh_tower": 0.0567,
+        "sh_large": 0.109,
+        "sh_mid": 0.3508
+      },
+      "pca_xy": [
+        0.7063,
+        -1.8172
+      ]
+    },
+    {
+      "id": "A45",
+      "name": "Beicai Pudong",
+      "role": "train",
+      "type_group": "midrise_resid",
+      "token_comp_T0_T8": [
+        0.3275,
+        0.13,
+        0.1,
+        0.2725,
+        0.115,
+        0.025,
+        0.0175,
+        0.0125,
+        0.0
+      ],
+      "indicators": {
+        "FAR": 1.2068,
+        "coverage": 0.1969,
+        "h_p50": 11.8974,
+        "h_p90": 26.073,
+        "median_fp": 183.9429,
+        "sh_house": 0.1765,
+        "sh_slab": 0.4688,
+        "sh_tower": 0.0153,
+        "sh_large": 0.0827,
+        "sh_mid": 0.2566
+      },
+      "pca_xy": [
+        -1.3661,
+        -1.5408
+      ]
+    },
+    {
+      "id": "A43",
+      "name": "Liangcheng Hongkou",
+      "role": "heldout",
+      "type_group": "midrise_resid",
+      "token_comp_T0_T8": [
+        0.2525,
+        0.0925,
+        0.0575,
+        0.3575,
+        0.1275,
+        0.07,
+        0.0225,
+        0.02,
+        0.0
+      ],
+      "indicators": {
+        "FAR": 1.574,
+        "coverage": 0.2408,
+        "h_p50": 17.7558,
+        "h_p90": 36.1144,
+        "median_fp": 284.7224,
+        "sh_house": 0.0825,
+        "sh_slab": 0.5428,
+        "sh_tower": 0.0316,
+        "sh_large": 0.0927,
+        "sh_mid": 0.2505
+      },
+      "pca_xy": [
+        -0.139,
+        -1.4409
+      ]
+    },
+    {
+      "id": "A47",
+      "name": "West Bund Xuhui riverside",
+      "role": "train",
+      "type_group": "waterfront_redev",
+      "token_comp_T0_T8": [
+        0.755,
+        0.0375,
+        0.135,
+        0.0175,
+        0.02,
+        0.01,
+        0.0025,
+        0.02,
+        0.0025
+      ],
+      "indicators": {
+        "FAR": 0.4819,
+        "coverage": 0.0951,
+        "h_p50": 9.6408,
+        "h_p90": 20.7518,
+        "median_fp": 167.0223,
+        "sh_house": 0.1589,
+        "sh_slab": 0.125,
+        "sh_tower": 0.0042,
+        "sh_large": 0.4746,
+        "sh_mid": 0.2374
+      },
+      "pca_xy": [
+        -3.4569,
+        1.2565
+      ]
+    },
+    {
+      "id": "A49",
+      "name": "Yangpu riverside ex-industry",
+      "role": "train",
+      "type_group": "waterfront_redev",
+      "token_comp_T0_T8": [
+        0.13,
+        0.105,
+        0.0725,
+        0.2875,
+        0.1525,
+        0.135,
+        0.0875,
+        0.03,
+        0.0
+      ],
+      "indicators": {
+        "FAR": 2.3176,
+        "coverage": 0.3357,
+        "h_p50": 14.7106,
+        "h_p90": 38.2908,
+        "median_fp": 124.9349,
+        "sh_house": 0.1434,
+        "sh_slab": 0.3555,
+        "sh_tower": 0.0736,
+        "sh_large": 0.1475,
+        "sh_mid": 0.28
+      },
+      "pca_xy": [
+        1.1094,
+        -2.4195
+      ]
+    }
+  ]
+}

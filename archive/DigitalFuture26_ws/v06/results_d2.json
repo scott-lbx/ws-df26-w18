@@ -1,0 +1,217 @@
+{
+ "paradigms": {
+  "garden_city": {
+   "token_budget": {
+    "T1": 108,
+    "T2": 10,
+    "T7": 44,
+    "E_VACANT": 32,
+    "E_ROAD": 96,
+    "E_GREEN": 110
+   },
+   "skeleton_counts": {
+    "road": 96,
+    "green": 110,
+    "civic": 10,
+    "vacant_build": 184,
+    "water": 0
+   },
+   "window_checks": {
+    "window_FAR": 1.482,
+    "window_ground_coverage": 0.16,
+    "built_cells": 162,
+    "green_frac": 0.275,
+    "road_frac": 0.24,
+    "vacant_frac": 0.08,
+    "residential_GFA_m2": 137298,
+    "implied_persons": 6241,
+    "implied_persons_per_ha": 62.4,
+    "persons_assumption": "22 m2 GFA/p: Victorian cottage ~120 m2 / 5.45 p-household (Howard's 5,500 lots/30,000)"
+   },
+   "semantic_mix": {
+    "residential_estate": 0.0,
+    "residential_lowrise": 0.6667,
+    "commercial_retail": 0.0741,
+    "office_finance": 0.0,
+    "industrial": 0.1975,
+    "public_admin": 0.0185,
+    "education": 0.037,
+    "healthcare": 0.0062
+   },
+   "n_gaps": 5
+  },
+  "ville_radieuse": {
+   "token_budget": {
+    "T6": 100,
+    "E_ROAD": 76,
+    "E_GREEN": 224,
+    "E_VACANT": 0
+   },
+   "skeleton_counts": {
+    "road": 76,
+    "green": 224,
+    "civic": 0,
+    "vacant_build": 100,
+    "water": 0
+   },
+   "window_checks": {
+    "window_FAR": 1.43,
+    "window_ground_coverage": 0.077,
+    "built_cells": 100,
+    "green_frac": 0.56,
+    "road_frac": 0.19,
+    "vacant_frac": 0.0,
+    "residential_GFA_m2": 1429914,
+    "implied_persons": 102137,
+    "implied_persons_per_ha": 1021.4,
+    "persons_assumption": "14 m2/p: Le Corbusier's dwelling-cell norm (La Ville radieuse, 1935)"
+   },
+   "semantic_mix": {
+    "residential_estate": 1.0,
+    "residential_lowrise": 0.0,
+    "commercial_retail": 0.0,
+    "office_finance": 0.0,
+    "industrial": 0.0,
+    "public_admin": 0.0,
+    "education": 0.0,
+    "healthcare": 0.0
+   },
+   "n_gaps": 4
+  },
+  "neighbourhood_unit": {
+   "token_budget": {
+    "T1": 245,
+    "T2": 39,
+    "E_ROAD": 76,
+    "E_GREEN": 40,
+    "E_VACANT": 0
+   },
+   "skeleton_counts": {
+    "road": 76,
+    "green": 40,
+    "civic": 4,
+    "vacant_build": 280,
+    "water": 0
+   },
+   "window_checks": {
+    "window_FAR": 0.404,
+    "window_ground_coverage": 0.128,
+    "built_cells": 284,
+    "green_frac": 0.1,
+    "road_frac": 0.19,
+    "vacant_frac": 0.0,
+    "residential_GFA_m2": 375361,
+    "implied_persons": 9384,
+    "implied_persons_per_ha": 93.8,
+    "persons_assumption": "40 m2 GFA/p: ~220 m2 house / 5.5-person 1929 family (indicative)"
+   },
+   "semantic_mix": {
+    "residential_estate": 0.0,
+    "residential_lowrise": 0.9577,
+    "commercial_retail": 0.0282,
+    "office_finance": 0.0,
+    "industrial": 0.0,
+    "public_admin": 0.0035,
+    "education": 0.0106,
+    "healthcare": 0.0
+   },
+   "n_gaps": 3
+  },
+  "microrayon": {
+   "token_budget": {
+    "T3": 54,
+    "T4": 45,
+    "T2": 8,
+    "T7": 4,
+    "E_VACANT": 125,
+    "E_ROAD": 76,
+    "E_GREEN": 88
+   },
+   "skeleton_counts": {
+    "road": 76,
+    "green": 88,
+    "civic": 8,
+    "vacant_build": 228,
+    "water": 0
+   },
+   "window_checks": {
+    "window_FAR": 0.634,
+    "window_ground_coverage": 0.08,
+    "built_cells": 111,
+    "green_frac": 0.22,
+    "road_frac": 0.19,
+    "vacant_frac": 0.312,
+    "residential_GFA_m2": 494763,
+    "implied_persons": 32984,
+    "implied_persons_per_ha": 329.8,
+    "persons_assumption": "15 m2 GFA/p: 9 m2 living-space sanitary norm grossed up (SNiP era)"
+   },
+   "semantic_mix": {
+    "residential_estate": 0.8919,
+    "residential_lowrise": 0.0,
+    "commercial_retail": 0.036,
+    "office_finance": 0.0,
+    "industrial": 0.0,
+    "public_admin": 0.0,
+    "education": 0.0721,
+    "healthcare": 0.0
+   },
+   "n_gaps": 3
+  },
+  "gb50180": {
+   "token_budget": {
+    "T4": 81,
+    "T6": 75,
+    "T2": 6,
+    "T7": 16,
+    "E_VACANT": 0,
+    "E_ROAD": 144,
+    "E_GREEN": 78
+   },
+   "skeleton_counts": {
+    "road": 144,
+    "green": 78,
+    "civic": 6,
+    "vacant_build": 172,
+    "water": 0
+   },
+   "window_checks": {
+    "window_FAR": 1.991,
+    "window_ground_coverage": 0.144,
+    "built_cells": 178,
+    "green_frac": 0.195,
+    "road_frac": 0.36,
+    "vacant_frac": 0.0,
+    "residential_GFA_m2": 1496805,
+    "implied_persons": 42766,
+    "implied_persons_per_ha": 427.7,
+    "persons_assumption": "35 m2/p: current Chinese urban per-capita housing floorspace (indicative)"
+   },
+   "semantic_mix": {
+    "residential_estate": 0.8764,
+    "residential_lowrise": 0.0,
+    "commercial_retail": 0.0899,
+    "office_finance": 0.0,
+    "industrial": 0.0,
+    "public_admin": 0.0056,
+    "education": 0.0225,
+    "healthcare": 0.0056
+   },
+   "n_gaps": 3
+  }
+ },
+ "gap_counts": {
+  "garden_city": 5,
+  "ville_radieuse": 4,
+  "neighbourhood_unit": 3,
+  "microrayon": 3,
+  "gb50180": 3
+ },
+ "files": {
+  "garden_city": "skeleton_garden_city.npy",
+  "ville_radieuse": "skeleton_ville_radieuse.npy",
+  "neighbourhood_unit": "skeleton_neighbourhood_unit.npy",
+  "microrayon": "skeleton_microrayon.npy",
+  "gb50180": "skeleton_gb50180.npy"
+ }
+}

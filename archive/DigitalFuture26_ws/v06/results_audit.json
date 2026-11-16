@@ -1,0 +1,58 @@
+{
+ "C2": {
+  "recomputed": {
+   "T1": 245,
+   "T2": 39,
+   "E_ROAD": 76,
+   "E_GREEN": 40,
+   "E_VACANT": 0
+  },
+  "claimed": {
+   "T1": 245,
+   "T2": 39,
+   "E_VACANT": 0,
+   "E_ROAD": 76,
+   "E_GREEN": 40
+  },
+  "match": true
+ },
+ "C3": {
+  "recomputed_raw": {
+   "government": 0.401343,
+   "developer_capital": 0.499185,
+   "resident_community": 0.298531,
+   "informal": 0.049741
+  },
+  "claimed_4dp": {
+   "government": 0.4013,
+   "developer_capital": 0.4992,
+   "resident_community": 0.2985,
+   "informal": 0.0497
+  },
+  "match": true
+ },
+ "C4": {
+  "max_err_all24": 4.886261374603684e-05,
+  "passed": true
+ },
+ "C5": {
+  "recomputed_profile": {
+   "government": 0.3899,
+   "developer_capital": 0.5687,
+   "resident_community": 0.2012,
+   "informal": 0.0338
+  },
+  "claimed": {
+   "government": 0.3899,
+   "developer_capital": 0.5687,
+   "resident_community": 0.2012,
+   "informal": 0.0338
+  },
+  "L1_recomputed": 0.3562,
+  "L1_claimed": 0.3563,
+  "match": true
+ },
+ "C7": {
+  "issues": []
+ }
+}

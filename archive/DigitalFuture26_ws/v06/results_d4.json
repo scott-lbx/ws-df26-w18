@@ -1,0 +1,815 @@
+{
+ "_meta": {
+  "script": "v06/exp_readback.py",
+  "seed": 0,
+  "chain": "v05 E2 verbatim: semantic -> power_priors_v05 cell -> GFA-weighted mean; unlabeled excluded",
+  "estate_cell": "no_age for ALL residential_estate (generated buildings carry no construction year) = the v05-documented low-confidence fallback (gov .4 dev .5 res .3 inf .05), deliberately retained: 'Chinese no-age priors reading the doctrines'",
+  "decomposition": "sequential counterfactuals R0->R1 (semantic: donor->demanded) ->R2 (estate cell: no_age->pre1985); per-dim gap = (c: apriori-R2) + (a: R2-R1) + (b: R1-R0) exactly; order-dependent (b before a) \u2014 a Shapley average was not computed (single path disclosed)",
+  "apriori_source": "V06/doctrine_recipes.json stakeholder_apriori (D1, ASSERTED doctrine-level claims)"
+ },
+ "paradigms": {
+  "garden_city": {
+   "unit": {
+    "readback_R0": {
+     "government": 0.3703,
+     "developer_capital": 0.4894,
+     "resident_community": 0.1562,
+     "informal": 0.0539
+    },
+    "cf_R1_demanded_semantic": {
+     "government": 0.3708,
+     "developer_capital": 0.4819,
+     "resident_community": 0.1576,
+     "informal": 0.0572
+    },
+    "cf_R2_demanded_plus_pre1985": {
+     "government": 0.3708,
+     "developer_capital": 0.4819,
+     "resident_community": 0.1576,
+     "informal": 0.0572
+    },
+    "apriori": {
+     "government": 0.3,
+     "developer_capital": 0.2,
+     "resident_community": 0.9,
+     "informal": 0.05
+    },
+    "gap_signed_apriori_minus_readback": {
+     "government": -0.0703,
+     "developer_capital": -0.2894,
+     "resident_community": 0.7438,
+     "informal": -0.0039
+    },
+    "L1_gap": 1.1074,
+    "doctrine_first_dim": "resident_community",
+    "fabric_first_dim": "developer_capital",
+    "ranking_flip": true,
+    "decomposition": {
+     "a_no_age_artifact": {
+      "government": 0.0,
+      "developer_capital": 0.0,
+      "resident_community": 0.0,
+      "informal": 0.0
+     },
+     "b_collage_semantic_drift": {
+      "government": 0.0005,
+      "developer_capital": -0.0075,
+      "resident_community": 0.0014,
+      "informal": 0.0033
+     },
+     "c_genuine_program_translation": {
+      "government": -0.0708,
+      "developer_capital": -0.2819,
+      "resident_community": 0.7424,
+      "informal": -0.0072
+     },
+     "L1_components": {
+      "a": 0.0,
+      "b": 0.0127,
+      "c": 1.1023
+     }
+    },
+    "low_confidence_gfa_share": 0.1071,
+    "unlabeled_gfa_share": 0.001,
+    "n_buildings_labeled": 488,
+    "semantic_gfa_shares": {
+     "commercial_retail": 0.3507,
+     "education": 0.0056,
+     "healthcare": 0.0024,
+     "industrial": 0.5291,
+     "public_admin": 0.0052,
+     "residential_estate": 0.0185,
+     "residential_lowrise": 0.0886
+    },
+    "res_estate_gfa_share": 0.0185
+   },
+   "city": {
+    "readback_R0": {
+     "government": 0.3565,
+     "developer_capital": 0.4888,
+     "resident_community": 0.166,
+     "informal": 0.0593
+    },
+    "cf_R1_demanded_semantic": {
+     "government": 0.3576,
+     "developer_capital": 0.4812,
+     "resident_community": 0.1677,
+     "informal": 0.0624
+    },
+    "cf_R2_demanded_plus_pre1985": {
+     "government": 0.3576,
+     "developer_capital": 0.4812,
+     "resident_community": 0.1677,
+     "informal": 0.0624
+    },
+    "apriori": {
+     "government": 0.3,
+     "developer_capital": 0.2,
+     "resident_community": 0.9,
+     "informal": 0.05
+    },
+    "gap_signed_apriori_minus_readback": {
+     "government": -0.0565,
+     "developer_capital": -0.2888,
+     "resident_community": 0.734,
+     "informal": -0.0093
+    },
+    "L1_gap": 1.0886,
+    "doctrine_first_dim": "resident_community",
+    "fabric_first_dim": "developer_capital",
+    "ranking_flip": true,
+    "decomposition": {
+     "a_no_age_artifact": {
+      "government": 0.0,
+      "developer_capital": 0.0,
+      "resident_community": 0.0,
+      "informal": 0.0
+     },
+     "b_collage_semantic_drift": {
+      "government": 0.0012,
+      "developer_capital": -0.0076,
+      "resident_community": 0.0017,
+      "informal": 0.003
+     },
+     "c_genuine_program_translation": {
+      "government": -0.0576,
+      "developer_capital": -0.2812,
+      "resident_community": 0.7323,
+      "informal": -0.0124
+     },
+     "L1_components": {
+      "a": 0.0,
+      "b": 0.0135,
+      "c": 1.0835
+     }
+    },
+    "low_confidence_gfa_share": 0.1112,
+    "unlabeled_gfa_share": 0.0019,
+    "n_buildings_labeled": 3428,
+    "semantic_gfa_shares": {
+     "commercial_retail": 0.3902,
+     "education": 0.0063,
+     "healthcare": 0.0008,
+     "industrial": 0.484,
+     "office_finance": 0.0004,
+     "public_admin": 0.0071,
+     "residential_estate": 0.0134,
+     "residential_lowrise": 0.0979
+    },
+    "res_estate_gfa_share": 0.0134
+   }
+  },
+  "ville_radieuse": {
+   "unit": {
+    "readback_R0": {
+     "government": 0.4013,
+     "developer_capital": 0.4992,
+     "resident_community": 0.2985,
+     "informal": 0.0497
+    },
+    "cf_R1_demanded_semantic": {
+     "government": 0.4,
+     "developer_capital": 0.5,
+     "resident_community": 0.3,
+     "informal": 0.05
+    },
+    "cf_R2_demanded_plus_pre1985": {
+     "government": 0.7,
+     "developer_capital": 0.05,
+     "resident_community": 0.4,
+     "informal": 0.05
+    },
+    "apriori": {
+     "government": 0.95,
+     "developer_capital": 0.1,
+     "resident_community": 0.1,
+     "informal": 0.0
+    },
+    "gap_signed_apriori_minus_readback": {
+     "government": 0.5487,
+     "developer_capital": -0.3992,
+     "resident_community": -0.1985,
+     "informal": -0.0497
+    },
+    "L1_gap": 1.1961,
+    "doctrine_first_dim": "government",
+    "fabric_first_dim": "developer_capital",
+    "ranking_flip": true,
+    "decomposition": {
+     "a_no_age_artifact": {
+      "government": 0.3,
+      "developer_capital": -0.45,
+      "resident_community": 0.1,
+      "informal": 0.0
+     },
+     "b_collage_semantic_drift": {
+      "government": -0.0013,
+      "developer_capital": 0.0008,
+      "resident_community": 0.0015,
+      "informal": 0.0003
+     },
+     "c_genuine_program_translation": {
+      "government": 0.25,
+      "developer_capital": 0.05,
+      "resident_community": -0.3,
+      "informal": -0.05
+     },
+     "L1_components": {
+      "a": 0.85,
+      "b": 0.0039,
+      "c": 0.65
+     }
+    },
+    "low_confidence_gfa_share": 0.994,
+    "unlabeled_gfa_share": 0.0,
+    "n_buildings_labeled": 247,
+    "semantic_gfa_shares": {
+     "healthcare": 0.0019,
+     "industrial": 0.0009,
+     "office_finance": 0.002,
+     "public_admin": 0.0013,
+     "residential_estate": 0.9939,
+     "residential_lowrise": 0.0001
+    },
+    "res_estate_gfa_share": 0.9939
+   },
+   "city": {
+    "readback_R0": {
+     "government": 0.3995,
+     "developer_capital": 0.5838,
+     "resident_community": 0.2291,
+     "informal": 0.036
+    },
+    "cf_R1_demanded_semantic": {
+     "government": 0.4,
+     "developer_capital": 0.5871,
+     "resident_community": 0.2274,
+     "informal": 0.0355
+    },
+    "cf_R2_demanded_plus_pre1985": {
+     "government": 0.6129,
+     "developer_capital": 0.2677,
+     "resident_community": 0.2984,
+     "informal": 0.0355
+    },
+    "apriori": {
+     "government": 0.95,
+     "developer_capital": 0.1,
+     "resident_community": 0.1,
+     "informal": 0.0
+    },
+    "gap_signed_apriori_minus_readback": {
+     "government": 0.5505,
+     "developer_capital": -0.4838,
+     "resident_community": -0.1291,
+     "informal": -0.036
+    },
+    "L1_gap": 1.1994,
+    "doctrine_first_dim": "government",
+    "fabric_first_dim": "developer_capital",
+    "ranking_flip": true,
+    "decomposition": {
+     "a_no_age_artifact": {
+      "government": 0.2129,
+      "developer_capital": -0.3194,
+      "resident_community": 0.071,
+      "informal": 0.0
+     },
+     "b_collage_semantic_drift": {
+      "government": 0.0005,
+      "developer_capital": 0.0033,
+      "resident_community": -0.0017,
+      "informal": -0.0005
+     },
+     "c_genuine_program_translation": {
+      "government": 0.3371,
+      "developer_capital": -0.1677,
+      "resident_community": -0.1984,
+      "informal": -0.0355
+     },
+     "L1_components": {
+      "a": 0.6033,
+      "b": 0.006,
+      "c": 0.7387
+     }
+    },
+    "low_confidence_gfa_share": 0.713,
+    "unlabeled_gfa_share": 0.0013,
+    "n_buildings_labeled": 2009,
+    "semantic_gfa_shares": {
+     "commercial_retail": 0.0056,
+     "education": 0.0003,
+     "healthcare": 0.0009,
+     "industrial": 0.0006,
+     "office_finance": 0.2794,
+     "public_admin": 0.0002,
+     "residential_estate": 0.7129,
+     "residential_lowrise": 0.0001
+    },
+    "res_estate_gfa_share": 0.7129
+   }
+  },
+  "neighbourhood_unit": {
+   "unit": {
+    "readback_R0": {
+     "government": 0.257,
+     "developer_capital": 0.1419,
+     "resident_community": 0.5127,
+     "informal": 0.3144
+    },
+    "cf_R1_demanded_semantic": {
+     "government": 0.211,
+     "developer_capital": 0.0795,
+     "resident_community": 0.5692,
+     "informal": 0.3739
+    },
+    "cf_R2_demanded_plus_pre1985": {
+     "government": 0.211,
+     "developer_capital": 0.0795,
+     "resident_community": 0.5692,
+     "informal": 0.3739
+    },
+    "apriori": {
+     "government": 0.3,
+     "developer_capital": 0.6,
+     "resident_community": 0.7,
+     "informal": 0.05
+    },
+    "gap_signed_apriori_minus_readback": {
+     "government": 0.043,
+     "developer_capital": 0.4581,
+     "resident_community": 0.1873,
+     "informal": -0.2644
+    },
+    "L1_gap": 0.9528,
+    "doctrine_first_dim": "resident_community",
+    "fabric_first_dim": "resident_community",
+    "ranking_flip": false,
+    "decomposition": {
+     "a_no_age_artifact": {
+      "government": 0.0,
+      "developer_capital": 0.0,
+      "resident_community": 0.0,
+      "informal": 0.0
+     },
+     "b_collage_semantic_drift": {
+      "government": -0.046,
+      "developer_capital": -0.0623,
+      "resident_community": 0.0565,
+      "informal": 0.0594
+     },
+     "c_genuine_program_translation": {
+      "government": 0.089,
+      "developer_capital": 0.5205,
+      "resident_community": 0.1308,
+      "informal": -0.3239
+     },
+     "L1_components": {
+      "a": 0.0,
+      "b": 0.2242,
+      "c": 1.0642
+     }
+    },
+    "low_confidence_gfa_share": 0.9059,
+    "unlabeled_gfa_share": 0.0299,
+    "n_buildings_labeled": 1285,
+    "semantic_gfa_shares": {
+     "commercial_retail": 0.0441,
+     "education": 0.0153,
+     "healthcare": 0.0012,
+     "office_finance": 0.0041,
+     "public_admin": 0.0294,
+     "residential_estate": 0.1433,
+     "residential_lowrise": 0.7626
+    },
+    "res_estate_gfa_share": 0.1433
+   },
+   "city": {
+    "readback_R0": {
+     "government": 0.245,
+     "developer_capital": 0.2473,
+     "resident_community": 0.4407,
+     "informal": 0.2531
+    },
+    "cf_R1_demanded_semantic": {
+     "government": 0.2098,
+     "developer_capital": 0.1951,
+     "resident_community": 0.4859,
+     "informal": 0.3011
+    },
+    "cf_R2_demanded_plus_pre1985": {
+     "government": 0.2098,
+     "developer_capital": 0.1951,
+     "resident_community": 0.4859,
+     "informal": 0.3011
+    },
+    "apriori": {
+     "government": 0.3,
+     "developer_capital": 0.6,
+     "resident_community": 0.7,
+     "informal": 0.05
+    },
+    "gap_signed_apriori_minus_readback": {
+     "government": 0.055,
+     "developer_capital": 0.3527,
+     "resident_community": 0.2593,
+     "informal": -0.2031
+    },
+    "L1_gap": 0.8701,
+    "doctrine_first_dim": "resident_community",
+    "fabric_first_dim": "resident_community",
+    "ranking_flip": false,
+    "decomposition": {
+     "a_no_age_artifact": {
+      "government": 0.0,
+      "developer_capital": 0.0,
+      "resident_community": 0.0,
+      "informal": 0.0
+     },
+     "b_collage_semantic_drift": {
+      "government": -0.0352,
+      "developer_capital": -0.0522,
+      "resident_community": 0.0453,
+      "informal": 0.048
+     },
+     "c_genuine_program_translation": {
+      "government": 0.0902,
+      "developer_capital": 0.4049,
+      "resident_community": 0.2141,
+      "informal": -0.2511
+     },
+     "L1_components": {
+      "a": 0.0,
+      "b": 0.1807,
+      "c": 0.9603
+     }
+    },
+    "low_confidence_gfa_share": 0.7006,
+    "unlabeled_gfa_share": 0.0178,
+    "n_buildings_labeled": 4433,
+    "semantic_gfa_shares": {
+     "commercial_retail": 0.2608,
+     "education": 0.0132,
+     "healthcare": 0.0033,
+     "industrial": 0.0002,
+     "office_finance": 0.0026,
+     "public_admin": 0.0193,
+     "residential_estate": 0.1147,
+     "residential_lowrise": 0.5859
+    },
+    "res_estate_gfa_share": 0.1147
+   }
+  },
+  "microrayon": {
+   "unit": {
+    "readback_R0": {
+     "government": 0.3626,
+     "developer_capital": 0.5139,
+     "resident_community": 0.2753,
+     "informal": 0.0503
+    },
+    "cf_R1_demanded_semantic": {
+     "government": 0.3642,
+     "developer_capital": 0.5134,
+     "resident_community": 0.2748,
+     "informal": 0.0491
+    },
+    "cf_R2_demanded_plus_pre1985": {
+     "government": 0.594,
+     "developer_capital": 0.1686,
+     "resident_community": 0.3514,
+     "informal": 0.0491
+    },
+    "apriori": {
+     "government": 0.95,
+     "developer_capital": 0.0,
+     "resident_community": 0.15,
+     "informal": 0.0
+    },
+    "gap_signed_apriori_minus_readback": {
+     "government": 0.5874,
+     "developer_capital": -0.5139,
+     "resident_community": -0.1253,
+     "informal": -0.0503
+    },
+    "L1_gap": 1.2769,
+    "doctrine_first_dim": "government",
+    "fabric_first_dim": "developer_capital",
+    "ranking_flip": true,
+    "decomposition": {
+     "a_no_age_artifact": {
+      "government": 0.2299,
+      "developer_capital": -0.3448,
+      "resident_community": 0.0766,
+      "informal": 0.0
+     },
+     "b_collage_semantic_drift": {
+      "government": 0.0016,
+      "developer_capital": -0.0005,
+      "resident_community": -0.0005,
+      "informal": -0.0012
+     },
+     "c_genuine_program_translation": {
+      "government": 0.356,
+      "developer_capital": -0.1686,
+      "resident_community": -0.2014,
+      "informal": -0.0491
+     },
+     "L1_components": {
+      "a": 0.6513,
+      "b": 0.0038,
+      "c": 0.7751
+     }
+    },
+    "low_confidence_gfa_share": 0.7662,
+    "unlabeled_gfa_share": 0.0009,
+    "n_buildings_labeled": 260,
+    "semantic_gfa_shares": {
+     "commercial_retail": 0.214,
+     "education": 0.0109,
+     "industrial": 0.0019,
+     "office_finance": 0.0029,
+     "public_admin": 0.004,
+     "residential_estate": 0.7624,
+     "residential_lowrise": 0.0038
+    },
+    "res_estate_gfa_share": 0.7624
+   },
+   "city": {
+    "readback_R0": {
+     "government": 0.3622,
+     "developer_capital": 0.5139,
+     "resident_community": 0.2716,
+     "informal": 0.0496
+    },
+    "cf_R1_demanded_semantic": {
+     "government": 0.3669,
+     "developer_capital": 0.5099,
+     "resident_community": 0.2729,
+     "informal": 0.0487
+    },
+    "cf_R2_demanded_plus_pre1985": {
+     "government": 0.5936,
+     "developer_capital": 0.1699,
+     "resident_community": 0.3485,
+     "informal": 0.0487
+    },
+    "apriori": {
+     "government": 0.95,
+     "developer_capital": 0.0,
+     "resident_community": 0.15,
+     "informal": 0.0
+    },
+    "gap_signed_apriori_minus_readback": {
+     "government": 0.5878,
+     "developer_capital": -0.5139,
+     "resident_community": -0.1216,
+     "informal": -0.0496
+    },
+    "L1_gap": 1.2729,
+    "doctrine_first_dim": "government",
+    "fabric_first_dim": "developer_capital",
+    "ranking_flip": true,
+    "decomposition": {
+     "a_no_age_artifact": {
+      "government": 0.2267,
+      "developer_capital": -0.34,
+      "resident_community": 0.0756,
+      "informal": 0.0
+     },
+     "b_collage_semantic_drift": {
+      "government": 0.0048,
+      "developer_capital": -0.004,
+      "resident_community": 0.0013,
+      "informal": -0.0009
+     },
+     "c_genuine_program_translation": {
+      "government": 0.3564,
+      "developer_capital": -0.1699,
+      "resident_community": -0.1985,
+      "informal": -0.0487
+     },
+     "L1_components": {
+      "a": 0.6423,
+      "b": 0.011,
+      "c": 0.7735
+     }
+    },
+    "low_confidence_gfa_share": 0.742,
+    "unlabeled_gfa_share": 0.0005,
+    "n_buildings_labeled": 894,
+    "semantic_gfa_shares": {
+     "commercial_retail": 0.2294,
+     "education": 0.0163,
+     "industrial": 0.0003,
+     "office_finance": 0.0067,
+     "public_admin": 0.0052,
+     "residential_estate": 0.7391,
+     "residential_lowrise": 0.003
+    },
+    "res_estate_gfa_share": 0.7391
+   }
+  },
+  "gb50180": {
+   "unit": {
+    "readback_R0": {
+     "government": 0.3453,
+     "developer_capital": 0.5267,
+     "resident_community": 0.2685,
+     "informal": 0.0498
+    },
+    "cf_R1_demanded_semantic": {
+     "government": 0.344,
+     "developer_capital": 0.5266,
+     "resident_community": 0.2697,
+     "informal": 0.0497
+    },
+    "cf_R2_demanded_plus_pre1985": {
+     "government": 0.5552,
+     "developer_capital": 0.2099,
+     "resident_community": 0.3401,
+     "informal": 0.0497
+    },
+    "apriori": {
+     "government": 0.8,
+     "developer_capital": 0.7,
+     "resident_community": 0.3,
+     "informal": 0.0
+    },
+    "gap_signed_apriori_minus_readback": {
+     "government": 0.4547,
+     "developer_capital": 0.1733,
+     "resident_community": 0.0315,
+     "informal": -0.0498
+    },
+    "L1_gap": 0.7093,
+    "doctrine_first_dim": "government",
+    "fabric_first_dim": "developer_capital",
+    "ranking_flip": true,
+    "decomposition": {
+     "a_no_age_artifact": {
+      "government": 0.2112,
+      "developer_capital": -0.3168,
+      "resident_community": 0.0704,
+      "informal": 0.0
+     },
+     "b_collage_semantic_drift": {
+      "government": -0.0013,
+      "developer_capital": -0.0001,
+      "resident_community": 0.0012,
+      "informal": -0.0
+     },
+     "c_genuine_program_translation": {
+      "government": 0.2448,
+      "developer_capital": 0.4901,
+      "resident_community": -0.0401,
+      "informal": -0.0497
+     },
+     "L1_components": {
+      "a": 0.5984,
+      "b": 0.0026,
+      "c": 0.8247
+     }
+    },
+    "low_confidence_gfa_share": 0.7001,
+    "unlabeled_gfa_share": 0.0002,
+    "n_buildings_labeled": 402,
+    "semantic_gfa_shares": {
+     "commercial_retail": 0.2867,
+     "education": 0.002,
+     "healthcare": 0.0036,
+     "industrial": 0.0012,
+     "office_finance": 0.0051,
+     "public_admin": 0.0013,
+     "residential_estate": 0.6989,
+     "residential_lowrise": 0.0012
+    },
+    "res_estate_gfa_share": 0.6989
+   },
+   "city": {
+    "readback_R0": {
+     "government": 0.3379,
+     "developer_capital": 0.5286,
+     "resident_community": 0.263,
+     "informal": 0.0497
+    },
+    "cf_R1_demanded_semantic": {
+     "government": 0.3408,
+     "developer_capital": 0.5257,
+     "resident_community": 0.2632,
+     "informal": 0.0492
+    },
+    "cf_R2_demanded_plus_pre1985": {
+     "government": 0.5368,
+     "developer_capital": 0.2316,
+     "resident_community": 0.3285,
+     "informal": 0.0492
+    },
+    "apriori": {
+     "government": 0.8,
+     "developer_capital": 0.7,
+     "resident_community": 0.3,
+     "informal": 0.0
+    },
+    "gap_signed_apriori_minus_readback": {
+     "government": 0.4621,
+     "developer_capital": 0.1714,
+     "resident_community": 0.037,
+     "informal": -0.0497
+    },
+    "L1_gap": 0.7202,
+    "doctrine_first_dim": "government",
+    "fabric_first_dim": "developer_capital",
+    "ranking_flip": true,
+    "decomposition": {
+     "a_no_age_artifact": {
+      "government": 0.196,
+      "developer_capital": -0.2941,
+      "resident_community": 0.0653,
+      "informal": 0.0
+     },
+     "b_collage_semantic_drift": {
+      "government": 0.0028,
+      "developer_capital": -0.0029,
+      "resident_community": 0.0001,
+      "informal": -0.0005
+     },
+     "c_genuine_program_translation": {
+      "government": 0.2632,
+      "developer_capital": 0.4684,
+      "resident_community": -0.0285,
+      "informal": -0.0492
+     },
+     "L1_components": {
+      "a": 0.5554,
+      "b": 0.0063,
+      "c": 0.8093
+     }
+    },
+    "low_confidence_gfa_share": 0.6492,
+    "unlabeled_gfa_share": 0.0016,
+    "n_buildings_labeled": 1813,
+    "semantic_gfa_shares": {
+     "commercial_retail": 0.3339,
+     "education": 0.004,
+     "healthcare": 0.0043,
+     "industrial": 0.0004,
+     "office_finance": 0.0041,
+     "public_admin": 0.0041,
+     "residential_estate": 0.6477,
+     "residential_lowrise": 0.0014
+    },
+    "res_estate_gfa_share": 0.6477
+   }
+  }
+ },
+ "ranking_flip_table": [
+  {
+   "paradigm": "garden_city",
+   "doctrine_claims_first": "resident_community",
+   "fabric_reads_first": "developer_capital",
+   "flip": true,
+   "L1_gap_unit": 1.1074,
+   "L1_gap_city": 1.0886
+  },
+  {
+   "paradigm": "ville_radieuse",
+   "doctrine_claims_first": "government",
+   "fabric_reads_first": "developer_capital",
+   "flip": true,
+   "L1_gap_unit": 1.1961,
+   "L1_gap_city": 1.1994
+  },
+  {
+   "paradigm": "neighbourhood_unit",
+   "doctrine_claims_first": "resident_community",
+   "fabric_reads_first": "resident_community",
+   "flip": false,
+   "L1_gap_unit": 0.9528,
+   "L1_gap_city": 0.8701
+  },
+  {
+   "paradigm": "microrayon",
+   "doctrine_claims_first": "government",
+   "fabric_reads_first": "developer_capital",
+   "flip": true,
+   "L1_gap_unit": 1.2769,
+   "L1_gap_city": 1.2729
+  },
+  {
+   "paradigm": "gb50180",
+   "doctrine_claims_first": "government",
+   "fabric_reads_first": "developer_capital",
+   "flip": true,
+   "L1_gap_unit": 0.7093,
+   "L1_gap_city": 0.7202
+  }
+ ],
+ "headline_per_paradigm": {
+  "garden_city": "claims resident_community (0.90) -> fabric reads developer_capital (0.489)  [FLIP]",
+  "ville_radieuse": "claims government (0.95) -> fabric reads developer_capital (0.499)  [FLIP]",
+  "neighbourhood_unit": "claims resident_community (0.70) -> fabric reads resident_community (0.513)  [held]",
+  "microrayon": "claims government (0.95) -> fabric reads developer_capital (0.514)  [FLIP]",
+  "gb50180": "claims government (0.80) -> fabric reads developer_capital (0.527)  [FLIP]"
+ }
+}

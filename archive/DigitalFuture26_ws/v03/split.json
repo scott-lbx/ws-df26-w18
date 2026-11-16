@@ -1,0 +1,249 @@
+{
+  "seed": 0,
+  "note": "type_group = curated sampling-frame metadata ONLY (audit); never used in figure labels.",
+  "rule": "stratified >=2/group; +1 to 4 largest groups; forced A01/A10/A13 -> TRAIN; candidates overlapping >30% with an already-picked window dropped; split 18 TRAIN / 6 HELDOUT stratified by group (1 heldout per 3-quota group + 2 random 2-quota groups)",
+  "n_train": 18,
+  "n_heldout": 6,
+  "windows": [
+    {
+      "id": "A01",
+      "name": "Lujiazui CBD",
+      "type_group": "cbd_office",
+      "lat": 31.2362,
+      "lon": 121.498,
+      "cx": 356957.0,
+      "cy": 3456751.7,
+      "role": "train"
+    },
+    {
+      "id": "A10",
+      "name": "Laoximen old town",
+      "type_group": "historic_lilong",
+      "lat": 31.223,
+      "lon": 121.488,
+      "cx": 355984.5,
+      "cy": 3455301.5,
+      "role": "train"
+    },
+    {
+      "id": "A13",
+      "name": "Caoyang Xincun",
+      "type_group": "worker_village",
+      "lat": 31.2475,
+      "lon": 121.3855,
+      "cx": 346260.1,
+      "cy": 3458155.5,
+      "role": "train"
+    },
+    {
+      "id": "A04",
+      "name": "Xujiahui hub",
+      "type_group": "cbd_office",
+      "lat": 31.195,
+      "lon": 121.437,
+      "cx": 351082.4,
+      "cy": 3452265.4,
+      "role": "train"
+    },
+    {
+      "id": "A02",
+      "name": "Nanjing Rd East / People's Sq",
+      "type_group": "cbd_office",
+      "lat": 31.2335,
+      "lon": 121.476,
+      "cx": 354857.5,
+      "cy": 3456481.1,
+      "role": "heldout"
+    },
+    {
+      "id": "A07",
+      "name": "Bund Wai-tan",
+      "type_group": "historic_lilong",
+      "lat": 31.2414,
+      "lon": 121.4932,
+      "cx": 356507.7,
+      "cy": 3457334.4,
+      "role": "heldout"
+    },
+    {
+      "id": "A09",
+      "name": "Xintiandi Shikumen",
+      "type_group": "historic_lilong",
+      "lat": 31.2205,
+      "lon": 121.475,
+      "cx": 354742.3,
+      "cy": 3455041.4,
+      "role": "train"
+    },
+    {
+      "id": "A17",
+      "name": "Tianshan Xincun",
+      "type_group": "worker_village",
+      "lat": 31.212,
+      "lon": 121.396,
+      "cx": 347202.9,
+      "cy": 3454205.8,
+      "role": "train"
+    },
+    {
+      "id": "A21",
+      "name": "Jinqiao residential",
+      "type_group": "developer_resid",
+      "lat": 31.262,
+      "lon": 121.59,
+      "cx": 365756.0,
+      "cy": 3459496.0,
+      "role": "train"
+    },
+    {
+      "id": "A19",
+      "name": "Lianyang Huamu Pudong",
+      "type_group": "developer_resid",
+      "lat": 31.2123,
+      "lon": 121.545,
+      "cx": 361398.6,
+      "cy": 3454042.6,
+      "role": "train"
+    },
+    {
+      "id": "A20",
+      "name": "Sanlin Pudong",
+      "type_group": "developer_resid",
+      "lat": 31.147,
+      "lon": 121.52,
+      "cx": 358920.1,
+      "cy": 3446836.0,
+      "role": "heldout"
+    },
+    {
+      "id": "A29",
+      "name": "Nanqiao Fengxian",
+      "type_group": "new_town",
+      "lat": 30.9166,
+      "lon": 121.4669,
+      "cx": 353505.4,
+      "cy": 3421366.3,
+      "role": "heldout"
+    },
+    {
+      "id": "A26",
+      "name": "Jiading New City",
+      "type_group": "new_town",
+      "lat": 31.3913,
+      "lon": 121.242,
+      "cx": 332847.8,
+      "cy": 3474305.1,
+      "role": "train"
+    },
+    {
+      "id": "A27",
+      "name": "Lingang Nanhui",
+      "type_group": "new_town",
+      "lat": 30.9023,
+      "lon": 121.92,
+      "cx": 396788.8,
+      "cy": 3419274.0,
+      "role": "train"
+    },
+    {
+      "id": "A33",
+      "name": "Pudong peri-urban village",
+      "type_group": "urban_village",
+      "lat": 31.1727,
+      "lon": 121.6484,
+      "cx": 371195.6,
+      "cy": 3449528.2,
+      "role": "train"
+    },
+    {
+      "id": "A32",
+      "name": "Minhang outskirts village",
+      "type_group": "urban_village",
+      "lat": 31.0493,
+      "lon": 121.3489,
+      "cx": 342446.9,
+      "cy": 3436236.7,
+      "role": "train"
+    },
+    {
+      "id": "A36",
+      "name": "Zhangjiang hi-tech",
+      "type_group": "industrial",
+      "lat": 31.2023,
+      "lon": 121.5934,
+      "cx": 365995.5,
+      "cy": 3452874.5,
+      "role": "train"
+    },
+    {
+      "id": "A35",
+      "name": "Caohejing hi-tech",
+      "type_group": "industrial",
+      "lat": 31.162,
+      "lon": 121.401,
+      "cx": 347599.2,
+      "cy": 3448656.4,
+      "role": "heldout"
+    },
+    {
+      "id": "A41",
+      "name": "Fengjing old town",
+      "type_group": "heritage_watertown",
+      "lat": 30.9023,
+      "lon": 121.0231,
+      "cx": 311063.2,
+      "cy": 3420448.8,
+      "role": "train"
+    },
+    {
+      "id": "A39",
+      "name": "Qibao old town",
+      "type_group": "heritage_watertown",
+      "lat": 31.1573,
+      "lon": 121.3504,
+      "cx": 342768.1,
+      "cy": 3448206.2,
+      "role": "train"
+    },
+    {
+      "id": "A45",
+      "name": "Beicai Pudong",
+      "type_group": "midrise_resid",
+      "lat": 31.1787,
+      "lon": 121.5591,
+      "cx": 362693.4,
+      "cy": 3450300.6,
+      "role": "train"
+    },
+    {
+      "id": "A43",
+      "name": "Liangcheng Hongkou",
+      "type_group": "midrise_resid",
+      "lat": 31.305,
+      "lon": 121.49,
+      "cx": 356299.4,
+      "cy": 3464388.4,
+      "role": "heldout"
+    },
+    {
+      "id": "A47",
+      "name": "West Bund Xuhui riverside",
+      "type_group": "waterfront_redev",
+      "lat": 31.178,
+      "lon": 121.4631,
+      "cx": 353543.2,
+      "cy": 3450346.1,
+      "role": "train"
+    },
+    {
+      "id": "A49",
+      "name": "Yangpu riverside ex-industry",
+      "type_group": "waterfront_redev",
+      "lat": 31.27,
+      "lon": 121.525,
+      "cx": 359578.7,
+      "cy": 3460463.7,
+      "role": "train"
+    }
+  ]
+}

@@ -1,0 +1,1948 @@
+{
+  "mask_calibration": {
+    "note": "fp_share = share of real footprint area inside the mask class; bld_share_gt20 = share of real buildings with >20% of their own footprint inside it. HARD = road_major ∪ water = the keep-out mask (calibrated: all-classes mask flags 40% of real Laoximen buildings — minor lanes are fabric texture, not keep-out). Green is typed at cell level only, never used for keep-out (parks legitimately contain buildings).",
+    "road_widths_m": {
+      "motorway": 30,
+      "motorway_link": 18,
+      "trunk": 30,
+      "trunk_link": 18,
+      "primary": 24,
+      "primary_link": 14,
+      "secondary": 18,
+      "secondary_link": 12,
+      "tertiary": 14,
+      "tertiary_link": 10,
+      "residential": 10,
+      "unclassified": 10,
+      "living_street": 8,
+      "service": 6,
+      "pedestrian": 6
+    },
+    "keepout_classes": [
+      "motorway",
+      "motorway_link",
+      "primary",
+      "primary_link",
+      "secondary",
+      "secondary_link",
+      "tertiary",
+      "tertiary_link",
+      "trunk",
+      "trunk_link"
+    ],
+    "windows": {
+      "A01": {
+        "name": "Lujiazui CBD",
+        "road": {
+          "fp_share": 0.0893,
+          "bld_share_gt20": 0.1708
+        },
+        "road_major": {
+          "fp_share": 0.0287,
+          "bld_share_gt20": 0.0621
+        },
+        "water": {
+          "fp_share": 0.0061,
+          "bld_share_gt20": 0.0155
+        },
+        "green": {
+          "fp_share": 0.1049,
+          "bld_share_gt20": 0.2019
+        },
+        "HARD_allroads": {
+          "fp_share": 0.0953,
+          "bld_share_gt20": 0.1832
+        },
+        "HARD": {
+          "fp_share": 0.0349,
+          "bld_share_gt20": 0.0776
+        }
+      },
+      "A10": {
+        "name": "Laoximen old town",
+        "road": {
+          "fp_share": 0.1839,
+          "bld_share_gt20": 0.4006
+        },
+        "road_major": {
+          "fp_share": 0.0032,
+          "bld_share_gt20": 0.0041
+        },
+        "water": {
+          "fp_share": 0.0,
+          "bld_share_gt20": 0.0
+        },
+        "green": {
+          "fp_share": 0.0,
+          "bld_share_gt20": 0.0
+        },
+        "HARD_allroads": {
+          "fp_share": 0.1839,
+          "bld_share_gt20": 0.4006
+        },
+        "HARD": {
+          "fp_share": 0.0032,
+          "bld_share_gt20": 0.0041
+        }
+      },
+      "A13": {
+        "name": "Caoyang Xincun",
+        "road": {
+          "fp_share": 0.0102,
+          "bld_share_gt20": 0.0191
+        },
+        "road_major": {
+          "fp_share": 0.0085,
+          "bld_share_gt20": 0.0172
+        },
+        "water": {
+          "fp_share": 0.0,
+          "bld_share_gt20": 0.0
+        },
+        "green": {
+          "fp_share": 0.0117,
+          "bld_share_gt20": 0.021
+        },
+        "HARD_allroads": {
+          "fp_share": 0.0102,
+          "bld_share_gt20": 0.0191
+        },
+        "HARD": {
+          "fp_share": 0.0085,
+          "bld_share_gt20": 0.0172
+        }
+      },
+      "A04": {
+        "name": "Xujiahui hub",
+        "road": {
+          "fp_share": 0.0192,
+          "bld_share_gt20": 0.0378
+        },
+        "road_major": {
+          "fp_share": 0.0073,
+          "bld_share_gt20": 0.0203
+        },
+        "water": {
+          "fp_share": 0.0,
+          "bld_share_gt20": 0.0
+        },
+        "green": {
+          "fp_share": 0.0018,
+          "bld_share_gt20": 0.0041
+        },
+        "HARD_allroads": {
+          "fp_share": 0.0192,
+          "bld_share_gt20": 0.0378
+        },
+        "HARD": {
+          "fp_share": 0.0073,
+          "bld_share_gt20": 0.0203
+        }
+      },
+      "A02": {
+        "name": "Nanjing Rd East / People's Sq",
+        "road": {
+          "fp_share": 0.0981,
+          "bld_share_gt20": 0.2044
+        },
+        "road_major": {
+          "fp_share": 0.0138,
+          "bld_share_gt20": 0.0394
+        },
+        "water": {
+          "fp_share": 0.0,
+          "bld_share_gt20": 0.0
+        },
+        "green": {
+          "fp_share": 0.0284,
+          "bld_share_gt20": 0.0496
+        },
+        "HARD_allroads": {
+          "fp_share": 0.0981,
+          "bld_share_gt20": 0.2044
+        },
+        "HARD": {
+          "fp_share": 0.0138,
+          "bld_share_gt20": 0.0394
+        }
+      },
+      "A07": {
+        "name": "Bund Wai-tan",
+        "road": {
+          "fp_share": 0.0766,
+          "bld_share_gt20": 0.1636
+        },
+        "road_major": {
+          "fp_share": 0.0243,
+          "bld_share_gt20": 0.0701
+        },
+        "water": {
+          "fp_share": 0.0018,
+          "bld_share_gt20": 0.014
+        },
+        "green": {
+          "fp_share": 0.0804,
+          "bld_share_gt20": 0.1589
+        },
+        "HARD_allroads": {
+          "fp_share": 0.0782,
+          "bld_share_gt20": 0.1729
+        },
+        "HARD": {
+          "fp_share": 0.0259,
+          "bld_share_gt20": 0.0794
+        }
+      },
+      "A09": {
+        "name": "Xintiandi Shikumen",
+        "road": {
+          "fp_share": 0.0476,
+          "bld_share_gt20": 0.092
+        },
+        "road_major": {
+          "fp_share": 0.0155,
+          "bld_share_gt20": 0.0313
+        },
+        "water": {
+          "fp_share": 0.0028,
+          "bld_share_gt20": 0.0009
+        },
+        "green": {
+          "fp_share": 0.0492,
+          "bld_share_gt20": 0.0581
+        },
+        "HARD_allroads": {
+          "fp_share": 0.0504,
+          "bld_share_gt20": 0.0929
+        },
+        "HARD": {
+          "fp_share": 0.0182,
+          "bld_share_gt20": 0.0322
+        }
+      },
+      "A17": {
+        "name": "Tianshan Xincun",
+        "road": {
+          "fp_share": 0.021,
+          "bld_share_gt20": 0.0279
+        },
+        "road_major": {
+          "fp_share": 0.0084,
+          "bld_share_gt20": 0.0097
+        },
+        "water": {
+          "fp_share": 0.0,
+          "bld_share_gt20": 0.0
+        },
+        "green": {
+          "fp_share": 0.011,
+          "bld_share_gt20": 0.0182
+        },
+        "HARD_allroads": {
+          "fp_share": 0.021,
+          "bld_share_gt20": 0.0279
+        },
+        "HARD": {
+          "fp_share": 0.0084,
+          "bld_share_gt20": 0.0097
+        }
+      },
+      "A21": {
+        "name": "Jinqiao residential",
+        "road": {
+          "fp_share": 0.0048,
+          "bld_share_gt20": 0.0103
+        },
+        "road_major": {
+          "fp_share": 0.0004,
+          "bld_share_gt20": 0.0
+        },
+        "water": {
+          "fp_share": 0.0,
+          "bld_share_gt20": 0.0
+        },
+        "green": {
+          "fp_share": 0.011,
+          "bld_share_gt20": 0.0205
+        },
+        "HARD_allroads": {
+          "fp_share": 0.0048,
+          "bld_share_gt20": 0.0103
+        },
+        "HARD": {
+          "fp_share": 0.0004,
+          "bld_share_gt20": 0.0
+        }
+      },
+      "A19": {
+        "name": "Lianyang Huamu Pudong",
+        "road": {
+          "fp_share": 0.0086,
+          "bld_share_gt20": 0.0164
+        },
+        "road_major": {
+          "fp_share": 0.0001,
+          "bld_share_gt20": 0.0
+        },
+        "water": {
+          "fp_share": 0.0,
+          "bld_share_gt20": 0.0
+        },
+        "green": {
+          "fp_share": 0.0429,
+          "bld_share_gt20": 0.0704
+        },
+        "HARD_allroads": {
+          "fp_share": 0.0086,
+          "bld_share_gt20": 0.0164
+        },
+        "HARD": {
+          "fp_share": 0.0001,
+          "bld_share_gt20": 0.0
+        }
+      },
+      "A20": {
+        "name": "Sanlin Pudong",
+        "road": {
+          "fp_share": 0.0133,
+          "bld_share_gt20": 0.0198
+        },
+        "road_major": {
+          "fp_share": 0.0113,
+          "bld_share_gt20": 0.0148
+        },
+        "water": {
+          "fp_share": 0.0,
+          "bld_share_gt20": 0.0
+        },
+        "green": {
+          "fp_share": 0.0096,
+          "bld_share_gt20": 0.0132
+        },
+        "HARD_allroads": {
+          "fp_share": 0.0133,
+          "bld_share_gt20": 0.0198
+        },
+        "HARD": {
+          "fp_share": 0.0113,
+          "bld_share_gt20": 0.0148
+        }
+      },
+      "A29": {
+        "name": "Nanqiao Fengxian",
+        "road": {
+          "fp_share": 0.0015,
+          "bld_share_gt20": 0.0066
+        },
+        "road_major": {
+          "fp_share": 0.0015,
+          "bld_share_gt20": 0.0066
+        },
+        "water": {
+          "fp_share": 0.0,
+          "bld_share_gt20": 0.0
+        },
+        "green": {
+          "fp_share": 0.0016,
+          "bld_share_gt20": 0.0044
+        },
+        "HARD_allroads": {
+          "fp_share": 0.0015,
+          "bld_share_gt20": 0.0066
+        },
+        "HARD": {
+          "fp_share": 0.0015,
+          "bld_share_gt20": 0.0066
+        }
+      },
+      "A26": {
+        "name": "Jiading New City",
+        "road": {
+          "fp_share": 0.0083,
+          "bld_share_gt20": 0.0187
+        },
+        "road_major": {
+          "fp_share": 0.0028,
+          "bld_share_gt20": 0.0034
+        },
+        "water": {
+          "fp_share": 0.0,
+          "bld_share_gt20": 0.0
+        },
+        "green": {
+          "fp_share": 0.0,
+          "bld_share_gt20": 0.0
+        },
+        "HARD_allroads": {
+          "fp_share": 0.0083,
+          "bld_share_gt20": 0.0187
+        },
+        "HARD": {
+          "fp_share": 0.0028,
+          "bld_share_gt20": 0.0034
+        }
+      },
+      "A27": {
+        "name": "Lingang Nanhui",
+        "road": {
+          "fp_share": 0.0113,
+          "bld_share_gt20": 0.0351
+        },
+        "road_major": {
+          "fp_share": 0.0038,
+          "bld_share_gt20": 0.0175
+        },
+        "water": {
+          "fp_share": 0.0,
+          "bld_share_gt20": 0.0
+        },
+        "green": {
+          "fp_share": 0.0215,
+          "bld_share_gt20": 0.0263
+        },
+        "HARD_allroads": {
+          "fp_share": 0.0113,
+          "bld_share_gt20": 0.0351
+        },
+        "HARD": {
+          "fp_share": 0.0038,
+          "bld_share_gt20": 0.0175
+        }
+      },
+      "A33": {
+        "name": "Pudong peri-urban village",
+        "road": {
+          "fp_share": 0.0431,
+          "bld_share_gt20": 0.0285
+        },
+        "road_major": {
+          "fp_share": 0.0355,
+          "bld_share_gt20": 0.0203
+        },
+        "water": {
+          "fp_share": 0.0,
+          "bld_share_gt20": 0.0
+        },
+        "green": {
+          "fp_share": 0.0,
+          "bld_share_gt20": 0.0
+        },
+        "HARD_allroads": {
+          "fp_share": 0.0431,
+          "bld_share_gt20": 0.0285
+        },
+        "HARD": {
+          "fp_share": 0.0355,
+          "bld_share_gt20": 0.0203
+        }
+      },
+      "A32": {
+        "name": "Minhang outskirts village",
+        "road": {
+          "fp_share": 0.0017,
+          "bld_share_gt20": 0.0
+        },
+        "road_major": {
+          "fp_share": 0.0,
+          "bld_share_gt20": 0.0
+        },
+        "water": {
+          "fp_share": 0.0,
+          "bld_share_gt20": 0.0
+        },
+        "green": {
+          "fp_share": 0.0,
+          "bld_share_gt20": 0.0
+        },
+        "HARD_allroads": {
+          "fp_share": 0.0017,
+          "bld_share_gt20": 0.0
+        },
+        "HARD": {
+          "fp_share": 0.0,
+          "bld_share_gt20": 0.0
+        }
+      },
+      "A36": {
+        "name": "Zhangjiang hi-tech",
+        "road": {
+          "fp_share": 0.0005,
+          "bld_share_gt20": 0.0028
+        },
+        "road_major": {
+          "fp_share": 0.0,
+          "bld_share_gt20": 0.0
+        },
+        "water": {
+          "fp_share": 0.0,
+          "bld_share_gt20": 0.0
+        },
+        "green": {
+          "fp_share": 0.002,
+          "bld_share_gt20": 0.0085
+        },
+        "HARD_allroads": {
+          "fp_share": 0.0005,
+          "bld_share_gt20": 0.0028
+        },
+        "HARD": {
+          "fp_share": 0.0,
+          "bld_share_gt20": 0.0
+        }
+      },
+      "A35": {
+        "name": "Caohejing hi-tech",
+        "road": {
+          "fp_share": 0.0269,
+          "bld_share_gt20": 0.0399
+        },
+        "road_major": {
+          "fp_share": 0.0144,
+          "bld_share_gt20": 0.0246
+        },
+        "water": {
+          "fp_share": 0.0,
+          "bld_share_gt20": 0.0
+        },
+        "green": {
+          "fp_share": 0.0081,
+          "bld_share_gt20": 0.0123
+        },
+        "HARD_allroads": {
+          "fp_share": 0.0269,
+          "bld_share_gt20": 0.0399
+        },
+        "HARD": {
+          "fp_share": 0.0144,
+          "bld_share_gt20": 0.0246
+        }
+      },
+      "A41": {
+        "name": "Fengjing old town",
+        "road": {
+          "fp_share": 0.0007,
+          "bld_share_gt20": 0.0065
+        },
+        "road_major": {
+          "fp_share": 0.0,
+          "bld_share_gt20": 0.0
+        },
+        "water": {
+          "fp_share": 0.0,
+          "bld_share_gt20": 0.0
+        },
+        "green": {
+          "fp_share": 0.0,
+          "bld_share_gt20": 0.0
+        },
+        "HARD_allroads": {
+          "fp_share": 0.0007,
+          "bld_share_gt20": 0.0065
+        },
+        "HARD": {
+          "fp_share": 0.0,
+          "bld_share_gt20": 0.0
+        }
+      },
+      "A39": {
+        "name": "Qibao old town",
+        "road": {
+          "fp_share": 0.0153,
+          "bld_share_gt20": 0.037
+        },
+        "road_major": {
+          "fp_share": 0.0027,
+          "bld_share_gt20": 0.0146
+        },
+        "water": {
+          "fp_share": 0.0,
+          "bld_share_gt20": 0.0
+        },
+        "green": {
+          "fp_share": 0.0,
+          "bld_share_gt20": 0.0
+        },
+        "HARD_allroads": {
+          "fp_share": 0.0153,
+          "bld_share_gt20": 0.037
+        },
+        "HARD": {
+          "fp_share": 0.0027,
+          "bld_share_gt20": 0.0146
+        }
+      },
+      "A45": {
+        "name": "Beicai Pudong",
+        "road": {
+          "fp_share": 0.0064,
+          "bld_share_gt20": 0.0202
+        },
+        "road_major": {
+          "fp_share": 0.0045,
+          "bld_share_gt20": 0.0101
+        },
+        "water": {
+          "fp_share": 0.0022,
+          "bld_share_gt20": 0.0067
+        },
+        "green": {
+          "fp_share": 0.0011,
+          "bld_share_gt20": 0.0017
+        },
+        "HARD_allroads": {
+          "fp_share": 0.0086,
+          "bld_share_gt20": 0.0269
+        },
+        "HARD": {
+          "fp_share": 0.0067,
+          "bld_share_gt20": 0.0168
+        }
+      },
+      "A43": {
+        "name": "Liangcheng Hongkou",
+        "road": {
+          "fp_share": 0.0064,
+          "bld_share_gt20": 0.0167
+        },
+        "road_major": {
+          "fp_share": 0.0006,
+          "bld_share_gt20": 0.0
+        },
+        "water": {
+          "fp_share": 0.0,
+          "bld_share_gt20": 0.0
+        },
+        "green": {
+          "fp_share": 0.0019,
+          "bld_share_gt20": 0.0067
+        },
+        "HARD_allroads": {
+          "fp_share": 0.0064,
+          "bld_share_gt20": 0.0167
+        },
+        "HARD": {
+          "fp_share": 0.0006,
+          "bld_share_gt20": 0.0
+        }
+      },
+      "A47": {
+        "name": "West Bund Xuhui riverside",
+        "road": {
+          "fp_share": 0.0675,
+          "bld_share_gt20": 0.08
+        },
+        "road_major": {
+          "fp_share": 0.0447,
+          "bld_share_gt20": 0.055
+        },
+        "water": {
+          "fp_share": 0.0002,
+          "bld_share_gt20": 0.0
+        },
+        "green": {
+          "fp_share": 0.4943,
+          "bld_share_gt20": 0.325
+        },
+        "HARD_allroads": {
+          "fp_share": 0.0677,
+          "bld_share_gt20": 0.08
+        },
+        "HARD": {
+          "fp_share": 0.0449,
+          "bld_share_gt20": 0.055
+        }
+      },
+      "A49": {
+        "name": "Yangpu riverside ex-industry",
+        "road": {
+          "fp_share": 0.02,
+          "bld_share_gt20": 0.0462
+        },
+        "road_major": {
+          "fp_share": 0.0042,
+          "bld_share_gt20": 0.0074
+        },
+        "water": {
+          "fp_share": 0.0,
+          "bld_share_gt20": 0.0
+        },
+        "green": {
+          "fp_share": 0.0041,
+          "bld_share_gt20": 0.005
+        },
+        "HARD_allroads": {
+          "fp_share": 0.02,
+          "bld_share_gt20": 0.0462
+        },
+        "HARD": {
+          "fp_share": 0.0042,
+          "bld_share_gt20": 0.0074
+        }
+      }
+    }
+  },
+  "void_typing": {
+    "rule": "only T0 cells retyped; per-cell mask-area fraction; priority ['water', 'road', 'green'] at threshold >= 0.25; else E_VACANT. Built cells T1..T8 verbatim v0.3.",
+    "tokens": [
+      "E_VAC",
+      "T1",
+      "T2",
+      "T3",
+      "T4",
+      "T5",
+      "T6",
+      "T7",
+      "T8",
+      "E_ROAD",
+      "E_WATER",
+      "E_GREEN"
+    ],
+    "decomposition": {
+      "A01": {
+        "name": "Lujiazui CBD",
+        "role": "train",
+        "E_VAC": 53,
+        "E_ROAD": 103,
+        "E_WATER": 69,
+        "E_GREEN": 29,
+        "T0_total": 254
+      },
+      "A10": {
+        "name": "Laoximen old town",
+        "role": "train",
+        "E_VAC": 12,
+        "E_ROAD": 20,
+        "E_WATER": 0,
+        "E_GREEN": 0,
+        "T0_total": 32
+      },
+      "A13": {
+        "name": "Caoyang Xincun",
+        "role": "train",
+        "E_VAC": 54,
+        "E_ROAD": 60,
+        "E_WATER": 0,
+        "E_GREEN": 6,
+        "T0_total": 120
+      },
+      "A04": {
+        "name": "Xujiahui hub",
+        "role": "train",
+        "E_VAC": 34,
+        "E_ROAD": 64,
+        "E_WATER": 0,
+        "E_GREEN": 15,
+        "T0_total": 113
+      },
+      "A02": {
+        "name": "Nanjing Rd East / People's Sq",
+        "role": "heldout",
+        "E_VAC": 16,
+        "E_ROAD": 90,
+        "E_WATER": 0,
+        "E_GREEN": 22,
+        "T0_total": 128
+      },
+      "A07": {
+        "name": "Bund Wai-tan",
+        "role": "heldout",
+        "E_VAC": 33,
+        "E_ROAD": 46,
+        "E_WATER": 185,
+        "E_GREEN": 29,
+        "T0_total": 293
+      },
+      "A09": {
+        "name": "Xintiandi Shikumen",
+        "role": "train",
+        "E_VAC": 33,
+        "E_ROAD": 38,
+        "E_WATER": 3,
+        "E_GREEN": 13,
+        "T0_total": 87
+      },
+      "A17": {
+        "name": "Tianshan Xincun",
+        "role": "train",
+        "E_VAC": 33,
+        "E_ROAD": 33,
+        "E_WATER": 0,
+        "E_GREEN": 4,
+        "T0_total": 70
+      },
+      "A21": {
+        "name": "Jinqiao residential",
+        "role": "train",
+        "E_VAC": 47,
+        "E_ROAD": 14,
+        "E_WATER": 6,
+        "E_GREEN": 31,
+        "T0_total": 98
+      },
+      "A19": {
+        "name": "Lianyang Huamu Pudong",
+        "role": "train",
+        "E_VAC": 34,
+        "E_ROAD": 31,
+        "E_WATER": 46,
+        "E_GREEN": 89,
+        "T0_total": 200
+      },
+      "A20": {
+        "name": "Sanlin Pudong",
+        "role": "heldout",
+        "E_VAC": 56,
+        "E_ROAD": 40,
+        "E_WATER": 0,
+        "E_GREEN": 11,
+        "T0_total": 107
+      },
+      "A29": {
+        "name": "Nanqiao Fengxian",
+        "role": "heldout",
+        "E_VAC": 101,
+        "E_ROAD": 29,
+        "E_WATER": 0,
+        "E_GREEN": 0,
+        "T0_total": 130
+      },
+      "A26": {
+        "name": "Jiading New City",
+        "role": "train",
+        "E_VAC": 55,
+        "E_ROAD": 35,
+        "E_WATER": 3,
+        "E_GREEN": 13,
+        "T0_total": 106
+      },
+      "A27": {
+        "name": "Lingang Nanhui",
+        "role": "train",
+        "E_VAC": 94,
+        "E_ROAD": 80,
+        "E_WATER": 62,
+        "E_GREEN": 82,
+        "T0_total": 318
+      },
+      "A33": {
+        "name": "Pudong peri-urban village",
+        "role": "train",
+        "E_VAC": 249,
+        "E_ROAD": 33,
+        "E_WATER": 22,
+        "E_GREEN": 0,
+        "T0_total": 304
+      },
+      "A32": {
+        "name": "Minhang outskirts village",
+        "role": "train",
+        "E_VAC": 140,
+        "E_ROAD": 5,
+        "E_WATER": 9,
+        "E_GREEN": 0,
+        "T0_total": 154
+      },
+      "A36": {
+        "name": "Zhangjiang hi-tech",
+        "role": "train",
+        "E_VAC": 140,
+        "E_ROAD": 70,
+        "E_WATER": 0,
+        "E_GREEN": 1,
+        "T0_total": 211
+      },
+      "A35": {
+        "name": "Caohejing hi-tech",
+        "role": "heldout",
+        "E_VAC": 60,
+        "E_ROAD": 45,
+        "E_WATER": 0,
+        "E_GREEN": 5,
+        "T0_total": 110
+      },
+      "A41": {
+        "name": "Fengjing old town",
+        "role": "train",
+        "E_VAC": 187,
+        "E_ROAD": 63,
+        "E_WATER": 34,
+        "E_GREEN": 7,
+        "T0_total": 291
+      },
+      "A39": {
+        "name": "Qibao old town",
+        "role": "train",
+        "E_VAC": 52,
+        "E_ROAD": 47,
+        "E_WATER": 0,
+        "E_GREEN": 4,
+        "T0_total": 103
+      },
+      "A45": {
+        "name": "Beicai Pudong",
+        "role": "train",
+        "E_VAC": 53,
+        "E_ROAD": 30,
+        "E_WATER": 45,
+        "E_GREEN": 3,
+        "T0_total": 131
+      },
+      "A43": {
+        "name": "Liangcheng Hongkou",
+        "role": "heldout",
+        "E_VAC": 77,
+        "E_ROAD": 19,
+        "E_WATER": 0,
+        "E_GREEN": 5,
+        "T0_total": 101
+      },
+      "A47": {
+        "name": "West Bund Xuhui riverside",
+        "role": "train",
+        "E_VAC": 29,
+        "E_ROAD": 22,
+        "E_WATER": 192,
+        "E_GREEN": 59,
+        "T0_total": 302
+      },
+      "A49": {
+        "name": "Yangpu riverside ex-industry",
+        "role": "train",
+        "E_VAC": 18,
+        "E_ROAD": 19,
+        "E_WATER": 6,
+        "E_GREEN": 9,
+        "T0_total": 52
+      }
+    }
+  },
+  "adjacency_v04": {
+    "void_neighbour_profile_per_built_token": {
+      "T1": {
+        "E_VAC": 0.1408,
+        "E_ROAD": 0.0436,
+        "E_WATER": 0.0129,
+        "E_GREEN": 0.012
+      },
+      "T2": {
+        "E_VAC": 0.1217,
+        "E_ROAD": 0.0779,
+        "E_WATER": 0.034,
+        "E_GREEN": 0.0537
+      },
+      "T3": {
+        "E_VAC": 0.1128,
+        "E_ROAD": 0.0655,
+        "E_WATER": 0.0057,
+        "E_GREEN": 0.0072
+      },
+      "T4": {
+        "E_VAC": 0.1419,
+        "E_ROAD": 0.0847,
+        "E_WATER": 0.0045,
+        "E_GREEN": 0.0153
+      },
+      "T5": {
+        "E_VAC": 0.0694,
+        "E_ROAD": 0.06,
+        "E_WATER": 0.0022,
+        "E_GREEN": 0.0094
+      },
+      "T6": {
+        "E_VAC": 0.1542,
+        "E_ROAD": 0.1344,
+        "E_WATER": 0.0046,
+        "E_GREEN": 0.0112
+      },
+      "T7": {
+        "E_VAC": 0.2566,
+        "E_ROAD": 0.0981,
+        "E_WATER": 0.0075,
+        "E_GREEN": 0.0604
+      },
+      "T8": {
+        "E_VAC": 0.3951,
+        "E_ROAD": 0.2099,
+        "E_WATER": 0.0247,
+        "E_GREEN": 0.037
+      }
+    },
+    "note": "row share of each built token's 4-neighbour contacts going to each void type"
+  },
+  "exam_typed_skeleton": {
+    "rule": "TYPED-SKELETON exam: E_ROAD/E_WATER/E_GREEN cells of the real typed grid are FIXED (public observable data); the free multiset (E_VACANT + built composition of the free cells) grows with the 12-token TRAIN adjacency (beta=8.0, 5 sweeps, seed 0); all-TRAIN cell collage with keep-out vs the site's road∪water mask (best of 8 draws, drop if >20% footprint inside). EASIER than v0.3 free growth — the void layout (PC2's main driver) is partly given. NOT the same test; both reported.",
+    "grow_and_keepout_log": {
+      "A02": {
+        "target_free_cells": [
+          16,
+          2,
+          9,
+          51,
+          53,
+          66,
+          78,
+          13,
+          0
+        ],
+        "achieved": [
+          16,
+          2,
+          8,
+          50,
+          47,
+          66,
+          85,
+          14,
+          0
+        ],
+        "n_fixed_void_cells": 112,
+        "fallbacks": 0,
+        "n_dropped": 49,
+        "dropped_gfa_share": 0.0592
+      },
+      "A07": {
+        "target_free_cells": [
+          33,
+          7,
+          16,
+          20,
+          28,
+          1,
+          26,
+          4,
+          5
+        ],
+        "achieved": [
+          31,
+          6,
+          15,
+          19,
+          26,
+          1,
+          30,
+          5,
+          7
+        ],
+        "n_fixed_void_cells": 260,
+        "fallbacks": 0,
+        "n_dropped": 12,
+        "dropped_gfa_share": 0.243
+      },
+      "A20": {
+        "target_free_cells": [
+          56,
+          32,
+          15,
+          155,
+          66,
+          9,
+          12,
+          3,
+          1
+        ],
+        "achieved": [
+          53,
+          30,
+          14,
+          166,
+          60,
+          9,
+          12,
+          4,
+          1
+        ],
+        "n_fixed_void_cells": 51,
+        "fallbacks": 0,
+        "n_dropped": 9,
+        "dropped_gfa_share": 0.0056
+      },
+      "A29": {
+        "target_free_cells": [
+          101,
+          13,
+          3,
+          181,
+          43,
+          12,
+          9,
+          8,
+          1
+        ],
+        "achieved": [
+          101,
+          12,
+          3,
+          186,
+          40,
+          13,
+          8,
+          7,
+          1
+        ],
+        "n_fixed_void_cells": 29,
+        "fallbacks": 0,
+        "n_dropped": 13,
+        "dropped_gfa_share": 0.0084
+      },
+      "A35": {
+        "target_free_cells": [
+          60,
+          42,
+          21,
+          119,
+          51,
+          41,
+          11,
+          5,
+          0
+        ],
+        "achieved": [
+          57,
+          43,
+          18,
+          122,
+          52,
+          41,
+          12,
+          5,
+          0
+        ],
+        "n_fixed_void_cells": 50,
+        "fallbacks": 0,
+        "n_dropped": 16,
+        "dropped_gfa_share": 0.0209
+      },
+      "A43": {
+        "target_free_cells": [
+          77,
+          37,
+          23,
+          143,
+          51,
+          28,
+          9,
+          8,
+          0
+        ],
+        "achieved": [
+          74,
+          38,
+          24,
+          149,
+          47,
+          28,
+          8,
+          8,
+          0
+        ],
+        "n_fixed_void_cells": 24,
+        "fallbacks": 0,
+        "n_dropped": 6,
+        "dropped_gfa_share": 0.004
+      }
+    },
+    "indicators": {
+      "gen_A02": {
+        "FAR": 2.1729,
+        "coverage": 0.2226,
+        "height_p50": 22.8119,
+        "height_p90": 67.6369,
+        "median_fp_area": 177.553,
+        "share_house": 0.1346,
+        "share_slab": 0.2396,
+        "share_tower": 0.2189,
+        "share_large_footprint": 0.0178,
+        "share_midrise_other": 0.3891
+      },
+      "real_A02": {
+        "FAR": 3.6158,
+        "coverage": 0.3194,
+        "height_p50": 33.7578,
+        "height_p90": 79.9155,
+        "median_fp_area": 271.9783,
+        "share_house": 0.0292,
+        "share_slab": 0.2891,
+        "share_tower": 0.2657,
+        "share_large_footprint": 0.019,
+        "share_midrise_other": 0.3971
+      },
+      "gen_A07": {
+        "FAR": 1.2209,
+        "coverage": 0.0955,
+        "height_p50": 16.9212,
+        "height_p90": 63.578,
+        "median_fp_area": 163.6948,
+        "share_house": 0.2412,
+        "share_slab": 0.2257,
+        "share_tower": 0.1673,
+        "share_large_footprint": 0.0389,
+        "share_midrise_other": 0.3268
+      },
+      "real_A07": {
+        "FAR": 1.7172,
+        "coverage": 0.0922,
+        "height_p50": 28.8811,
+        "height_p90": 78.7425,
+        "median_fp_area": 151.8661,
+        "share_house": 0.1402,
+        "share_slab": 0.3037,
+        "share_tower": 0.1963,
+        "share_large_footprint": 0.0374,
+        "share_midrise_other": 0.3224
+      },
+      "gen_A20": {
+        "FAR": 1.5529,
+        "coverage": 0.2053,
+        "height_p50": 17.8927,
+        "height_p90": 42.382,
+        "median_fp_area": 241.163,
+        "share_house": 0.2145,
+        "share_slab": 0.4493,
+        "share_tower": 0.0591,
+        "share_large_footprint": 0.0084,
+        "share_midrise_other": 0.2686
+      },
+      "real_A20": {
+        "FAR": 1.4556,
+        "coverage": 0.2046,
+        "height_p50": 19.8525,
+        "height_p90": 42.2805,
+        "median_fp_area": 202.7795,
+        "share_house": 0.173,
+        "share_slab": 0.4712,
+        "share_tower": 0.0593,
+        "share_large_footprint": 0.0066,
+        "share_midrise_other": 0.29
+      },
+      "gen_A29": {
+        "FAR": 1.5495,
+        "coverage": 0.2075,
+        "height_p50": 19.4639,
+        "height_p90": 35.7306,
+        "median_fp_area": 335.6576,
+        "share_house": 0.1178,
+        "share_slab": 0.5656,
+        "share_tower": 0.0309,
+        "share_large_footprint": 0.0154,
+        "share_midrise_other": 0.2703
+      },
+      "real_A29": {
+        "FAR": 1.7698,
+        "coverage": 0.2464,
+        "height_p50": 20.2765,
+        "height_p90": 29.6479,
+        "median_fp_area": 469.9955,
+        "share_house": 0.0833,
+        "share_slab": 0.6162,
+        "share_tower": 0.0329,
+        "share_large_footprint": 0.0197,
+        "share_midrise_other": 0.2478
+      },
+      "gen_A35": {
+        "FAR": 1.59,
+        "coverage": 0.218,
+        "height_p50": 17.7602,
+        "height_p90": 41.7245,
+        "median_fp_area": 192.3471,
+        "share_house": 0.2204,
+        "share_slab": 0.3696,
+        "share_tower": 0.0806,
+        "share_large_footprint": 0.0067,
+        "share_midrise_other": 0.3226
+      },
+      "real_A35": {
+        "FAR": 1.5839,
+        "coverage": 0.2484,
+        "height_p50": 16.369,
+        "height_p90": 31.1322,
+        "median_fp_area": 256.2629,
+        "share_house": 0.2734,
+        "share_slab": 0.3671,
+        "share_tower": 0.0445,
+        "share_large_footprint": 0.0077,
+        "share_midrise_other": 0.3072
+      },
+      "gen_A43": {
+        "FAR": 1.5443,
+        "coverage": 0.2377,
+        "height_p50": 16.5789,
+        "height_p90": 33.8137,
+        "median_fp_area": 207.0134,
+        "share_house": 0.2659,
+        "share_slab": 0.3862,
+        "share_tower": 0.0304,
+        "share_large_footprint": 0.0106,
+        "share_midrise_other": 0.3069
+      },
+      "real_A43": {
+        "FAR": 1.574,
+        "coverage": 0.2408,
+        "height_p50": 17.7558,
+        "height_p90": 36.1144,
+        "median_fp_area": 284.7224,
+        "share_house": 0.2404,
+        "share_slab": 0.4374,
+        "share_tower": 0.0384,
+        "share_large_footprint": 0.0134,
+        "share_midrise_other": 0.2705
+      }
+    },
+    "distance_matrix": {
+      "A02": {
+        "A02": 4.155,
+        "A07": 3.636,
+        "A20": 4.261,
+        "A29": 6.597,
+        "A35": 4.622,
+        "A43": 4.892
+      },
+      "A07": {
+        "A02": 7.692,
+        "A07": 3.047,
+        "A20": 4.743,
+        "A29": 7.006,
+        "A35": 4.916,
+        "A43": 4.884
+      },
+      "A20": {
+        "A02": 7.324,
+        "A07": 5.269,
+        "A20": 0.994,
+        "A29": 3.898,
+        "A35": 1.72,
+        "A43": 1.072
+      },
+      "A29": {
+        "A02": 7.321,
+        "A07": 5.701,
+        "A20": 2.199,
+        "A29": 2.002,
+        "A35": 3.216,
+        "A43": 2.185
+      },
+      "A35": {
+        "A02": 6.783,
+        "A07": 5.051,
+        "A20": 1.436,
+        "A29": 4.925,
+        "A35": 1.441,
+        "A43": 1.969
+      },
+      "A43": {
+        "A02": 7.507,
+        "A07": 5.694,
+        "A20": 1.863,
+        "A29": 4.771,
+        "A35": 0.733,
+        "A43": 1.404
+      }
+    },
+    "nearest": {
+      "A02": "A07",
+      "A07": "A07",
+      "A20": "A20",
+      "A29": "A29",
+      "A35": "A20",
+      "A43": "A35"
+    },
+    "hit": {
+      "A02": false,
+      "A07": true,
+      "A20": true,
+      "A29": true,
+      "A35": false,
+      "A43": false
+    },
+    "n_hits": 3,
+    "hit_rate": "3/6",
+    "v03_free_growth_baseline": {
+      "hit_rate": "4/6",
+      "nearest": {
+        "A02": "A02",
+        "A07": "A07",
+        "A20": "A20",
+        "A29": "A20",
+        "A35": "A35",
+        "A43": "A35"
+      },
+      "distance_matrix": {
+        "A02": {
+          "A02": 4.214,
+          "A07": 4.777,
+          "A20": 4.443,
+          "A29": 6.884,
+          "A35": 4.436,
+          "A43": 4.881
+        },
+        "A07": {
+          "A02": 7.03,
+          "A07": 2.649,
+          "A20": 4.733,
+          "A29": 6.899,
+          "A35": 4.896,
+          "A43": 4.829
+        },
+        "A20": {
+          "A02": 7.154,
+          "A07": 5.491,
+          "A20": 0.879,
+          "A29": 4.307,
+          "A35": 1.488,
+          "A43": 1.341
+        },
+        "A29": {
+          "A02": 7.18,
+          "A07": 5.545,
+          "A20": 1.383,
+          "A29": 3.107,
+          "A35": 2.625,
+          "A43": 1.622
+        },
+        "A35": {
+          "A02": 7.263,
+          "A07": 5.684,
+          "A20": 2.025,
+          "A29": 5.325,
+          "A35": 1.038,
+          "A43": 1.835
+        },
+        "A43": {
+          "A02": 7.132,
+          "A07": 5.471,
+          "A20": 1.465,
+          "A29": 4.479,
+          "A35": 0.977,
+          "A43": 1.168
+        }
+      }
+    }
+  },
+  "spatial_metric": {
+    "note": "The aspatial 10-indicator distance cannot credit the typed-void/keep-out fix; these two numbers can. cell_gfa_pearson_r: 400-cell GFA-map correlation generated-vs-real (v0.3 free growth has no spatial anchor, expected ~0). gfa_share_in_mask: generated GFA standing in road_major ∪ water.",
+    "windows": {
+      "A02": {
+        "v03_free": {
+          "cell_gfa_pearson_r": 0.04,
+          "gfa_share_in_mask": 0.1558
+        },
+        "v04_typed": {
+          "cell_gfa_pearson_r": 0.2678,
+          "gfa_share_in_mask": 0.006
+        }
+      },
+      "A07": {
+        "v03_free": {
+          "cell_gfa_pearson_r": -0.0328,
+          "gfa_share_in_mask": 0.5644
+        },
+        "v04_typed": {
+          "cell_gfa_pearson_r": 0.1724,
+          "gfa_share_in_mask": 0.0049
+        }
+      },
+      "A20": {
+        "v03_free": {
+          "cell_gfa_pearson_r": 0.0008,
+          "gfa_share_in_mask": 0.0719
+        },
+        "v04_typed": {
+          "cell_gfa_pearson_r": 0.078,
+          "gfa_share_in_mask": 0.0006
+        }
+      },
+      "A29": {
+        "v03_free": {
+          "cell_gfa_pearson_r": -0.0348,
+          "gfa_share_in_mask": 0.0693
+        },
+        "v04_typed": {
+          "cell_gfa_pearson_r": 0.007,
+          "gfa_share_in_mask": 0.0032
+        }
+      },
+      "A35": {
+        "v03_free": {
+          "cell_gfa_pearson_r": 0.0247,
+          "gfa_share_in_mask": 0.1276
+        },
+        "v04_typed": {
+          "cell_gfa_pearson_r": 0.0937,
+          "gfa_share_in_mask": 0.0047
+        }
+      },
+      "A43": {
+        "v03_free": {
+          "cell_gfa_pearson_r": 0.0048,
+          "gfa_share_in_mask": 0.0412
+        },
+        "v04_typed": {
+          "cell_gfa_pearson_r": 0.0132,
+          "gfa_share_in_mask": 0.0039
+        }
+      }
+    }
+  },
+  "transplant_keepout": {
+    "rule": "v0.3 transplant verbatim (source token demand, source-window pools, rank-match by real cell GFA) except: site built cells = typed-grid tokens 1..8, and the collage keeps out of the site's road∪water mask (best of 8 draws, drop >20% violators).",
+    "table": {
+      "transplant_A01_on_A02": {
+        "FAR": 2.2837,
+        "coverage": 0.0988,
+        "height_p50": 47.1922,
+        "height_p90": 128.2096,
+        "median_fp_area": 146.5589,
+        "share_house": 0.0546,
+        "share_slab": 0.2321,
+        "share_tower": 0.3003,
+        "share_large_footprint": 0.0273,
+        "share_midrise_other": 0.3857,
+        "n_buildings": 293,
+        "fallbacks": 0,
+        "n_dropped": 8,
+        "dropped_gfa_share": 0.0148,
+        "FAR_v03_no_keepout": 2.4612,
+        "FAR_site_real": 3.6158
+      },
+      "transplant_A01_on_A07": {
+        "FAR": 1.5701,
+        "coverage": 0.0782,
+        "height_p50": 35.8289,
+        "height_p90": 122.5822,
+        "median_fp_area": 153.7752,
+        "share_house": 0.0698,
+        "share_slab": 0.2558,
+        "share_tower": 0.2651,
+        "share_large_footprint": 0.0326,
+        "share_midrise_other": 0.3767,
+        "n_buildings": 215,
+        "fallbacks": 0,
+        "n_dropped": 16,
+        "dropped_gfa_share": 0.0327,
+        "FAR_v03_no_keepout": 1.7731,
+        "FAR_site_real": 1.7172
+      },
+      "transplant_A01_on_A20": {
+        "FAR": 2.4169,
+        "coverage": 0.1026,
+        "height_p50": 42.1919,
+        "height_p90": 122.5822,
+        "median_fp_area": 171.3023,
+        "share_house": 0.0475,
+        "share_slab": 0.2644,
+        "share_tower": 0.3153,
+        "share_large_footprint": 0.0237,
+        "share_midrise_other": 0.3492,
+        "n_buildings": 295,
+        "fallbacks": 0,
+        "n_dropped": 3,
+        "dropped_gfa_share": 0.0181,
+        "FAR_v03_no_keepout": 2.6915,
+        "FAR_site_real": 1.4556
+      },
+      "transplant_A01_on_A29": {
+        "FAR": 2.5048,
+        "coverage": 0.1073,
+        "height_p50": 40.0784,
+        "height_p90": 124.039,
+        "median_fp_area": 148.6148,
+        "share_house": 0.0695,
+        "share_slab": 0.2384,
+        "share_tower": 0.3046,
+        "share_large_footprint": 0.0298,
+        "share_midrise_other": 0.3576,
+        "n_buildings": 302,
+        "fallbacks": 0,
+        "n_dropped": 2,
+        "dropped_gfa_share": 0.0004,
+        "FAR_v03_no_keepout": 2.5497,
+        "FAR_site_real": 1.7698
+      },
+      "transplant_A01_on_A35": {
+        "FAR": 2.6108,
+        "coverage": 0.1057,
+        "height_p50": 42.1802,
+        "height_p90": 126.4671,
+        "median_fp_area": 161.8228,
+        "share_house": 0.0564,
+        "share_slab": 0.2571,
+        "share_tower": 0.2884,
+        "share_large_footprint": 0.0188,
+        "share_midrise_other": 0.3793,
+        "n_buildings": 319,
+        "fallbacks": 0,
+        "n_dropped": 4,
+        "dropped_gfa_share": 0.0111,
+        "FAR_v03_no_keepout": 2.292,
+        "FAR_site_real": 1.5839
+      },
+      "transplant_A01_on_A43": {
+        "FAR": 2.5045,
+        "coverage": 0.105,
+        "height_p50": 39.1982,
+        "height_p90": 121.0504,
+        "median_fp_area": 170.8684,
+        "share_house": 0.0497,
+        "share_slab": 0.2748,
+        "share_tower": 0.2748,
+        "share_large_footprint": 0.0199,
+        "share_midrise_other": 0.3808,
+        "n_buildings": 302,
+        "fallbacks": 0,
+        "n_dropped": 0,
+        "dropped_gfa_share": 0.0,
+        "FAR_v03_no_keepout": 2.4698,
+        "FAR_site_real": 1.574
+      },
+      "transplant_A10_on_A02": {
+        "FAR": 1.2864,
+        "coverage": 0.2335,
+        "height_p50": 14.3151,
+        "height_p90": 28.8712,
+        "median_fp_area": 121.4416,
+        "share_house": 0.2583,
+        "share_slab": 0.2559,
+        "share_tower": 0.0422,
+        "share_large_footprint": 0.0016,
+        "share_midrise_other": 0.4419,
+        "n_buildings": 1231,
+        "fallbacks": 0,
+        "n_dropped": 115,
+        "dropped_gfa_share": 0.0442,
+        "FAR_v03_no_keepout": 1.5379,
+        "FAR_site_real": 3.6158
+      },
+      "transplant_A10_on_A07": {
+        "FAR": 0.4963,
+        "coverage": 0.0905,
+        "height_p50": 13.6429,
+        "height_p90": 25.6767,
+        "median_fp_area": 128.2764,
+        "share_house": 0.3096,
+        "share_slab": 0.2592,
+        "share_tower": 0.0344,
+        "share_large_footprint": 0.0023,
+        "share_midrise_other": 0.3945,
+        "n_buildings": 436,
+        "fallbacks": 0,
+        "n_dropped": 47,
+        "dropped_gfa_share": 0.0624,
+        "FAR_v03_no_keepout": 0.6009,
+        "FAR_site_real": 1.7172
+      },
+      "transplant_A10_on_A20": {
+        "FAR": 1.4841,
+        "coverage": 0.2707,
+        "height_p50": 14.1162,
+        "height_p90": 26.2102,
+        "median_fp_area": 120.6617,
+        "share_house": 0.2874,
+        "share_slab": 0.2578,
+        "share_tower": 0.0254,
+        "share_large_footprint": 0.0014,
+        "share_midrise_other": 0.428,
+        "n_buildings": 1416,
+        "fallbacks": 0,
+        "n_dropped": 28,
+        "dropped_gfa_share": 0.0138,
+        "FAR_v03_no_keepout": 1.8023,
+        "FAR_site_real": 1.4556
+      },
+      "transplant_A10_on_A29": {
+        "FAR": 1.5115,
+        "coverage": 0.2612,
+        "height_p50": 14.1344,
+        "height_p90": 28.5058,
+        "median_fp_area": 128.4431,
+        "share_house": 0.2788,
+        "share_slab": 0.2488,
+        "share_tower": 0.0357,
+        "share_large_footprint": 0.0016,
+        "share_midrise_other": 0.4352,
+        "n_buildings": 1234,
+        "fallbacks": 0,
+        "n_dropped": 33,
+        "dropped_gfa_share": 0.0136,
+        "FAR_v03_no_keepout": 1.599,
+        "FAR_site_real": 1.7698
+      },
+      "transplant_A10_on_A35": {
+        "FAR": 1.5119,
+        "coverage": 0.2627,
+        "height_p50": 14.1484,
+        "height_p90": 29.7037,
+        "median_fp_area": 114.4782,
+        "share_house": 0.3021,
+        "share_slab": 0.2324,
+        "share_tower": 0.0487,
+        "share_large_footprint": 0.0015,
+        "share_midrise_other": 0.4153,
+        "n_buildings": 1334,
+        "fallbacks": 0,
+        "n_dropped": 61,
+        "dropped_gfa_share": 0.0293,
+        "FAR_v03_no_keepout": 1.6192,
+        "FAR_site_real": 1.5839
+      },
+      "transplant_A10_on_A43": {
+        "FAR": 1.5669,
+        "coverage": 0.2869,
+        "height_p50": 14.2671,
+        "height_p90": 28.5552,
+        "median_fp_area": 112.1993,
+        "share_house": 0.2876,
+        "share_slab": 0.2574,
+        "share_tower": 0.0405,
+        "share_large_footprint": 0.0014,
+        "share_midrise_other": 0.4132,
+        "n_buildings": 1457,
+        "fallbacks": 0,
+        "n_dropped": 30,
+        "dropped_gfa_share": 0.011,
+        "FAR_v03_no_keepout": 1.6769,
+        "FAR_site_real": 1.574
+      },
+      "transplant_A36_on_A02": {
+        "FAR": 0.8514,
+        "coverage": 0.0994,
+        "height_p50": 25.2181,
+        "height_p90": 45.6048,
+        "median_fp_area": 144.9131,
+        "share_house": 0.2829,
+        "share_slab": 0.2664,
+        "share_tower": 0.1283,
+        "share_large_footprint": 0.0164,
+        "share_midrise_other": 0.3059,
+        "n_buildings": 304,
+        "fallbacks": 0,
+        "n_dropped": 7,
+        "dropped_gfa_share": 0.0156,
+        "FAR_v03_no_keepout": 0.9873,
+        "FAR_site_real": 3.6158
+      },
+      "transplant_A36_on_A07": {
+        "FAR": 0.4646,
+        "coverage": 0.0596,
+        "height_p50": 21.0609,
+        "height_p90": 50.5882,
+        "median_fp_area": 226.5094,
+        "share_house": 0.3315,
+        "share_slab": 0.2753,
+        "share_tower": 0.1236,
+        "share_large_footprint": 0.0169,
+        "share_midrise_other": 0.2528,
+        "n_buildings": 178,
+        "fallbacks": 0,
+        "n_dropped": 9,
+        "dropped_gfa_share": 0.0244,
+        "FAR_v03_no_keepout": 0.5836,
+        "FAR_site_real": 1.7172
+      },
+      "transplant_A36_on_A20": {
+        "FAR": 0.897,
+        "coverage": 0.1065,
+        "height_p50": 25.3311,
+        "height_p90": 50.5301,
+        "median_fp_area": 216.6701,
+        "share_house": 0.2815,
+        "share_slab": 0.2815,
+        "share_tower": 0.1225,
+        "share_large_footprint": 0.0132,
+        "share_midrise_other": 0.3013,
+        "n_buildings": 302,
+        "fallbacks": 0,
+        "n_dropped": 3,
+        "dropped_gfa_share": 0.0059,
+        "FAR_v03_no_keepout": 1.04,
+        "FAR_site_real": 1.4556
+      },
+      "transplant_A36_on_A29": {
+        "FAR": 0.9868,
+        "coverage": 0.1178,
+        "height_p50": 22.3578,
+        "height_p90": 50.4164,
+        "median_fp_area": 228.4434,
+        "share_house": 0.2853,
+        "share_slab": 0.2622,
+        "share_tower": 0.1412,
+        "share_large_footprint": 0.0144,
+        "share_midrise_other": 0.2968,
+        "n_buildings": 347,
+        "fallbacks": 0,
+        "n_dropped": 1,
+        "dropped_gfa_share": 0.0001,
+        "FAR_v03_no_keepout": 1.0008,
+        "FAR_site_real": 1.7698
+      },
+      "transplant_A36_on_A35": {
+        "FAR": 0.8444,
+        "coverage": 0.1003,
+        "height_p50": 28.3386,
+        "height_p90": 50.0524,
+        "median_fp_area": 185.6287,
+        "share_house": 0.2476,
+        "share_slab": 0.2866,
+        "share_tower": 0.1629,
+        "share_large_footprint": 0.0163,
+        "share_midrise_other": 0.2866,
+        "n_buildings": 307,
+        "fallbacks": 0,
+        "n_dropped": 9,
+        "dropped_gfa_share": 0.0176,
+        "FAR_v03_no_keepout": 1.0334,
+        "FAR_site_real": 1.5839
+      },
+      "transplant_A36_on_A43": {
+        "FAR": 1.0091,
+        "coverage": 0.1187,
+        "height_p50": 23.3108,
+        "height_p90": 50.7205,
+        "median_fp_area": 208.2967,
+        "share_house": 0.2773,
+        "share_slab": 0.2714,
+        "share_tower": 0.1298,
+        "share_large_footprint": 0.0147,
+        "share_midrise_other": 0.3068,
+        "n_buildings": 339,
+        "fallbacks": 0,
+        "n_dropped": 3,
+        "dropped_gfa_share": 0.0083,
+        "FAR_v03_no_keepout": 0.8639,
+        "FAR_site_real": 1.574
+      },
+      "transplant_A26_on_A02": {
+        "FAR": 1.152,
+        "coverage": 0.173,
+        "height_p50": 18.6591,
+        "height_p90": 29.604,
+        "median_fp_area": 304.6251,
+        "share_house": 0.1227,
+        "share_slab": 0.501,
+        "share_tower": 0.0291,
+        "share_large_footprint": 0.0021,
+        "share_midrise_other": 0.3451,
+        "n_buildings": 481,
+        "fallbacks": 0,
+        "n_dropped": 18,
+        "dropped_gfa_share": 0.0278,
+        "FAR_v03_no_keepout": 1.2911,
+        "FAR_site_real": 3.6158
+      },
+      "transplant_A26_on_A07": {
+        "FAR": 0.4088,
+        "coverage": 0.0649,
+        "height_p50": 18.3466,
+        "height_p90": 29.1055,
+        "median_fp_area": 295.7505,
+        "share_house": 0.1257,
+        "share_slab": 0.459,
+        "share_tower": 0.0273,
+        "share_large_footprint": 0.0055,
+        "share_midrise_other": 0.3825,
+        "n_buildings": 183,
+        "fallbacks": 0,
+        "n_dropped": 18,
+        "dropped_gfa_share": 0.0593,
+        "FAR_v03_no_keepout": 0.4958,
+        "FAR_site_real": 1.7172
+      },
+      "transplant_A26_on_A20": {
+        "FAR": 1.2444,
+        "coverage": 0.1913,
+        "height_p50": 17.9922,
+        "height_p90": 25.7343,
+        "median_fp_area": 283.8657,
+        "share_house": 0.1137,
+        "share_slab": 0.5115,
+        "share_tower": 0.0213,
+        "share_large_footprint": 0.0018,
+        "share_midrise_other": 0.3517,
+        "n_buildings": 563,
+        "fallbacks": 0,
+        "n_dropped": 11,
+        "dropped_gfa_share": 0.0278,
+        "FAR_v03_no_keepout": 1.3792,
+        "FAR_site_real": 1.4556
+      },
+      "transplant_A26_on_A29": {
+        "FAR": 1.1489,
+        "coverage": 0.1689,
+        "height_p50": 18.099,
+        "height_p90": 31.05,
+        "median_fp_area": 301.072,
+        "share_house": 0.1258,
+        "share_slab": 0.5032,
+        "share_tower": 0.0256,
+        "share_large_footprint": 0.0043,
+        "share_midrise_other": 0.3412,
+        "n_buildings": 469,
+        "fallbacks": 0,
+        "n_dropped": 10,
+        "dropped_gfa_share": 0.0111,
+        "FAR_v03_no_keepout": 1.3397,
+        "FAR_site_real": 1.7698
+      },
+      "transplant_A26_on_A35": {
+        "FAR": 1.2993,
+        "coverage": 0.1948,
+        "height_p50": 17.8468,
+        "height_p90": 23.8262,
+        "median_fp_area": 307.1736,
+        "share_house": 0.1243,
+        "share_slab": 0.5235,
+        "share_tower": 0.0226,
+        "share_large_footprint": 0.0038,
+        "share_midrise_other": 0.3258,
+        "n_buildings": 531,
+        "fallbacks": 0,
+        "n_dropped": 16,
+        "dropped_gfa_share": 0.0183,
+        "FAR_v03_no_keepout": 1.3042,
+        "FAR_site_real": 1.5839
+      },
+      "transplant_A26_on_A43": {
+        "FAR": 1.3194,
+        "coverage": 0.2021,
+        "height_p50": 18.3466,
+        "height_p90": 26.527,
+        "median_fp_area": 313.6033,
+        "share_house": 0.1199,
+        "share_slab": 0.5387,
+        "share_tower": 0.0258,
+        "share_large_footprint": 0.0037,
+        "share_midrise_other": 0.3118,
+        "n_buildings": 542,
+        "fallbacks": 0,
+        "n_dropped": 3,
+        "dropped_gfa_share": 0.0025,
+        "FAR_v03_no_keepout": 1.3771,
+        "FAR_site_real": 1.574
+      }
+    },
+    "FAR_delta_vs_v03": {
+      "transplant_A01_on_A02": -0.177,
+      "transplant_A01_on_A07": -0.203,
+      "transplant_A01_on_A20": -0.275,
+      "transplant_A01_on_A29": -0.045,
+      "transplant_A01_on_A35": 0.319,
+      "transplant_A01_on_A43": 0.035,
+      "transplant_A10_on_A02": -0.252,
+      "transplant_A10_on_A07": -0.105,
+      "transplant_A10_on_A20": -0.318,
+      "transplant_A10_on_A29": -0.087,
+      "transplant_A10_on_A35": -0.107,
+      "transplant_A10_on_A43": -0.11,
+      "transplant_A36_on_A02": -0.136,
+      "transplant_A36_on_A07": -0.119,
+      "transplant_A36_on_A20": -0.143,
+      "transplant_A36_on_A29": -0.014,
+      "transplant_A36_on_A35": -0.189,
+      "transplant_A36_on_A43": 0.145,
+      "transplant_A26_on_A02": -0.139,
+      "transplant_A26_on_A07": -0.087,
+      "transplant_A26_on_A20": -0.135,
+      "transplant_A26_on_A29": -0.191,
+      "transplant_A26_on_A35": -0.005,
+      "transplant_A26_on_A43": -0.058
+    }
+  }
+}

@@ -1,0 +1,679 @@
+{
+ "_rule": "D3 generation: prescriptive doctrine geometry first, Shanghai-accent swap-Gibbs where doctrine silent, then semantic-conditioned cell collage from TF/v03 token_pools (prefer GFA-dominant-semantic match, fallback any same-token cell, counted). seed 0. Units 1 km/20x20, composites 3 km/60x60.",
+ "pool_semantic_availability": {
+  "T1|commercial_retail": 24,
+  "T1|education": 18,
+  "T1|healthcare": 2,
+  "T1|industrial": 20,
+  "T1|office_finance": 28,
+  "T1|public_admin": 36,
+  "T1|residential_estate": 310,
+  "T1|residential_lowrise": 180,
+  "T1|unlabeled": 9,
+  "T2|commercial_retail": 20,
+  "T2|education": 2,
+  "T2|healthcare": 4,
+  "T2|industrial": 4,
+  "T2|office_finance": 9,
+  "T2|public_admin": 21,
+  "T2|residential_estate": 135,
+  "T2|residential_lowrise": 16,
+  "T2|unlabeled": 194,
+  "T3|commercial_retail": 62,
+  "T3|education": 22,
+  "T3|healthcare": 7,
+  "T3|industrial": 15,
+  "T3|office_finance": 78,
+  "T3|public_admin": 103,
+  "T3|residential_estate": 1137,
+  "T3|unlabeled": 6,
+  "T4|commercial_retail": 78,
+  "T4|education": 26,
+  "T4|healthcare": 4,
+  "T4|industrial": 11,
+  "T4|office_finance": 88,
+  "T4|public_admin": 44,
+  "T4|residential_estate": 570,
+  "T4|unlabeled": 6,
+  "T5|commercial_retail": 53,
+  "T5|education": 4,
+  "T5|healthcare": 3,
+  "T5|industrial": 12,
+  "T5|office_finance": 35,
+  "T5|public_admin": 45,
+  "T5|residential_estate": 321,
+  "T5|residential_lowrise": 1,
+  "T5|unlabeled": 3,
+  "T6|commercial_retail": 69,
+  "T6|education": 9,
+  "T6|healthcare": 3,
+  "T6|industrial": 4,
+  "T6|office_finance": 83,
+  "T6|public_admin": 12,
+  "T6|residential_estate": 215,
+  "T6|unlabeled": 2,
+  "T7|commercial_retail": 15,
+  "T7|education": 2,
+  "T7|industrial": 3,
+  "T7|office_finance": 15,
+  "T7|public_admin": 2,
+  "T7|residential_estate": 23,
+  "T7|unlabeled": 10,
+  "T8|commercial_retail": 5,
+  "T8|office_finance": 12,
+  "T8|residential_estate": 2,
+  "T8|unlabeled": 2
+ },
+ "paradigms": {
+  "garden_city": {
+   "unit": {
+    "indicators": {
+     "FAR": 1.278,
+     "coverage": 0.2138,
+     "height_p50": 9.7906,
+     "height_p90": 20.742,
+     "median_fp_area": 105.4752,
+     "share_house": 0.756,
+     "share_slab": 0.0786,
+     "share_tower": 0.0,
+     "share_large_footprint": 0.0907,
+     "share_midrise_other": 0.0746
+    },
+    "n_buildings": 496,
+    "token_composition": {
+     "demanded_d2": {
+      "T1": 108,
+      "T2": 10,
+      "T7": 44,
+      "E_VACANT": 32,
+      "E_ROAD": 96,
+      "E_GREEN": 110
+     },
+     "achieved": {
+      "T1": 108,
+      "T2": 10,
+      "T7": 44,
+      "E_VACANT": 32,
+      "E_ROAD": 96,
+      "E_GREEN": 110
+     },
+     "exact_budget_match": true
+    },
+    "semantic_collage": {
+     "n_built_cells": 162,
+     "n_semantic_matched": 162,
+     "n_fallback_any_token_cell": 0,
+     "fallback_rate": 0.0,
+     "per_semantic": {
+      "commercial_retail": {
+       "demanded_cells": 12,
+       "fallback": 0,
+       "unique_pool_cells_used": 10
+      },
+      "education": {
+       "demanded_cells": 6,
+       "fallback": 0,
+       "unique_pool_cells_used": 2
+      },
+      "healthcare": {
+       "demanded_cells": 1,
+       "fallback": 0,
+       "unique_pool_cells_used": 1
+      },
+      "industrial": {
+       "demanded_cells": 32,
+       "fallback": 0,
+       "unique_pool_cells_used": 3
+      },
+      "public_admin": {
+       "demanded_cells": 3,
+       "fallback": 0,
+       "unique_pool_cells_used": 3
+      },
+      "residential_lowrise": {
+       "demanded_cells": 108,
+       "fallback": 0,
+       "unique_pool_cells_used": 73
+      }
+     }
+    },
+    "placement": {
+     "prescriptive_cells": 194,
+     "gibbs_cells": 0,
+     "prescriptive_rule": "industry ring alternating T7/void on rail; 12-cell Crystal Palace arcade by angle on park edge; T1 concentric cottage bands; civic centre PA/health + 6 ward schools"
+    }
+   },
+   "city": {
+    "indicators": {
+     "FAR": 0.9165,
+     "coverage": 0.1483,
+     "height_p50": 9.8548,
+     "height_p90": 20.742,
+     "median_fp_area": 105.9314,
+     "share_house": 0.7859,
+     "share_slab": 0.0664,
+     "share_tower": 0.0037,
+     "share_large_footprint": 0.0793,
+     "share_midrise_other": 0.0647
+    },
+    "n_buildings": 3493,
+    "token_composition_achieved": {
+     "T1": 676,
+     "T2": 66,
+     "T7": 268,
+     "E_VACANT": 179,
+     "E_ROAD": 755,
+     "E_GREEN": 1656
+    },
+    "semantic_collage": {
+     "n_built_cells": 1010,
+     "n_semantic_matched": 1010,
+     "n_fallback_any_token_cell": 0,
+     "fallback_rate": 0.0,
+     "per_semantic": {
+      "commercial_retail": {
+       "demanded_cells": 84,
+       "fallback": 0,
+       "unique_pool_cells_used": 15
+      },
+      "education": {
+       "demanded_cells": 38,
+       "fallback": 0,
+       "unique_pool_cells_used": 2
+      },
+      "healthcare": {
+       "demanded_cells": 7,
+       "fallback": 0,
+       "unique_pool_cells_used": 3
+      },
+      "industrial": {
+       "demanded_cells": 184,
+       "fallback": 0,
+       "unique_pool_cells_used": 3
+      },
+      "public_admin": {
+       "demanded_cells": 21,
+       "fallback": 0,
+       "unique_pool_cells_used": 14
+      },
+      "residential_lowrise": {
+       "demanded_cells": 676,
+       "fallback": 0,
+       "unique_pool_cells_used": 174
+      }
+     }
+    },
+    "assembly_rule": "central-park core unit + 6 satellite ward units on a 950 m ring (Howard Social City diagram, compressed), agricultural green-belt E_GREEN fills the remainder, circular-railway E_ROAD edge; overlaps resolved centre-first (lost cells counted)",
+    "n_units": 7,
+    "cells_lost_to_overlap": 360
+   }
+  },
+  "ville_radieuse": {
+   "unit": {
+    "indicators": {
+     "FAR": 1.1762,
+     "coverage": 0.0696,
+     "height_p50": 58.0342,
+     "height_p90": 87.2087,
+     "median_fp_area": 216.5453,
+     "share_house": 0.0162,
+     "share_slab": 0.0729,
+     "share_tower": 0.664,
+     "share_large_footprint": 0.0,
+     "share_midrise_other": 0.247
+    },
+    "n_buildings": 247,
+    "token_composition": {
+     "demanded_d2": {
+      "T6": 100,
+      "E_ROAD": 76,
+      "E_GREEN": 224,
+      "E_VACANT": 0
+     },
+     "achieved": {
+      "T6": 100,
+      "E_VACANT": 0,
+      "E_ROAD": 76,
+      "E_GREEN": 224
+     },
+     "exact_budget_match": true
+    },
+    "semantic_collage": {
+     "n_built_cells": 100,
+     "n_semantic_matched": 100,
+     "n_fallback_any_token_cell": 0,
+     "fallback_rate": 0.0,
+     "per_semantic": {
+      "residential_estate": {
+       "demanded_cells": 100,
+       "fallback": 0,
+       "unique_pool_cells_used": 78
+      }
+     }
+    },
+    "placement": {
+     "prescriptive_cells": 100,
+     "gibbs_cells": 0,
+     "prescriptive_rule": "T6 tower on every lattice cell of the skeleton (towers-in-the-park, ~200 m rhythm)"
+    }
+   },
+   "city": {
+    "indicators": {
+     "FAR": 1.4699,
+     "coverage": 0.0815,
+     "height_p50": 56.8469,
+     "height_p90": 93.6253,
+     "median_fp_area": 218.7503,
+     "share_house": 0.0089,
+     "share_slab": 0.0792,
+     "share_tower": 0.6909,
+     "share_large_footprint": 0.0099,
+     "share_midrise_other": 0.211
+    },
+    "n_buildings": 2019,
+    "token_composition_achieved": {
+     "T6": 880,
+     "T8": 20,
+     "E_VACANT": 0,
+     "E_ROAD": 684,
+     "E_GREEN": 2016
+    },
+    "semantic_collage": {
+     "n_built_cells": 900,
+     "n_semantic_matched": 900,
+     "n_fallback_any_token_cell": 0,
+     "fallback_rate": 0.0,
+     "per_semantic": {
+      "office_finance": {
+       "demanded_cells": 100,
+       "fallback": 0,
+       "unique_pool_cells_used": 62
+      },
+      "residential_estate": {
+       "demanded_cells": 800,
+       "fallback": 0,
+       "unique_pool_cells_used": 210
+      }
+     }
+    },
+    "assembly_rule": "3x3 units; head-of-axis business-centre unit = same lattice with the 20 cells within 250 m of centre as T8 megastructures, rest T6, all demanding office_finance (cite donnee des affaires); 8 residential units",
+    "n_units": 9,
+    "cells_lost_to_overlap": 0
+   }
+  },
+  "neighbourhood_unit": {
+   "unit": {
+    "indicators": {
+     "FAR": 0.4615,
+     "coverage": 0.1534,
+     "height_p50": 9.9108,
+     "height_p90": 13.3531,
+     "median_fp_area": 94.9879,
+     "share_house": 0.8459,
+     "share_slab": 0.0544,
+     "share_tower": 0.0007,
+     "share_large_footprint": 0.0,
+     "share_midrise_other": 0.099
+    },
+    "n_buildings": 1343,
+    "token_composition": {
+     "demanded_d2": {
+      "T1": 245,
+      "T2": 39,
+      "E_ROAD": 76,
+      "E_GREEN": 40,
+      "E_VACANT": 0
+     },
+     "achieved": {
+      "T1": 245,
+      "T2": 39,
+      "E_VACANT": 0,
+      "E_ROAD": 76,
+      "E_GREEN": 40
+     },
+     "exact_budget_match": true
+    },
+    "semantic_collage": {
+     "n_built_cells": 284,
+     "n_semantic_matched": 284,
+     "n_fallback_any_token_cell": 0,
+     "fallback_rate": 0.0,
+     "per_semantic": {
+      "commercial_retail": {
+       "demanded_cells": 8,
+       "fallback": 0,
+       "unique_pool_cells_used": 7
+      },
+      "education": {
+       "demanded_cells": 3,
+       "fallback": 0,
+       "unique_pool_cells_used": 2
+      },
+      "public_admin": {
+       "demanded_cells": 1,
+       "fallback": 0,
+       "unique_pool_cells_used": 1
+      },
+      "residential_lowrise": {
+       "demanded_cells": 272,
+       "fallback": 0,
+       "unique_pool_cells_used": 145
+      }
+     }
+    },
+    "placement": {
+     "prescriptive_cells": 284,
+     "gibbs_cells": 0,
+     "prescriptive_rule": "T2 mixed/apartment cells = 35 corner-nearest (2/corner demand shops); T1 single-family interior; central school+community on RESERVED cells"
+    }
+   },
+   "city": {
+    "indicators": {
+     "FAR": 0.2319,
+     "coverage": 0.0672,
+     "height_p50": 9.8053,
+     "height_p90": 13.3339,
+     "median_fp_area": 96.5753,
+     "share_house": 0.8616,
+     "share_slab": 0.0472,
+     "share_tower": 0.0022,
+     "share_large_footprint": 0.0035,
+     "share_midrise_other": 0.0855
+    },
+    "n_buildings": 4573,
+    "token_composition_achieved": {
+     "T1": 980,
+     "T2": 140,
+     "T7": 16,
+     "E_VACANT": 2000,
+     "E_ROAD": 304,
+     "E_GREEN": 160
+    },
+    "semantic_collage": {
+     "n_built_cells": 1136,
+     "n_semantic_matched": 1136,
+     "n_fallback_any_token_cell": 0,
+     "fallback_rate": 0.0,
+     "per_semantic": {
+      "commercial_retail": {
+       "demanded_cells": 40,
+       "fallback": 0,
+       "unique_pool_cells_used": 25
+      },
+      "education": {
+       "demanded_cells": 12,
+       "fallback": 0,
+       "unique_pool_cells_used": 2
+      },
+      "public_admin": {
+       "demanded_cells": 4,
+       "fallback": 0,
+       "unique_pool_cells_used": 4
+      },
+      "residential_lowrise": {
+       "demanded_cells": 1080,
+       "fallback": 0,
+       "unique_pool_cells_used": 196
+      }
+     }
+    },
+    "assembly_rule": "2x2 units; shared 100 m arterials = merged unit edge roads; town-center cell-block = 16 cells at the central junction set to T7 commercial (Perry: business at arterial junctions); periphery E_VACANT (city context unspecified)",
+    "n_units": 4,
+    "cells_lost_to_overlap": 0
+   }
+  },
+  "microrayon": {
+   "unit": {
+    "indicators": {
+     "FAR": 0.6484,
+     "coverage": 0.0927,
+     "height_p50": 19.3376,
+     "height_p90": 42.0078,
+     "median_fp_area": 230.3682,
+     "share_house": 0.126,
+     "share_slab": 0.458,
+     "share_tower": 0.0382,
+     "share_large_footprint": 0.0153,
+     "share_midrise_other": 0.3626
+    },
+    "n_buildings": 262,
+    "token_composition": {
+     "demanded_d2": {
+      "T3": 54,
+      "T4": 45,
+      "T2": 8,
+      "T7": 4,
+      "E_VACANT": 125,
+      "E_ROAD": 76,
+      "E_GREEN": 88
+     },
+     "achieved": {
+      "T2": 8,
+      "T3": 54,
+      "T4": 45,
+      "T7": 4,
+      "E_VACANT": 125,
+      "E_ROAD": 76,
+      "E_GREEN": 88
+     },
+     "exact_budget_match": true
+    },
+    "semantic_collage": {
+     "n_built_cells": 111,
+     "n_semantic_matched": 111,
+     "n_fallback_any_token_cell": 0,
+     "fallback_rate": 0.0,
+     "per_semantic": {
+      "commercial_retail": {
+       "demanded_cells": 4,
+       "fallback": 0,
+       "unique_pool_cells_used": 4
+      },
+      "education": {
+       "demanded_cells": 8,
+       "fallback": 0,
+       "unique_pool_cells_used": 2
+      },
+      "residential_estate": {
+       "demanded_cells": 99,
+       "fallback": 0,
+       "unique_pool_cells_used": 97
+      }
+     }
+    },
+    "placement": {
+     "prescriptive_cells": 66,
+     "gibbs_cells": 170,
+     "gibbs_label": "Shanghai accent: 3 random-order multiset-preserving Metropolis swap sweeps under the v0.4 12-token TRAIN adjacency (doctrine silent on micro-arrangement of these cells)",
+     "prescriptive_rule": "T7 services at centre; T3 slab rows on alternating rows (1-row insolation gap); T4+void free-plan cells arranged by Shanghai-accent swap-Gibbs"
+    }
+   },
+   "city": {
+    "indicators": {
+     "FAR": 0.288,
+     "coverage": 0.0376,
+     "height_p50": 20.241,
+     "height_p90": 46.3968,
+     "median_fp_area": 276.1426,
+     "share_house": 0.0902,
+     "share_slab": 0.4543,
+     "share_tower": 0.0523,
+     "share_large_footprint": 0.0189,
+     "share_midrise_other": 0.3842
+    },
+    "n_buildings": 898,
+    "token_composition_achieved": {
+     "T2": 32,
+     "T3": 216,
+     "T4": 180,
+     "T7": 16,
+     "E_VACANT": 2500,
+     "E_ROAD": 304,
+     "E_GREEN": 352
+    },
+    "semantic_collage": {
+     "n_built_cells": 444,
+     "n_semantic_matched": 444,
+     "n_fallback_any_token_cell": 0,
+     "fallback_rate": 0.0,
+     "per_semantic": {
+      "commercial_retail": {
+       "demanded_cells": 16,
+       "fallback": 0,
+       "unique_pool_cells_used": 10
+      },
+      "education": {
+       "demanded_cells": 32,
+       "fallback": 0,
+       "unique_pool_cells_used": 2
+      },
+      "residential_estate": {
+       "demanded_cells": 396,
+       "fallback": 0,
+       "unique_pool_cells_used": 341
+      }
+     }
+    },
+    "assembly_rule": "2x2 microrayons; the merged 100 m edge-road corridor between the rows = the transit arterial (magistral); periphery E_VACANT (rayon context unspecified)",
+    "n_units": 4,
+    "cells_lost_to_overlap": 0
+   }
+  },
+  "gb50180": {
+   "unit": {
+    "indicators": {
+     "FAR": 1.9707,
+     "coverage": 0.1668,
+     "height_p50": 38.9394,
+     "height_p90": 80.4728,
+     "median_fp_area": 183.7233,
+     "share_house": 0.0545,
+     "share_slab": 0.0891,
+     "share_tower": 0.354,
+     "share_large_footprint": 0.0446,
+     "share_midrise_other": 0.4579
+    },
+    "n_buildings": 404,
+    "token_composition": {
+     "demanded_d2": {
+      "T4": 81,
+      "T6": 75,
+      "T2": 6,
+      "T7": 16,
+      "E_VACANT": 0,
+      "E_ROAD": 144,
+      "E_GREEN": 78
+     },
+     "achieved": {
+      "T2": 6,
+      "T4": 81,
+      "T6": 75,
+      "T7": 16,
+      "E_VACANT": 0,
+      "E_ROAD": 144,
+      "E_GREEN": 78
+     },
+     "exact_budget_match": true
+    },
+    "semantic_collage": {
+     "n_built_cells": 178,
+     "n_semantic_matched": 178,
+     "n_fallback_any_token_cell": 0,
+     "fallback_rate": 0.0,
+     "per_semantic": {
+      "commercial_retail": {
+       "demanded_cells": 16,
+       "fallback": 0,
+       "unique_pool_cells_used": 11
+      },
+      "education": {
+       "demanded_cells": 4,
+       "fallback": 0,
+       "unique_pool_cells_used": 2
+      },
+      "healthcare": {
+       "demanded_cells": 1,
+       "fallback": 0,
+       "unique_pool_cells_used": 1
+      },
+      "public_admin": {
+       "demanded_cells": 1,
+       "fallback": 0,
+       "unique_pool_cells_used": 1
+      },
+      "residential_estate": {
+       "demanded_cells": 156,
+       "fallback": 0,
+       "unique_pool_cells_used": 141
+      }
+     }
+    },
+    "placement": {
+     "prescriptive_cells": 178,
+     "gibbs_cells": 0,
+     "prescriptive_rule": "per-block T6 tower rows north / T4 slab rows south (sun-spacing); T7 street-front podium retail at the 16 centre-nearest arterial-facing cells; civic 4edu+1PA+1health"
+    }
+   },
+   "city": {
+    "indicators": {
+     "FAR": 0.9526,
+     "coverage": 0.088,
+     "height_p50": 29.5813,
+     "height_p90": 80.1314,
+     "median_fp_area": 192.4044,
+     "share_house": 0.0735,
+     "share_slab": 0.1416,
+     "share_tower": 0.3012,
+     "share_large_footprint": 0.0523,
+     "share_midrise_other": 0.4314
+    },
+    "n_buildings": 1836,
+    "token_composition_achieved": {
+     "T2": 50,
+     "T4": 324,
+     "T6": 300,
+     "T7": 90,
+     "E_VACANT": 1840,
+     "E_ROAD": 656,
+     "E_GREEN": 340
+    },
+    "semantic_collage": {
+     "n_built_cells": 764,
+     "n_semantic_matched": 764,
+     "n_fallback_any_token_cell": 0,
+     "fallback_rate": 0.0,
+     "per_semantic": {
+      "commercial_retail": {
+       "demanded_cells": 90,
+       "fallback": 0,
+       "unique_pool_cells_used": 15
+      },
+      "education": {
+       "demanded_cells": 25,
+       "fallback": 0,
+       "unique_pool_cells_used": 2
+      },
+      "healthcare": {
+       "demanded_cells": 12,
+       "fallback": 0,
+       "unique_pool_cells_used": 4
+      },
+      "public_admin": {
+       "demanded_cells": 13,
+       "fallback": 0,
+       "unique_pool_cells_used": 9
+      },
+      "residential_estate": {
+       "demanded_cells": 624,
+       "fallback": 0,
+       "unique_pool_cells_used": 409
+      }
+     }
+    },
+    "assembly_rule": "2x2 superblock units + central 200 m 15-minute-circle civic strip (transit spine + alternating T7 retail / T2 civic / pocket green) serving all four; periphery E_VACANT",
+    "n_units": 4,
+    "cells_lost_to_overlap": 0
+   }
+  }
+ }
+}

@@ -1,0 +1,338 @@
+{
+  "meta": {
+    "script": "v05/exp4_counterfactual.py",
+    "seed": 0,
+    "site": "A20 Sanlin (heldout)",
+    "n_built_cells": 293,
+    "site_real_total_gfa_m2": 1455569.0,
+    "site_real_FAR": 1.4556,
+    "chain": "power config -> semantic mix (priors, no_age estate cell) -> family GFA demand (E2 GFA-weighted bridge) -> token cell demand (NNLS vs token family shares x mean cell GFA, rescaled to 293 built cells) -> rank-match on A20 typed skeleton -> keep-out collage, ALL-TRAIN pools, fresh default_rng(0) per config",
+    "disclaimer": "ILLUSTRATIVE, NOT PREDICTIVE — literature priors, single seed, one site. Semantics of pasted buildings come from the pools (form-matched), not from the demanded mix; the public-share check therefore tests whether the FORM chain carries the semantic signal through."
+  },
+  "semantic_mixes": {
+    "GOV": {
+      "residential_estate": 0.1206,
+      "residential_lowrise": 0.0827,
+      "commercial_retail": 0.0804,
+      "office_finance": 0.117,
+      "industrial": 0.1217,
+      "public_admin": 0.1572,
+      "education": 0.1608,
+      "healthcare": 0.1596
+    },
+    "DEV": {
+      "residential_estate": 0.1598,
+      "residential_lowrise": 0.0606,
+      "commercial_retail": 0.1598,
+      "office_finance": 0.2121,
+      "industrial": 0.1543,
+      "public_admin": 0.0799,
+      "education": 0.0826,
+      "healthcare": 0.0909
+    },
+    "RES": {
+      "residential_estate": 0.1648,
+      "residential_lowrise": 0.2584,
+      "commercial_retail": 0.1273,
+      "office_finance": 0.1049,
+      "industrial": 0.0899,
+      "public_admin": 0.0787,
+      "education": 0.0936,
+      "healthcare": 0.0824
+    }
+  },
+  "per_config": {
+    "GOV": {
+      "config": {
+        "government": 0.8,
+        "developer_capital": 0.2,
+        "resident_community": 0.3,
+        "informal": 0.0
+      },
+      "semantic_mix": {
+        "residential_estate": 0.1206,
+        "residential_lowrise": 0.0827,
+        "commercial_retail": 0.0804,
+        "office_finance": 0.117,
+        "industrial": 0.1217,
+        "public_admin": 0.1572,
+        "education": 0.1608,
+        "healthcare": 0.1596
+      },
+      "family_gfa_demand": {
+        "house": 0.123,
+        "slab": 0.2936,
+        "tower": 0.1994,
+        "large_footprint": 0.1154,
+        "midrise_other": 0.2686
+      },
+      "nnls_raw_cells": [
+        99.22,
+        0.0,
+        60.47,
+        0.0,
+        52.61,
+        21.71,
+        5.93,
+        0.0
+      ],
+      "nnls_residual": 0.0,
+      "rescale_factor_to_built_cells": 1.2211,
+      "token_cells_T1_T8": [
+        121,
+        0,
+        74,
+        0,
+        64,
+        27,
+        7,
+        0
+      ],
+      "keepout_log": {
+        "fallbacks": 0,
+        "n_dropped": 13,
+        "dropped_gfa_share": 0.0119
+      },
+      "n_buildings": 806,
+      "indicators": {
+        "FAR": 1.6072,
+        "coverage": 0.2409,
+        "height_p50": 13.515,
+        "height_p90": 39.7533,
+        "median_fp_area": 186.898,
+        "share_house": 0.4132,
+        "share_slab": 0.2506,
+        "share_tower": 0.0732,
+        "share_large_footprint": 0.0087,
+        "share_midrise_other": 0.2543
+      },
+      "t68_cell_share": 0.0922,
+      "public_gfa_share_rendered": 0.0747,
+      "unlabeled_gfa_share_rendered": 0.0223
+    },
+    "DEV": {
+      "config": {
+        "government": 0.3,
+        "developer_capital": 0.8,
+        "resident_community": 0.2,
+        "informal": 0.0
+      },
+      "semantic_mix": {
+        "residential_estate": 0.1598,
+        "residential_lowrise": 0.0606,
+        "commercial_retail": 0.1598,
+        "office_finance": 0.2121,
+        "industrial": 0.1543,
+        "public_admin": 0.0799,
+        "education": 0.0826,
+        "healthcare": 0.0909
+      },
+      "family_gfa_demand": {
+        "house": 0.0938,
+        "slab": 0.2455,
+        "tower": 0.2261,
+        "large_footprint": 0.1645,
+        "midrise_other": 0.2702
+      },
+      "nnls_raw_cells": [
+        97.95,
+        0.0,
+        73.81,
+        68.2,
+        0.0,
+        25.62,
+        8.45,
+        0.0
+      ],
+      "nnls_residual": 0.0,
+      "rescale_factor_to_built_cells": 1.0692,
+      "token_cells_T1_T8": [
+        105,
+        0,
+        79,
+        73,
+        0,
+        27,
+        9,
+        0
+      ],
+      "keepout_log": {
+        "fallbacks": 0,
+        "n_dropped": 8,
+        "dropped_gfa_share": 0.0267
+      },
+      "n_buildings": 664,
+      "indicators": {
+        "FAR": 1.3002,
+        "coverage": 0.1819,
+        "height_p50": 13.0393,
+        "height_p90": 46.8022,
+        "median_fp_area": 169.4815,
+        "share_house": 0.4623,
+        "share_slab": 0.2244,
+        "share_tower": 0.0798,
+        "share_large_footprint": 0.012,
+        "share_midrise_other": 0.2214
+      },
+      "t68_cell_share": 0.0922,
+      "public_gfa_share_rendered": 0.0327,
+      "unlabeled_gfa_share_rendered": 0.0567
+    },
+    "RES": {
+      "config": {
+        "government": 0.2,
+        "developer_capital": 0.2,
+        "resident_community": 0.8,
+        "informal": 0.4
+      },
+      "semantic_mix": {
+        "residential_estate": 0.1648,
+        "residential_lowrise": 0.2584,
+        "commercial_retail": 0.1273,
+        "office_finance": 0.1049,
+        "industrial": 0.0899,
+        "public_admin": 0.0787,
+        "education": 0.0936,
+        "healthcare": 0.0824
+      },
+      "family_gfa_demand": {
+        "house": 0.2852,
+        "slab": 0.2164,
+        "tower": 0.168,
+        "large_footprint": 0.1096,
+        "midrise_other": 0.2208
+      },
+      "nnls_raw_cells": [
+        308.53,
+        0.0,
+        42.63,
+        0.0,
+        40.0,
+        17.35,
+        0.0,
+        1.67
+      ],
+      "nnls_residual": 0.0,
+      "rescale_factor_to_built_cells": 0.7143,
+      "token_cells_T1_T8": [
+        220,
+        0,
+        31,
+        0,
+        29,
+        12,
+        0,
+        1
+      ],
+      "keepout_log": {
+        "fallbacks": 0,
+        "n_dropped": 3,
+        "dropped_gfa_share": 0.0013
+      },
+      "n_buildings": 823,
+      "indicators": {
+        "FAR": 0.9781,
+        "coverage": 0.1659,
+        "height_p50": 10.1216,
+        "height_p90": 22.2773,
+        "median_fp_area": 138.3501,
+        "share_house": 0.7023,
+        "share_slab": 0.1215,
+        "share_tower": 0.0328,
+        "share_large_footprint": 0.0012,
+        "share_midrise_other": 0.1422
+      },
+      "t68_cell_share": 0.0444,
+      "public_gfa_share_rendered": 0.0852,
+      "unlabeled_gfa_share_rendered": 0.0042
+    }
+  },
+  "direction_checks": {
+    "DEV_highest_tower_share": {
+      "expected": "DEV",
+      "winner": "DEV",
+      "held": true,
+      "tie": false,
+      "values": {
+        "GOV": 0.0732,
+        "DEV": 0.0798,
+        "RES": 0.0328
+      }
+    },
+    "DEV_highest_T6T8_cell_share": {
+      "expected": "DEV",
+      "winner": "GOV=DEV",
+      "held": false,
+      "tie": true,
+      "values": {
+        "GOV": 0.0922,
+        "DEV": 0.0922,
+        "RES": 0.0444
+      }
+    },
+    "DEV_highest_h_p90": {
+      "expected": "DEV",
+      "winner": "DEV",
+      "held": true,
+      "tie": false,
+      "values": {
+        "GOV": 39.7533,
+        "DEV": 46.8022,
+        "RES": 22.2773
+      }
+    },
+    "RES_highest_house_share": {
+      "expected": "RES",
+      "winner": "RES",
+      "held": true,
+      "tie": false,
+      "values": {
+        "GOV": 0.4132,
+        "DEV": 0.4623,
+        "RES": 0.7023
+      }
+    },
+    "GOV_highest_large_footprint_share": {
+      "expected": "GOV",
+      "winner": "DEV",
+      "held": false,
+      "tie": false,
+      "values": {
+        "GOV": 0.0087,
+        "DEV": 0.012,
+        "RES": 0.0012
+      }
+    },
+    "GOV_highest_public_gfa_share_rendered": {
+      "expected": "GOV",
+      "winner": "RES",
+      "held": false,
+      "tie": false,
+      "values": {
+        "GOV": 0.0747,
+        "DEV": 0.0327,
+        "RES": 0.0852
+      }
+    }
+  },
+  "n_checks_held": "3/6",
+  "n_checks_tied": 1,
+  "real_site_indicators": {
+    "FAR": 1.4556,
+    "coverage": 0.2046,
+    "height_p50": 19.8525,
+    "height_p90": 42.2805,
+    "median_fp_area": 202.7795,
+    "share_house": 0.173,
+    "share_slab": 0.4712,
+    "share_tower": 0.0593,
+    "share_large_footprint": 0.0066,
+    "share_midrise_other": 0.29
+  },
+  "notes": [
+    "RESCALE DISTORTION: forcing each config's NNLS cell counts to fill all 293 built cells multiplies total demand by GOV x1.221, DEV x1.069, RES x0.714 — so total FAR is NOT comparable across configs as 'demand'; only composition and verticality are. GOV FAR > DEV FAR is partly this artifact (GOV demand under-filled the site and was inflated 22%).",
+    "NNLS residual is exactly 0 for all configs: 5 family-GFA equations, 8 token unknowns — the system is underdetermined, NNLS picks a sparse solution (several tokens get 0 cells, e.g. T2 and T4 never used).",
+    "Rendered semantics come from form-matched pool buildings, not from the demanded mix: GOV demands 47.8% public-ish classes but renders only 7.5% public GFA — the form-token bottleneck strips semantic identity. This is a finding about the chain, not about Shanghai.",
+    "RES config receives 1 T8 mega-cell (115k m2 mean GFA) from NNLS trying to meet its 11% large_footprint GFA demand with whole cells — a granularity artifact of the k=8 vocabulary (T8 pool has only 21 cells)."
+  ]
+}

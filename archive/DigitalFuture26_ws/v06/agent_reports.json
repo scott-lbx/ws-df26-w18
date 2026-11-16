@@ -1,0 +1,572 @@
+{
+ "d1": {
+  "status": "ok",
+  "for_report": "D1 distilled five classical planning doctrines into machine-readable, fully sourced recipes (V06/doctrine_recipes.json, sources annotated in doctrine_sources.md). Every number carries provenance, a confidence grade, and a doctrine_silent flag: 43 graded quantities in total (29 high, 13 medium, 1 low confidence) and 30 explicitly marked silences. Verified anchors include Howard's 6,000-acre estate / 1,000-acre town / 32,000 people with 26% of town land in stated green (Central Park 145 + Grand Avenue 115 acres); Corbusier's 1,000 persons/ha housing sector at 5-12% ground coverage under 12-60-storey buildings; Perry's 160-acre, 5,000-6,000-person unit with 10% open space and a 400-m school radius; the SNiP microrayon's 8,000-12,000 people on 10-60 ha with >=6 m2/person green and a 500-m service limit inside an uncrossable superblock; and GB 50180-2018's nested life circles (100k/25k/12k persons) decomposed into 2-4 ha blocks governed by coupled FAR (1.0-3.1), coverage (22-43%), green-rate (25-35%) and height (18-80 m) caps on a dense 150-250 m road grid. Where sources conflicted (Ville Radieuse coverage; GB green-per-capita extraction), ranges or documented discards were recorded instead of invented precision. The stakeholder a-priori vectors render who each text empowers: Howard's cooperative trust (resident_community .90), Corbusier's technocratic Authority (government .95), Perry's double-faced unit (resident .70 AND developer .60 — community ideal sold as a subdivision template), the microrayon's state monopoly (government .95, developer .00), and GB50180's norm-setting state times executing developer (.80/.70). Each carries an anachronism note where the China-derived four-dimension vocabulary strains. Caoyang New Village (1951, planner Wang Dingzeng) was verified as the PRC's first workers' new village planned on Perry's principles (school-centred, ~600 m radius, >=10% open space) and is attached to both neighbourhood_unit and microrayon as the study's empirical hinge: a community doctrine executed by a state client, sitting physically inside our Shanghai token vocabulary. A systematic negative result matters for the next tasks: doctrines are most silent precisely where generation is hungriest (residential and road land fractions, coverage for the pre-war doctrines), so the generator must declare its fill-in policy rather than pretend doctrinal completeness. The comparative chart is at fig/fig_d1_doctrines.png; summary statistics in results_d1.json.",
+  "honest_notes": [
+   "GB50180 per-capita residential-area land for 15-min circles (22-28 m2/person) rests on a single full-text extraction of Table 4.0.1 and is flagged low confidence — re-verify before any quantitative use.",
+   "Microrayon kindergarten 300 m / school 750 m radii are standard SNiP 2.07.01-89 table values widely cited in secondary literature but were NOT re-verified against the table text itself today; kept at medium confidence.",
+   "Ville Radieuse housing-sector 12% ground coverage is the canonical La Ville radieuse quote, but today's web sources only confirmed a 5-15% towers-in-park band; recorded as range [0.05, 0.12], medium.",
+   "The five stakeholder configs are ASSERTED doctrine-level priors (who the text empowers), not observations; the additive 4-dim format flattens hybrid sequencing — GB50180 is a state pen moving a developer hand, and a static vector cannot express that order.",
+   "Land-budget denominators differ across doctrines (town / sector / unit / microdistrict / block); any cross-doctrine comparison or 1-km generation must normalize explicitly — left to the generation task by design.",
+   "Systematic finding, not a bug: every doctrine is most silent exactly where the generator is hungriest (residential fraction, road land, coverage for the older three) — classical doctrines fix the symbolic core (green, school, density) and leave the economic residual unwritten; silence counts run 4-7 fields per doctrine.",
+   "Counting method: confidence counts (29 high / 13 medium / 1 low) tally quantity-level 'confidence' fields in the recipes JSON via the script, excluding the stakeholder configs which carry their own separate confidences (3 high / 2 medium)."
+  ],
+  "choices": [
+   {
+    "choice": "Record conflicting source values as ranges, never as point estimates (e.g. Ville Radieuse housing coverage 0.05-0.12; population 1.5-3M)",
+    "reason": "House rule: fabricated precision is worse than honest width; both sources are kept in provenance",
+    "alternatives": "Pick the most-cited single value; average the sources"
+   },
+   {
+    "choice": "Land budgets contain ONLY fractions the doctrine states or that derive arithmetically from its own text; the residual is an explicit 'remainder_unspecified' (hatched gray in the figure)",
+    "reason": "Doctrinal silence is data — imputing from secondary handbooks would contaminate the asserted-vs-observed comparison downstream",
+    "alternatives": "Fill budgets from period planning handbooks or built exemplars (Letchworth, Radburn, Cheryomushki)"
+   },
+   {
+    "choice": "Heterogeneous denominators per doctrine (Howard's 405-ha town, Corbusier's housing sector, Perry's 64.7-ha unit, 10-60 ha microdistrict, GB 2-4 ha block), labeled under each figure column",
+    "reason": "Each doctrine quantifies a different canonical unit; forcing a common 1-km2 basis here would require invented conversion assumptions — normalization belongs to the generation task where the 1-km window is the operative frame",
+    "alternatives": "Normalize all budgets to a 1 km2 window now"
+   },
+   {
+    "choice": "Stakeholder a-priori expressed in the existing v05 4-dim additive vocabulary, with a mandatory anachronism_note per doctrine",
+    "reason": "Keeps D1 output directly comparable with the power-attribution chain (power_priors_v05.json); the notes carry what the vocabulary cannot (Howard's cooperative trust, Corbusier's non-state technocracy)",
+    "alternatives": "Invent doctrine-specific stakeholder dims (cooperative_trust, technocracy) and map later"
+   },
+   {
+    "choice": "Perry encoded with BOTH resident_community 0.7 and developer_capital 0.6 elevated",
+    "reason": "The doctrine's stated beneficiary (face-to-face community) and its historical operator (realtor/FHA subdivision template, school-centred exclusion per Erickson & Highsmith) are inseparable; encoding only one would falsify the other",
+    "alternatives": "Score the ideal only (res .9 dev .1) or the practice only (dev .8)"
+   },
+   {
+    "choice": "GB50180 Table 4.0.4 conflict resolved in favor of the verbatim full-text quote (2.0/1.0/1.0 m2/person + 0.5 block) over a mirror extraction (1.5/1.0/0.5), with the discard documented in doctrine_sources.md",
+    "reason": "Cross-check of two full-text mirrors; the verbatim quote reproduced the table layout, the other was a small-model extraction artifact",
+    "alternatives": "Record both as a range (rejected: one reading is demonstrably a misread, not a variant edition)"
+   },
+   {
+    "choice": "Microrayon SNiP land-balance fractions and exact school/kindergarten radii left at doctrine_silent / medium confidence rather than quoted from memory",
+    "reason": "Only the 6 m2/person green norm (SNiP 2.07.01-89 sec. 2.11), the 500-m service limit, 10-60 ha, and the no-through-traffic rule were verified against full texts today; the rest of the handbook tables were not retrievable in budget",
+    "alternatives": "Quote handbook values from training memory (rejected: no-fabrication rule)"
+   },
+   {
+    "choice": "Caoyang New Village attached to BOTH neighbourhood_unit (verified anchor) and microrayon (lineage note: Caoyang predates microrayon codification; China's sequence Perry -> Soviet quarter -> xiaoqu)",
+    "reason": "Caoyang is the single piece of real Shanghai fabric in our token pools where a doctrine's authorship is documented; bracketing it from two doctrines sets up the asserted-vs-observed test",
+    "alternatives": "Attach only to neighbourhood_unit as literally tasked"
+   }
+  ],
+  "key_numbers": {
+   "quantities_confidence_high": 29,
+   "quantities_confidence_medium": 13,
+   "quantities_confidence_low": 1,
+   "doctrine_silent_flags_total": 30,
+   "doctrine_silent_per_doctrine": "garden_city 7 / ville_radieuse 6 / neighbourhood_unit 7 / microrayon 6 / gb50180 4",
+   "garden_city_apriori": "gov .30 dev .20 res .90 inf .05",
+   "ville_radieuse_apriori": "gov .95 dev .10 res .10 inf .00",
+   "neighbourhood_unit_apriori": "gov .30 dev .60 res .70 inf .05",
+   "microrayon_apriori": "gov .95 dev .00 res .15 inf .00",
+   "gb50180_apriori": "gov .80 dev .70 res .30 inf .00",
+   "caoyang_anchor": "1951, Wang Dingzeng, Perry-based, school radius ~600 m, verified high"
+  }
+ },
+ "d2": {
+  "status": "ok",
+  "for_report": "D2 translated the five D1 doctrine recipes into the measured Shanghai 50-m token vocabulary, producing per-paradigm 400-cell token budgets, demanded semantic mixes, five 20x20 typed-void skeletons (skeleton_*.npy with E_ROAD/E_GREEN/E_VACANT and RESERVED-CIVIC cells), a transparent claim-by-claim translation table (translation.json), and an 18-entry expressiveness audit. Every allocation cites its doctrine quantity and every geometric constant (ring radii, band widths, grid spacings) carries its source. Density anchors land close: Ville Radieuse 1,021 p/ha vs the doctrinal 1,000 (solved from Corbusier's own 14 m2/person cell against measured T6 GFA, with block coverage .094 falling inside the doctrinal 5-12%); microrayon 330 p/ha by construction; Perry 94 vs 77-93; Howard 62 vs 74 (road/industry quantization eats lots, reported as deviation). GB 50180 is the cleanest translation: a T4/T6 split solved for block FAR 2.50 simultaneously satisfies all three coupled caps (coverage .17<=.22, green .325>=.30) — unsurprising, since the standard was written for this fabric. The audit is the headline result. The vocabulary cannot say: very-tall-AND-nearly-no-footprint (Corbusier's 200-m cruciforms at 5% coverage — T8 is half the height with coverage .99, inverting the open ground; the known no-true-high-rise data ceiling); slab-at-50-m (T3 is slab at 22 m, T6 is tower at 60 m — VR's a-redent becomes point towers); anything below T1's 10-m height (Howard's and Perry's 1-2-storey cottages inflate ~1.5-2x); 6-fold radial geometry; grade-separated motorways. Carrying 1,000 p/ha with 60-m Shanghai towers forces a tower every 100 m where the doctrine wants one colossus per 400-m module: many short towers where the text says few tall ones. Two reversals are notable: the measured Shanghai high-rise token T6 violates GB 50180's own cell-level caps (cov .31 vs .22, h 60.4 vs 54 m), with compliance re-emerging only through green embedding at block level; and the microrayon translation, density-anchored, honestly leaves 31% of ground as unprogrammed E_VACANT — a faithful rendering of SNiP's land-balance silence. Civic cells are carried by T2, chosen because pools give T2 the highest measured public_admin share. The skeletons and budgets are ready for semantic-conditioned generation (D3); designated commercial/industrial cell coordinates are exported per paradigm.",
+  "honest_notes": [
+   "50-m cell quantization systematically overstates road land: GB 50180 grid takes 36% of cells (vs ~15-20% real) even though its 8 km/km2 network-density norm is hit exactly; Garden City roads take 24% where Howard is acreage-silent. Downstream indicator comparisons must use the block-land denominators recorded in translation.json, not raw cell fractions.",
+   "Garden City window FAR (1.48) is inflated by the 44 T7 cells standing in for ~10-m factory sheds and the glass arcade (T7 is 29.4 m, GFA 30k m2/cell); its residential fraction lands at .27 vs the doctrinal .33 and implied density 62 vs 74 p/ha. Deviations are reported, not hidden.",
+   "Five per-capita floorspace assumptions (22/14/40/15/35 m2 GFA/person) are translation-layer numbers BEYOND the D1 recipes; each is labeled with its rationale in translation.json (PERSONS dict). Only Corbusier's 14 m2 is a doctrine-internal number; the others are indicative.",
+   "VR business district is omitted from the window (the D1 land-budget denominator is the housing sector) — so VR's semantic mix is 100% residential_estate and office_finance never appears in any paradigm. The doctrine-claims-vs-fabric comparison in later phases should remember the omission is by construction.",
+   "Perry's principle 4 (all dwellings within 400 m of the school) fails at window corners because the 800-m unit was stretched to the 1,000-m window (+25%); recorded as a gap, not patched.",
+   "T7 (118 buildings) and T8 (29) pools are thin; semantic-conditioned draws for T7-commercial (~24% of pool) leave ~28 candidate buildings — generation may show repetition along the GB podium row and Garden City arcade.",
+   "Skeleton -1 (RESERVED-CIVIC) cells are counted inside the T2 budget entries; consumers must read reserved_civic_semantics for their demanded semantics rather than treating all T2 as residential.",
+   "Initial run had a real bug (implied density used total GFA including industry/podium, giving Garden City 674 p/ha); fixed to residential-GFA-only before final outputs."
+  ],
+  "choices": [
+   {
+    "choice": "Civic carrier token = T2 for all RESERVED-CIVIC cells",
+    "alternatives": "T3/T4 (also contain education semantics); a separate non-token placeholder",
+    "reason": "Measured from token_pools.parquet: T2 has the highest public_admin share (.075) and education present (.023); choice is data-grounded, not asserted."
+   },
+   {
+    "choice": "Ville Radieuse tower count (100 T6 sockets on a 100-m lattice) solved from LC's own 14 m2/person dwelling-cell norm against measured T6 GFA (14,299 m2/cell)",
+    "alternatives": "solve from the 5-12% coverage range (gives 65-155 towers); pick an arbitrary fraction",
+    "reason": "Density (1,000 p/ha) is the doctrine's hardest number; the solution then lands coverage at .094 of interior cells, inside the doctrinal 5-12% band — both constraints satisfied with one free parameter."
+   },
+   {
+    "choice": "VR window = housing sector only; business district (200-m cruciforms) excluded",
+    "alternatives": "include a tower band of T8 cells at one edge",
+    "reason": "D1's land-budget denominator is the housing-sector ground plane, and no token says 'very tall AND ~5% footprint' (T8 has cov .99); exclusion + an explicit expressiveness gap is more honest than a false utterance."
+   },
+   {
+    "choice": "VR arterial grid offset to rows/cols {4,12} (window edges fall mid-module)",
+    "alternatives": "perimeter roads as in the other four skeletons",
+    "reason": "The Radiant City is an extensible carpet with no unit boundary; Perry/microrayon/GB units are BOUNDED by arterials, so they keep border roads. The offset encodes that doctrinal difference."
+   },
+   {
+    "choice": "Garden City window = half-scale town: ring radii halved, area FRACTIONS conserved; 6 radial boulevards adapted to 4 orthogonal radials",
+    "alternatives": "render a 1-km wedge of the full-size town; hexagonal-ish diagonal radials",
+    "reason": "Conserving Howard's green fraction (26%) matters more for the stakeholder reading than metric ring radii; 6-fold symmetry is unsayable on a square grid (recorded as gap)."
+   },
+   {
+    "choice": "Microrayon residential cell count anchored on density (330 p/ha at 15 m2 GFA/person, a labeled translation-layer assumption from the 9 m2 living-space sanitary norm), leaving 125 E_VACANT cells",
+    "alternatives": "fill all build cells with T3/T4 (gives ~640 p/ha, far above the SNiP 200-450 band); anchor on coverage (no Soviet coverage norm exists)",
+    "reason": "Density is the only hard SNiP anchor; the resulting 31% unprogrammed ground is a faithful rendering of SNiP's land-balance silence (remainder_unspecified = 0.80), not a failure to allocate."
+   },
+   {
+    "choice": "GB50180 T4/T6 split (81/75) solved so residential-block FAR = 2.5, mid of the high-rise I band",
+    "alternatives": "all-T6 (FAR 5.7, violates the cap 2x); all-T4 (FAR 2.1, below band)",
+    "reason": "Table 4.0.2 couples FAR/coverage/green; the solved mix satisfies all three simultaneously at block level (FAR 2.50 in [2.2,2.8], coverage .17 <= .22, green rate .325 >= .30)."
+   },
+   {
+    "choice": "GB skeleton encodes the 300-m GATED-superblock practice (per task spec), not the standard's own open-block '150-250 m' reform clause",
+    "alternatives": "5-cell (250 m) open grid per sec. 6.0.2",
+    "reason": "Task names the gated superblock; the doctrine-vs-practice tension is recorded as a first-class expressiveness gap instead of being silently resolved. Road spacing 250/300/250 m still hits 8 km/km2 network density exactly."
+   },
+   {
+    "choice": "Semantic-mix rule: residential split by doctrine height regime (>=18 m -> residential_estate, else residential_lowrise); civic split by the doctrine's NAMED institutions; office_finance = 0 everywhere",
+    "alternatives": "split by token family shares; copy pool semantic frequencies",
+    "reason": "The mix must express what the DOCTRINE demands, not what Shanghai happens to build; no doctrine allocates office land inside the residential unit."
+   },
+   {
+    "choice": "Implied population computed from residential GFA only, under per-paradigm labeled m2/person assumptions (22/14/40/15/35)",
+    "alternatives": "total GFA (pollutes density with T7 industry/podium GFA — early bug, fixed); omit population checks",
+    "reason": "Density is the main doctrine-vs-fabric check for D3; the assumption is stated next to every number so nothing is silently fabricated."
+   },
+   {
+    "choice": "Garden City industry ring rendered as alternating T7 shed / E_VACANT yard cells, alternation by angle",
+    "alternatives": "continuous T7 wall (68 cells of cov-.98 fabric); T2 workshops",
+    "reason": "Howard names factories+yards+sidings but no acreage; alternation halves the big-box distortion and reads as the rail-served shed-and-yard grain; angular ordering spreads sheds evenly around the ring."
+   }
+  ],
+  "key_numbers": {
+   "total_expressiveness_gaps": 18,
+   "gaps_per_paradigm": "garden_city 5 / ville_radieuse 4 / neighbourhood_unit 3 / microrayon 3 / gb50180 3",
+   "garden_city_budget": "T1:108 T2:10 T7:44 VAC:32 ROAD:96 GREEN:110 (green .275 vs target .26; implied 62 p/ha vs 74)",
+   "ville_radieuse_budget": "T6:100 ROAD:76 GREEN:224 (implied 1021 p/ha vs 1000; window coverage .077, interior .094 in doctrinal [.05,.12])",
+   "neighbourhood_unit_budget": "T1:245 T2:39 ROAD:76 GREEN:40 (green .10 exact; implied 94 p/ha vs 77-93)",
+   "microrayon_budget": "T3:54 T4:45 T2:8 T7:4 VAC:125 ROAD:76 GREEN:88 (implied 330 p/ha = canonical 330; 31% ground unprogrammed)",
+   "gb50180_budget": "T4:81 T6:75 T2:6 T7:16 ROAD:144 GREEN:78 (block FAR 2.50 in [2.2,2.8]; block coverage .17<=.22; green rate .325>=.30; 8 km/km2 exact)",
+   "reserved_civic_cells": "garden_city 10 / neighbourhood_unit 4 / microrayon 8 / gb50180 6 / ville_radieuse 0 (services in-building)",
+   "skeleton_format": "20x20 int16, values {-1,0,9,10,11}, 5 files"
+  }
+ },
+ "d3": {
+  "status": "ok",
+  "for_report": "D3 generated all ten canvases (five 1 km units, five 3 km composites) from the D2 budgets and skeletons, seed 0, and rendered the owner's money shot: fig_d3_gallery.png shows the five doctrines side by side as figure-ground plans over their typed-void skeletons with height-coloured axonometrics below. The fabrics are immediately distinguishable — Howard's concentric cottage bands inside a rail ring, Corbusier's tower lattice in continuous green, Perry's fine single-family grain with corner shops, the microrayon's slab rows on a green spine, and GB 50180's tower-north/slab-south superblocks. Placement is prescriptive-first: each doctrine's own geometry (industry ring alternating shed/yard, Crystal Palace arcade by angle, corner-graded apartment cells, sun-spacing tower/slab rows) deterministically places the D2 token budget, and the learned Shanghai adjacency is used only where a doctrine is genuinely silent — which turned out to be only the microrayon's free-plan cells (170 of 228), arranged by 3 multiset-preserving Metropolis sweeps labelled 'Shanghai accent'. All five units match their D2 budgets exactly. The semantic-conditioned collage (v05's named next step) preferred pool cells whose GFA-dominant building semantic matches each cell's demanded semantic: the fallback rate was 0.0 on all ten canvases, but this hides near-singleton supply — T2-education exists as only 2 cells in the entire measured pool, so every school in every paradigm is one of two real Shanghai cells, and Howard's 32 industry cells draw from 3 industrial pool cells; reuse counts are reported per semantic. Achieved indicators: unit FAR 1.28/1.18/0.46/0.65/1.97 against D2 targets 1.48/1.43/0.40/0.63/1.99 — GB 50180 and the microrayon land within 0.04 (the standard was written for this fabric), while Howard and Corbusier undershoot by ~0.2 because their budgets were solved on token-mean GFA and the pools draw below it. Composites follow documented assembly rules: Social-City core + 6 satellites in an agricultural belt (360 cells lost to compressed spacing, counted), 3x3 Radiant City with a T8 office head-of-axis unit that visibly inverts Corbusier's open ground into a coverage-.99 mat (the audit failure, shown not hidden), 2x2 Perry units with a T7 town centre at the shared junction, 2x2 microrayons on a 100 m transit corridor, and 2x2 superblocks flanking a 200 m fifteen-minute civic strip. Everything D4 needs — per-building semantic, demanded semantic, match flag, token, source window — is in cache_gen/{unit,city}_<paradigm>.parquet.",
+  "honest_notes": [
+   "Collage realization undershoots the D2 budget expectation where the budget was solved against token-mean GFA: garden_city unit FAR 1.28 vs 1.48, ville_radieuse 1.18 vs 1.43 (pool draws land below the token mean); microrayon and gb50180 land within 0.02-0.04. The token composition is exact — the gap is pool-draw variance, not placement.",
+   "Zero semantic fallbacks across all 10 canvases is NOT pool abundance: the pool serves every demand but sometimes from near-singleton stock. T2-education has only 2 cells in all of Shanghai's TRAIN pool (every doctrinal school in every paradigm is a copy of one of 2 real cells); T7-industrial has 3 cells serving Howard's 32 industry-ring cells. Unique-pool-cells-used counts are in results_d3.json per semantic.",
+   "The Ville Radieuse business centre is the audit failure made visible: T8 = 94 m, coverage .99 megastructure standing in for 200 m, 5%-coverage cruciforms — the open ground is inverted into a solid mat (see city figure, top centre). Known no-true-high-rise data ceiling.",
+   "Howard's and Perry's 1-2-storey cottages cannot exist in the vocabulary (T1 floor is 10 m): unit h_p90 21 m / 13 m instead of ~8 m.",
+   "Garden-city composite: 7 towns at true Howard spacing do not fit 3 km; satellites overlap (360 cells lost, centre-first precedence) so the composite reads as one continuous 7-ward city rather than separated towns with rail between — a quantization deviation, documented in the assembly rule.",
+   "Only the microrayon actually invoked the Shanghai-accent Gibbs (170 cells); the other four doctrines fully prescribe their micro-arrangement. The Shanghai accent still enters everywhere through the collage itself — every building is a real Shanghai building.",
+   "Composite city FARs are diluted by doctrine periphery (green belt / unspecified context) in the 9 km2 denominator; compare unit indicators for fabric intensity.",
+   "Composite axons were skipped (plan-only city figures) for runtime; the task marked them optional."
+  ],
+  "choices": [
+   {
+    "choice": "Prescriptive doctrine geometry first; statistical (Gibbs) arrangement only where the doctrine is silent — which turned out to be only the microrayon (170 of 228 build cells)",
+    "alternatives": "Pure adjacency-driven Gibbs growth for all paradigms (v0.3/v0.4 style); hand-drawn layouts",
+    "reason": "Doctrines are prescriptive documents, not statistical fabrics; using learned Shanghai adjacency to arrange Corbusier's lattice would smuggle the answer into the question. Microrayon is the legitimate Gibbs case because its doctrine literally prescribes 'free planning' (svobodnaya planirovka)."
+   },
+   {
+    "choice": "Multiset-preserving Metropolis swap sweeps (3, random-order, v0.4 12-token TRAIN adjacency, seed 0) instead of the v0.3 resampling Gibbs",
+    "alternatives": "v0.3 count-prior resampling Gibbs (beta=8)",
+    "reason": "Resampling drifts the token composition; swaps preserve the D2 budget exactly, so achieved-vs-demanded is exact by construction (5/5) and any doctrine-vs-fabric gap downstream is attributable to the vocabulary, not the sampler."
+   },
+   {
+    "choice": "Semantic conditioning = strict (token, GFA-dominant-cell-semantic) pool match with counted fallback to any same-token cell",
+    "alternatives": "Building-level semantic filtering inside cells; soft semantic scoring; no conditioning (v0.3 behaviour)",
+    "reason": "Implements v05's named next step (semantic-conditioned generation) at the same granularity as the collage itself (the cell); dominance by GFA avoids asserting an identity the cell's biggest building does not carry; the fallback counter is the honest measure of whether the pool can serve the demand."
+   },
+   {
+    "choice": "GB 50180 unit: per-block T6 tower rows north / T4 slab rows south, T7 podium retail at the 16 centre-nearest arterial-facing cells",
+    "alternatives": "Random tower/slab mixing; towers along the perimeter (Hong Kong model)",
+    "reason": "Sun-spacing (日照间距) logic: tall mass on the north of each block shades the street rather than the dwellings — the standard's own coupled caps were derived from this fabric; street-front retail matches the 2018 edition's 15-minute-circle street commerce."
+   },
+   {
+    "choice": "Composite peripheries are doctrine-faithful filler, not tiled units: Howard gets an agricultural E_GREEN belt + rail ring, Perry/microrayon/GB get E_VACANT unspecified context",
+    "alternatives": "Tile units to fill the full 3x3 km; shrink the canvas per paradigm",
+    "reason": "Only Howard's doctrine specifies what surrounds the unit (the belt is the doctrine); inventing context for the others would fabricate doctrine content. The fixed 60x60 canvas keeps the five composites comparable."
+   },
+   {
+    "choice": "Ville Radieuse business centre = T8 megastructures within 250 m of the head-of-axis unit centre, demanding office_finance",
+    "alternatives": "T6-only business unit; omit the business band (it is outside Corbusier's residential window)",
+    "reason": "Deliberately exercises the documented expressiveness failure: T8 is half the height of Corbusier's 200 m cruciforms with coverage .99 instead of 5% — the inversion is visible as a solid black mat in fig_d3_ville_radieuse_city.png, an honest failure shown rather than hidden."
+   },
+   {
+    "choice": "Garden-city Social City satellites at ring radius 19 cells with centre-first overlap precedence (360 lost cells counted)",
+    "alternatives": "Fewer/smaller satellites; larger canvas",
+    "reason": "Howard's true inter-town spacing does not fit 3 km; compressing it keeps 7 units legible and the loss is counted and reported instead of silently rescaled."
+   },
+   {
+    "choice": "City indicators use the full 9 km2 denominator including periphery",
+    "alternatives": "Built-extent-only denominator",
+    "reason": "Same convention as the 1 km windows; makes the belt/periphery dilution visible (e.g. Howard city FAR 0.92 vs unit 1.28) — which is itself doctrinal content (the belt is part of the plan)."
+   }
+  ],
+  "key_numbers": {
+   "unit_FAR_achieved_vs_D2_target": {
+    "garden_city": "1.28 vs 1.48",
+    "ville_radieuse": "1.18 vs 1.43",
+    "neighbourhood_unit": "0.46 vs 0.40",
+    "microrayon": "0.65 vs 0.63",
+    "gb50180": "1.97 vs 1.99"
+   },
+   "unit_coverage": {
+    "garden_city": 0.21,
+    "ville_radieuse": 0.07,
+    "neighbourhood_unit": 0.15,
+    "microrayon": 0.09,
+    "gb50180": 0.17
+   },
+   "unit_height_p90_m": {
+    "garden_city": 21,
+    "ville_radieuse": 87,
+    "neighbourhood_unit": 13,
+    "microrayon": 42,
+    "gb50180": 80
+   },
+   "token_budget_exact_match": "5/5 units match the D2 budget exactly (multiset-preserving placement)",
+   "semantic_fallback_rate_all_10_canvases": 0,
+   "scarce_pool_reuse": {
+    "T2_education_pool_cells": 2,
+    "T7_industrial_pool_cells_serving_32_garden_city_cells": 3,
+    "T8_office_pool_cells": 12
+   },
+   "gibbs_shanghai_accent_cells": {
+    "microrayon": 170,
+    "all_other_paradigms": 0
+   },
+   "city_FAR_3x3km": {
+    "garden_city": 0.92,
+    "ville_radieuse": 1.47,
+    "neighbourhood_unit": 0.23,
+    "microrayon": 0.29,
+    "gb50180": 0.95
+   },
+   "garden_city_composite_cells_lost_to_satellite_overlap": 360,
+   "n_buildings_unit_range": "247 (ville_radieuse) to 1343 (neighbourhood_unit)",
+   "n_buildings_city_range": "898 (microrayon) to 4573 (neighbourhood_unit)",
+   "ville_radieuse_business_centre": "20 T8 + 80 T6 cells demanding office_finance, 62 unique pool cells used"
+  }
+ },
+ "d4": {
+  "status": "ok",
+  "for_report": "D4 ran the v05 power-attribution chain verbatim over all ten generated canvases (five 1-km doctrine units, five 3x3-km composites): building semantic -> literature prior cell -> GFA-weighted 4-dim profile, unlabeled excluded (max 3% of GFA). Because generated buildings carry no construction year, every residential_estate falls into the low-confidence no_age cell (gov .4 / dev .5) — the documented v05 weakness, here kept deliberately: Chinese no-age priors reading Howard, Corbusier and the microrayon. The headline verifies: four of five doctrines flip their first-ranked stakeholder, and all four flips land on developer_capital. Garden City claims community .90, reads back dev .489; Ville Radieuse claims state .95, reads dev .499; microrayon claims state .95, reads dev .514; GB50180 claims state .80, reads dev .527. Only Perry's neighbourhood unit holds (res .70 claimed, res .513 read). L1 gaps run 0.71 (GB50180) to 1.28 (microrayon) and are scale-stable (unit vs 3-km composite differ by under 0.08). An exact per-dim decomposition via two counterfactual read-backs (swap donor semantics for the demanded program; swap no_age for the historically apt pre1985 danwei cell) splits each gap into (a) the no-age artifact, (b) collage semantic drift, (c) genuine program translation. The flips have two distinct anatomies. For the estate-heavy doctrines (Ville Radieuse, microrayon, GB50180; estates .70-.99 of GFA) the artifact dominates or co-dominates (L1 0.85/0.65/0.60) — a structural finding about the priors, not the fabric. But Garden City's flip carries zero artifact: its cottages avoided the estate cell entirely, and instead GFA-weighting hands the town to its own factory belt (.53 of GFA) and shopping arcade (.35), which the priors read as state-capital. Howard's cooperative ownership is invisible in form; what survives translation is the program's square meters. Even the most charitable counterfactual cannot reach a gov-.95 claim — the prior vocabulary saturates at .8 — so part of component (c) is vocabulary compression, disclosed. Collage drift (b) is negligible everywhere except the neighbourhood unit (0.22), whose held ranking anyway rests on the medium-low-confidence urban-village analogy covering 91% of its GFA. Outputs: results_d4.json, fig_d4_gap.png (dumbbells + L1 bars), fig_d4_decomp.png (signed stacked decomposition).",
+  "honest_notes": [
+   "The headline holds but for two different reasons, and conflating them would be wrong: for ville_radieuse / microrayon / gb50180 the flip to developer_capital is substantially the no-age estate artifact (component a = 0.85 / 0.65 / 0.60 of L1; estates are .70-.99 of GFA and every one falls into the dev-.5 no_age cell). For garden_city the artifact is exactly zero (Howard's cottages were translated as residential_lowrise, not estate) and the flip is 100% genuine translation: GFA-weighting lets the factory belt (.53 of GFA) and shopping arcade (.35) drown the count-dominant cottages, and the priors read industrial/commercial as gov-dev. Howard loses his town to capital through his own industrial program, not through the age bug.",
+   "Even under the most charitable counterfactual R2 (perfect semantic fidelity + pre1985 danwei reading), no doctrine reaches its claim: the prior vocabulary tops out at gov .8 (public_admin) and the pre1985 estate cell at gov .7, so a gov-.95 claim (ville_radieuse, microrayon) is unreachable by construction — vocabulary compression is part of component (c) and should be stated in the report.",
+   "The one held ranking (neighbourhood_unit, res-first both ways) rests on the LEAST trustworthy prior: 90.6% of its labeled GFA flows through the residential_lowrise cell, which is a medium-low-confidence urban-village ANALOGY applied to lilong-like lowrise. Its read-back also acquires informal .31 that Perry never intended. 'Perry survives translation' is true only modulo that analogy.",
+   "Component (b) (collage semantic drift) is near zero everywhere except neighbourhood_unit (L1 0.22, driven by 3% unlabeled GFA and within-donor-cell semantic heterogeneity; building-level semantic mismatch 2-21% even though D3 cell-level fallback was 0). The generation pipeline is essentially not the source of the gap.",
+   "L1 component magnitudes (a)+(b)+(c) can exceed the net L1 gap due to sign cancellation between components (visible for ville_radieuse: 1.50 stacked vs 1.20 net); per-dim signed sums are exact, the L1 stack is not — both shown in fig_d4_decomp.",
+   "Decomposition is single-path (order b-then-a); a Shapley average over orders was not computed. Components a and b interact only through estate-GFA shares, so order effects are small but nonzero.",
+   "Read-back profiles are means of literature priors, not measurements of power; 'the fabric reads as developer-ish' means 'a v05-prior-equipped observer of contemporary Shanghai would attribute it so' — asserted-vs-observed discipline applies to both sides of the gap."
+  ],
+  "choices": [
+   {
+    "choice": "Run the v05 E2 chain verbatim (semantic -> prior cell -> GFA-weighted mean over labeled buildings, unlabeled excluded) rather than redesigning aggregation for generated fabrics",
+    "alternatives": "count-weighted or footprint-weighted aggregation; re-including unlabeled at baseline prior",
+    "reason": "comparability with the 24 real-Shanghai window profiles in v05/results_e2.json is the point of the read-back; changing the chain would confound doctrine effects with method effects. GFA-weighting consequences (big boxes dominate) are reported as a finding, not hidden."
+   },
+   {
+    "choice": "Map ALL generated residential_estate buildings to the no_age prior cell (gov .4 / dev .5 / res .3 / inf .05, confidence low)",
+    "alternatives": "impute construction years from doctrine epoch (e.g. ville_radieuse -> pre1985); sample donor building ages from token_pools",
+    "reason": "generated buildings genuinely have no construction year; imputing epoch-consistent ages would fabricate data and pre-bake the answer. The no-age fallback is the v05-documented weakness, deliberately retained ('Chinese no-age priors reading Howard') and then quantified as decomposition component (a) instead of being patched."
+   },
+   {
+    "choice": "Sequential counterfactual decomposition R0 (actual) -> R1 (swap donor-inherited semantics for D2-demanded semantics) -> R2 (swap estate cell no_age -> pre1985), giving per-dim gap = (c: apriori-R2) + (a: R2-R1) + (b: R1-R0) exactly",
+    "alternatives": "Shapley-style averaging over both swap orders; regression-based attribution; only the no_age->pre1985 bound the task suggested",
+    "reason": "the telescoping identity makes the decomposition exact and auditable per dim; demanded_semantic exists on every building (D3 logged it), making R1 well-defined. Single path (b before a) is order-dependent and disclosed; pre1985 is the historically apt cell for the pre-market doctrines (danwei/public-housing logic), so (a) is a meaningful bound, not arbitrary."
+   },
+   {
+    "choice": "Use the unit canvases (1 km canonical modules) as the primary gap/decomposition object, with 3x3 km composites shown as secondary markers and a second L1 bar",
+    "alternatives": "average unit+city; city-primary",
+    "reason": "stakeholder_apriori is asserted at the doctrine-unit level (D1); composites add skeleton/edge effects. Empirically it barely matters: unit and city L1 gaps differ by <= 0.08, which itself is a robustness result worth showing."
+   },
+   {
+    "choice": "Report ranking flip as argmax(apriori) vs argmax(read-back) only",
+    "alternatives": "full rank correlation (Kendall tau) over 4 dims",
+    "reason": "with 4 dims, two of which (informal) are near-zero in most doctrines, tau is noise-dominated; the first-dim flip is the interpretable headline and the signed per-dim gaps carry the rest."
+   }
+  ],
+  "key_numbers": {
+   "ranking_flips": "4/5 paradigms flip; all flips land on developer_capital as fabric-first dim",
+   "flip_detail": "garden_city res .90->dev .489 FLIP | ville_radieuse gov .95->dev .499 FLIP | neighbourhood_unit res .70->res .513 HELD | microrayon gov .95->dev .514 FLIP | gb50180 gov .80->dev .527 FLIP",
+   "L1_gap_unit": {
+    "garden_city": 1.107,
+    "ville_radieuse": 1.196,
+    "neighbourhood_unit": 0.953,
+    "microrayon": 1.277,
+    "gb50180": 0.709
+   },
+   "L1_gap_city_3x3km": {
+    "garden_city": 1.089,
+    "ville_radieuse": 1.199,
+    "neighbourhood_unit": 0.87,
+    "microrayon": 1.273,
+    "gb50180": 0.72
+   },
+   "decomposition_L1_unit (a=no-age artifact, b=collage drift, c=genuine translation)": {
+    "garden_city": "a 0.00 / b 0.01 / c 1.10",
+    "ville_radieuse": "a 0.85 / b 0.00 / c 0.65",
+    "neighbourhood_unit": "a 0.00 / b 0.22 / c 1.06",
+    "microrayon": "a 0.65 / b 0.00 / c 0.78",
+    "gb50180": "a 0.60 / b 0.00 / c 0.82"
+   },
+   "res_estate_gfa_share_unit": {
+    "garden_city": 0.019,
+    "ville_radieuse": 0.994,
+    "neighbourhood_unit": 0.143,
+    "microrayon": 0.762,
+    "gb50180": 0.699
+   },
+   "low_confidence_gfa_share_unit": {
+    "garden_city": 0.107,
+    "ville_radieuse": 0.994,
+    "neighbourhood_unit": 0.906,
+    "microrayon": 0.766,
+    "gb50180": 0.7
+   },
+   "unlabeled_gfa_share_max": "0.030 (neighbourhood_unit unit); all others <= 0.002",
+   "garden_city_gfa_drivers": "industrial .529 + commercial .353 of labeled GFA (Howard factory belt + Crystal Palace in T7 big-box donors) vs residential_lowrise only .089 GFA despite 70% of building count"
+  }
+ },
+ "d5": {
+  "status": "ok",
+  "for_report": "D5 places the five generated paradigm units on the v03 real-Shanghai signature cloud. The projection basis was rebuilt from first principles: 19-dim signatures (9 token shares + 10 indicators) recomputed for all 24 real windows from the v03 cache with the verbatim v03 formulas, z-scored on TRAIN mu/sd, PCA fit on the 18 TRAIN windows with v03's sign convention. The correctness gate passed decisively — maximum deviation from the stored pca_xy is 4.9e-05, far under the 1e-3 tolerance — so paradigm placements are in the authentic published basis. Typed voids (road/water/green, 116-300 of 400 cells per unit) were folded back into T0 for comparability, a disclosed loss: the cloud cannot distinguish doctrine parkland from vacancy. Placements are legible as doctrine: Ville Radieuse projects beyond the cloud's hull near Lujiazui CBD (PC2 6.6 vs real max 4.9) — towers-in-park exceeds anything real Shanghai builds at 1 km scale. GB50180 lands among CBD/office windows despite being a residential code. Garden City and Neighbourhood Unit land in the low-rise corner nearest peri-urban villages (A32/A33) and waterfront redevelopment (A47), though garden_city's 19-dim z-norm of 14.9 shows it is far off-manifold even where the 2-D view looks plausible — both PC-space and full z-space distances are reported throughout. The Caoyang anchor test is an honest miss: A13 ranks 14/24 (PC) and 11/24 (z) as neighbour of the generated neighbourhood_unit. The reason is legible in A13's own composition: Perry's distilled recipe encodes 1929 low-rise fabric (61% T1 houses, FAR 0.46, h_p90 13 m), but Caoyang today is slab/midrise (30% T3 + 20% T4, sh_slab .46, FAR 1.57, h_p90 37 m) — the 1951 adaptation built multi-storey workers' slabs and seven decades of rebuilding densified further. Strikingly, the generated microrayon near-passes instead (rank 9/24 PC, 6/24 z), and its family-share profile nearly matches A13 (slab .49 vs .46, mid .26 vs .27); the residual gap is pure density (FAR 0.65 vs 1.57). Interpretively (not asserted identity), built Caoyang reads closer to a densified Soviet microrayon than to Perry's American diagram — the miss localizes what the 1951 translation changed rather than indicting the pipeline, whose projection machinery passed its gate. Outputs: exp_cloud.py, results_d5.json, fig/fig_d5_cloud.png (visually verified, no label overlaps).",
+  "honest_notes": [
+   "THE ANCHOR TEST IS A MISS, and an informative one: A13 Caoyang ranks only 14/24 (PC) and 11/24 (z) as neighbour of the generated neighbourhood_unit. The Perry recipe distilled in D2 encodes 1929 low-rise fabric (61% T1, sh_house .87, FAR 0.46), so it lands among peri-urban villages (A32/A33). A13 today is slab/midrise (30% T3 + 20% T4, sh_slab .46, FAR 1.57): the 1951 adaptation built multi-storey workers' slabs and 70 years of rebuilding densified further. Validation of the chain must therefore rest on the other paradigms' placements, not the anchor.",
+   "Near-miss consolation: the generated microrayon's family-share profile nearly matches A13 (slab .49 vs .46, mid .26 vs .27, median_fp 230 vs 262 m2); residual gap is density (FAR 0.65 vs 1.57) and void share (.72 vs .30). Interpretive reading only, not asserted identity: built Caoyang reads closer to a densified microrayon than to Perry's diagram.",
+   "Garden_city is severely off-manifold in full z-space (z-norm 14.9; nearest z-distance 12.8) despite sitting visually inside the cloud in PC view — driven by extreme tok_T1/tok_T7 shares relative to TRAIN sd. PC-space proximity overstates realism for off-manifold fabrics; both metrics are in results_d5.json.",
+   "Ville Radieuse projects beyond the real cloud's hull (PC2 = 6.6 vs real max 4.9, nearest = Lujiazui CBD): no real Shanghai residential window combines 87 m h_p90 with 7% coverage. GB50180, nominally a residential code, lands among CBD/office windows (A01/A04/A02) — useful for the stakeholder-gap reading downstream.",
+   "Void folding (116-300 of 400 cells per unit) erases the road/water/green typing the generator worked to produce; the cloud cannot reward doctrine parkland over vacancy. A 12-token cloud would need a refit basis and would break comparability with v03.",
+   "Reference set is only 24 windows (18 TRAIN), so ranks are coarse and the PCA basis is fit on n=18 with p=19 features; distances are meaningful but the cloud is a sketch of Shanghai's manifold, not a census.",
+   "Figure label placement needed three manual-offset passes (verified by zoomed crops); final render has no overlaps."
+  ],
+  "choices": [
+   {
+    "choice": "Recomputed the 19-dim signature matrix for all 24 real windows from the v03 cache (cells.parquet token grids + library.parquet buildings) using the verbatim formulas in run_v03.py::signatures(), instead of reusing the 4-decimal-rounded values stored in signatures.json.",
+    "alternatives": "Rebuild M from the rounded token_comp/indicators stored in signatures.json.",
+    "reason": "Makes the correctness gate meaningful: reproduction error is 4.9e-05 (pure float/rounding of stored pca_xy), so any paradigm projection error would be attributable to my code, not input rounding."
+   },
+   {
+    "choice": "Replicated v03's exact projection arithmetic: TRAIN-only mu/sd (ddof=0), PCA(2, random_state=0) fit on 18 TRAIN z-rows, XY = Z @ comps.T with no mean re-centering, then sign-flip so each PC's top-|loading| feature is positive.",
+    "alternatives": "Use sklearn pca.transform() (subtracts pca.mean_) or refit PCA on all 24 windows.",
+    "reason": "The stored pca_xy were produced by exactly this code path; only verbatim replication passes the 1e-3 gate and guarantees paradigms are projected in the same basis as the published cloud."
+   },
+   {
+    "choice": "Folded typed voids 9/10/11 (road/water/green) back into T0 before computing paradigm token shares, with per-unit folded counts disclosed in results_d5.json.",
+    "alternatives": "Extend the cloud to 12 tokens (breaks reproduction of the stored basis) or drop void cells (distorts shares).",
+    "reason": "The v03 cloud knows only one undifferentiated void; folding is the only comparable mapping. Disclosure matters because the cloud then cannot distinguish doctrine parkland from vacancy — e.g. Ville Radieuse's 224 green cells read as generic void."
+   },
+   {
+    "choice": "Reported nearest neighbours and anchor ranks in BOTH 2-dim PC space and full 19-dim z-space, plus each paradigm's z-norm.",
+    "alternatives": "PC-space only (what the figure shows).",
+    "reason": "PC1+PC2 capture only 56.8% of variance; garden_city has PC-distance 0.80 to A47 but z-distance 12.79 (z-norm 14.88) — PC proximity alone would falsely suggest the fabric is Shanghai-like when it is far off-manifold."
+   },
+   {
+    "choice": "Used paradigm UNITS (1 km, 20x20) only; ranked A13 among all 24 real windows (TRAIN + HELDOUT) for the anchor test.",
+    "alternatives": "Project 3-km composites too; rank among TRAIN only.",
+    "reason": "Units match the real windows' 1 km support (composites are not cloud-comparable, per task); A13 is itself a TRAIN window so including HELDOUT in the ranking adds competitors without leakage."
+   },
+   {
+    "choice": "Indicators recomputed from unit_*.parquet with v03 formulas and cross-checked against results_d3.json (2% tolerance, no warnings fired) rather than copied from D3.",
+    "alternatives": "Trust D3's indicator block directly.",
+    "reason": "D3 names/rounding differ slightly (height_p50 vs h_p50, median_fp_area); recomputing guarantees the exact estimator (np.percentile, fp-weighted family shares) matches the cloud's."
+   }
+  ],
+  "key_numbers": {
+   "pca_reproduction_gate_max_abs_err": 4.9e-05,
+   "gate_criterion": "<= 1e-3 vs stored pca_xy, 24 windows",
+   "explained_variance_PC1_PC2": [
+    0.2979,
+    0.2701
+   ],
+   "paradigm_pca_xy": {
+    "garden_city": [
+     -4.13,
+     0.83
+    ],
+    "ville_radieuse": [
+     3.51,
+     6.61
+    ],
+    "neighbourhood_unit": [
+     -5.88,
+     -1.09
+    ],
+    "microrayon": [
+     -1.63,
+     1.09
+    ],
+    "gb50180": [
+     2.78,
+     2.62
+    ]
+   },
+   "paradigm_z_norm_19dim": {
+    "garden_city": 14.88,
+    "ville_radieuse": 11.2,
+    "neighbourhood_unit": 8.22,
+    "microrayon": 3.16,
+    "gb50180": 6.83
+   },
+   "anchor_A13_neighbourhood_unit": "rank 14/24 PC (d=6.42), rank 11/24 z-space (d=9.11) — MISS",
+   "anchor_A13_microrayon": "rank 9/24 PC (d=2.71), rank 6/24 z-space (d=3.82) — near-miss",
+   "nearest_top1": {
+    "garden_city": "A47 West Bund (PC d=0.80) / A47 (z d=12.79)",
+    "ville_radieuse": "A01 Lujiazui CBD (PC d=1.80) / A07 Bund (z d=8.82)",
+    "neighbourhood_unit": "A32 Minhang village (PC d=1.09) / A32 (z d=3.24)",
+    "microrayon": "A41 Fengjing old town (PC d=0.72) / A36 Zhangjiang (z d=2.51)",
+    "gb50180": "A01 Lujiazui CBD (PC d=2.29) / A02 Nanjing Rd E (z d=4.72)"
+   },
+   "A13_actual_vs_generated_NU": "A13: 30% T3 slab + 20% T4 mid, sh_slab .46, FAR 1.57, h_p90 37m | generated NU: 61% T1 house, sh_house .87, FAR 0.46, h_p90 13m",
+   "A13_vs_generated_microrayon_family_shares": "slab .46 vs .49, mid .27 vs .26, median_fp 262 vs 230 m2; gap = FAR 1.57 vs 0.65",
+   "void_cells_folded_into_T0_per_400": {
+    "garden_city": 238,
+    "ville_radieuse": 300,
+    "neighbourhood_unit": 116,
+    "microrayon": 289,
+    "gb50180": 222
+   }
+  }
+ },
+ "d6": {
+  "status": "ok",
+  "for_report": "D6 inverts the pipeline: instead of asking what a doctrine's fabric reads as, we ask which doctrine (or 50/50 blend) to prescribe for a target stakeholder. Fifteen candidates — the five D2 doctrine budgets plus all ten pairwise blends (budgets averaged, largest-remainder to 400 cells; skeleton and civic program from the first-named parent; per-token semantics = mean of the parents' measured per-token distributions) — were ranked against three v05-E4 targets (GOV-, DEV-, RES-first) on a deterministic expectation: per built token, count x expected labeled GFA per pool cell x the token pool's GFA-weighted mean v05 prior vector (estates on the no-age cell), normalized. Winners by L1 (cosine reported): GOV-first selects the neighbourhood_unit+microrayon blend (expected L1 0.754, realized 0.827); DEV-first selects pure Ville Radieuse (0.347, realized 0.550); RES-first selects pure Neighbourhood Unit (1.046, realized 0.488). For GOV-first the two metrics disagreed and the expected-L1 margin over pure NU was 0.0021 — inside surrogate error — so we generated both: the realized fabrics favor the blend (0.827 vs 1.128). Three findings matter. First, GOV-first is unreachable: expected government spans only .37-.41 across all fifteen candidates, because civic GFA is budget-capped and ageless estates read gov .4; the gov-heavy danwei reading lives in building AGE, which no token budget can express — morphology alone cannot make a fabric read government-first, echoing D4 from the inverse direction. Second, the expectation surrogate fails exactly where semantic conditioning works: pool-average power dilutes residential_lowrise priors with the T1/T2 pools' mixed donors, so NU's realized profile lands 0.674 L1 away from its expectation — and closer to the target. Third, the irony: the best fabric for a developer-capital target is Le Corbusier's, the doctrine claiming gov .95. Every number is single-seed (seed 0) and the entire search optimizes ASSERTED profiles built from literature priors — it selects doctrines under our priors' worldview, nothing more; this caveat is stamped on the figure (fig_d6_invert.png: three columns of plan, axon, and target/expected/realized bars). Full 15x3 ranking, winner gaps, reconciliation counts, and the post-hoc disagreement check are in results_d6.json.",
+  "honest_notes": [
+   "The whole search optimizes ASSERTED profiles assembled from literature priors (TF/v05/power_priors_v05.json). It selects doctrines under our priors' worldview, nothing more; it does not predict who would hold power in a built fabric. Stated in _meta, figure footnote, and ILLUSTRATIVE NOT PREDICTIVE stamp.",
+   "GOV-first is unreachable by any candidate: expected government spans only .372-.410 across all 15 candidates (target .8). Doctrine budgets cap civic GFA at a few percent and no-age estates read gov .4; the gov-heavy danwei reading (gov .7) lives in the pre-1985 AGE cell, which generated buildings cannot carry. As in D4, the missing variable is time/tenure, not form: no token budget can morph a fabric into reading government-first under no-age priors.",
+   "The expectation surrogate is poor exactly where semantic conditioning bites: T1/T2 pools are semantically heterogeneous, so pool-average power dilutes residential_lowrise (res .6 / inf .4) with commercial/estate donors; neighbourhood_unit's expected-vs-realized L1 is 0.674 while semantically homogeneous candidates are well predicted (microrayon 0.094, garden_city 0.122 in the pure sanity check). The surrogate is systematically biased toward the pool's developer-leaning mean, which means RES-first-style rankings could in principle be wrong; pure NU is also the realized-best among D4's five pures for resident weight (R0 res .513), so the RES pick survives the realized check.",
+   "GOV-first winner margin was 0.0021 expected L1 (NU+MR over pure NU) — far inside surrogate error; cosine disagreed. Disclosed, picked by L1 per spec, and the added single-seed realized cross-check happened to favor the blend decisively (0.827 vs 1.128) because MR's T3/T4 estate mass pulls gov up and informal down relative to pure NU.",
+   "All realized profiles are single seed-0 generations; no variance estimates (task-permitted, disclosed in results and figure footnote).",
+   "Irony worth reporting: the best candidate for a DEVELOPER-first target is Ville Radieuse — the doctrine claiming gov .95 — because 100 uniform T6 tower cells of no-age estate read dev .50-.59 under the priors. The stakeholder-first inversion reproduces D4's flip from the other direction.",
+   "Blend fabrics inherit the first-named parent's skeleton, so candidate naming order (canonical paradigm order) materially affects blend geometry and density (NU+MR leaves 86 of NU's 280 build cells vacant because MR's budget is sparser). The order was fixed by convention, not optimized — a 30-candidate ordered search was out of time budget.",
+   "Expected profiles for blends use the blended 400-cell budget, but generation reconciles built counts to the fixed skeleton; for NU+MR this under-fill changes token proportions only mildly (reconciliation counts in results_d6.json), and its effect is folded into the reported expectation-vs-realized gap rather than isolated."
+  ],
+  "choices": [
+   {
+    "choice": "Expectation surrogate = per-token pool-average power (GFA-weighted mean of v05 prior vectors over the token pool's LABELED buildings, estates on no_age) times expected labeled GFA per pool cell, normalized by total expected labeled GFA",
+    "alternatives": "semantic-mix-conditioned expectation (weight pool buildings by the candidate's demanded semantic mix); Monte-Carlo expectation over collage draws",
+    "reason": "task-specified formula, fully deterministic and generation-free; deliberately ignoring semantic conditioning makes the expectation-vs-realized gap a measurement of what conditioning + collage sampling actually move (it turned out to be the dominant error term: 0.674 L1 for neighbourhood_unit)"
+   },
+   {
+    "choice": "Rank by both cosine and L1; on disagreement pick by L1, then post-hoc generate the cosine winner too and report which pick REALIZES closer (added beyond spec)",
+    "alternatives": "L1 only; cosine only; declare a tie",
+    "reason": "task rule is L1-decides, but the GOV-first margin (0.0021 expected L1) is far inside surrogate error, so an expectation-level pick alone would be overclaiming; the realized cross-check (0.827 vs 1.128) independently confirmed the blend"
+   },
+   {
+    "choice": "Blend generation: first-named parent's skeleton with its civic RESERVED program kept verbatim (T2 carrier, cell-wise semantics looked up from the parent's cached D3 unit); blended built multiset reconciled to available build cells by largest remainder (over-fill) or E_VACANT padding (under-fill, counted); micro-arrangement = 3 Shanghai-accent swap-Gibbs sweeps only",
+    "alternatives": "blend skeletons cell-wise (geometrically incoherent roads); invent a prescriptive geometry for the blend (would fabricate doctrine the sources never wrote); rescale the skeleton to fit the blend budget",
+    "reason": "no doctrine prescribes a hybrid's geometry, so asserting one would violate the no-fabrication rule; the Shanghai-accent Gibbs is the project's documented behavior for doctrine-silent arrangement; all reconciliation counts are reported in results_d6.json"
+   },
+   {
+    "choice": "Blend per-token semantics = mean of the two parents' per-token demanded-semantic CELL distributions (measured from the cached D3 units), assigned by largest remainder after Gibbs",
+    "alternatives": "blend the global D2 semantic_mix and distribute independently of token; re-derive semantics from doctrine claims for each blend",
+    "reason": "preserves the token-semantic coupling each parent doctrine established (e.g., garden-city T7 = industry+arcade, gb50180 T7 = podium retail); global-mix blending would let semantics land on tokens neither parent ever paired them with"
+   },
+   {
+    "choice": "Pure-paradigm winners reuse the cached seed-0 D3 units verbatim instead of regenerating",
+    "alternatives": "regenerate with the same machinery",
+    "reason": "identical machinery and seed would reproduce the same fabric; reuse guarantees the realized read-back is exactly the D4-audited object (D4 R0 numbers match to 1e-4)"
+   },
+   {
+    "choice": "Copied prior_cell/readback verbatim from exp_readback.py with provenance comments instead of importing the module; imported generate_v06 as a module for all generation/render functions",
+    "alternatives": "import exp_readback (executes the full D4 script at import, rewriting results_d4.json and figures); duplicate generate_v06 logic",
+    "reason": "exp_readback.py has no main guard, so importing it has side effects on another agent's outputs; generate_v06.py is guard-protected and safe to import, satisfying the no-duplication instruction"
+   }
+  ],
+  "key_numbers": {
+   "n_candidates": 15,
+   "n_targets": 3,
+   "GOV_first_winner": "neighbourhood_unit+microrayon (50/50 blend), expected L1 0.754, realized L1 0.827",
+   "GOV_first_metric_disagreement": "cosine picked pure neighbourhood_unit (cos .8522 vs blend .8398); expected-L1 margin 0.0021; post-hoc realized check favors the L1 pick (0.827 vs 1.128)",
+   "DEV_first_winner": "ville_radieuse (pure), expected L1 0.347, realized L1 0.550",
+   "RES_first_winner": "neighbourhood_unit (pure), expected L1 1.046, realized L1 0.488",
+   "expectation_vs_realized_L1_gap": "GOV .300 / DEV .227 / RES .674 (single seed)",
+   "expected_gov_range_all_15_candidates": "0.372-0.410 (target .8 unreachable under no-age priors)",
+   "expected_dev_range_all_15_candidates": "0.351-0.586",
+   "surrogate_error_pure_sanity_check_L1": "garden_city .122 / ville_radieuse .227 / neighbourhood_unit .674 / microrayon .094 / gb50180 .170",
+   "blend_generation_note": "NU+MR blend under-fills NU skeleton: 86 of 280 build cells left E_VACANT; collage fallback 0.0",
+   "seed": 0
+  }
+ },
+ "audit": {
+  "discrepancies": [
+   "C3 rounding-boundary at the task-specified 3-dp comparison: recomputed ville_radieuse unit resident_community raw = 0.298531 -> 0.299 at 3 dp, while results_d4 stores 0.2985 (python round(0.2985,3)=0.298). Raw values agree with all four stored 4-dp values exactly; rounding artifact, not a data error.",
+   "C5 last-digit: L1(gb50180, DEV-first) recomputed from raw expectation = 0.3562 vs 0.3563 in results_d6 (stored L1 was computed before profile rounding). Trivial; rank and all profile digits identical.",
+   "Traceability gap: build-agent key claim 'ville_radieuse interior coverage .094 in doctrinal [.05,.12]' is not persisted in results_d2 or translation.json (only window coverage .077 is). Arithmetic is plausible (.077 x 400 / ~328 interior cells ~= .094) but the number cannot be re-derived from any written artifact.",
+   "Rounding/denominator wobble: key claim 'gb50180 green rate .325>=.30' appears in translation.json as 'green = 78 cells = 0.33 of block land'; same quantity, but the denominator (block land vs 400-cell window, where green_frac = 0.195) is only implicit. Recommend stating the denominator in the report.",
+   "Provenance generosity (not an error): microrayon population 8,000-12,000 and area 10-60 ha are marked confidence 'high' but rest on Wikipedia 'Microdistrict' (which attributes the population figure to the mid-1950s concept and cites SNiP 2.07.01-89 only in its bibliography). The recipe's provenance string is accurate about this; the 'high' label is the generous reading. The SNiP green norm (>=6 m2/person, sec 2.11) and 300/750 m radii were NOT independently re-verified by this audit (Russian full-text sources not re-fetched) - the build agents' own medium-confidence/not-re-verified flags on those items are consistent and honest."
+  ],
+  "figure_defects": [
+   "fig_d3_garden_city_city.png, fig_d3_ville_radieuse_city.png, fig_d3_neighbourhood_unit_city.png, fig_d3_microrayon_city.png, fig_d3_gb50180_city.png: the third title line (assembly rule) is truncated with an ellipsis in ALL FIVE city composites (e.g. '...Howard Social City diagram, co...', '...20 cells within 250 m of c...', '...16 cells a...', '...transit arterial (m...', '...alternating ...'). Information is cut; wrap or shorten before the report.",
+   "fig_d6_invert.png: bottom caption and per-panel annotations are very small (~6 pt at 140 dpi), and the diagonal 'ILLUSTRATIVE NOT PREDICTIVE' watermark (an intentional honesty device) partially obscures the middle-row axonometrics, especially the DEV-first VR axon.",
+   "fig_d2_translation.png: the bottom distortion-audit table is legible only on zoom (small font across a 2245-px-wide canvas); marginal for print. Skeleton captions verified correct against results_d2 budgets (all 5 match exactly).",
+   "fig_d5_cloud.png: minor label crowding in the A33/A47 pair and the A20/A26/A35/A29 cluster; the 'Microrayon (SNiP)' label is offset far (~55 px) from its diamond without a leader line. All plotted positions verified against stored pca_xy; no wrong labels.",
+   "fig_d0_design.png, fig_d1_doctrines.png, fig_d3 unit figures, fig_d3_gallery.png, fig_d4_gap.png, fig_d4_decomp.png: no defects found; d1 panel A/B values cross-checked against doctrine_recipes (GC .33/.26, VR .12/.88, NU .10, MR .20, GB .33/.30; densities 74/1000/77-93/200-450/250-1500; storeys 12-60F/1-2.5F implied/5-16F/1-26F all match)."
+  ],
+  "verdicts": [
+   {
+    "check": "C1a Howard town/belt acreage (garden_city.area: 6,000-acre estate, 1,000-acre town, 5,000-acre belt)",
+    "verdict": "confirmed",
+    "evidence": "Primary text (Cornell-archived Garden Cities of To-morrow): 'Garden City, which is to be built near the centre of the 6,000 acres, covers an area of 1,000 acres, or a sixth part of the 6,000 acres' - matches recipe value 2,428 ha total (6,000 ac) with town 405 ha (1,000 ac)."
+   },
+   {
+    "check": "C1b Howard population (32,000 = 30,000 town + 2,000 agricultural)",
+    "verdict": "confirmed",
+    "evidence": "Primary text verbatim: 'about 30,000 in the city itself, and about 2,000 in the agricultural estate' - matches recipe population value 32000 and unit string exactly."
+   },
+   {
+    "check": "C1c Howard green fraction 0.26 (Central Park 145 ac + Grand Avenue 115 ac) and residential 0.33 basis (5,500 lots 20x130 ft)",
+    "verdict": "confirmed",
+    "evidence": "Primary text: park 'containing 145 acres'; Grand Avenue '420 feet wide ... an additional park of 115 acres'; '5,500 building lots of an average size of 20 feet x 130 feet'. (145+115)/1000=0.26; 5,500x2,600 sqft=328 ac -> 0.33, correctly labeled 'derived/medium'."
+   },
+   {
+    "check": "C1d Perry neighbourhood unit (160 acres, 5,000-6,000 persons, 10% open space, 1/4-mile school radius)",
+    "verdict": "confirmed",
+    "evidence": "Wikipedia/Grokipedia/PlanningTank all give 160 acres, 5,000-6,000 residents at 10 families/acre, 10 percent to parks/playgrounds, 1/4-mile walk to the central elementary school - identical to recipe values 64.7 ha, [5000,6000], 0.10, 400 m."
+   },
+   {
+    "check": "C1e Microrayon norms (10-60 ha not exceeding 80; 8,000-12,000 persons; 500 m services; 300 m entrances; no through roads)",
+    "verdict": "confirmed",
+    "evidence": "Wikipedia 'Microdistrict' (the recipe's cited source): '10-60 hectares ... not exceeding 80', '8,000-12,000 inhabitants', services 'no further than 500 meters', entrances '<=300 m apart', 'major motor roads or through streets were not to cross'. Caveat: SNiP table itself not re-fetched; figures verified against the cited tertiary source only (see discrepancies)."
+   },
+   {
+    "check": "C1f GB 50180-2018 (Table 3.0.4 populations incl. 15-min 50k-100k and block 1,000-3,000 p / 2-4 ha; Table 4.0.2 climate III high-rise I FAR 2.2-2.8 / density <=22% / green >=35% / 54 m; sec 6.0.2 >=8 km/km2, 150-250 m)",
+    "verdict": "confirmed",
+    "evidence": "awhouse.art full-text mirror returns exactly: 15-min 50,000-100,000; 10-min 15,000-25,000; 5-min 5,000-12,000; block 1,000-3,000 / 300-1,000 units / 2-4 ha; high-rise I FAR 2.2-2.8, density 22%, green 35%, 54 m; road network >=8 km/km2 with 150-250 m preferred spacing - all matching doctrine_recipes."
+   },
+   {
+    "check": "C2 achieved token composition of unit_neighbourhood_unit.parquet (building rows + skeleton npy) vs results_d3",
+    "verdict": "confirmed",
+    "evidence": "Independent recount: 284 built cells from unique (tgt_row,tgt_col) = T1 245 + T2 39 (each cell single-token); skeleton npy E_ROAD 76, E_GREEN 40, buildable 280(0)+4(-1)=284 fully filled -> E_VACANT 0; total 400. Identical to results_d3 achieved {T1:245,T2:39,E_VACANT:0,E_ROAD:76,E_GREEN:40}."
+   },
+   {
+    "check": "C3 read-back of unit_ville_radieuse.parquet recomputed directly from power_priors_v05 (GFA-weighted, no_age) vs results_d4",
+    "verdict": "confirmed",
+    "evidence": "Fresh recompute (247/247 labeled buildings): gov 0.401343 / dev 0.499185 / res 0.298531 / inf 0.049741 vs stored 0.4013/0.4992/0.2985/0.0497 - exact at the stored 4-dp precision. The res dim sits on a 3-dp round-half boundary (.299 vs .298), a rounding artifact only (logged in discrepancies)."
+   },
+   {
+    "check": "C4 D5 correctness gate: reproject real windows A01, A13, A47 through the recorded pipeline vs stored pca_xy",
+    "verdict": "confirmed",
+    "evidence": "Fresh re-implementation (v03 cache cells+library -> 19-dim signature -> TRAIN z-score -> PCA(2,seed0) on 18 TRAIN -> sign-oriented projection): A01 (+3.4520,+4.8110), A13 (+0.5191,-0.5638), A47 (-3.4569,+1.2565) all equal stored values, max|err| <= 4.4e-5; all-24 max err 4.9e-5 = exactly the gate value claimed in results_d5; EVR [0.2979,0.2701] matches."
+   },
+   {
+    "check": "C5 D6 expected profile of pure gb50180 and L1 to DEV-first vs results_d6 ranking row",
+    "verdict": "confirmed",
+    "evidence": "Independent recompute from token_pools.parquet (budget T4:81 T6:75 T2:6 T7:16; per-token GFA-weighted pool prior vectors, estates on no_age): gov .3899 dev .5687 res .2012 inf .0338 - identical to results_d6; L1 0.3562 vs 0.3563 (last-digit rounding), rank 4 under DEV-first confirmed; published T2/T4/T6/T7 pool-expectation rows (n_cells, E_gfa, w) reproduced to <=5e-5."
+   },
+   {
+    "check": "C6 figure inspection (all 18 files in V06/fig/)",
+    "verdict": "discrepancy",
+    "evidence": "All values shown in figures match the results files (d2 skeleton captions, d4 L1 gaps 1.11/1.20/0.95/1.28/0.71, d5 positions, d6 winners/L1s), but 5 of 18 figures have truncated title lines and 2 have marginal small-text legibility - see figure_defects list. Content correct; presentation defects only."
+   },
+   {
+    "check": "C7 internal-consistency sweep results_d1..d6",
+    "verdict": "confirmed",
+    "evidence": "Zero issues from the programmatic sweep: d1 confidence recount 29/13/1 and doctrine_silent 7/6/7/6/4 (total 30) match doctrine_recipes; aprioris match; all 5 d2 budgets sum to 400 and equal d3 demanded = achieved = grid_unit npy counts; skeleton npy road/green/water/civic/vacant counts match d2 exactly (civic 10/0/4/8/6); d5 token comps = void-folded grids; n_buildings agree d3=d5=parquet; d4 flip table consistent, decomposition telescopes per dim, 4/5 flips all landing on developer_capital; d6 has 15 candidates per target sorted by L1 with winner=rank-1, L1/cosine recomputable from published profiles, blend achieved tokens sum 400 and match the cached blend grid file, and all 3 winners' realized read-backs reproduced exactly (blend GOV-first: .3438/.3596/.3647/.1469)."
+   }
+  ]
+ }
+}

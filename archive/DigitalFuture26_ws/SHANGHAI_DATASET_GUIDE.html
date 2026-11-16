@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>上海城市數據集 — 工作坊資料導覽與精簡建議</title>
+<style>
+  :root{
+    --bg:#0f1417; --panel:#161d22; --panel2:#1b242a; --ink:#e8eef1; --dim:#9fb0b8;
+    --line:#28343b; --accent:#5ad1c8;
+    --core:#5a9367; --core-bg:#16241c; --core-line:#2f6b46;
+    --pot:#c2a23c; --pot-bg:#241f10; --pot-line:#6b5a1f;
+    --cut:#c0654a; --cut-bg:#241512; --cut-line:#6b2f24;
+    --state:#4a6fa5; --dev:#c0654a; --res:#5a9367; --unk:#b8b8b8;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"PingFang TC","Noto Sans TC","Heiti TC","Hiragino Sans GB","Microsoft JhengHei",system-ui,sans-serif;
+    line-height:1.72; -webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1080px;margin:0 auto;padding:52px 30px 100px;}
+  h1{font-size:30px;font-weight:800;letter-spacing:.5px;margin:0 0 6px;}
+  h2{font-size:21px;font-weight:700;margin:48px 0 14px;padding-bottom:9px;border-bottom:1px solid var(--line);}
+  h3{font-size:16px;font-weight:700;margin:26px 0 8px;color:var(--ink);}
+  .sub{color:var(--dim);font-size:14.5px;margin:0 0 4px;}
+  .tag{display:inline-block;font-size:12px;color:#0f1417;background:var(--accent);
+    border-radius:5px;padding:2px 9px;font-weight:700;letter-spacing:.4px;margin-right:8px;}
+  p{margin:10px 0;}
+  code,.mono{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;
+    background:#0c1114;border:1px solid var(--line);border-radius:4px;padding:1px 6px;color:#cfe3df;}
+  .lead{font-size:15.5px;color:var(--dim);max-width:760px;}
+
+  /* hero numbers */
+  .stats{display:flex;flex-wrap:wrap;gap:14px;margin:26px 0 8px;}
+  .stat{flex:1;min-width:150px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;}
+  .stat .n{font-size:30px;font-weight:800;letter-spacing:.5px;line-height:1.1;}
+  .stat .l{font-size:13px;color:var(--dim);margin-top:4px;}
+  .stat.green .n{color:var(--core)} .stat.red .n{color:var(--cut)} .stat.amber .n{color:var(--pot)}
+
+  /* bar */
+  .barwrap{margin:22px 0 6px;}
+  .bar{display:flex;height:30px;border-radius:7px;overflow:hidden;border:1px solid var(--line);font-size:11px;font-weight:700;}
+  .bar div{display:flex;align-items:center;justify-content:center;color:#0d1114;white-space:nowrap;overflow:hidden;}
+  .legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:10px;font-size:12.5px;color:var(--dim);}
+  .legend span{display:inline-flex;align-items:center;gap:6px;}
+  .dot{width:11px;height:11px;border-radius:3px;display:inline-block;}
+
+  /* spine diagram */
+  .spine{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px;margin:18px 0;}
+  .flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:10px;}
+  .node{flex:1;min-width:150px;background:var(--panel2);border:1px solid var(--core-line);border-radius:9px;padding:12px 13px;position:relative;}
+  .node .k{font-size:11px;color:var(--core);font-weight:700;letter-spacing:.4px;text-transform:uppercase;}
+  .node .t{font-size:14px;font-weight:700;margin:3px 0;}
+  .node .d{font-size:12px;color:var(--dim);}
+  .arrow{align-self:center;color:var(--dim);font-size:20px;padding:0 2px;}
+  .casc{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;}
+  .casc .c{flex:1;min-width:120px;border:1px dashed var(--pot-line);border-radius:8px;padding:9px 11px;background:#161b16;}
+  .casc .c b{color:var(--pot);font-size:12px;}
+
+  /* tables */
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px;}
+  th,td{text-align:left;padding:9px 11px;border-bottom:1px solid var(--line);vertical-align:top;}
+  th{color:var(--dim);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.4px;background:#121a1f;}
+  tbody tr:hover{background:#131b20;}
+  td .mono{font-size:11.5px;}
+  .num{font-variant-numeric:tabular-nums;white-space:nowrap;}
+  .pill{display:inline-block;font-size:11px;font-weight:700;border-radius:20px;padding:2px 10px;white-space:nowrap;}
+  .pill.core{color:var(--core);background:var(--core-bg);border:1px solid var(--core-line);}
+  .pill.pot{color:var(--pot);background:var(--pot-bg);border:1px solid var(--pot-line);}
+  .pill.cut{color:var(--cut);background:var(--cut-bg);border:1px solid var(--cut-line);}
+
+  /* tier blocks */
+  .tier{border-radius:12px;padding:20px 22px;margin:16px 0;border:1px solid var(--line);}
+  .tier.core{background:var(--core-bg);border-color:var(--core-line);}
+  .tier.pot{background:var(--pot-bg);border-color:var(--pot-line);}
+  .tier.cut{background:var(--cut-bg);border-color:var(--cut-line);}
+  .tier h3{margin-top:0;display:flex;align-items:center;gap:10px;}
+  .tier h3 .big{font-size:22px;}
+  .tier ul{margin:8px 0 0;padding-left:20px;}
+  .tier li{margin:7px 0;font-size:13.5px;}
+  .save{font-size:13px;color:var(--dim);margin-top:12px;padding-top:12px;border-top:1px dashed var(--line);}
+  .save b{color:var(--ink);}
+
+  .note{background:var(--panel);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;
+    padding:12px 16px;margin:12px 0;font-size:13px;color:var(--dim);}
+  .note b{color:var(--ink);}
+  .sh{font-weight:700;}
+  .sh.state{color:var(--state)} .sh.dev{color:var(--dev)} .sh.res{color:var(--res)} .sh.unk{color:var(--unk)}
+  footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:var(--dim);font-size:12.5px;}
+  .chk{list-style:none;padding:0;margin:14px 0;}
+  .chk li{padding:9px 0 9px 30px;position:relative;border-bottom:1px solid var(--line);font-size:13.5px;}
+  .chk li::before{content:"▢";position:absolute;left:4px;top:8px;color:var(--accent);font-size:15px;}
+  .small{font-size:12px;color:var(--dim);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <span class="tag">資料導覽</span><span class="small">DigitalFUTURES 2026 · 都市利害關係人工作坊 · 同濟 CAUP</span>
+  <h1>上海城市數據集 — 完整導覽與精簡建議</h1>
+  <p class="lead">把這份 <b>61 GB</b> 的本地多源資料看清楚:哪幾層是工作坊流程的「脊柱」、哪些值得留作潛力、哪些是可以安心清掉的重複與死重量。所有數字均直接讀自磁碟上的 shapefile 標頭(非估計)。</p>
+
+  <div class="stats">
+    <div class="stat"><div class="n">61 GB</div><div class="l">資料集總量(5 大類)</div></div>
+    <div class="stat green"><div class="n">720 MB</div><div class="l">工作坊真正讀取(5 個檔)</div></div>
+    <div class="stat green"><div class="n">5 / 22+</div><div class="l">核心檔案 / 全部圖層</div></div>
+    <div class="stat red"><div class="n">~57 GB</div><div class="l">工作坊未用(可大幅精簡)</div></div>
+  </div>
+
+  <div class="barwrap">
+    <div class="sub">磁碟佔用比例 — 工作坊脊柱僅是其中一條細線</div>
+    <div class="bar">
+      <div style="width:55.7%;background:#c0654a" title="02 POI&AOI 34GB">02 POI&AOI · 34&nbsp;GB</div>
+      <div style="width:31.1%;background:#b58a30" title="09 土地利用 19GB">09 土地利用 · 19&nbsp;GB</div>
+      <div style="width:7.2%;background:#7a8c93" title="04 交通 4.4GB">04 交通</div>
+      <div style="width:4.1%;background:#566b75" title="01 建築 2.5GB">01 建築</div>
+      <div style="width:1.9%;background:#5a9367" title="脊柱 720MB + 03 行政區">脊柱</div>
+    </div>
+    <div class="legend">
+      <span><i class="dot" style="background:#c0654a"></i>02 POI&AOI 34 GB</span>
+      <span><i class="dot" style="background:#b58a30"></i>09 開源土地利用 19 GB</span>
+      <span><i class="dot" style="background:#7a8c93"></i>04 交通 4.4 GB</span>
+      <span><i class="dot" style="background:#566b75"></i>01 建築輪廓 2.5 GB</span>
+      <span><i class="dot" style="background:#5a9367"></i>03 行政區 47 MB +「脊柱」720 MB</span>
+    </div>
+  </div>
+
+  <!-- ============================ SPINE ============================ -->
+  <h2>一、工作坊的「脊柱」:5 個檔案如何接成一條流程</h2>
+  <p class="sub">這就是 <code>pf_common.py</code> / <code>sh_common.py</code> 實際載入的全部來源。一句話:<b>用街道切出建築 → 量到真實高度 → 三來源級聯查表,判定「這棟算誰的」</b>。</p>
+
+  <div class="spine">
+    <div class="flow">
+      <div class="node"><div class="k">範圍</div><div class="t">乡镇街道邊界</div><div class="d">229 個街道 / 非方形多邊形,決定一個基地。</div></div>
+      <div class="arrow">→</div>
+      <div class="node"><div class="k">幾何 + 高度</div><div class="t">AI 影像解譯-帶高度</div><div class="d">136.6 萬棟 footprint,<b>實測高度 0–338 m</b>。流程的主幹。</div></div>
+      <div class="arrow">→</div>
+      <div class="node"><div class="k">判定「誰的」</div><div class="t">級聯查表</div><div class="d">三個用途來源,第一個命中即定,得到 stakeholder。</div></div>
+    </div>
+    <div class="casc">
+      <div class="c"><b>① EULUC 用途</b><br><span class="small">開源建設用地 55,018 地塊。面狀、政商可分(行政辦公 vs 商務辦公)。<u>主鍵</u>。</span></div>
+      <div class="c"><b>② 帶年份 Function</b><br><span class="small">46.2 萬棟,建築級 Function/Age。EULUC 蓋不到處補上。</span></div>
+      <div class="c"><b>③ 百度 AOI</b><br><span class="small">25,680 面,type/結構/價格/時間。再補,仍不中 → <span class="sh unk">unknown</span>。</span></div>
+    </div>
+  </div>
+
+  <div class="note"><b>判定結果只有 5 種:</b>
+    <span class="sh state">state 政府/公共</span> ·
+    <span class="sh dev">developer 開發商/資本</span> ·
+    <span class="sh res">resident 居民</span> ·
+    <span class="sh" style="color:#c2a23c">informal 非正式</span>(本資料<b>無真實訊號 → 恆為空</b>,誠實標註、不無中生有) ·
+    <span class="sh unk">unknown 未標</span>。座標:來源全 <code>EPSG:4326</code>,量測 / 擠出體塊投影到 <code>EPSG:32651</code>(上海 UTM 51N)。
+  </div>
+
+  <h3>級聯查表:改這張表 = 改「誰算誰的」(不必動程式)</h3>
+  <table>
+    <thead><tr><th>來源</th><th>類別(原始值)</th><th>→ Stakeholder</th></tr></thead>
+    <tbody>
+      <tr><td rowspan="3"><b>① EULUC</b><br><span class="small">class2</span></td>
+        <td>行政辦公 / 教育科研 / 醫療衛生 / 體育文化 / 公園綠地 / 交通場站 / 機場設施</td><td><span class="sh state">state</span></td></tr>
+      <tr><td>商務辦公 / 商業服務 / 工業</td><td><span class="sh dev">developer</span></td></tr>
+      <tr><td>居住</td><td><span class="sh res">resident</span></td></tr>
+      <tr><td><b>② Function</b></td><td>Public service → state · Office / Business / Industry → developer · Residence → resident</td><td><span class="small">(補 EULUC)</span></td></tr>
+      <tr><td><b>③ AOI 含關鍵字</b></td><td>政府/機關/學校/醫院/科教 → state · 寫字樓/產業園/商務 → developer · 住宅/小區/公寓 → resident</td><td><span class="small">(再補)</span></td></tr>
+    </tbody>
+  </table>
+
+  <!-- ============================ INVENTORY ============================ -->
+  <h2>二、完整圖層清單(全 5 大類)</h2>
+  <p class="sub">每一層的筆數 / 主要欄位 / 大小,以及它在<b>工作坊</b>裡的角色與去留建議。</p>
+  <table>
+    <thead><tr><th>圖層</th><th class="num">筆數</th><th>關鍵欄位</th><th class="num">大小</th><th>工作坊用途</th><th>建議</th></tr></thead>
+    <tbody>
+      <tr><td colspan="6" style="background:#121a1f;color:var(--dim);font-weight:700">01 — 建築輪廓 · 2.5 GB</td></tr>
+      <tr><td><b>②AI 影像解譯-帶高度</b><br><span class="small mono">②AI解析/…-带高度.shp</span></td><td class="num">1,366,427</td><td><code>Height</code> <code>Area</code></td><td class="num">~250 MB</td><td>幾何 + 實測高度,<b>主幹</b></td><td><span class="pill core">核心保留</span></td></tr>
+      <tr><td><b>③帶年份-內測版</b><br><span class="small mono">③其它/…-带年份-内测版.shp</span></td><td class="num">462,478</td><td><code>Function</code> <code>Age</code> <code>Quality</code></td><td class="num">~190 MB</td><td>級聯第②源 + 年代</td><td><span class="pill core">核心保留</span></td></tr>
+      <tr><td>①百度建築(v1+v2、去分割線、補充)</td><td class="num">~百萬</td><td>幾何(無高度)</td><td class="num">802 MB</td><td>無;已被 AI 帶高度取代</td><td><span class="pill cut">清除</span></td></tr>
+      <tr><td>②AI 影像解譯 / AI 電子解譯(無高度)</td><td class="num">~百萬×2</td><td>幾何(無高度)</td><td class="num">~1.1 GB</td><td>無;與帶高度版重複</td><td><span class="pill cut">清除</span></td></tr>
+      <tr><td>③帶 type</td><td class="num">~46 萬</td><td><code>type</code></td><td class="num">26 MB</td><td>無(0 引用)</td><td><span class="pill cut">清除</span></td></tr>
+
+      <tr><td colspan="6" style="background:#121a1f;color:var(--dim);font-weight:700">02 — POI &amp; AOI · 34 GB ← 體積最大</td></tr>
+      <tr><td><b>2-AOI 百度 AOI</b><br><span class="small mono">2-AOI/AOI-baiduapi/SHP/上海市_AOI.shp</span></td><td class="num">25,680</td><td><code>type1/2</code> <code>結構</code> <code>價格</code> <code>時間</code></td><td class="num">68 MB</td><td>級聯第③源</td><td><span class="pill core">核心保留</span></td></tr>
+      <tr><td><b>1-POI 興趣點</b>(年份 15/21/22/23/24/25/26)<br><span class="small">24 類:政府機構 50,862 · 商務住宅 42,766 · 餐飲 107,320 …</span></td><td class="num">數百萬</td><td><code>name</code> <code>type</code> <code>typecode</code></td><td class="num">34 GB<br><span class="small">(7 個年份)</span></td><td>目前工作坊未用;<b>潛力高</b></td><td><span class="pill pot">留 1 年</span><br><span class="pill cut">清 6 年</span></td></tr>
+      <tr><td>2-AOI landuse-webmap</td><td class="num">25,845</td><td><code>fclass</code> <code>name</code></td><td class="num">12 MB</td><td>用途交叉驗證(便宜)</td><td><span class="pill pot">潛力保留</span></td></tr>
+
+      <tr><td colspan="6" style="background:#121a1f;color:var(--dim);font-weight:700">03 — 行政區 · 47 MB</td></tr>
+      <tr><td><b>2其他 / 乡镇街道邊界</b><br><span class="small mono">2其他/乡镇街道/上海市_乡镇边界.shp</span></td><td class="num">229</td><td><code>name</code> <code>area_code</code></td><td class="num">7.5 MB</td><td>選基地 / 切範圍</td><td><span class="pill core">核心保留</span></td></tr>
+      <tr><td>2其他 / 社區邊界</td><td class="num">5,596</td><td><code>BLOCK_NAME</code> <code>STREET_ID</code></td><td class="num">38 MB</td><td>比街道更細的單元</td><td><span class="pill pot">潛力保留</span></td></tr>
+      <tr><td>1市區兩級(2026 優化版)</td><td class="num">16</td><td><code>縣級</code> <code>人口</code> <code>面積</code></td><td class="num">&lt;1 MB</td><td>區級參考框</td><td><span class="pill pot">潛力保留</span></td></tr>
+      <tr><td>1市區兩級(2023/2025 舊版)、駐地</td><td class="num">—</td><td>—</td><td class="num">~1 MB</td><td>無;重複舊審圖版</td><td><span class="pill cut">清除</span></td></tr>
+
+      <tr><td colspan="6" style="background:#121a1f;color:var(--dim);font-weight:700">04 — 交通數據 · 4.4 GB</td></tr>
+      <tr><td>1-路網 / 分類圖層(主幹道 29,980 · 市區一級 99,925 …)</td><td class="num">數十萬</td><td><code>fclass</code> <code>name</code> <code>width</code></td><td class="num">4.0 GB</td><td>未用;街道 / 地面語境潛力</td><td><span class="pill pot">留子集</span></td></tr>
+      <tr><td>2-交通設施(機場/地鐵/公交/停車…)</td><td class="num">—</td><td>—</td><td class="num">343 MB</td><td>未用</td><td><span class="pill cut">清除</span></td></tr>
+
+      <tr><td colspan="6" style="background:#121a1f;color:var(--dim);font-weight:700">09 — 開源土地利用 · 19 GB</td></tr>
+      <tr><td><b>開源建設用地分類(EULUC,向量)</b><br><span class="small mono">…/开源建设用地分类/Data/上海市-开源建设用地.shp</span></td><td class="num">55,018</td><td><code>Class</code> <code>class2</code></td><td class="num">174 MB</td><td>級聯<b>主鍵</b></td><td><span class="pill core">核心保留</span></td></tr>
+      <tr><td>開源土地利用(柵格 1m / 10m / 30m)</td><td class="num">柵格</td><td>像素類別</td><td class="num">19 GB</td><td>工作坊用向量版,非柵格</td><td><span class="pill cut">清除*</span></td></tr>
+    </tbody>
+  </table>
+  <p class="small">* 柵格土地利用目前僅 <code>typology_foundation/v04</code> 與 <code>pilot_4km</code> 等<b>其他研究線</b>使用,非工作坊流程;若那些線要保留再單獨留。</p>
+
+  <!-- ============================ TIERS ============================ -->
+  <h2>三、三層去留建議</h2>
+
+  <div class="tier core">
+    <h3><span class="big">🟢</span> 核心保留 — 工作坊脊柱 · 5 個檔 · <span class="num">720 MB</span></h3>
+    <p style="margin:4px 0 0">少了任何一個,流程就斷。這就是要打包、要進 git、要帶去同濟的那一份。</p>
+    <ul>
+      <li><b>乡镇街道邊界</b>(229)— 選基地</li>
+      <li><b>AI 影像解譯-帶高度</b>(1,366,427,Height 0–338 m)— 幾何 + 實測高度</li>
+      <li><b>開源建設用地 EULUC</b>(55,018)— 判定「誰的」主鍵</li>
+      <li><b>帶年份-內測版</b>(462,478,Function/Age)— 第②源 + 年代</li>
+      <li><b>百度 AOI</b>(25,680,結構/價格/時間)— 第③源</li>
+    </ul>
+  </div>
+
+  <div class="tier pot">
+    <h3><span class="big">🟡</span> 潛力保留 — 尚未接入工作坊,但價值高、值得留</h3>
+    <ul>
+      <li><b>POI(留「一個」年份)</b> — 全市 24 類興趣點。這是 Part-1「讀資料」階梯最標準的「上萬個點 → 分類 → 聚類」素材,也能<b>反向精修 stakeholder 級聯</b>(政府機構 50,862 → state;商務住宅 42,766 → developer/resident)。<span class="small">建議留最新的 <code>26</code>(14 GB,最完整)或精簡留 <code>21</code>(僅 152 MB),其餘 6 個年份清掉。typology / generative 線已在用它。</span></li>
+      <li><b>社區邊界</b>(5,596,38 MB)— 比街道更細一級,讓未來工作坊能下沉到「居委會」尺度。便宜,先留。</li>
+      <li><b>年代 Age 欄位</b>(已含在核心的帶年份檔)— 可驅動「vintage / 時間」透鏡,呼應 typology v06「鏡頭有年份」的主張。</li>
+      <li><b>路網分類圖層子集</b>(主幹道 / 市區一級)— 街道與「公共地面」語境;若不確定先留分類子集,清掉 4 GB 的合集與設施。</li>
+      <li><b>landuse-webmap</b>(25,845,12 MB)、<b>市區兩級 2026</b>(16 區)— 交叉驗證 / 參考框,極便宜,留著無妨。</li>
+    </ul>
+    <div class="save">為什麼不直接全留:POI 七個年份就佔 <b>34 GB</b>,內容大量重疊。留一個年份即可拿到全部教學價值。</div>
+  </div>
+
+  <div class="tier cut">
+    <h3><span class="big">🔴</span> 建議清除 — 死重量 / 重複 / 非工作坊</h3>
+    <ul>
+      <li><b>百度建築 v1 + v2</b>(802 MB)— 全庫 <b>0 處引用</b>,已被 AI 帶高度版取代。</li>
+      <li><b>AI 影像解譯 / AI 電子解譯(無高度版)</b>(~2 GB 含附屬檔)— <b>0 處引用</b>,與帶高度版幾何重複。</li>
+      <li><b>帶 type 建築</b>(26 MB)— 0 引用。</li>
+      <li><b>POI 重複年份</b>(留 1 清 6)— 視保留哪年,省下 <b>20–34 GB</b>。</li>
+      <li><b>開源土地利用柵格 1m/10m/30m</b>(19 GB)— 工作坊用的是 EULUC <u>向量</u>版,不用柵格。<span class="small">(僅其他研究線用,確認後再清)</span></li>
+      <li><b>交通設施</b>(343 MB)、<b>市區兩級舊審圖版 / 駐地</b>(~1 MB)— 未用。</li>
+    </ul>
+    <div class="save"><b>精簡後體積:</b> 從 <b>61 GB</b> 降到 —— 精簡版(POI 留 21)約 <b>&lt; 2 GB</b>;保守版(POI 留 26 + 路網子集)約 <b>16–19 GB</b>。光是清掉「0 引用死重量 + 柵格 + 重複 POI 年份」就回收 <b>40–59 GB</b>。</div>
+  </div>
+
+  <!-- ============================ CAVEATS ============================ -->
+  <h2>四、誠實前提(務必隨資料一起說明)</h2>
+  <div class="note"><b>① informal 恆空。</b>本資料沒有「非正式 / 自建」的真實訊號,該類保留但永遠為空 —— 不從形態硬猜身份(不捏造)。</div>
+  <div class="note"><b>② AI 高度天花板。</b>實測高度對極端超高層(&gt; ~340 m)可能低估、被截斷;最高值止於 338 m。</div>
+  <div class="note"><b>③ AOI 價格 / 結構是商業代理。</b>僅作離散 tag 用,<b>不外發原值</b>。</div>
+  <div class="note"><b>④ EULUC 為地塊(面)級,優先於建築級 Function。</b>故居住地塊內零星公建會被併入居住 —— 是簡化,不是產權考證。「誰的權利」= 用途的離散級聯查表。</div>
+
+  <!-- ============================ ACTIONS ============================ -->
+  <h2>五、建議動作(可勾選)</h2>
+  <ul class="chk">
+    <li>把 🟢 核心 5 檔(720 MB)獨立打包成 <code>workshop_data/</code>,進 git;這是流程唯一硬相依。</li>
+    <li>POI 決定<b>保留哪一個年份</b>(精簡選 21 / 完整選 26),其餘年份移出或封存。</li>
+    <li>清掉 0 引用死重量:百度建築、AI 無高度兩版、帶 type(回收 ~2 GB)。</li>
+    <li>確認 typology / generative 線是否仍需<b>柵格土地利用 19 GB</b>;工作坊不需,可移到冷儲存。</li>
+    <li>社區邊界 / landuse-webmap / 市區 2026 體積小,先留作潛力,不急著動。</li>
+    <li>把本頁的「誠實前提」四點貼進工作坊講義 —— 資料的<b>界線</b>本身就是教學內容。</li>
+  </ul>
+
+  <footer>
+    上海城市數據集導覽 · 數字直接讀自磁碟 shapefile 標頭(pyogrio) · 引用關係以全庫 grep 核對 ·
+    工作坊載入器:<code>power_to_form/pf_common.py</code> · <code>shanghai_power_to_form/sh_common.py</code><br>
+    DigitalFUTURES 2026 都市利害關係人工作坊 · NYCU × 同濟 CAUP · jinbao@arch.nycu.edu.tw
+  </footer>
+
+</div>
+</body>
+</html>

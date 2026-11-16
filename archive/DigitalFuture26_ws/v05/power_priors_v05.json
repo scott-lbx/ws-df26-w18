@@ -1,0 +1,133 @@
+{
+  "dims": [
+    "government",
+    "developer_capital",
+    "resident_community",
+    "informal"
+  ],
+  "baseline_unspecified": {
+    "government": 0.2,
+    "developer_capital": 0.05,
+    "resident_community": 0.05,
+    "informal": 0.0
+  },
+  "note": "additive, non-exclusive weights in [0,1]; gov floor per Wu 2016 / Lu et al. 2020",
+  "priors": {
+    "residential_estate": {
+      "time_conditioned": true,
+      "cells": {
+        "pre1985": {
+          "w": {
+            "government": 0.7,
+            "developer_capital": 0.05,
+            "resident_community": 0.4,
+            "informal": 0.05
+          },
+          "provenance": "B§2 row 'danwei compound' (Bray 2005; Lu 2006) — Age<1985 bin = danwei/public-housing logic; res .4 = post-housing-reform privatised residents",
+          "confidence": "high"
+        },
+        "1985_1997": {
+          "w": {
+            "government": 0.5,
+            "developer_capital": 0.4,
+            "resident_community": 0.3,
+            "informal": 0.05
+          },
+          "provenance": "interpolation for dual-track era 1985-1997 — no dedicated B row; midpoint of danwei and commodity rows",
+          "confidence": "low"
+        },
+        "post1998": {
+          "w": {
+            "government": 0.3,
+            "developer_capital": 0.7,
+            "resident_community": 0.3,
+            "informal": 0.05
+          },
+          "provenance": "B§2 row 'commodity housing estate/xiaoqu' (Wu 2005; Pow 2007/2009; Lu, Zhang & Wu 2020 — state never zero)",
+          "confidence": "high"
+        },
+        "no_age": {
+          "w": {
+            "government": 0.4,
+            "developer_capital": 0.5,
+            "resident_community": 0.3,
+            "informal": 0.05
+          },
+          "provenance": "fallback mixture when Age layer unmatched (matched only 22-45% of buildings)",
+          "confidence": "low"
+        }
+      }
+    },
+    "residential_lowrise": {
+      "w": {
+        "government": 0.2,
+        "developer_capital": 0.05,
+        "resident_community": 0.6,
+        "informal": 0.4
+      },
+      "provenance": "B§2 row 'urban village self-built' (Hao et al. 2011; Ahmadpoor & Shahab 2020) — applied by ANALOGY to lilong old-town lowrise; lilong is not an urban village",
+      "confidence": "medium-low"
+    },
+    "commercial_retail": {
+      "w": {
+        "government": 0.2,
+        "developer_capital": 0.6,
+        "resident_community": 0.2,
+        "informal": 0.05
+      },
+      "provenance": "B§2 row 'shopping mall / mixed-use' (Zhang 2002; growth-machine China lit) — behaviour evidence strong, form link weak",
+      "confidence": "medium"
+    },
+    "office_finance": {
+      "w": {
+        "government": 0.4,
+        "developer_capital": 0.8,
+        "resident_community": 0.05,
+        "informal": 0.0
+      },
+      "provenance": "B§2 row 'speculative office tower / bank HQ' (Willis 1995; Barr 2012; Ahlfeldt & Barr 2022) + China CBD land-supply note (Xue et al. 2011) → gov .4",
+      "confidence": "high"
+    },
+    "industrial": {
+      "w": {
+        "government": 0.5,
+        "developer_capital": 0.5,
+        "resident_community": 0.05,
+        "informal": 0.0
+      },
+      "provenance": "B§2 row 'industrial park' (Tao 2013; Land Use Policy 2015/2018 land-finance metrics)",
+      "confidence": "medium-high"
+    },
+    "public_admin": {
+      "w": {
+        "government": 0.8,
+        "developer_capital": 0.05,
+        "resident_community": 0.05,
+        "informal": 0.0
+      },
+      "provenance": "B§2 row 'public hospital/school/civic office' (Conzen 1960 fringe belt; Whitehand & Morton 2006; Hsing 2010)",
+      "confidence": "high"
+    },
+    "education": {
+      "w": {
+        "government": 0.8,
+        "developer_capital": 0.05,
+        "resident_community": 0.1,
+        "informal": 0.0
+      },
+      "provenance": "B§2 row 'public hospital/school/civic office' — public school branch",
+      "confidence": "high"
+    },
+    "healthcare": {
+      "w": {
+        "government": 0.8,
+        "developer_capital": 0.1,
+        "resident_community": 0.05,
+        "informal": 0.0
+      },
+      "provenance": "B§2 row 'public hospital/school/civic office' — hospital branch (recent expansions carry market weight → dev .1)",
+      "confidence": "high"
+    }
+  },
+  "note_v05": "v05 reuses power_priors_v01 unchanged (verbatim values). These are literature priors, NOT calibrated against any observed outcome; per-cell provenance and confidence kept. pre1985 bin: the Age layer truncates at 1984/85 (spike), so pre1985 reads as 'built 1985 or earlier'."
+}

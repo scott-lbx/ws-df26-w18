@@ -1,0 +1,98 @@
+{
+  "task": "D1 doctrine distillation",
+  "n_doctrines": 5,
+  "confidence_counts_quantities_total": {
+    "high": 29,
+    "medium": 13,
+    "low": 1
+  },
+  "confidence_counts_per_doctrine": {
+    "garden_city": {
+      "high": 7,
+      "medium": 1,
+      "low": 0
+    },
+    "ville_radieuse": {
+      "high": 2,
+      "medium": 6,
+      "low": 0
+    },
+    "neighbourhood_unit": {
+      "high": 7,
+      "medium": 0,
+      "low": 0
+    },
+    "microrayon": {
+      "high": 3,
+      "medium": 5,
+      "low": 0
+    },
+    "gb50180": {
+      "high": 10,
+      "medium": 1,
+      "low": 1
+    }
+  },
+  "doctrine_silent_counts": {
+    "garden_city": 7,
+    "ville_radieuse": 6,
+    "neighbourhood_unit": 7,
+    "microrayon": 6,
+    "gb50180": 4
+  },
+  "explicit_silence_lists": {
+    "garden_city": 6,
+    "ville_radieuse": 6,
+    "neighbourhood_unit": 5,
+    "microrayon": 4,
+    "gb50180": 5
+  },
+  "stakeholder_apriori": {
+    "garden_city": {
+      "government": 0.3,
+      "developer_capital": 0.2,
+      "resident_community": 0.9,
+      "informal": 0.05
+    },
+    "ville_radieuse": {
+      "government": 0.95,
+      "developer_capital": 0.1,
+      "resident_community": 0.1,
+      "informal": 0.0
+    },
+    "neighbourhood_unit": {
+      "government": 0.3,
+      "developer_capital": 0.6,
+      "resident_community": 0.7,
+      "informal": 0.05
+    },
+    "microrayon": {
+      "government": 0.95,
+      "developer_capital": 0.0,
+      "resident_community": 0.15,
+      "informal": 0.0
+    },
+    "gb50180": {
+      "government": 0.8,
+      "developer_capital": 0.7,
+      "resident_community": 0.3,
+      "informal": 0.0
+    }
+  },
+  "stakeholder_confidence": {
+    "garden_city": "high",
+    "ville_radieuse": "high",
+    "neighbourhood_unit": "medium",
+    "microrayon": "high",
+    "gb50180": "medium"
+  },
+  "caoyang_anchor": {
+    "neighbourhood_unit": "verified high",
+    "microrayon": "lineage note, medium"
+  },
+  "artifacts": [
+    "/Users/jinbao/Projects/Urban-Stakeholder-Workshop/typology_foundation/v06/doctrine_recipes.json",
+    "/Users/jinbao/Projects/Urban-Stakeholder-Workshop/typology_foundation/v06/doctrine_sources.md",
+    "/Users/jinbao/Projects/Urban-Stakeholder-Workshop/typology_foundation/v06/fig/fig_d1_doctrines.png"
+  ]
+}

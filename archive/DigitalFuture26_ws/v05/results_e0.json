@@ -1,0 +1,107 @@
+{
+ "n_rows": 14527,
+ "new_columns": [
+  "row",
+  "col",
+  "token_v03",
+  "token_v04",
+  "dist_road_major",
+  "dist_road_all",
+  "dist_water",
+  "dist_green",
+  "density_100m",
+  "nbr_mean_h",
+  "has_road_major_in_window",
+  "has_road_in_window",
+  "has_water_in_window",
+  "has_green_in_window",
+  "role",
+  "name"
+ ],
+ "nan_share": {
+  "row": 0.0,
+  "col": 0.0,
+  "token_v03": 0.0,
+  "token_v04": 0.0,
+  "dist_road_major": 0.0,
+  "dist_road_all": 0.0,
+  "dist_water": 0.5197,
+  "dist_green": 0.0489,
+  "density_100m": 0.0,
+  "nbr_mean_h": 0.001,
+  "age": 0.608,
+  "height": 0.0,
+  "fp_area": 0.0
+ },
+ "per_window_n": {
+  "A01": 322,
+  "A02": 685,
+  "A04": 740,
+  "A07": 214,
+  "A09": 1119,
+  "A10": 1962,
+  "A13": 523,
+  "A17": 823,
+  "A19": 426,
+  "A20": 607,
+  "A21": 584,
+  "A26": 587,
+  "A27": 114,
+  "A29": 456,
+  "A32": 465,
+  "A33": 246,
+  "A35": 651,
+  "A36": 351,
+  "A39": 893,
+  "A41": 153,
+  "A43": 599,
+  "A45": 595,
+  "A47": 200,
+  "A49": 1212
+ },
+ "semantic_counts": {
+  "residential_estate": 8304,
+  "residential_lowrise": 1523,
+  "commercial_retail": 1287,
+  "office_finance": 1046,
+  "public_admin": 895,
+  "unlabeled": 715,
+  "education": 449,
+  "industrial": 180,
+  "healthcare": 128
+ },
+ "family_counts": {
+  "slab": 4833,
+  "midrise_other": 4613,
+  "house": 3671,
+  "tower": 1272,
+  "large_footprint": 138
+ },
+ "has_class_in_window_false": {
+  "road_major": [],
+  "road": [],
+  "water": [
+   "A02",
+   "A10",
+   "A13",
+   "A17",
+   "A20",
+   "A29",
+   "A35",
+   "A36",
+   "A39",
+   "A43"
+  ],
+  "green": [
+   "A32",
+   "A33"
+  ]
+ },
+ "buildings_in_T0_cells_v03": 192,
+ "buildings_in_void_cells_v04": 192,
+ "density_100m_median": 23.0,
+ "notes": [
+  "distances are upper bounds: masks clipped to the 1 km window (edge bias, identical treatment all windows)",
+  "density_100m / nbr_mean_h undercount near window edges (no neighbours outside window)"
+ ]
+}

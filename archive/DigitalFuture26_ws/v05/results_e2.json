@@ -1,0 +1,829 @@
+{
+  "meta": {
+    "script": "v05/exp2_power.py",
+    "seed": 0,
+    "priors": "power_priors_v05.json (= probe v01 verbatim, literature priors, not calibrated)",
+    "aggregation": "GFA-weighted mean over labeled buildings; unlabeled excluded",
+    "low_confidence_def": "prior-cell confidence in {'low','medium-low'}",
+    "age_regimes": "pre1985: age<=1985 (Age layer truncates at 1984/85 -> read as 1985-or-earlier); 1985_1997: 1986-1997; post1998: age>=1998; NaN -> no_age",
+    "classes_added_as_baseline_fallback": [],
+    "n_buildings_total": 14527,
+    "n_labeled": 13812,
+    "n_train_labeled": 10705
+  },
+  "window_profiles": {
+    "A01": {
+      "name": "Lujiazui CBD",
+      "role": "train",
+      "profile": {
+        "government": 0.3516,
+        "developer_capital": 0.6478,
+        "resident_community": 0.154,
+        "informal": 0.0265
+      },
+      "dominant_dim": "developer_capital",
+      "low_confidence_gfa_share": 0.157,
+      "unlabeled_gfa_share": 0.0503,
+      "res_estate_age_regime_gfa_share": {
+        "pre1985": 0.205,
+        "1985_1997": 0.0923,
+        "post1998": 0.0206,
+        "no_age": 0.6821
+      },
+      "res_estate_gfa_share_of_labeled": 0.2028,
+      "age_filled_pct": 21.74
+    },
+    "A02": {
+      "name": "Nanjing Rd East / People's Sq",
+      "role": "heldout",
+      "profile": {
+        "government": 0.4147,
+        "developer_capital": 0.4969,
+        "resident_community": 0.2066,
+        "informal": 0.0342
+      },
+      "dominant_dim": "developer_capital",
+      "low_confidence_gfa_share": 0.1373,
+      "unlabeled_gfa_share": 0.0018,
+      "res_estate_age_regime_gfa_share": {
+        "pre1985": 0.5948,
+        "1985_1997": 0.0235,
+        "post1998": 0.0,
+        "no_age": 0.3817
+      },
+      "res_estate_gfa_share_of_labeled": 0.3377,
+      "age_filled_pct": 54.45
+    },
+    "A04": {
+      "name": "Xujiahui hub",
+      "role": "train",
+      "profile": {
+        "government": 0.4768,
+        "developer_capital": 0.4263,
+        "resident_community": 0.238,
+        "informal": 0.0357
+      },
+      "dominant_dim": "government",
+      "low_confidence_gfa_share": 0.1954,
+      "unlabeled_gfa_share": 0.0007,
+      "res_estate_age_regime_gfa_share": {
+        "pre1985": 0.6148,
+        "1985_1997": 0.0428,
+        "post1998": 0.0,
+        "no_age": 0.3424
+      },
+      "res_estate_gfa_share_of_labeled": 0.5029,
+      "age_filled_pct": 49.59
+    },
+    "A07": {
+      "name": "Bund Wai-tan",
+      "role": "heldout",
+      "profile": {
+        "government": 0.2875,
+        "developer_capital": 0.6701,
+        "resident_community": 0.1418,
+        "informal": 0.03
+      },
+      "dominant_dim": "developer_capital",
+      "low_confidence_gfa_share": 0.0075,
+      "unlabeled_gfa_share": 0.0218,
+      "res_estate_age_regime_gfa_share": {
+        "pre1985": 0.4091,
+        "1985_1997": 0.0347,
+        "post1998": 0.0,
+        "no_age": 0.5562
+      },
+      "res_estate_gfa_share_of_labeled": 0.0127,
+      "age_filled_pct": 22.9
+    },
+    "A09": {
+      "name": "Xintiandi Shikumen",
+      "role": "train",
+      "profile": {
+        "government": 0.4586,
+        "developer_capital": 0.4155,
+        "resident_community": 0.2627,
+        "informal": 0.0468
+      },
+      "dominant_dim": "government",
+      "low_confidence_gfa_share": 0.3626,
+      "unlabeled_gfa_share": 0.0097,
+      "res_estate_age_regime_gfa_share": {
+        "pre1985": 0.427,
+        "1985_1997": 0.0148,
+        "post1998": 0.0,
+        "no_age": 0.5583
+      },
+      "res_estate_gfa_share_of_labeled": 0.5981,
+      "age_filled_pct": 39.86
+    },
+    "A10": {
+      "name": "Laoximen old town",
+      "role": "train",
+      "profile": {
+        "government": 0.502,
+        "developer_capital": 0.3148,
+        "resident_community": 0.2964,
+        "informal": 0.063
+      },
+      "dominant_dim": "government",
+      "low_confidence_gfa_share": 0.4613,
+      "unlabeled_gfa_share": 0.0076,
+      "res_estate_age_regime_gfa_share": {
+        "pre1985": 0.4052,
+        "1985_1997": 0.1245,
+        "post1998": 0.0,
+        "no_age": 0.4703
+      },
+      "res_estate_gfa_share_of_labeled": 0.6759,
+      "age_filled_pct": 40.98
+    },
+    "A13": {
+      "name": "Caoyang Xincun",
+      "role": "train",
+      "profile": {
+        "government": 0.4155,
+        "developer_capital": 0.5248,
+        "resident_community": 0.2275,
+        "informal": 0.0416
+      },
+      "dominant_dim": "developer_capital",
+      "low_confidence_gfa_share": 0.4606,
+      "unlabeled_gfa_share": 0.0087,
+      "res_estate_age_regime_gfa_share": {
+        "pre1985": 0.0604,
+        "1985_1997": 0.4252,
+        "post1998": 0.1601,
+        "no_age": 0.3543
+      },
+      "res_estate_gfa_share_of_labeled": 0.5733,
+      "age_filled_pct": 45.32
+    },
+    "A17": {
+      "name": "Tianshan Xincun",
+      "role": "train",
+      "profile": {
+        "government": 0.4799,
+        "developer_capital": 0.4592,
+        "resident_community": 0.2169,
+        "informal": 0.0326
+      },
+      "dominant_dim": "government",
+      "low_confidence_gfa_share": 0.2514,
+      "unlabeled_gfa_share": 0.0001,
+      "res_estate_age_regime_gfa_share": {
+        "pre1985": 0.4829,
+        "1985_1997": 0.1608,
+        "post1998": 0.0067,
+        "no_age": 0.3496
+      },
+      "res_estate_gfa_share_of_labeled": 0.4822,
+      "age_filled_pct": 46.9
+    },
+    "A19": {
+      "name": "Lianyang Huamu Pudong",
+      "role": "train",
+      "profile": {
+        "government": 0.4299,
+        "developer_capital": 0.4841,
+        "resident_community": 0.2853,
+        "informal": 0.0486
+      },
+      "dominant_dim": "developer_capital",
+      "low_confidence_gfa_share": 0.5418,
+      "unlabeled_gfa_share": 0.0196,
+      "res_estate_age_regime_gfa_share": {
+        "pre1985": 0.0539,
+        "1985_1997": 0.3645,
+        "post1998": 0.3379,
+        "no_age": 0.2437
+      },
+      "res_estate_gfa_share_of_labeled": 0.8816,
+      "age_filled_pct": 54.23
+    },
+    "A20": {
+      "name": "Sanlin Pudong",
+      "role": "heldout",
+      "profile": {
+        "government": 0.3854,
+        "developer_capital": 0.5603,
+        "resident_community": 0.2776,
+        "informal": 0.049
+      },
+      "dominant_dim": "developer_capital",
+      "low_confidence_gfa_share": 0.2933,
+      "unlabeled_gfa_share": 0.0034,
+      "res_estate_age_regime_gfa_share": {
+        "pre1985": 0.0402,
+        "1985_1997": 0.0901,
+        "post1998": 0.6309,
+        "no_age": 0.2388
+      },
+      "res_estate_gfa_share_of_labeled": 0.8537,
+      "age_filled_pct": 49.92
+    },
+    "A21": {
+      "name": "Jinqiao residential",
+      "role": "train",
+      "profile": {
+        "government": 0.3952,
+        "developer_capital": 0.5249,
+        "resident_community": 0.2842,
+        "informal": 0.0496
+      },
+      "dominant_dim": "developer_capital",
+      "low_confidence_gfa_share": 0.4641,
+      "unlabeled_gfa_share": 0.0008,
+      "res_estate_age_regime_gfa_share": {
+        "pre1985": 0.0348,
+        "1985_1997": 0.1594,
+        "post1998": 0.4393,
+        "no_age": 0.3666
+      },
+      "res_estate_gfa_share_of_labeled": 0.8677,
+      "age_filled_pct": 53.6
+    },
+    "A26": {
+      "name": "Jiading New City",
+      "role": "train",
+      "profile": {
+        "government": 0.5535,
+        "developer_capital": 0.2856,
+        "resident_community": 0.287,
+        "informal": 0.045
+      },
+      "dominant_dim": "government",
+      "low_confidence_gfa_share": 0.3937,
+      "unlabeled_gfa_share": 0.0306,
+      "res_estate_age_regime_gfa_share": {
+        "pre1985": 0.4119,
+        "1985_1997": 0.3304,
+        "post1998": 0.0741,
+        "no_age": 0.1836
+      },
+      "res_estate_gfa_share_of_labeled": 0.7515,
+      "age_filled_pct": 64.22
+    },
+    "A27": {
+      "name": "Lingang Nanhui",
+      "role": "train",
+      "profile": {
+        "government": 0.3961,
+        "developer_capital": 0.7285,
+        "resident_community": 0.088,
+        "informal": 0.0092
+      },
+      "dominant_dim": "developer_capital",
+      "low_confidence_gfa_share": 0.0994,
+      "unlabeled_gfa_share": 0.057,
+      "res_estate_age_regime_gfa_share": {
+        "pre1985": 0.0,
+        "1985_1997": 0.0,
+        "post1998": 0.0,
+        "no_age": 1.0
+      },
+      "res_estate_gfa_share_of_labeled": 0.0994,
+      "age_filled_pct": 0.0
+    },
+    "A29": {
+      "name": "Nanqiao Fengxian",
+      "role": "heldout",
+      "profile": {
+        "government": 0.4169,
+        "developer_capital": 0.4791,
+        "resident_community": 0.253,
+        "informal": 0.0431
+      },
+      "dominant_dim": "developer_capital",
+      "low_confidence_gfa_share": 0.7326,
+      "unlabeled_gfa_share": 0.0012,
+      "res_estate_age_regime_gfa_share": {
+        "pre1985": 0.0,
+        "1985_1997": 0.0,
+        "post1998": 0.0,
+        "no_age": 1.0
+      },
+      "res_estate_gfa_share_of_labeled": 0.7312,
+      "age_filled_pct": 0.0
+    },
+    "A32": {
+      "name": "Minhang outskirts village",
+      "role": "train",
+      "profile": {
+        "government": 0.3919,
+        "developer_capital": 0.5041,
+        "resident_community": 0.2959,
+        "informal": 0.05
+      },
+      "dominant_dim": "developer_capital",
+      "low_confidence_gfa_share": 0.9593,
+      "unlabeled_gfa_share": 0.0032,
+      "res_estate_age_regime_gfa_share": {
+        "pre1985": 0.0,
+        "1985_1997": 0.0,
+        "post1998": 0.0,
+        "no_age": 1.0
+      },
+      "res_estate_gfa_share_of_labeled": 0.9593,
+      "age_filled_pct": 0.0
+    },
+    "A33": {
+      "name": "Pudong peri-urban village",
+      "role": "train",
+      "profile": {
+        "government": 0.3831,
+        "developer_capital": 0.4469,
+        "resident_community": 0.3185,
+        "informal": 0.0879
+      },
+      "dominant_dim": "developer_capital",
+      "low_confidence_gfa_share": 0.9326,
+      "unlabeled_gfa_share": 0.0429,
+      "res_estate_age_regime_gfa_share": {
+        "pre1985": 0.0,
+        "1985_1997": 0.0,
+        "post1998": 0.0,
+        "no_age": 1.0
+      },
+      "res_estate_gfa_share_of_labeled": 0.8145,
+      "age_filled_pct": 0.0
+    },
+    "A35": {
+      "name": "Caohejing hi-tech",
+      "role": "heldout",
+      "profile": {
+        "government": 0.4678,
+        "developer_capital": 0.4635,
+        "resident_community": 0.2331,
+        "informal": 0.039
+      },
+      "dominant_dim": "government",
+      "low_confidence_gfa_share": 0.4311,
+      "unlabeled_gfa_share": 0.0216,
+      "res_estate_age_regime_gfa_share": {
+        "pre1985": 0.2194,
+        "1985_1997": 0.3466,
+        "post1998": 0.0808,
+        "no_age": 0.3532
+      },
+      "res_estate_gfa_share_of_labeled": 0.5981,
+      "age_filled_pct": 43.93
+    },
+    "A36": {
+      "name": "Zhangjiang hi-tech",
+      "role": "train",
+      "profile": {
+        "government": 0.433,
+        "developer_capital": 0.5303,
+        "resident_community": 0.2085,
+        "informal": 0.0335
+      },
+      "dominant_dim": "developer_capital",
+      "low_confidence_gfa_share": 0.1547,
+      "unlabeled_gfa_share": 0.0073,
+      "res_estate_age_regime_gfa_share": {
+        "pre1985": 0.1131,
+        "1985_1997": 0.0171,
+        "post1998": 0.6228,
+        "no_age": 0.2469
+      },
+      "res_estate_gfa_share_of_labeled": 0.5597,
+      "age_filled_pct": 55.84
+    },
+    "A39": {
+      "name": "Qibao old town",
+      "role": "train",
+      "profile": {
+        "government": 0.4655,
+        "developer_capital": 0.4275,
+        "resident_community": 0.242,
+        "informal": 0.043
+      },
+      "dominant_dim": "government",
+      "low_confidence_gfa_share": 0.4223,
+      "unlabeled_gfa_share": 0.0025,
+      "res_estate_age_regime_gfa_share": {
+        "pre1985": 0.2007,
+        "1985_1997": 0.2272,
+        "post1998": 0.1066,
+        "no_age": 0.4655
+      },
+      "res_estate_gfa_share_of_labeled": 0.5856,
+      "age_filled_pct": 42.67
+    },
+    "A41": {
+      "name": "Fengjing old town",
+      "role": "train",
+      "profile": {
+        "government": 0.4148,
+        "developer_capital": 0.4814,
+        "resident_community": 0.289,
+        "informal": 0.0484
+      },
+      "dominant_dim": "developer_capital",
+      "low_confidence_gfa_share": 0.9492,
+      "unlabeled_gfa_share": 0.024,
+      "res_estate_age_regime_gfa_share": {
+        "pre1985": 0.0,
+        "1985_1997": 0.0,
+        "post1998": 0.0,
+        "no_age": 1.0
+      },
+      "res_estate_gfa_share_of_labeled": 0.9479,
+      "age_filled_pct": 0.0
+    },
+    "A43": {
+      "name": "Liangcheng Hongkou",
+      "role": "heldout",
+      "profile": {
+        "government": 0.6003,
+        "developer_capital": 0.2422,
+        "resident_community": 0.2344,
+        "informal": 0.0353
+      },
+      "dominant_dim": "government",
+      "low_confidence_gfa_share": 0.3457,
+      "unlabeled_gfa_share": 0.0022,
+      "res_estate_age_regime_gfa_share": {
+        "pre1985": 0.3726,
+        "1985_1997": 0.1259,
+        "post1998": 0.0393,
+        "no_age": 0.4622
+      },
+      "res_estate_gfa_share_of_labeled": 0.5687,
+      "age_filled_pct": 44.74
+    },
+    "A45": {
+      "name": "Beicai Pudong",
+      "role": "train",
+      "profile": {
+        "government": 0.4233,
+        "developer_capital": 0.4695,
+        "resident_community": 0.2875,
+        "informal": 0.0615
+      },
+      "dominant_dim": "developer_capital",
+      "low_confidence_gfa_share": 0.4302,
+      "unlabeled_gfa_share": 0.0885,
+      "res_estate_age_regime_gfa_share": {
+        "pre1985": 0.0721,
+        "1985_1997": 0.3198,
+        "post1998": 0.4432,
+        "no_age": 0.165
+      },
+      "res_estate_gfa_share_of_labeled": 0.7854,
+      "age_filled_pct": 35.13
+    },
+    "A47": {
+      "name": "West Bund Xuhui riverside",
+      "role": "train",
+      "profile": {
+        "government": 0.4746,
+        "developer_capital": 0.5729,
+        "resident_community": 0.0678,
+        "informal": 0.0083
+      },
+      "dominant_dim": "developer_capital",
+      "low_confidence_gfa_share": 0.0333,
+      "unlabeled_gfa_share": 0.7553,
+      "res_estate_age_regime_gfa_share": {
+        "pre1985": 0.0724,
+        "1985_1997": 0.0,
+        "post1998": 0.0,
+        "no_age": 0.9276
+      },
+      "res_estate_gfa_share_of_labeled": 0.0206,
+      "age_filled_pct": 23.0
+    },
+    "A49": {
+      "name": "Yangpu riverside ex-industry",
+      "role": "train",
+      "profile": {
+        "government": 0.5015,
+        "developer_capital": 0.3629,
+        "resident_community": 0.2594,
+        "informal": 0.0477
+      },
+      "dominant_dim": "government",
+      "low_confidence_gfa_share": 0.335,
+      "unlabeled_gfa_share": 0.0167,
+      "res_estate_age_regime_gfa_share": {
+        "pre1985": 0.4797,
+        "1985_1997": 0.0741,
+        "post1998": 0.0,
+        "no_age": 0.4461
+      },
+      "res_estate_gfa_share_of_labeled": 0.5831,
+      "age_filled_pct": 29.13
+    }
+  },
+  "bridge_train": {
+    "counts": {
+      "residential_estate": {
+        "house": 834,
+        "slab": 2558,
+        "tower": 580,
+        "large_footprint": 25,
+        "midrise_other": 2435
+      },
+      "residential_lowrise": {
+        "house": 1355,
+        "slab": 0,
+        "tower": 0,
+        "large_footprint": 0,
+        "midrise_other": 2
+      },
+      "commercial_retail": {
+        "house": 151,
+        "slab": 246,
+        "tower": 121,
+        "large_footprint": 20,
+        "midrise_other": 358
+      },
+      "office_finance": {
+        "house": 107,
+        "slab": 187,
+        "tower": 171,
+        "large_footprint": 27,
+        "midrise_other": 284
+      },
+      "industrial": {
+        "house": 56,
+        "slab": 42,
+        "tower": 8,
+        "large_footprint": 3,
+        "midrise_other": 35
+      },
+      "public_admin": {
+        "house": 218,
+        "slab": 264,
+        "tower": 35,
+        "large_footprint": 2,
+        "midrise_other": 231
+      },
+      "education": {
+        "house": 82,
+        "slab": 66,
+        "tower": 17,
+        "large_footprint": 2,
+        "midrise_other": 91
+      },
+      "healthcare": {
+        "house": 18,
+        "slab": 36,
+        "tower": 6,
+        "large_footprint": 0,
+        "midrise_other": 32
+      }
+    },
+    "counts_row_normalized": {
+      "residential_estate": {
+        "house": 0.1297,
+        "slab": 0.3977,
+        "tower": 0.0902,
+        "large_footprint": 0.0039,
+        "midrise_other": 0.3786
+      },
+      "residential_lowrise": {
+        "house": 0.9985,
+        "slab": 0.0,
+        "tower": 0.0,
+        "large_footprint": 0.0,
+        "midrise_other": 0.0015
+      },
+      "commercial_retail": {
+        "house": 0.1685,
+        "slab": 0.2746,
+        "tower": 0.135,
+        "large_footprint": 0.0223,
+        "midrise_other": 0.3996
+      },
+      "office_finance": {
+        "house": 0.1379,
+        "slab": 0.241,
+        "tower": 0.2204,
+        "large_footprint": 0.0348,
+        "midrise_other": 0.366
+      },
+      "industrial": {
+        "house": 0.3889,
+        "slab": 0.2917,
+        "tower": 0.0556,
+        "large_footprint": 0.0208,
+        "midrise_other": 0.2431
+      },
+      "public_admin": {
+        "house": 0.2907,
+        "slab": 0.352,
+        "tower": 0.0467,
+        "large_footprint": 0.0027,
+        "midrise_other": 0.308
+      },
+      "education": {
+        "house": 0.3178,
+        "slab": 0.2558,
+        "tower": 0.0659,
+        "large_footprint": 0.0078,
+        "midrise_other": 0.3527
+      },
+      "healthcare": {
+        "house": 0.1957,
+        "slab": 0.3913,
+        "tower": 0.0652,
+        "large_footprint": 0.0,
+        "midrise_other": 0.3478
+      }
+    },
+    "gfa_row_normalized": {
+      "residential_estate": {
+        "house": 0.027,
+        "slab": 0.4011,
+        "tower": 0.1668,
+        "large_footprint": 0.0487,
+        "midrise_other": 0.3564
+      },
+      "residential_lowrise": {
+        "house": 0.9964,
+        "slab": 0.0,
+        "tower": 0.0,
+        "large_footprint": 0.0,
+        "midrise_other": 0.0036
+      },
+      "commercial_retail": {
+        "house": 0.0158,
+        "slab": 0.1269,
+        "tower": 0.2899,
+        "large_footprint": 0.2798,
+        "midrise_other": 0.2875
+      },
+      "office_finance": {
+        "house": 0.0092,
+        "slab": 0.0822,
+        "tower": 0.3387,
+        "large_footprint": 0.3194,
+        "midrise_other": 0.2505
+      },
+      "industrial": {
+        "house": 0.0678,
+        "slab": 0.2587,
+        "tower": 0.2188,
+        "large_footprint": 0.2042,
+        "midrise_other": 0.2505
+      },
+      "public_admin": {
+        "house": 0.057,
+        "slab": 0.4189,
+        "tower": 0.1531,
+        "large_footprint": 0.0292,
+        "midrise_other": 0.3418
+      },
+      "education": {
+        "house": 0.0566,
+        "slab": 0.3009,
+        "tower": 0.2314,
+        "large_footprint": 0.126,
+        "midrise_other": 0.2851
+      },
+      "healthcare": {
+        "house": 0.0539,
+        "slab": 0.4995,
+        "tower": 0.1781,
+        "large_footprint": 0.0,
+        "midrise_other": 0.2685
+      }
+    },
+    "row_totals_count": {
+      "residential_estate": 6432,
+      "residential_lowrise": 1357,
+      "commercial_retail": 896,
+      "office_finance": 776,
+      "industrial": 144,
+      "public_admin": 750,
+      "education": 258,
+      "healthcare": 92
+    },
+    "row_totals_gfa_m2": {
+      "residential_estate": 15637423.0,
+      "residential_lowrise": 460457.0,
+      "commercial_retail": 3706034.0,
+      "office_finance": 5177289.0,
+      "industrial": 304125.0,
+      "public_admin": 1413985.0,
+      "education": 437777.0,
+      "healthcare": 141179.0
+    }
+  },
+  "flagship_comparison": {
+    "probe_3patch": {
+      "residential_lowrise->house": 1.0,
+      "residential_estate->slab": 0.34,
+      "residential_estate->midrise_other": 0.504
+    },
+    "v05_train18_count": {
+      "residential_lowrise->house": 0.9985,
+      "residential_estate->slab": 0.3977,
+      "residential_estate->midrise_other": 0.3786
+    },
+    "v05_train18_gfa": {
+      "residential_lowrise->house": 0.9964,
+      "residential_estate->slab": 0.4011,
+      "residential_estate->midrise_other": 0.3564
+    }
+  },
+  "findings": {
+    "caoyang_A13": {
+      "v05_government": 0.4155,
+      "v05_developer_capital": 0.5248,
+      "dev_gt_gov_v05": true,
+      "probe_government": 0.416,
+      "probe_developer_capital": 0.524,
+      "note": "probe found dev>gov in Caoyang (worker-village heritage window)"
+    },
+    "gov_dominant_windows": [
+      "A04",
+      "A09",
+      "A10",
+      "A17",
+      "A26",
+      "A35",
+      "A39",
+      "A43",
+      "A49"
+    ],
+    "dev_dominant_windows": [
+      "A01",
+      "A02",
+      "A07",
+      "A13",
+      "A19",
+      "A20",
+      "A21",
+      "A27",
+      "A29",
+      "A32",
+      "A33",
+      "A36",
+      "A41",
+      "A45",
+      "A47"
+    ],
+    "other_dominant_windows": [],
+    "zero_age_filled_windows": {
+      "A27": {
+        "name": "Lingang Nanhui",
+        "res_estate_no_age_share": 1.0,
+        "low_confidence_gfa_share": 0.0994,
+        "profile": {
+          "government": 0.3961,
+          "developer_capital": 0.7285,
+          "resident_community": 0.088,
+          "informal": 0.0092
+        }
+      },
+      "A29": {
+        "name": "Nanqiao Fengxian",
+        "res_estate_no_age_share": 1.0,
+        "low_confidence_gfa_share": 0.7326,
+        "profile": {
+          "government": 0.4169,
+          "developer_capital": 0.4791,
+          "resident_community": 0.253,
+          "informal": 0.0431
+        }
+      },
+      "A32": {
+        "name": "Minhang outskirts village",
+        "res_estate_no_age_share": 1.0,
+        "low_confidence_gfa_share": 0.9593,
+        "profile": {
+          "government": 0.3919,
+          "developer_capital": 0.5041,
+          "resident_community": 0.2959,
+          "informal": 0.05
+        }
+      },
+      "A33": {
+        "name": "Pudong peri-urban village",
+        "res_estate_no_age_share": 1.0,
+        "low_confidence_gfa_share": 0.9326,
+        "profile": {
+          "government": 0.3831,
+          "developer_capital": 0.4469,
+          "resident_community": 0.3185,
+          "informal": 0.0879
+        }
+      },
+      "A41": {
+        "name": "Fengjing old town",
+        "res_estate_no_age_share": 1.0,
+        "low_confidence_gfa_share": 0.9492,
+        "profile": {
+          "government": 0.4148,
+          "developer_capital": 0.4814,
+          "resident_community": 0.289,
+          "informal": 0.0484
+        }
+      }
+    }
+  }
+}

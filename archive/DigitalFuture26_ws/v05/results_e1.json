@@ -1,0 +1,819 @@
+{
+  "experiment": "e1_building_level_recognition",
+  "n_buildings_labeled": 13812,
+  "classes": [
+    "residential_estate",
+    "residential_lowrise",
+    "commercial_retail",
+    "office_finance",
+    "public_admin",
+    "education",
+    "industrial",
+    "healthcare"
+  ],
+  "feature_sets": {
+    "FORM": [
+      "fp_area",
+      "height",
+      "floors",
+      "elong"
+    ],
+    "FORM+CTX": [
+      "fp_area",
+      "height",
+      "floors",
+      "elong",
+      "density_100m",
+      "nbr_mean_h",
+      "dist_road_major",
+      "dist_road_all",
+      "dist_water",
+      "dist_green",
+      "dist_road_major_isnan",
+      "dist_road_all_isnan",
+      "dist_water_isnan",
+      "dist_green_isnan"
+    ]
+  },
+  "excluded_features_reason": "POI/EULUC/AOI-derived features excluded: these sources produced the fused labels (circularity). token_v03/v04 excluded as label-adjacent (family enters token stats).",
+  "nan_handling": {
+    "density_100m": {
+      "nan_share": 0.0,
+      "imputed_median": 23.0
+    },
+    "nbr_mean_h": {
+      "nan_share": 0.00029,
+      "imputed_median": 19.18
+    },
+    "dist_road_major": {
+      "nan_share": 0.0,
+      "imputed_median": 80.89
+    },
+    "dist_road_all": {
+      "nan_share": 0.0,
+      "imputed_median": 23.04
+    },
+    "dist_water": {
+      "nan_share": 0.53569,
+      "imputed_median": 362.5
+    },
+    "dist_green": {
+      "nan_share": 0.05068,
+      "imputed_median": 283.02
+    }
+  },
+  "baseline": {
+    "majority_class": "residential_estate",
+    "accuracy": 0.6012
+  },
+  "runs": {
+    "strat5_FORM": {
+      "accuracy": 0.6659,
+      "balanced_accuracy": 0.266,
+      "macro_f1": 0.2656,
+      "per_class": {
+        "residential_estate": {
+          "precision": 0.7145,
+          "recall": 0.9134,
+          "f1-score": 0.8018,
+          "support": 8304.0
+        },
+        "residential_lowrise": {
+          "precision": 0.5474,
+          "recall": 0.7807,
+          "f1-score": 0.6436,
+          "support": 1523.0
+        },
+        "commercial_retail": {
+          "precision": 0.4112,
+          "recall": 0.1259,
+          "f1-score": 0.1927,
+          "support": 1287.0
+        },
+        "office_finance": {
+          "precision": 0.4383,
+          "recall": 0.1663,
+          "f1-score": 0.2412,
+          "support": 1046.0
+        },
+        "public_admin": {
+          "precision": 0.3662,
+          "recall": 0.0581,
+          "f1-score": 0.1003,
+          "support": 895.0
+        },
+        "education": {
+          "precision": 0.5072,
+          "recall": 0.078,
+          "f1-score": 0.1351,
+          "support": 449.0
+        },
+        "industrial": {
+          "precision": 0.0526,
+          "recall": 0.0056,
+          "f1-score": 0.0101,
+          "support": 180.0
+        },
+        "healthcare": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 128.0
+        }
+      },
+      "confusion": {
+        "residential_estate": {
+          "residential_estate": 7585,
+          "residential_lowrise": 415,
+          "commercial_retail": 130,
+          "office_finance": 113,
+          "public_admin": 43,
+          "education": 13,
+          "industrial": 5,
+          "healthcare": 0
+        },
+        "residential_lowrise": {
+          "residential_estate": 269,
+          "residential_lowrise": 1189,
+          "commercial_retail": 12,
+          "office_finance": 10,
+          "public_admin": 29,
+          "education": 8,
+          "industrial": 6,
+          "healthcare": 0
+        },
+        "commercial_retail": {
+          "residential_estate": 920,
+          "residential_lowrise": 123,
+          "commercial_retail": 162,
+          "office_finance": 72,
+          "public_admin": 3,
+          "education": 5,
+          "industrial": 2,
+          "healthcare": 0
+        },
+        "office_finance": {
+          "residential_estate": 723,
+          "residential_lowrise": 81,
+          "commercial_retail": 55,
+          "office_finance": 174,
+          "public_admin": 9,
+          "education": 2,
+          "industrial": 1,
+          "healthcare": 1
+        },
+        "public_admin": {
+          "residential_estate": 631,
+          "residential_lowrise": 183,
+          "commercial_retail": 15,
+          "office_finance": 11,
+          "public_admin": 52,
+          "education": 2,
+          "industrial": 1,
+          "healthcare": 0
+        },
+        "education": {
+          "residential_estate": 272,
+          "residential_lowrise": 115,
+          "commercial_retail": 11,
+          "office_finance": 9,
+          "public_admin": 2,
+          "education": 35,
+          "industrial": 3,
+          "healthcare": 2
+        },
+        "industrial": {
+          "residential_estate": 116,
+          "residential_lowrise": 46,
+          "commercial_retail": 5,
+          "office_finance": 5,
+          "public_admin": 4,
+          "education": 3,
+          "industrial": 1,
+          "healthcare": 0
+        },
+        "healthcare": {
+          "residential_estate": 100,
+          "residential_lowrise": 20,
+          "commercial_retail": 4,
+          "office_finance": 3,
+          "public_admin": 0,
+          "education": 1,
+          "industrial": 0,
+          "healthcare": 0
+        }
+      }
+    },
+    "strat5_FORM+CTX": {
+      "accuracy": 0.7436,
+      "balanced_accuracy": 0.3576,
+      "macro_f1": 0.3966,
+      "per_class": {
+        "residential_estate": {
+          "precision": 0.7501,
+          "recall": 0.961,
+          "f1-score": 0.8425,
+          "support": 8304.0
+        },
+        "residential_lowrise": {
+          "precision": 0.7027,
+          "recall": 0.891,
+          "f1-score": 0.7858,
+          "support": 1523.0
+        },
+        "commercial_retail": {
+          "precision": 0.7476,
+          "recall": 0.3061,
+          "f1-score": 0.4344,
+          "support": 1287.0
+        },
+        "office_finance": {
+          "precision": 0.698,
+          "recall": 0.305,
+          "f1-score": 0.4245,
+          "support": 1046.0
+        },
+        "public_admin": {
+          "precision": 0.9262,
+          "recall": 0.1542,
+          "f1-score": 0.2644,
+          "support": 895.0
+        },
+        "education": {
+          "precision": 0.75,
+          "recall": 0.147,
+          "f1-score": 0.2458,
+          "support": 449.0
+        },
+        "industrial": {
+          "precision": 0.8,
+          "recall": 0.0889,
+          "f1-score": 0.16,
+          "support": 180.0
+        },
+        "healthcare": {
+          "precision": 1.0,
+          "recall": 0.0078,
+          "f1-score": 0.0155,
+          "support": 128.0
+        }
+      },
+      "confusion": {
+        "residential_estate": {
+          "residential_estate": 7980,
+          "residential_lowrise": 214,
+          "commercial_retail": 45,
+          "office_finance": 54,
+          "public_admin": 6,
+          "education": 5,
+          "industrial": 0,
+          "healthcare": 0
+        },
+        "residential_lowrise": {
+          "residential_estate": 127,
+          "residential_lowrise": 1357,
+          "commercial_retail": 17,
+          "office_finance": 5,
+          "public_admin": 2,
+          "education": 13,
+          "industrial": 2,
+          "healthcare": 0
+        },
+        "commercial_retail": {
+          "residential_estate": 759,
+          "residential_lowrise": 72,
+          "commercial_retail": 394,
+          "office_finance": 61,
+          "public_admin": 1,
+          "education": 0,
+          "industrial": 0,
+          "healthcare": 0
+        },
+        "office_finance": {
+          "residential_estate": 642,
+          "residential_lowrise": 31,
+          "commercial_retail": 51,
+          "office_finance": 319,
+          "public_admin": 1,
+          "education": 0,
+          "industrial": 2,
+          "healthcare": 0
+        },
+        "public_admin": {
+          "residential_estate": 617,
+          "residential_lowrise": 120,
+          "commercial_retail": 11,
+          "office_finance": 6,
+          "public_admin": 138,
+          "education": 3,
+          "industrial": 0,
+          "healthcare": 0
+        },
+        "education": {
+          "residential_estate": 292,
+          "residential_lowrise": 82,
+          "commercial_retail": 5,
+          "office_finance": 4,
+          "public_admin": 0,
+          "education": 66,
+          "industrial": 0,
+          "healthcare": 0
+        },
+        "industrial": {
+          "residential_estate": 123,
+          "residential_lowrise": 33,
+          "commercial_retail": 1,
+          "office_finance": 6,
+          "public_admin": 0,
+          "education": 1,
+          "industrial": 16,
+          "healthcare": 0
+        },
+        "healthcare": {
+          "residential_estate": 99,
+          "residential_lowrise": 22,
+          "commercial_retail": 3,
+          "office_finance": 2,
+          "public_admin": 1,
+          "education": 0,
+          "industrial": 0,
+          "healthcare": 1
+        }
+      }
+    },
+    "group24_FORM": {
+      "accuracy": 0.6274,
+      "balanced_accuracy": 0.2355,
+      "macro_f1": 0.2189,
+      "per_class": {
+        "residential_estate": {
+          "precision": 0.6965,
+          "recall": 0.8717,
+          "f1-score": 0.7743,
+          "support": 8304.0
+        },
+        "residential_lowrise": {
+          "precision": 0.4798,
+          "recall": 0.7479,
+          "f1-score": 0.5846,
+          "support": 1523.0
+        },
+        "commercial_retail": {
+          "precision": 0.3087,
+          "recall": 0.0909,
+          "f1-score": 0.1405,
+          "support": 1287.0
+        },
+        "office_finance": {
+          "precision": 0.3355,
+          "recall": 0.1453,
+          "f1-score": 0.2028,
+          "support": 1046.0
+        },
+        "public_admin": {
+          "precision": 0.1111,
+          "recall": 0.0156,
+          "f1-score": 0.0274,
+          "support": 895.0
+        },
+        "education": {
+          "precision": 0.0469,
+          "recall": 0.0067,
+          "f1-score": 0.0117,
+          "support": 449.0
+        },
+        "industrial": {
+          "precision": 0.0526,
+          "recall": 0.0056,
+          "f1-score": 0.0101,
+          "support": 180.0
+        },
+        "healthcare": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 128.0
+        }
+      },
+      "confusion": {
+        "residential_estate": {
+          "residential_estate": 7239,
+          "residential_lowrise": 649,
+          "commercial_retail": 153,
+          "office_finance": 183,
+          "public_admin": 60,
+          "education": 14,
+          "industrial": 6,
+          "healthcare": 0
+        },
+        "residential_lowrise": {
+          "residential_estate": 300,
+          "residential_lowrise": 1139,
+          "commercial_retail": 15,
+          "office_finance": 12,
+          "public_admin": 24,
+          "education": 27,
+          "industrial": 6,
+          "healthcare": 0
+        },
+        "commercial_retail": {
+          "residential_estate": 958,
+          "residential_lowrise": 128,
+          "commercial_retail": 117,
+          "office_finance": 68,
+          "public_admin": 7,
+          "education": 8,
+          "industrial": 1,
+          "healthcare": 0
+        },
+        "office_finance": {
+          "residential_estate": 735,
+          "residential_lowrise": 82,
+          "commercial_retail": 63,
+          "office_finance": 152,
+          "public_admin": 10,
+          "education": 2,
+          "industrial": 1,
+          "healthcare": 1
+        },
+        "public_admin": {
+          "residential_estate": 649,
+          "residential_lowrise": 189,
+          "commercial_retail": 15,
+          "office_finance": 19,
+          "public_admin": 14,
+          "education": 6,
+          "industrial": 3,
+          "healthcare": 0
+        },
+        "education": {
+          "residential_estate": 295,
+          "residential_lowrise": 126,
+          "commercial_retail": 6,
+          "office_finance": 10,
+          "public_admin": 6,
+          "education": 3,
+          "industrial": 1,
+          "healthcare": 2
+        },
+        "industrial": {
+          "residential_estate": 115,
+          "residential_lowrise": 46,
+          "commercial_retail": 6,
+          "office_finance": 4,
+          "public_admin": 5,
+          "education": 3,
+          "industrial": 1,
+          "healthcare": 0
+        },
+        "healthcare": {
+          "residential_estate": 103,
+          "residential_lowrise": 15,
+          "commercial_retail": 4,
+          "office_finance": 5,
+          "public_admin": 0,
+          "education": 1,
+          "industrial": 0,
+          "healthcare": 0
+        }
+      }
+    },
+    "group24_FORM+CTX": {
+      "accuracy": 0.6413,
+      "balanced_accuracy": 0.2392,
+      "macro_f1": 0.2207,
+      "per_class": {
+        "residential_estate": {
+          "precision": 0.6893,
+          "recall": 0.8905,
+          "f1-score": 0.7771,
+          "support": 8304.0
+        },
+        "residential_lowrise": {
+          "precision": 0.488,
+          "recall": 0.7741,
+          "f1-score": 0.5986,
+          "support": 1523.0
+        },
+        "commercial_retail": {
+          "precision": 0.4846,
+          "recall": 0.0979,
+          "f1-score": 0.1629,
+          "support": 1287.0
+        },
+        "office_finance": {
+          "precision": 0.4419,
+          "recall": 0.1491,
+          "f1-score": 0.223,
+          "support": 1046.0
+        },
+        "public_admin": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 895.0
+        },
+        "education": {
+          "precision": 0.0476,
+          "recall": 0.0022,
+          "f1-score": 0.0043,
+          "support": 449.0
+        },
+        "industrial": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 180.0
+        },
+        "healthcare": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 128.0
+        }
+      },
+      "confusion": {
+        "residential_estate": {
+          "residential_estate": 7395,
+          "residential_lowrise": 728,
+          "commercial_retail": 60,
+          "office_finance": 111,
+          "public_admin": 0,
+          "education": 10,
+          "industrial": 0,
+          "healthcare": 0
+        },
+        "residential_lowrise": {
+          "residential_estate": 281,
+          "residential_lowrise": 1179,
+          "commercial_retail": 21,
+          "office_finance": 7,
+          "public_admin": 26,
+          "education": 5,
+          "industrial": 4,
+          "healthcare": 0
+        },
+        "commercial_retail": {
+          "residential_estate": 993,
+          "residential_lowrise": 102,
+          "commercial_retail": 126,
+          "office_finance": 63,
+          "public_admin": 1,
+          "education": 2,
+          "industrial": 0,
+          "healthcare": 0
+        },
+        "office_finance": {
+          "residential_estate": 790,
+          "residential_lowrise": 57,
+          "commercial_retail": 39,
+          "office_finance": 156,
+          "public_admin": 0,
+          "education": 1,
+          "industrial": 3,
+          "healthcare": 0
+        },
+        "public_admin": {
+          "residential_estate": 693,
+          "residential_lowrise": 183,
+          "commercial_retail": 10,
+          "office_finance": 7,
+          "public_admin": 0,
+          "education": 2,
+          "industrial": 0,
+          "healthcare": 0
+        },
+        "education": {
+          "residential_estate": 333,
+          "residential_lowrise": 111,
+          "commercial_retail": 2,
+          "office_finance": 2,
+          "public_admin": 0,
+          "education": 1,
+          "industrial": 0,
+          "healthcare": 0
+        },
+        "industrial": {
+          "residential_estate": 140,
+          "residential_lowrise": 34,
+          "commercial_retail": 0,
+          "office_finance": 6,
+          "public_admin": 0,
+          "education": 0,
+          "industrial": 0,
+          "healthcare": 0
+        },
+        "healthcare": {
+          "residential_estate": 103,
+          "residential_lowrise": 22,
+          "commercial_retail": 2,
+          "office_finance": 1,
+          "public_admin": 0,
+          "education": 0,
+          "industrial": 0,
+          "healthcare": 0
+        }
+      }
+    }
+  },
+  "power_supergroup": {
+    "strat5_FORM": {
+      "pooled_recall": 0.0591,
+      "n_power_buildings": 1472,
+      "per_class_recall": {
+        "healthcare": 0.0,
+        "education": 0.078,
+        "public_admin": 0.0581
+      }
+    },
+    "group24_FORM": {
+      "pooled_recall": 0.0115,
+      "n_power_buildings": 1472,
+      "per_class_recall": {
+        "healthcare": 0.0,
+        "education": 0.0067,
+        "public_admin": 0.0156
+      }
+    },
+    "strat5_FORM+CTX": {
+      "pooled_recall": 0.1393,
+      "n_power_buildings": 1472,
+      "per_class_recall": {
+        "healthcare": 0.0078,
+        "education": 0.147,
+        "public_admin": 0.1542
+      }
+    },
+    "group24_FORM+CTX": {
+      "pooled_recall": 0.0007,
+      "n_power_buildings": 1472,
+      "per_class_recall": {
+        "healthcare": 0.0,
+        "education": 0.0022,
+        "public_admin": 0.0
+      }
+    }
+  },
+  "per_window_group24": {
+    "A01": {
+      "n": 283,
+      "role": "train",
+      "acc_FORM": 0.417,
+      "acc_FORM+CTX": 0.4064
+    },
+    "A02": {
+      "n": 675,
+      "role": "heldout",
+      "acc_FORM": 0.4533,
+      "acc_FORM+CTX": 0.4681
+    },
+    "A04": {
+      "n": 737,
+      "role": "train",
+      "acc_FORM": 0.536,
+      "acc_FORM+CTX": 0.597
+    },
+    "A07": {
+      "n": 173,
+      "role": "heldout",
+      "acc_FORM": 0.4624,
+      "acc_FORM+CTX": 0.3353
+    },
+    "A09": {
+      "n": 1093,
+      "role": "train",
+      "acc_FORM": 0.6578,
+      "acc_FORM+CTX": 0.6926
+    },
+    "A10": {
+      "n": 1911,
+      "role": "train",
+      "acc_FORM": 0.6557,
+      "acc_FORM+CTX": 0.6954
+    },
+    "A13": {
+      "n": 507,
+      "role": "train",
+      "acc_FORM": 0.6884,
+      "acc_FORM+CTX": 0.6864
+    },
+    "A17": {
+      "n": 821,
+      "role": "train",
+      "acc_FORM": 0.5907,
+      "acc_FORM+CTX": 0.592
+    },
+    "A19": {
+      "n": 406,
+      "role": "train",
+      "acc_FORM": 0.7562,
+      "acc_FORM+CTX": 0.7906
+    },
+    "A20": {
+      "n": 590,
+      "role": "heldout",
+      "acc_FORM": 0.7559,
+      "acc_FORM+CTX": 0.8186
+    },
+    "A21": {
+      "n": 580,
+      "role": "train",
+      "acc_FORM": 0.7897,
+      "acc_FORM+CTX": 0.8086
+    },
+    "A26": {
+      "n": 552,
+      "role": "train",
+      "acc_FORM": 0.6703,
+      "acc_FORM+CTX": 0.6866
+    },
+    "A27": {
+      "n": 90,
+      "role": "train",
+      "acc_FORM": 0.1778,
+      "acc_FORM+CTX": 0.2444
+    },
+    "A29": {
+      "n": 454,
+      "role": "heldout",
+      "acc_FORM": 0.8216,
+      "acc_FORM+CTX": 0.8172
+    },
+    "A32": {
+      "n": 463,
+      "role": "train",
+      "acc_FORM": 0.2981,
+      "acc_FORM+CTX": 0.203
+    },
+    "A33": {
+      "n": 237,
+      "role": "train",
+      "acc_FORM": 0.7004,
+      "acc_FORM+CTX": 0.4684
+    },
+    "A35": {
+      "n": 623,
+      "role": "heldout",
+      "acc_FORM": 0.6372,
+      "acc_FORM+CTX": 0.6469
+    },
+    "A36": {
+      "n": 343,
+      "role": "train",
+      "acc_FORM": 0.5219,
+      "acc_FORM+CTX": 0.5073
+    },
+    "A39": {
+      "n": 883,
+      "role": "train",
+      "acc_FORM": 0.6399,
+      "acc_FORM+CTX": 0.6093
+    },
+    "A41": {
+      "n": 130,
+      "role": "train",
+      "acc_FORM": 0.8615,
+      "acc_FORM+CTX": 0.9
+    },
+    "A43": {
+      "n": 592,
+      "role": "heldout",
+      "acc_FORM": 0.5608,
+      "acc_FORM+CTX": 0.5861
+    },
+    "A45": {
+      "n": 501,
+      "role": "train",
+      "acc_FORM": 0.7565,
+      "acc_FORM+CTX": 0.7824
+    },
+    "A47": {
+      "n": 62,
+      "role": "train",
+      "acc_FORM": 0.1129,
+      "acc_FORM+CTX": 0.1129
+    },
+    "A49": {
+      "n": 1106,
+      "role": "train",
+      "acc_FORM": 0.6465,
+      "acc_FORM+CTX": 0.7052
+    }
+  },
+  "feature_importances_full_fit": {
+    "fp_area": 0.0932,
+    "height": 0.1099,
+    "floors": 0.0547,
+    "elong": 0.0848,
+    "density_100m": 0.1138,
+    "nbr_mean_h": 0.1317,
+    "dist_road_major": 0.106,
+    "dist_road_all": 0.0914,
+    "dist_water": 0.0664,
+    "dist_green": 0.128,
+    "dist_road_major_isnan": 0.0,
+    "dist_road_all_isnan": 0.0,
+    "dist_water_isnan": 0.0165,
+    "dist_green_isnan": 0.0037
+  }
+}
