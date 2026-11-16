@@ -1,5 +1,7 @@
 # Python 基礎與機器學習教學課程
 
+<!-- hero --><p align="center"><img src="archive/DigitalFuture26_ws/v06/fig/fig_d3_gallery.png" alt="ws-df26-w18" width="860"></p>
+
 一套以繁體中文撰寫、完全自足的教學教材，涵蓋 Python 基礎、機器學習，以及整合範例。
 
 ## 關於本專案
