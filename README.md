@@ -10,6 +10,8 @@
 
 工作坊資訊：<https://mp.weixin.qq.com/s/PkTth3sbP-5PDIFz-uRMLQ>
 
+**狀態**：maintenance
+
 ## 專案結構
 
 ```
@@ -70,6 +72,16 @@ python_basics_course/
 
 ---
 
+## archive — 併入的早期版本
+
+| 路徑 | 內容 |
+| --- | --- |
+| `archive/DigitalFuture26_ws/` | 原獨立 repo `DigitalFuture26_ws` 併入的早期版本（v02～v06、teaching、資料集指南），與本 repo 屬同一工作坊，僅供查閱；說明見該資料夾的 `ARCHIVE_NOTE.md` |
+
+此外，`03_gh_osm`、`04_OSM Power to Form Students`、`05_Shanghai Power to Form Students`、`06_AI Render Students`、`07_Latent_Urban`、`99_教學檔案`、`p5` 等資料夾尚未在本檔說明。
+
+---
+
 ## 環境設定
 
 從零開始的完整步驟。所有 notebook 需要 Python 環境與套件。
@@ -117,8 +129,8 @@ python_basics_course/
 **A. git clone（建議）**
 
 ```bash
-git clone https://github.com/ms-112-scott/DF26_ws18.git
-cd DF26_ws18
+git clone https://github.com/scott-lbx/ws-df26-w18.git
+cd ws-df26-w18
 ```
 
 > **還沒裝 Git？不用先裝。**
@@ -141,10 +153,10 @@ cd DF26_ws18
 
 **B. 下載 ZIP**
 
-到 <https://github.com/ms-112-scott/DF26_ws18> →`Code`→`Download ZIP`→解壓縮→進入解壓後的資料夾。
+到 <https://github.com/scott-lbx/ws-df26-w18> →`Code`→`Download ZIP`→解壓縮→進入解壓後的資料夾。
 
 ```bash
-cd DF26_ws18-master
+cd ws-df26-w18-master
 ```
 
 > **已經用 ZIP 下載、想之後能 `git pull`？** ZIP 解壓的資料夾沒有連到 Git，
@@ -159,7 +171,7 @@ cd DF26_ws18-master
 >
 > ```cmd
 > git init
-> git remote add origin https://github.com/ms-112-scott/DF26_ws18.git
+> git remote add origin https://github.com/scott-lbx/ws-df26-w18.git
 > git fetch origin
 > git reset --hard origin/master
 > git branch --set-upstream-to=origin/master master
@@ -262,6 +274,16 @@ jupyter lab
 VS Code 使用者：開啟 `.ipynb` 後，右上角 Kernel 選擇剛建好的 `.venv`。
 
 > 下次使用前，記得先重新啟用 `.venv`（步驟 2），不必重裝套件。
+
+## 相關 repo
+
+- [teach-algo-gallery](https://github.com/scott-lbx/teach-algo-gallery)
+- [teach-115a-boids-game](https://github.com/scott-lbx/teach-115a-boids-game)
+- [teach-115a-algo-template](https://github.com/scott-lbx/teach-115a-algo-template)
+
+## 授權
+
+未指定
 
 ---
 
@@ -384,8 +406,8 @@ python_basics_course/
 **A. git clone（推荐）**
 
 ```bash
-git clone https://github.com/ms-112-scott/DF26_ws18.git
-cd DF26_ws18
+git clone https://github.com/scott-lbx/ws-df26-w18.git
+cd ws-df26-w18
 ```
 
 > **还没装 Git？不用先装。**
@@ -408,10 +430,10 @@ cd DF26_ws18
 
 **B. 下载 ZIP**
 
-到 <https://github.com/ms-112-scott/DF26_ws18> →`Code`→`Download ZIP`→解压缩→进入解压后的文件夹。
+到 <https://github.com/scott-lbx/ws-df26-w18> →`Code`→`Download ZIP`→解压缩→进入解压后的文件夹。
 
 ```bash
-cd DF26_ws18-master
+cd ws-df26-w18-master
 ```
 
 > **已经用 ZIP 下载、想之后能 `git pull`？** ZIP 解压的文件夹没有连到 Git，
@@ -426,7 +448,7 @@ cd DF26_ws18-master
 >
 > ```cmd
 > git init
-> git remote add origin https://github.com/ms-112-scott/DF26_ws18.git
+> git remote add origin https://github.com/scott-lbx/ws-df26-w18.git
 > git fetch origin
 > git reset --hard origin/master
 > git branch --set-upstream-to=origin/master master
