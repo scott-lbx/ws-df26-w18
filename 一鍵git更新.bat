@@ -20,7 +20,7 @@ setlocal enabledelayedexpansion
 cd /d "%~dp0"
 
 REM  Teacher's repository (used to auto-link ZIP-downloaded folders) ---
-set "REPO_URL=https://github.com/ms-112-scott/DF26_ws18.git"
+set "REPO_URL=https://github.com/scott-lbx/ws-df26-w18.git"
 
 echo.
 echo ===== AUTO UPDATE START =====

@@ -18,7 +18,7 @@ set -u
 cd "$(dirname "$0")" || exit 1
 
 # Teacher's repository (used to auto-link ZIP-downloaded folders)
-REPO_URL="https://github.com/ms-112-scott/DF26_ws18.git"
+REPO_URL="https://github.com/scott-lbx/ws-df26-w18.git"
 
 echo ""
 echo "===== AUTO UPDATE START ====="
